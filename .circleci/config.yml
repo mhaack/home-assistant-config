@@ -1,0 +1,86 @@
+version: 2
+jobs:
+  yamllint:
+    docker:
+      - image: sdesbure/yamllint
+    steps:
+      - checkout
+      - run:
+          name: Check Dependencies
+          command: |
+            yamllint --version
+      - run:
+          name: Check YAML
+          command: |
+            yamllint .
+
+  jsonlint:
+    docker:
+      - image: sahsu/docker-jsonlint
+    steps:
+      - checkout
+      - run:
+          name: Check Dependencies
+          command: |
+            jsonlint --version || true
+      - run:
+          name: Check YAML
+          command: |
+            for file in $(find . -type f -name "*.json"); do
+              if ! jsonlint -q $file; then
+                export FAILED=1
+              else
+                echo "$file OK"
+              fi
+            done
+            if [ "${FAILED}" = "1" ]; then
+              exit 1
+            fi
+
+  markdownlint:
+    docker:
+      - image: ruby:alpine
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: |
+            gem install mdl
+            mdl --version
+      - run:
+          name: Check Markdown
+          command: |
+            mdl --style all --warnings .
+
+  check-config:
+    docker:
+      - image: homeassistant/home-assistant:latest
+    environment:
+      PYTHONPATH: "/usr/src/app:$PYTHONPATH"
+    steps:
+      - checkout
+      - run:
+          name: Prepare
+          command: |
+            python -m homeassistant --version
+            cp -R ./.stubs/* ./config
+      - run:
+          name: Check config
+          command: |
+            python -m homeassistant \
+              --config ./config/ \
+              --script check_config \
+              --info all
+
+workflows:
+  version: 2
+  validate-and-check-config:
+    jobs:
+      - yamllint
+      - jsonlint
+      - markdownlint
+      - check-config:
+          requires:
+            - yamllint
+            - jsonlint
+            - markdownlint
