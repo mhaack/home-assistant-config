@@ -1,0 +1,19 @@
+---
+# Homematic reconnect script in case connection to Homematic is lost.
+#
+# https://www.home-assistant.io/components/homematic/#detecting-lost-connections
+#
+alias: "[System] Homematic Reconnect"
+trigger:
+  platform: state
+  entity_id: binary_sensor.homematic_up
+  to: "off"
+action:
+  - service: homematic.reconnect
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa Fehler"
+      message: "Homematic CCU disconnect, try reconnect"
+      data:
+        priority: 1
+        sound: alien

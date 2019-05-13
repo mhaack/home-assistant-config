@@ -1,0 +1,8 @@
+---
+# Dishwasher sensor representing current dishwasher state.
+#
+platform: template
+sensors:
+  dishwasher_machine_status:
+    value_template: "{{ states.input_select.dishwasher_machine_status.state}}"
+    friendly_name: Spühlmaschine Status

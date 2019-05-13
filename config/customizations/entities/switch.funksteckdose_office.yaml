@@ -1,0 +1,8 @@
+---
+#
+# Customizes sensors & switches in the office
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+switch.funksteckdose_office:
+  icon: mdi:office-building

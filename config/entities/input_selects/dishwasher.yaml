@@ -1,0 +1,12 @@
+---
+# Control the dishwasher state
+#
+# https://www.home-assistant.io/components/input_select/
+#
+dishwasher_machine_status:
+  name: Spühlmaschine Status
+  options:
+    - Idle
+    - Running
+    - Clean
+  initial: Idle

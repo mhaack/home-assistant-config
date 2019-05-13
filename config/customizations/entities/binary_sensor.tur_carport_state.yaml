@@ -1,0 +1,9 @@
+---
+#
+# Customizes carport door contact sensor
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+binary_sensor.tur_carport_state:
+  icon: mdi:door
+  friendly_name: Carporttür

@@ -1,0 +1,42 @@
+---
+# I store a lot of sensor data into InfluxDB, which allows me to query
+# a longer history with ease. I use the Community Hass.io add-on for this,
+# combined with the Community Hass.io Grafana add-on for the graphs.
+#
+# https://github.com/hassio-addons/addon-influxdb
+# https://github.com/hassio-addons/addon-grafana
+# https://www.home-assistant.io/components/influxdb/
+#
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: !secret influxdb_user
+  password: !secret influxdb_password
+  max_retries: 3
+
+  # use whitelist which metrics are pushed to InfluxDB
+  include:
+    entities:
+      - sensor.temperatursensor_pool_1_temperature
+      - sensor.temperatursensor_pool_2_temperature
+      - sensor.temperature_garden
+      - sensor.temperature_equipmentroom
+      - sensor.temperature_livingroom
+      - sensor.humidity_equipmentroom
+      - sensor.humidity_garden
+      - sensor.humidity_livingroom
+      - sensor.funksteckdose_office_power
+      - sensor.funksteckdose_spuli_power
+      # - sensor.funksteckdose_aquarium_power
+      - sensor.pool_filterpumpe_power
+      - sensor.pool_power
+      - sensor.sonnendeck_steckdosen_power
+      - sensor.pumpe_zisterne_power
+      - sensor.watertank_liter
+      - sensor.speedtest_ping
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+  tags:
+    instance: prod
+    source: hass

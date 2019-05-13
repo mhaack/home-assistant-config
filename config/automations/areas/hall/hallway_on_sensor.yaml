@@ -1,0 +1,23 @@
+---
+# Hallway light automatic switched on by sensors
+#
+alias: "[Light] Turn on hallway light when there is movement or front door open"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.haustur_state, binary_sensor.bewegungsmelder_flur_eg_1_motion
+    from: "off"
+    to: "on"
+condition:
+  - condition: state
+    entity_id: sun.sun
+    state: "below_horizon"
+action:
+  - service: timer.cancel
+    data:
+      entity_id: timer.hallway_lights
+  - service: timer.start
+    data:
+      entity_id: timer.hallway_lights
+  - service: switch.turn_on
+    data:
+      entity_id: switch.licht_flur_eg

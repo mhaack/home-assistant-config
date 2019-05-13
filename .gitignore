@@ -1,0 +1,38 @@
+# Generic ignores
+*.log
+*.db
+*.db-shm
+*.db-wal
+*.pyc
+._*
+__pycache__
+
+# Directory (contents) ignores
+config/.aarlo
+config/.cloud
+config/.storage
+config/deps
+
+# Specific file ignores
+config/.config_entries.json
+config/.homekit.state
+config/.ios.conf
+config/.uuid
+config/core
+config/ip_bans.yaml
+config/known_devices.yaml
+config/secrets.yaml
+config/duofern.json
+
+# Ignore add-on files
+config/aircast.xml
+config/airsonos.xml
+config/notebooks
+
+# Ignore files created by IDE's
+.vscode
+.theia
+.Trash*
+
+# Specific keeps
+!.gitkeep

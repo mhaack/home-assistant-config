@@ -1,0 +1,22 @@
+---
+# Alarm status change notification
+#
+alias: "[Notify] Send alarm status notifications"
+trigger:
+  - platform: state
+    entity_id:
+      #  - alarm_control_panel.alarm_haus
+      #  - alarm_control_panel.alarm_carport
+      - sensor.sirene_haus_armstate
+      - sensor.sirene_carport_armstate
+action:
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa"
+      message: >
+        Alarm Modus {{ trigger.to_state.attributes.friendly_name }} geändert auf {{ trigger.to_state.state | replace("disarmed", "'deaktiviert'") | replace("extsens_armed", "'aktiviert anwesend'") | replace("allsens_armed", "'aktiviert abwesend'")}} ({{ states('sensor.date_time') }})
+  - service: notify.ios_iphone_von_jasmina
+    data_template:
+      title: "JaMa Villa"
+      message: >
+        Alarm Modus {{ trigger.to_state.attributes.friendly_name }} geändert auf {{ trigger.to_state.state | replace("disarmed", "'deaktiviert'") | replace("extsens_armed", "'aktiviert anwesend'") | replace("allsens_armed", "'aktiviert abwesend'")}} ({{ states('sensor.date_time') }})

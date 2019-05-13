@@ -1,0 +1,8 @@
+---
+#
+# Customizes Markus iPhone device trackers
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+device_tracker.iphone_von_markus:
+  icon: mdi:cellphone-iphone

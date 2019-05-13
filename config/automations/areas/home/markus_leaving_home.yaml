@@ -1,0 +1,14 @@
+---
+# Triggers when Markus's phone leaving home
+#
+alias: "[Zone] Markus leaving home"
+trigger:
+  - platform: zone
+    entity_id: device_tracker.iphone_von_markus
+    zone: zone.home
+    event: leave
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "Markus hat das Haus verlassen."

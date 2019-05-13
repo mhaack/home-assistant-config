@@ -1,0 +1,8 @@
+---
+#
+# Customizes door & window contact sensors
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.window_door_status:
+  icon: mdi:door

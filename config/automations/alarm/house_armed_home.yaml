@@ -1,0 +1,17 @@
+---
+# When the house alarm gets turned on into armed home state
+#
+alias: "[Security] Turn on house alarm - armed_home"
+trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_haus
+    to: armed_home
+action:
+  - service: homematic.set_device_value
+    data:
+      address: NEQ0510355
+      channel: 4
+      param: ARMSTATE
+      value: 1
+  - delay: "00:00:01"
+  - service: python_script.jamavilla_display

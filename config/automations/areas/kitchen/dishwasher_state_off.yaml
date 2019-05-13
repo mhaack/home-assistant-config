@@ -1,0 +1,23 @@
+---
+# Dishwasher state management
+#
+# Wait 10 minutes for us to be in the Clean state before switching Off.
+#
+alias: "[Appliances] Set dishwasher machine to Off after timeout"
+trigger:
+  - platform: state
+    entity_id: input_select.dishwasher_machine_status
+    to: Clean
+    for:
+      minutes: 10
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: input_select.dishwasher_machine_status
+      state: Clean
+action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.dishwasher_machine_status
+      option: Idle

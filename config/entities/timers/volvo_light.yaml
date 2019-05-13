@@ -1,0 +1,8 @@
+---
+# Volvo light in carport timer
+#
+# https://www.home-assistant.io/components/timer/
+#
+volvo_light:
+  name: "Volvolicht Timer"
+  duration: "00:02:00"

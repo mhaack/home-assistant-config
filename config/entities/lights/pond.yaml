@@ -1,0 +1,12 @@
+---
+# Pond SonOff light
+#
+# https://www.home-assistant.io/components/light.mqtt/
+#
+platform: mqtt
+name: "Teichlicht"
+command_topic: cmnd/sonoff-garten-teichlicht/POWER
+state_topic: stat/sonoff-garten-teichlicht/POWER1
+availability_topic: tele/sonoff-garten-teichlicht/LWT
+payload_available: Online
+payload_not_available: Offline

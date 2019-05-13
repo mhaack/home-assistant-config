@@ -1,0 +1,145 @@
+---
+# The main JaMa Villa outdoor view
+#
+title: Garten
+icon: mdi:flower
+panel: true
+path: garden
+
+cards:
+  - type: vertical-stack
+    cards:
+      - type: "custom:compact-custom-header"
+      - type: custom:layout-card
+        layout: horizontal
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: glance
+                entities:
+                  - entity: light.outdoor_lights
+                    tap_action:
+                      action: toggle
+                  - entity: light.baum_garten
+                    tap_action:
+                      action: toggle
+                  - entity: light.baum_vorgarten
+                    tap_action:
+                      action: toggle
+                  - entity: light.terrassenlicht
+                    tap_action:
+                      action: toggle
+                  - entity: light.terrassenlounge
+                    tap_action:
+                      action: toggle
+                  - entity: light.sonnendeck_led
+                    tap_action:
+                      action: toggle
+                  - entity: light.pool_light
+                    tap_action:
+                      action: toggle
+                  - entity: light.teichlicht
+                    tap_action:
+                      action: toggle
+                title: Außenbeleuchtung
+                show_state: false
+              - type: "custom:mini-graph-card"
+                name: Garten Temperatur (24h)
+                entities:
+                  - sensor.temperature_garden
+              - type: horizontal-stack
+                cards:
+                  - type: "custom:mini-graph-card"
+                    name: Garten Temperatur (7d)
+                    entities:
+                      - sensor.temperature_garden
+                    hours_to_show: 168
+                    points_per_hour: 0.25
+                  - type: "custom:mini-graph-card"
+                    name: Luftfeuchtigkeit Garten (7d)
+                    line_color: "#4C9AD7"
+                    entities:
+                      - sensor.humidity_garden
+                    hours_to_show: 168
+                    points_per_hour: 0.25
+          - type: vertical-stack
+            cards:
+              - type: entities
+                entities:
+                  - light.sonnendeck_led
+                  - switch.sonnendeck_steckdosen
+                  - sensor.sonnendeck_steckdosen_power
+                  - sensor.sonnendeck_steckdosen_energy_counter
+                show_header_toggle: false
+                title: Sonnendeck
+              - type: entities
+                entities:
+                  - switch.pool_filterpumpe
+                  - light.pool_light
+                  - sensor.pool_filterpumpe_power
+                  - sensor.pool_filterpumpe_energy_counter
+                show_header_toggle: false
+                title: Pool
+              - type: "custom:mini-graph-card"
+                entities:
+                  - sensor.temperatursensor_pool_1_temperature
+                hours_to_show: 168
+                points_per_hour: 0.25
+          - type: vertical-stack
+            cards:
+              - type: entities
+                entities:
+                  - switch.pumpe_zisterne
+                  - sensor.pumpe_zisterne_power
+                  - sensor.pumpe_zisterne_energy_counter
+                show_header_toggle: false
+                title: Zisterne
+              - type: horizontal-stack
+                cards:
+                  - type: "custom:mini-graph-card"
+                    entities:
+                      - sensor.watertank_liter
+                    line_color: "#4C9AD7"
+                    hours_to_show: 168
+                    points_per_hour: 0.25
+                  - type: gauge
+                    entity: sensor.watertank_percent
+              - type: conditional
+                conditions:
+                  - entity: sensor.landroid_error
+                    state: "No error"
+                card:
+                  type: entities
+                  title: Rasenmäher Shaun
+                  show_header_toggle: false
+                  entities:
+                    - switch.rasenmaher
+                    - sensor.landroid_status
+                    - binary_sensor.landroid_batterycharging
+                    - sensor.landroid_batterylevel
+                    - sensor.landroid_totaldistance
+                    - sensor.landroid_totaltime
+                    - sensor.landroid_totalbladetime
+              - type: conditional
+                conditions:
+                  - entity: sensor.landroid_error
+                    state_not: "No error"
+                card:
+                  type: entities
+                  title: Rasenmäher Shaun
+                  show_header_toggle: false
+                  entities:
+                    - sensor.landroid_error
+                    - sensor.landroid_status
+                    - switch.rasenmaher
+                    - sensor.landroid_batterylevel
+                    - sensor.landroid_totaldistance
+                    - sensor.landroid_totaltime
+                    - sensor.landroid_totalbladetime
+              - title: Teich
+                type: entities
+                entities:
+                  - switch.teich_blubber
+                  - switch.teich_wasserfall
+                  - input_select.pond_mode
+                show_header_toggle: false

@@ -1,0 +1,16 @@
+---
+# Volvo light automatic switched off by sensors
+#
+alias: "[Light] Turn off Volvo light when carport door closed"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.tur_carport_state
+    from: "on"
+    to: "off"
+action:
+  - service: light.turn_off
+    data:
+      entity_id: light.volvolicht
+  - service: timer.cancel
+    data:
+      entity_id: timer.volvo_light

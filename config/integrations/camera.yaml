@@ -1,0 +1,8 @@
+---
+# The Arlo camera suport using aarlo custom component
+#
+# https://github.com/twrecked/hass-aarlo
+#
+camera:
+  - platform: aarlo
+    ffmpeg_arguments: "-pred 1 -q:v 2"

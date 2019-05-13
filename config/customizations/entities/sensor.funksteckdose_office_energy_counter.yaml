@@ -1,0 +1,9 @@
+---
+#
+# Customizes sensors in the office
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.funksteckdose_office_energy_counter:
+  friendly_name: Stromverbrauch
+  icon: mdi:flash

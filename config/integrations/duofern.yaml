@@ -1,0 +1,9 @@
+---
+# Set up Rademacher Duofern roller shutters with custom component
+#
+# https://github.com/gluap/pyduofern
+#
+duofern:
+  code: !secret duofern_code
+  config_file: duofern.json
+  serial_port: /dev/ttyUSB0

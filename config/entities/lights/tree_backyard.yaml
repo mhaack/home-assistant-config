@@ -1,0 +1,12 @@
+---
+# SonOff Tree light in back yard
+#
+# https://www.home-assistant.io/components/light.mqtt/
+#
+platform: mqtt
+name: "Baum Garten"
+command_topic: cmnd/sonoff-garten-baum/POWER
+state_topic: stat/sonoff-garten-baum/POWER1
+availability_topic: tele/sonoff-garten-baum/LWT
+payload_available: Online
+payload_not_available: Offline

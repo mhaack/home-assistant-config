@@ -1,0 +1,49 @@
+---
+# Dishwasher state management
+#
+# Send notification
+alias: "[Appliances] Send alert when dishwasher machine is finished"
+trigger:
+  - platform: state
+    entity_id: sensor.dishwasher_machine_status
+    to: Clean
+    for:
+      minutes: 1
+  - platform: state
+    entity_id: group.family
+    to: "home"
+    for:
+      minutes: 2
+  - platform: time
+    at: "20:45:00"
+condition:
+  condition: and
+  conditions:
+    - condition: time
+      before: "21:00:00"
+      after: "08:30:00"
+    - condition: state
+      entity_id: group.family
+      state: "home"
+    - condition: state
+      entity_id: input_select.dishwasher_machine_status
+      state: Clean
+    - condition: state
+      entity_id: input_boolean.dishwasher_notification
+      state: "on"
+    - condition: template
+      value_template: >
+        {% if states.automation.send_alert_when_dishwasher_machine_is_finished.last_triggered is not none %}
+          {% if as_timestamp(now()) | int -  as_timestamp(states.automation.send_alert_when_dishwasher_machine_is_finished.attributes.last_triggered) | int > 1800 %}
+          true
+          {% else %}
+          false
+          {% endif %}
+        {% else %}
+        false
+        {% endif %}
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "Der Geschirrspüler ist fertig und kann jetzt ausgeräumt werden."

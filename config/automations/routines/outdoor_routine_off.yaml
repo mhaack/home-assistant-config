@@ -1,0 +1,13 @@
+---
+# Garden and outdoor lights automatic - off
+#
+alias: "[Light] Turn off outdoor lights daily routine"
+trigger:
+  - platform: sun
+    event: sunrise
+  - platform: time
+    at: "23:00:00"
+action:
+  - service: light.turn_off
+    data:
+      entity_id: light.outdoor_lights_daily_routine

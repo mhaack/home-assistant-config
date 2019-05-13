@@ -1,0 +1,8 @@
+---
+# The Arlo camera suport using aarlo custom component
+#
+# https://github.com/twrecked/hass-aarlo
+#
+aarlo:
+  username: !secret arlo_username
+  password: !secret arlo_password

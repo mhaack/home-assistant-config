@@ -1,0 +1,8 @@
+---
+#
+# Customizes indoor lights group
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+light.indoor_lights:
+  friendly_name: Innenbeleuchtung

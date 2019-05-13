@@ -1,0 +1,62 @@
+---
+# The JaMa Villa network is driven by a bunch of UniFi devices.
+# The UniFi controller currently runs on a seperat RPi.
+#
+# https://www.home-assistant.io/components/device_tracker.unifi/
+#
+platform: unifi
+host: !secret unifi_controler
+username: !secret unifi_username
+password: !secret unifi_password
+verify_ssl: false
+
+new_device_defaults:
+  track_new_devices: false
+  hide_if_away: false
+
+ssid_filter:
+  - !secret wifi1
+  # - !secret wifi2
+
+# monitored_conditions:
+#   - _id
+#   - _is_guest_by_uap
+#   - _last_seen_by_uap
+#   - _uptime_by_uap
+#   - ap_mac
+#   - assoc_time
+#   - bytes-r
+#   - ccq
+#   - channel
+#   - essid
+#   - first_seen
+#   - hostname
+#   - idletime
+#   - ip
+#   - is_11r
+#   - is_guest
+#   - is_wired
+#   - last_seen
+#   - latest_assoc_time
+#   - mac
+#   - name
+#   - noise
+#   - noted
+#   - oui
+#   - powersave_enabled
+#   - qos_policy_applied
+#   - radio
+#   - radio_proto
+#   - rssi
+#   - rx_bytes
+#   - rx_bytes-r
+#   - rx_packets
+#   - rx_rate
+#   - signal
+#   - site_id
+#   - tx_bytes
+#   - tx_bytes-r
+#   - tx_packets
+#   - tx_power
+#   - tx_rate
+#   - uptime

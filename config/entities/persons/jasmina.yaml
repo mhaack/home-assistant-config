@@ -1,0 +1,12 @@
+---
+# The person component allows connecting device tracker entities
+# to one or more person entities.
+# This configures "Jasmina"
+#
+# https://www.home-assistant.io/components/person/
+#
+name: Jasmina
+id: !secret id_jasmina
+device_trackers:
+  - device_tracker.iphone_von_jasmina
+  - device_tracker.iphonevnjasmina

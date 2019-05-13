@@ -1,0 +1,19 @@
+---
+# Startup automation to set the correct pond mode on startup.
+# Default for sprint, summer, autum: automatic
+# Default for winter: blubber (= set on pond_mode initialization)
+#
+alias: "[Pond] Startup Mode Initialization"
+trigger:
+  - platform: homeassistant
+    event: start
+condition:
+  - condition: state
+    entity_id: sensor.season
+    state: spring
+action:
+  - delay: 00:01
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.pond_mode
+      option: "Automatik"

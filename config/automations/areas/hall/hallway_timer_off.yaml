@@ -1,0 +1,15 @@
+---
+# Hallway light automatic timer off
+#
+alias: "[Light] Turn off timer if hallway lights are off"
+trigger:
+  - platform: state
+    entity_id: switch.licht_flur_eg
+    to: "off"
+condition:
+  - condition: template
+    value_template: "{{ not is_state('timer.hallway_lights', 'idle') }}"
+action:
+  - service: timer.cancel
+    data:
+      entity_id: timer.hallway_lights

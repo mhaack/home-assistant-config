@@ -1,0 +1,89 @@
+---
+# All automations overview
+#
+title: Automations
+icon: mdi:arrow-decision-auto
+path: automations
+
+cards:
+  - type: 'custom:compact-custom-header'
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Notifications
+    filter:
+      include:
+        - entity_id: "automation.notify*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Security
+    filter:
+      include:
+        - entity_id: "automation.security*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Light Automations
+    filter:
+      include:
+        - entity_id: "automation.light*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Pool Automations
+    filter:
+      include:
+        - entity_id: "automation.pool*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Pond Automations
+    filter:
+      include:
+        - entity_id: "automation.pond*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Appliances Automations
+    filter:
+      include:
+        - entity_id: "automation.appliances*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: System Automations
+    filter:
+      include:
+        - entity_id: "automation.system*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Zone Based Automations
+    filter:
+      include:
+        - entity_id: "automation.zone*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Other Automations
+    filter:
+      include:
+        - domain: automation
+      exclude:
+        - entity_id: "automation.system*"
+        - entity_id: "automation.appliances*"
+        - entity_id: "automation.pond*"
+        - entity_id: "automation.pool*"
+        - entity_id: "automation.light*"
+        - entity_id: "automation.security*"
+        - entity_id: "automation.notify*"
+        - entity_id: "automation.zone*"

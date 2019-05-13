@@ -1,0 +1,8 @@
+---
+#
+# Customizes sensors in the equipmentroom
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.humidity_equipmentroom:
+  friendly_name: Luftfeuchtigkeit Technikraum

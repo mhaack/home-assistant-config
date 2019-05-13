@@ -1,0 +1,9 @@
+---
+# Setting up the Roomba vacuum cleaner.
+#
+# https://www.home-assistant.io/components/vacuum.roomba/
+#
+platform: roomba
+host: !secret roomba
+username: !secret roomba_username
+password: !secret roomba_password

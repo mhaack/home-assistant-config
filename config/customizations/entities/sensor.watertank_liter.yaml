@@ -1,0 +1,9 @@
+---
+#
+# Customizes sensors & switches in the garden for pool, pond, watertank, etc.
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.watertank_liter:
+  friendly_name: Zisterne Liter
+  icon: mdi:water-pump

@@ -1,0 +1,9 @@
+---
+# script to update schiebetuer cover state
+cover_group:
+  sequence:
+    - service_template: "cover.{{modus}}_cover"
+      data:
+        entity_id:
+          - cover.wohnzimmer_schiebetur_rechts
+          - cover.wohnzimmer_schiebetur_links

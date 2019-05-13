@@ -1,0 +1,12 @@
+---
+# Send notifictaion is HA is started
+#
+alias: "[System] HA Started"
+trigger:
+  platform: homeassistant
+  event: start
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "HA Status: Online"

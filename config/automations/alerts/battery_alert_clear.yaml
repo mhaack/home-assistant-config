@@ -1,0 +1,26 @@
+---
+#
+# Clear the devide battery alert if batteries are ok
+#
+alias: battery_alert_clear
+trigger:
+  - platform: time_pattern
+    minutes: "/30"
+    seconds: 00
+condition:
+  - condition: template
+    value_template: >
+      {% macro battery_level() %}
+      {%- set threshold = 15 -%}
+      {%- set domains = ['light', 'switch', 'sensor',  'binary_sensor', 'camera'] -%}
+      {%- for domain in domains -%}
+        {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or item.attributes.battery is defined and (item.attributes['battery'] | lower == "low" or item.attributes['battery'] | lower == "unknown")) -%}
+          {{ item.attributes.friendly_name }}
+        {%- endfor -%}
+      {%- endfor -%}
+      {% endmacro %}
+      {{ battery_level() | trim == "" }}
+action:
+  - service: persistent_notification.dismiss
+    data:
+      notification_id: low-battery-alert

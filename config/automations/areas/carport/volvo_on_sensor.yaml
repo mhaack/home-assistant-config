@@ -1,0 +1,13 @@
+---
+# Volvo light automatic switched on by sensors
+#
+alias: "[Light] Turn on Volvo light when carport door open"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.tur_carport_state
+    from: "off"
+    to: "on"
+action:
+  - service: light.turn_on
+    data:
+      entity_id: light.volvolicht

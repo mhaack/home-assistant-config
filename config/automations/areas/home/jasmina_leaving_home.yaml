@@ -1,0 +1,14 @@
+---
+# Triggers when Jasmina's phone leaving home
+#
+alias: "[Zone] Jasmina leaving home"
+trigger:
+  - platform: zone
+    entity_id: device_tracker.iphone_von_jasmina
+    zone: zone.home
+    event: leave
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "Jasmina hat das Haus verlassen."

@@ -1,0 +1,12 @@
+---
+#
+# Defines the Home Zone
+#
+# https://www.home-assistant.io/components/zone/
+#
+name: home
+latitude: !secret lat_coord
+longitude: !secret long_coord
+radius: 75
+passive: false
+icon: mdi:home

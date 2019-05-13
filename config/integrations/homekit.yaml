@@ -1,0 +1,65 @@
+---
+# The HomeKit component allows you to forward entities from Home Assistant
+# to Apple HomeKit, so they can be controlled from Apple’s Home app and Siri.
+#
+# https://www.home-assistant.io/components/homekit
+#
+homekit:
+  auto_start: false
+
+  # Configuration for specific entities. Allows customization of names and types
+  # These are imported from another folder, to decouple them from the packages.
+  # entity_config: !include_dir_merge_named ../assistant/siri
+
+  # Filters for entities to be included / excluded from HomeKit.
+  filter:
+    include_entities:
+      - light.esstisch
+      - light.kuche
+      - light.schlafzimmer
+      - light.stehlampe
+      - light.tv_wand
+      - light.hallway_lights
+      - light.volvolicht
+      - light.terrassenlicht
+      - light.terrassenlounge
+      - light.baum_garten
+      - light.baum_vorgarten
+      - light.teichlicht
+      - light.sonnendeck_led
+      - light.pool_light
+      - light.mia_lights
+      - light.mia_sterne
+      - light.mia_bett
+
+      - sensor.temperatursensor_pool_1_temperature
+      - sensor.temperatursensor_solar_1_temperature
+      - sensor.temperature_garden
+      - sensor.temperature_equipmentroom
+      - sensor.temperature_livingroom
+      - sensor.humidity_equipmentroom
+      - sensor.humidity_garden
+      - sensor.humidity_livingroom
+
+      - binary_sensor.fenster_arbeitszimmer_state
+      - binary_sensor.fenster_essbereiclsh_state
+      - binary_sensor.fenster_gaste_wc_state
+      - binary_sensor.fenster_hwr_state
+      - binary_sensor.fenster_kuche_state
+      - binary_sensor.fenster_wohnzimmer_sofa_state
+      - binary_sensor.fenster_wohnzimmer_state
+      - binary_sensor.haustur_state
+      - binary_sensor.schiebetur_wohnzimmer_state
+      - binary_sensor.tur_carport_state
+
+      - switch.pool_filterpumpe
+      - switch.pool_schlurfi
+      - switch.pumpe_zisterne
+      - switch.teich_blubber
+      - switch.teich_wasserfall
+
+      - cover.wohnzimmer_schiebetur
+      - cover.kuche
+      - cover.essbereich
+      - cover.wohnzimmer_tv
+      - cover.wohnzimmer_sofa

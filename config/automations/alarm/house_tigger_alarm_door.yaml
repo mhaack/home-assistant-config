@@ -1,0 +1,28 @@
+---
+# Trigger house alarm if a door or windows was opened
+#
+alias: "[Security] Trigger house alarm if door or window was opened"
+trigger:
+  - platform: state
+    entity_id: group.all_contact_sensors
+    to: "on"
+condition:
+  condition: or
+  conditions:
+    - condition: state
+      entity_id: alarm_control_panel.alarm_haus
+      state: armed_away
+    - condition: state
+      entity_id: alarm_control_panel.alarm_haus
+      state: armed_home
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa Alarm"
+      message: "Alarm ausgelöst: Jemand ist im Haus - Fenster und Türen wurden geöffnet, Sirene aktiv in 30s"
+      data:
+        priority: 1
+        sound: alien
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm_haus
+  - service: python_script.jamavilla_display

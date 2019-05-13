@@ -1,0 +1,14 @@
+---
+# Triggers when Markus's phone entering home
+#
+alias: "[Zone] Markus entering home"
+trigger:
+  - platform: zone
+    entity_id: device_tracker.iphone_von_markus
+    zone: zone.home
+    event: enter
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "Markus ist nach Hause gekommen."

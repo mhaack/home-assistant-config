@@ -1,0 +1,70 @@
+---
+# All kind of more admin settings
+#
+title: Settings
+icon: mdi:cogs
+path: system-settings
+
+popup_cards:
+  person.markus:
+    title: Markus
+    card:
+      type: entities
+      entities:
+        - device_tracker.iphone_von_markus
+        - device_tracker.iphonevonmarkus
+        - sensor.iphone_von_markus_battery_state
+        - sensor.iphone_von_markus_battery_level
+
+cards:
+  - type: 'custom:compact-custom-header'
+  - type: entities
+    entities:
+      - input_boolean.send_notification
+      - input_boolean.office_notification
+      - input_boolean.dishwasher_notification
+      - input_boolean.pool_schlurfi_notification
+    title: Benachrichtigungen
+  - type: entities
+    entities:
+      - automation.battery_alert
+      - automation.battery_alert_clear
+    show_header_toggle: false
+    title: Check Device Batteries
+  - type: entities
+    entities:
+      - binary_sensor.sensor_error
+      - automation.sensor_error
+      - automation.sensor_error_clear
+    show_header_toggle: false
+    title: Check Sensor Error
+  - entities:
+      - sun.sun
+      - sensor.season
+    show_header_toggle: false
+    title: Sun
+    type: entities
+
+  - type: entities
+    title: Anwesenheit
+    entities:
+      - type: custom:fold-entity-row
+        head: person.markus
+        open: true
+        items:
+          - device_tracker.iphone_von_markus
+          - device_tracker.iphonevonmarkus
+        group_config:
+          secondary_info: last-changed
+      - type: custom:fold-entity-row
+        head: person.jasmina
+        open: true
+        items:
+          - device_tracker.iphone_von_jasmina
+          - device_tracker.iphonevnjasmina
+        group_config:
+          secondary_info: last-changed
+    show_header_toggle: false
+    show_state: false
+
+  - type: custom:tracker-card

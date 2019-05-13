@@ -1,0 +1,22 @@
+---
+# When the house alarm gets turned off
+#
+alias: "[Security] Turn off house alarm - disarmed"
+trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_haus
+    to: disarmed
+action:
+  - service: homematic.set_device_value
+    data:
+      address: NEQ0510355
+      channel: 4
+      param: ARMSTATE
+      value: 0
+  - service: switch.turn_off
+    entity_id:
+      - switch.sirene_haus_1
+      - switch.sirene_haus_2
+      - switch.sirene_haus_3
+  - delay: "00:00:01"
+  - service: python_script.jamavilla_display

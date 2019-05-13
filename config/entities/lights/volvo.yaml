@@ -1,0 +1,12 @@
+---
+# Volvo SonOff light in carport
+#
+# https://www.home-assistant.io/components/light.mqtt/
+#
+platform: mqtt
+name: "Volvolicht"
+command_topic: cmnd/sonoff-volvolicht/POWER
+state_topic: stat/sonoff-volvolicht/POWER
+availability_topic: tele/sonoff-volvolicht/LWT
+payload_available: Online
+payload_not_available: Offline

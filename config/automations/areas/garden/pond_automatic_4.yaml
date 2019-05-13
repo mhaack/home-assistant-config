@@ -1,0 +1,15 @@
+---
+# Pond automatic mode
+#
+alias: "[Pond] Pond automatic mode 4"
+trigger:
+  - platform: time
+    at: "23:30:00"
+condition:
+  - condition: state
+    entity_id: input_select.pond_mode
+    state: "Automatik"
+action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.teich_blubber

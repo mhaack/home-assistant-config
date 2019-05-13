@@ -1,0 +1,12 @@
+---
+# Terrace lounge SonOff light
+#
+# https://www.home-assistant.io/components/light.mqtt/
+#
+platform: mqtt
+name: "Terrassenlounge"
+command_topic: cmnd/sonoff-terrassenlounge/POWER
+state_topic: stat/sonoff-terrassenlounge/POWER1
+availability_topic: tele/sonoff-terrassenlounge/LWT
+payload_available: Online
+payload_not_available: Offline

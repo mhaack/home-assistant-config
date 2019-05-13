@@ -1,0 +1,12 @@
+---
+# Only some test
+#
+alias: Timer rule test 2
+trigger:
+  platform: time_pattern
+  hours: "/1"
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "1 Stunde"
+      message: "Und wieder 1 Stunde rum"

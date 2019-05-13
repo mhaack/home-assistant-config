@@ -1,0 +1,13 @@
+---
+# Volvo light automatic light off by timer
+#
+alias: "[Light] Turn off Volvo light 2 minutes after trigger"
+trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.volvo_light
+action:
+  - service: light.turn_off
+    data:
+      entity_id: light.volvolicht

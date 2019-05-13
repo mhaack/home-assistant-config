@@ -1,0 +1,13 @@
+---
+# Setting up the Homematic CCU integration with our Homegear server.
+#
+# https://www.home-assistant.io/components/homematic/
+#
+homematic:
+  interfaces:
+    wireless:
+      host: !secret homematic
+      resolvenames: metadata
+  hosts:
+    ccu2:
+      host: !secret homematic

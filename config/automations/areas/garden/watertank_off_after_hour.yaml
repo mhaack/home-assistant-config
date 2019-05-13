@@ -1,0 +1,19 @@
+---
+# Watertank pump automation to switch if off after 1 hour because we sometimes
+# forget about that.
+#
+alias: "[Watertank] Pump off after 1 hour"
+trigger:
+  - platform: state
+    entity_id: switch.pumpe_zisterne
+    to: "on"
+    for:
+      hours: 1
+action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.pumpe_zisterne
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "Wasser sparen - die Zisternenpumpe war über 1 Stunde an und wurde jetzt ausgeschaltet!"

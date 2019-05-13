@@ -1,0 +1,196 @@
+---
+# The main JaMa Villa dashboard with the most important infos.
+#
+title: Home
+icon: mdi:information-outline
+panel: true
+path: home
+
+popup_cards:
+  person.markus:
+    title: Markus
+    card:
+      type: entities
+      entities:
+        - device_tracker.iphone_von_markus
+        - device_tracker.iphonevonmarkus
+        - sensor.iphone_von_markus_battery_state
+        - sensor.iphone_von_markus_battery_level
+  person.jasmina:
+    title: Jasmina
+    card:
+      type: entities
+      entities:
+        - device_tracker.iphone_von_jasmina
+        - device_tracker.iphonevnjasmina
+        - sensor.iphone_von_jasmina_battery_state
+        - sensor.iphone_von_jasmina_battery_level
+
+cards:
+  - type: vertical-stack
+    cards:
+      - type: "custom:compact-custom-header"
+        main_config: true
+        menu: show
+        notifications: show
+        voice: hide
+        options: clock
+        clock_format: 24
+        clock_am_pm: false
+        clock_date: false
+        exceptions:
+          - conditions:
+              user_agent: Mobile
+            config:
+              menu: overflow
+              notifications: overflow
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: glance
+            entities:
+              - entity: sensor.window_door_status
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/security
+              - entity: group.motion_sensors
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/security
+              - person.markus
+              - person.jasmina
+            title: JaMa Villa
+          - type: entity-filter
+            show_empty: false
+            entities:
+              - entity: light.hallway_lights
+                tap_action:
+                  action: toggle
+              - entity: light.mia_sterne
+                tap_action:
+                  action: toggle
+              - entity: light.mia_bett
+                tap_action:
+                  action: toggle
+              - entity: light.kuche
+                tap_action:
+                  action: toggle
+              - entity: light.esstisch
+                tap_action:
+                  action: toggle
+              - entity: light.tv_wand
+                tap_action:
+                  action: toggle
+              - entity: light.stehlampe
+                tap_action:
+                  action: toggle
+              - entity: light.schlafzimmer
+                tap_action:
+                  action: toggle
+              - entity: light.baum_garten
+                tap_action:
+                  action: toggle
+              - entity: light.baum_vorgarten
+                tap_action:
+                  action: toggle
+              - entity: light.terrassenlicht
+                tap_action:
+                  action: toggle
+              - entity: light.terrassenlounge
+                tap_action:
+                  action: toggle
+              - entity: light.sonnendeck_led
+                tap_action:
+                  action: toggle
+              - entity: light.pool_light
+                tap_action:
+                  action: toggle
+              - entity: light.teichlicht
+                tap_action:
+                  action: toggle
+            state_filter:
+              - "on"
+            card:
+              type: glance
+              title: Beleuchtung
+              show_state: false
+          - type: entity-filter
+            show_empty: false
+            entities:
+              - entity: camera.aarlo_eingang
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/security
+              - entity: camera.aarlo_carport
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/security
+              - entity: camera.aarlo_garten
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/security
+              - entity: camera.aarlo_terrasse
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/security
+              - entity: camera.aarlo_pool
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/security
+            card:
+              type: glance
+              title: Aktive Kameras
+              show_state: false
+            state_filter:
+              - recently active
+              - streaming
+              - recording
+          - type: alarm-panel
+            entity: alarm_control_panel.alarm_haus
+            name: Alarm Haus
+            states:
+              - arm_home
+              - arm_away
+          - type: alarm-panel
+            entity: alarm_control_panel.alarm_carport
+            name: Alarm Carport
+            states:
+              - arm_home
+          - type: entities
+            title: Sicherheit
+            entities:
+              - type: custom:fold-entity-row
+                head: group.motion_sensors
+                group_config:
+                  secondary_info: last-changed
+              - type: custom:fold-entity-row
+                head: group.door_sensors
+                group_config:
+                  secondary_info: last-changed
+              - type: custom:fold-entity-row
+                head: group.window_sensors
+                group_config:
+                  secondary_info: last-changed
+            show_header_toggle: false
+            show_state: false
+          - break
+          - type: custom:weather-card
+            entity: weather.dark_sky
+            name: Wetter
+          - type: "custom:mini-graph-card"
+            name: Temperatur
+            decimals: 1
+            hour24: true
+            entities:
+              - entity: sensor.temperature_garden
+                name: Garten
+                show_state: true
+              - entity: sensor.temperature_livingroom
+                name: Wohnzimmer
+                show_state: true
+              - entity: sensor.temperature_equipmentroom
+                name: Technikraum
+                show_state: true
+          - type: iframe
+            aspect_ratio: 90%
+            url: "https://embed.windy.com/embed2.html?lat=51.358&lon=12.384&zoom=11&level=surface&overlay=wind&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&detailLat=51.367&detailLon=12.383&metricWind=default&metricTemp=%C2%B0C&radarRange=-1"

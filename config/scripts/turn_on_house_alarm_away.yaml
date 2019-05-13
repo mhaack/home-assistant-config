@@ -1,0 +1,6 @@
+---
+# script turn on house alarm
+turn_on_house_alarm_away:
+  sequence:
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.alarm_haus

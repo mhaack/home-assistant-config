@@ -1,0 +1,13 @@
+---
+# I've disabled auto_start on HomeKit, to prevent
+# HomeKit from starting when Homematic or Duofern isn't ready yet.
+#
+# https://www.home-assistant.io/components/homekit/#disable-auto-start
+#
+alias: "[System] Homekit Start"
+trigger:
+  - platform: homeassistant
+    event: start
+action:
+  - delay: 00:05
+  - service: homekit.start

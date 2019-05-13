@@ -1,0 +1,13 @@
+---
+# Volvo light automatic timer on
+#
+alias: "[Light] Turn on timer if Volvo light are on"
+trigger:
+  - platform: state
+    entity_id: light.volvolicht
+    from: "off"
+    to: "on"
+action:
+  - service: timer.start
+    data:
+      entity_id: timer.volvo_light

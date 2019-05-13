@@ -1,0 +1,17 @@
+---
+# Hallway light automatic timer on
+#
+alias: "[Light] Turn on timer if hallway lights are on"
+trigger:
+  - platform: state
+    entity_id: switch.licht_flur_eg
+    from: "off"
+    to: "on"
+condition:
+  - condition: state
+    entity_id: timer.hallway_lights
+    state: "idle"
+action:
+  - service: timer.start
+    data:
+      entity_id: timer.hallway_lights

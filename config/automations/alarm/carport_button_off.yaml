@@ -1,0 +1,14 @@
+---
+# When the carport alarm is turned off using the display button
+#
+alias: "[Security] Button to turn off carport alarm"
+trigger:
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: Status Schalter Flur EG
+      channel: 1
+      param: PRESS_LONG
+action:
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm_carport

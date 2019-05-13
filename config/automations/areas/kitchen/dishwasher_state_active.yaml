@@ -1,0 +1,27 @@
+---
+# Dishwasher state management
+#
+# When power is detected, and the dishwasher machine is not in
+# the running state, change the status of the dishwasher machine to running.
+# The status check will ensure we don't try to put the state to running
+# each time the power level changes, and we're already in the running state.
+#
+alias: "[Appliances] Set dishwasher machine active when power detected"
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.funksteckdose_spuli_power
+    above: 5
+condition:
+  condition: or
+  conditions:
+    - condition: state
+      entity_id: sensor.dishwasher_machine_status
+      state: Idle
+    - condition: state
+      entity_id: sensor.dishwasher_machine_status
+      state: Clean
+action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.dishwasher_machine_status
+      option: Running

@@ -1,0 +1,12 @@
+---
+# Theme control: set day theme
+#
+alias: "[System] Theme Control: set day theme after sunrise"
+trigger:
+  - platform: sun
+    event: sunrise
+    offset: "+00:30:00"
+action:
+  - service: frontend.set_theme
+    data:
+      name: default

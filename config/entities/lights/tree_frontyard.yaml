@@ -1,0 +1,13 @@
+---
+# SonOff Tree light in front yard
+#
+# https://www.home-assistant.io/components/light.mqtt/
+#
+platform: mqtt
+name: "Baum Vorgarten"
+command_topic: cmnd/sonoff-vorgarten-baum/POWER
+state_topic: stat/sonoff-vorgarten-baum/POWER
+availability_topic: tele/sonoff-vorgarten-baum/LWT
+payload_available: Online
+payload_not_available: Offline
+qos: 1

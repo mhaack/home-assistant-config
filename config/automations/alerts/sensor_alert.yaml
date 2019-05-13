@@ -1,0 +1,62 @@
+---
+#
+# Regularly check the wireless devide error & sabotage states and send alert
+#
+alias: sensor_error
+trigger:
+  - platform: time
+    at: "10:05:00"
+  - platform: time
+    at: "18:05:00"
+  - platform: state
+    entity_id: binary_sensor.sensor_error
+    to: "on"
+condition:
+  - condition: template
+    value_template: >
+      {% macro sensor_error() %}
+      {%- set domains = ['sensor', 'binary_sensor'] -%}
+      {%- for domain in domains -%}
+        {%- for item in states[domain] if ((item.attributes.error is defined and item.attributes['error'] | lower != "no") or (item.attributes.sabotage is defined and item.attributes['sabotage'] | lower != "no")) -%}
+          {{ item.attributes.friendly_name }}
+        {%- endfor -%}
+      {%- endfor -%}
+      {% endmacro %}
+      {{ sensor_error() | trim != ""}}
+action:
+  - service: persistent_notification.create
+    data_template:
+      title: "Sensor Fehler"
+      notification_id: sensor-error-alert
+      message: >
+        {% macro sensor_error() %}
+        {%- set domains = ['sensor', 'binary_sensor'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] if ((item.attributes.error is defined and item.attributes['error'] | lower != "no") or (item.attributes.sabotage is defined and item.attributes['sabotage'] | lower != "no")) -%}
+            {{ item.attributes.friendly_name }}
+            {%- if not loop.last -%}
+              {{', '}}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+        {% endmacro %}
+        Achtung! Fehler wurde bei {{ sensor_error() }} ausgelöst.
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa Fehler"
+      message: >
+        {% macro sensor_error() %}
+        {%- set domains = ['sensor', 'binary_sensor'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] if ((item.attributes.error is defined and item.attributes['error'] | lower != "no") or (item.attributes.sabotage is defined and item.attributes['sabotage'] | lower != "no")) -%}
+            {{ item.attributes.friendly_name }}
+            {%- if not loop.last -%}
+              {{', '}}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+        {% endmacro %}
+        Achtung! Fehler wurde bei {{ sensor_error() }} ausgelöst.
+      data:
+        priority: 1
+        sound: alien

@@ -1,0 +1,15 @@
+---
+# Pond mode management
+#
+alias: "[Pond] Set Pond Mode to Waterfall"
+trigger:
+  - platform: state
+    entity_id: input_select.pond_mode
+    to: "Nur Wasserfall"
+action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.teich_blubber
+  - service: switch.turn_on
+    data:
+      entity_id: switch.teich_wasserfall

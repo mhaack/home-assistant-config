@@ -1,0 +1,8 @@
+---
+#
+# Customizes daily routine light group
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+light.outdoor_lights_daily_routine:
+  friendly_name: Dekobeleuchtung außen

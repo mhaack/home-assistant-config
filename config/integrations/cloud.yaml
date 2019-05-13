@@ -1,0 +1,56 @@
+---
+# The Home Assistant Cloud allows you to quickly integrate your local
+# Home Assistant with various cloud services like Amazon Alexa and Google Home.
+#
+# https://www.home-assistant.io/components/cloud/
+#
+cloud:
+  alexa:
+    # Entity specific configuration for Google Assistant.
+    # These are loaded from a separate directory.
+    # entity_config: !include_dir_merge_named ../assistants/google
+
+    # Filters for entities to include/exclude from Google Assistant.
+    # These are loaded from a separate directory.
+    filter:
+      include_entities:
+        - light.esstisch
+        - light.kuche
+        - light.schlafzimmer
+        - light.stehlampe
+        - light.tv_wand
+        - light.hallway_lights
+        - light.volvolicht
+        - light.terrassenlicht
+        - light.terrassenlounge
+        - light.baum_garten
+        - light.baum_vorgarten
+        - light.teichlicht
+        - light.sonnendeck_led
+        - light.pool_light
+        - light.mia_lights
+        - light.mia_sterne
+        - light.mia_bett
+
+        - sensor.temperatursensor_pool_1_temperature
+        - sensor.temperatursensor_solar_1_temperature
+        - sensor.temperature_garden
+        - sensor.temperature_equipmentroom
+        - sensor.temperature_livingroom
+        - sensor.humidity_equipmentroom
+        - sensor.humidity_garden
+        - sensor.humidity_livingroom
+
+        - binary_sensor.fenster_arbeitszimmer_state
+        - binary_sensor.fenster_essbereiclsh_state
+        - binary_sensor.fenster_gaste_wc_state
+        - binary_sensor.fenster_hwr_state
+        - binary_sensor.fenster_kuche_state
+        - binary_sensor.fenster_wohnzimmer_sofa_state
+        - binary_sensor.fenster_wohnzimmer_state
+        - binary_sensor.haustur_state
+        - binary_sensor.schiebetur_wohnzimmer_state
+        - binary_sensor.tur_carport_state
+
+        - switch.teich_blubber
+        - switch.teich_wasserfall

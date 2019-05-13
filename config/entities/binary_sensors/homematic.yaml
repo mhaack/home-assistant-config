@@ -1,0 +1,19 @@
+---
+# Homematic availibility tracker
+#
+# https://www.home-assistant.io/components/sensor.template/
+#
+
+platform: template
+sensors:
+  homematic_up:
+    friendly_name: "Homematic is sending updates"
+    entity_id:
+      - sensor.funksteckdose_spuli_frequency
+      - sensor.funksteckdose_office_voltage
+      - sensor.pool_filterpumpe_voltage
+      - sensor.time
+    value_template: >-
+      {{as_timestamp(now()) - as_timestamp(states.sensor.funksteckdose_office_voltage.last_changed) < 600 or
+        as_timestamp(now()) - as_timestamp(states.sensor.funksteckdose_spuli_frequency.last_changed) < 600 or
+        as_timestamp(now()) - as_timestamp(states.sensor.pool_filterpumpe_voltage.last_changed) < 600}}

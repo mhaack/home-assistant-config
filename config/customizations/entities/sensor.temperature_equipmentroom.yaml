@@ -1,0 +1,8 @@
+---
+#
+# Customizes sensors & switches in the equipmentroom
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.temperature_equipmentroom:
+  friendly_name: Temperatur Technikraum

@@ -1,0 +1,13 @@
+---
+# Setting up the Philips Hue support.
+# Philips Hue is integrated into Home Assistant as a Hub that can drive
+# the light platform. The preferred way to setup the Philips Hue platform
+# is by enabling the discovery component.
+#
+# https://www.home-assistant.io/components/hue/
+#
+hue:
+  bridges:
+    - host: !secret hue_hub
+      allow_unreachable: false
+      allow_hue_groups: false

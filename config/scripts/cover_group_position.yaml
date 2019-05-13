@@ -1,0 +1,10 @@
+---
+# script to update schiebetuer cover position
+cover_group_position:
+  sequence:
+    - service: cover.set_cover_position
+      data_template:
+        entity_id:
+          - cover.wohnzimmer_schiebetur_rechts
+          - cover.wohnzimmer_schiebetur_links
+        position: "{{position}}"

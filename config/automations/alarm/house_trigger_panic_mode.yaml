@@ -1,0 +1,18 @@
+---
+# Send notification if house siren panic mode was activated
+#
+alias: "[Security] Send notification panic mode triggerd"
+trigger:
+  - platform: state
+    entity_id: switch.sirene_haus_3
+    to: "on"
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa Alarm"
+      message: "Panikmodus wurde aktiviert!"
+      data:
+        priority: 2
+        expire: 3600
+        retry: 180
+        sound: alien

@@ -1,0 +1,8 @@
+---
+#
+# Customizes Mia light group
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+light.mia_lights:
+  friendly_name: Mia Licht

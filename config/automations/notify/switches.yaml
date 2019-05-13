@@ -1,0 +1,59 @@
+---
+# Switch notification
+#
+alias: "[Notify] Send switch notifications"
+trigger:
+  - platform: state
+    entity_id:
+      - switch.funksteckdose_aquarium
+      - switch.funksteckdose_office
+      - switch.funksteckdose_spuli
+      # - switch.pool
+      - switch.pool_filterpumpe
+      - switch.pool_licht
+      - switch.pool_schlurfi
+      - switch.pumpe_zisterne
+      - switch.rasenmaher_shaun
+      # - switch.sirene_carport_1
+      # - switch.sirene_carport_2
+      # - switch.sirene_carport_3
+      # - switch.sirene_haus_1
+      # - switch.sirene_haus_2
+      # - switch.sirene_haus_3
+      - switch.teich_blubber
+      - switch.teich_wasserfall
+    to: "on"
+  - platform: state
+    entity_id:
+      - switch.funksteckdose_aquarium
+      - switch.funksteckdose_office
+      - switch.funksteckdose_spuli
+      # - switch.pool
+      - switch.pool_filterpumpe
+      - switch.pool_licht
+      - switch.pool_schlurfi
+      - switch.pumpe_zisterne
+      - switch.rasenmaher_shaun
+      # - switch.sirene_carport_1
+      # - switch.sirene_carport_2
+      # - switch.sirene_carport_3
+      # - switch.sirene_haus_1
+      # - switch.sirene_haus_2
+      # - switch.sirene_haus_3
+      - switch.teich_blubber
+      - switch.teich_wasserfall
+    to: "off"
+condition:
+  condition: state
+  entity_id: input_boolean.send_notification
+  state: "on"
+action:
+  service: notify.pushover_markus
+  data_template:
+    title: "JaMa Villa"
+    message: >
+      {% if trigger.to_state.state | lower == "on" %}
+        {{ trigger.to_state.attributes.friendly_name }} ist an!
+      {% elif trigger.to_state.state | lower == "off" %}
+        {{ trigger.to_state.attributes.friendly_name }} ist aus.
+      {% endif %}

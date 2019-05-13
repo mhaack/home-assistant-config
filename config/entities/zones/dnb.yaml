@@ -1,0 +1,10 @@
+---
+#
+# Defines the Jasmina's work zone
+#
+# https://www.home-assistant.io/components/zone/
+#
+name: DNB
+latitude: !secret lat_dnb_coord
+longitude: !secret long_dnb_coord
+icon: mdi:library

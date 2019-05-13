@@ -1,0 +1,14 @@
+---
+# Humidity sensors in the livingroom.
+#
+# https://www.home-assistant.io/components/sensor.mqtt/
+#
+platform: mqtt
+name: "humidity_livingroom"
+state_topic: "tele/sonoff-kitchen-sensor/SENSOR"
+unit_of_measurement: "°C"
+value_template: "{{ value_json['SHT3X-0x45'].Humidity }}"
+device_class: humidity
+availability_topic: tele/sonoff-kitchen-sensor/LWT
+payload_available: Online
+payload_not_available: Offline

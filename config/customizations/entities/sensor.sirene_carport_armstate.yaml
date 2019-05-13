@@ -1,0 +1,9 @@
+---
+#
+# Customizes Homematic carport siren
+#
+# https://www.home-assistant.io/components/homematic/
+#
+sensor.sirene_carport_armstate:
+  friendly_name: Sirene Carport
+  icon: mdi:alarm-light

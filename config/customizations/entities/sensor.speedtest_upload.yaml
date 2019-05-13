@@ -1,0 +1,9 @@
+---
+#
+# Customizes internet speedtest sensors.
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.speedtest_upload:
+  friendly_name: Upload
+  icon: mdi:arrow-up-bold

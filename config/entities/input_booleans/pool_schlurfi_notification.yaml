@@ -1,0 +1,9 @@
+---
+# Control the pool cleaner (Schlurfi) notifications
+#
+# https://www.home-assistant.io/components/input_boolean/
+#
+pool_schlurfi_notification:
+  name: Benachrichtigen Schlürfi
+  initial: true
+  icon: mdi:pool

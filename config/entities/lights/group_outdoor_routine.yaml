@@ -1,0 +1,11 @@
+---
+# Collect all outdoor lights for daily routine in a light group
+#
+# https://www.home-assistant.io/components/light.group/
+#
+platform: group
+name: outdoor_lights_daily_routine
+entities:
+  - light.baum_garten
+  - light.baum_vorgarten
+  - light.teichlicht

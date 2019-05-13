@@ -1,0 +1,17 @@
+---
+# Welcome to JaMa Villa Home Assistant configuration!
+#
+# The configuration.yaml is only used to bootstrap the system
+# and contains some minimal, but vital, settings.
+#
+homeassistant:
+  name: JaMA Villa
+
+  latitude: !secret lat_coord
+  longitude: !secret long_coord
+  time_zone: Europe/Berlin
+  elevation: !secret home_elevation
+
+  unit_system: metric
+
+  packages: !include_dir_named integrations

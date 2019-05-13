@@ -1,0 +1,28 @@
+---
+# Roller shutter notification
+#
+alias: "[Notify] Send roller shutter notifications"
+trigger:
+  platform: state
+  entity_id:
+    - cover.wohnzimmer_schiebetur
+    - cover.wohnzimmer_schiebetur_rechts
+    - cover.wohnzimmer_schiebetur_links
+    - cover.kueche
+    - cover.essbereich
+    - cover.wohnzimmer_tv
+    - cover.wohnzimmer_sofa
+condition:
+  condition: state
+  entity_id: input_boolean.send_notification
+  state: "on"
+action:
+  service: notify.pushover_markus
+  data_template:
+    title: "JaMa Villa"
+    message: >
+      {% if trigger.to_state.state | lower == "open" %}
+        Rollo {{ trigger.to_state.attributes.friendly_name }} ist offen.
+      {% elif trigger.to_state.state | lower == "closed" %}
+        Rollo {{ trigger.to_state.attributes.friendly_name }} ist geschlossen.
+      {% endif %}

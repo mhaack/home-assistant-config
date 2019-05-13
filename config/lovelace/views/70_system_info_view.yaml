@@ -1,0 +1,106 @@
+---
+# The main JaMa Villa system info view for all the device info's
+#
+title: System Info
+icon: mdi:lan
+panel: true
+path: system-info
+
+cards:
+  - type: vertical-stack
+    cards:
+      - type: "custom:compact-custom-header"
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: glance
+            title: Core Network
+            entities:
+              - binary_sensor.core_router
+              - binary_sensor.core_switch
+              - binary_sensor.core_modem
+              - binary_sensor.core_ap_untergeschoss
+              - binary_sensor.core_ap_obergeschoss
+              - binary_sensor.unifi_controler
+              - binary_sensor.nas
+              - binary_sensor.fritzbox
+              - binary_sensor.remote_ui
+            show_header_toggle: false
+            show_state: false
+          - type: glance
+            title: Device Network
+            entities:
+              - binary_sensor.hue_hub
+              - binary_sensor.arlo_hub
+              - binary_sensor.roomba
+              - binary_sensor.printer
+              - binary_sensor.landroid
+            show_header_toggle: false
+            show_state: false
+
+          - type: horizontal-stack
+            cards:
+              - type: "custom:mini-graph-card"
+                name: Internet Bandbreite
+                entities:
+                  - sensor.speedtest_download
+                  - sensor.speedtest_upload
+                icon: "mdi:wan"
+                hours_to_show: 168
+                points_per_hour: 0.25
+                hour24: true
+                line_width: 2
+              - type: "custom:mini-graph-card"
+                name: Internet Ping
+                entities:
+                  - sensor.speedtest_ping
+                icon: "mdi:wan"
+                hours_to_show: 168
+                points_per_hour: 0.25
+                hour24: true
+                line_width: 2
+          - break
+          - type: entities
+            entities:
+              - sensor.disk_use_percent
+              - sensor.memory_use_percent
+              - sensor.memory_free
+              - sensor.processor_use
+              - sensor.last_boot
+            show_header_toggle: false
+            title: HA Server Resources
+          - type: horizontal-stack
+            cards:
+              - type: gauge
+                entity: sensor.processor_use
+                name: Processor
+              - type: gauge
+                entity: sensor.memory_use_percent
+                name: Memory
+              - type: gauge
+                entity: sensor.disk_use_percent
+                name: SD Card
+          - break
+          - type: entities
+            entities:
+              - sensor.datentopf_status
+              - sensor.datentopf_volume_used_volume_1
+              - sensor.datentopf_memory_usage
+              - sensor.datentopf_memory_available
+              - sensor.datentopf_cpu_usage
+              - sensor.datentopf_system_temperature
+              - sensor.datentopf_temperature_drive_1
+              - sensor.datentopf_temperature_drive_2
+            show_header_toggle: false
+            title: QNAP NAS Resources
+          - type: horizontal-stack
+            cards:
+              - type: gauge
+                entity: sensor.datentopf_cpu_usage
+                name: Processor
+              - type: gauge
+                entity: sensor.datentopf_memory_usage
+                name: Memory
+              - type: gauge
+                entity: sensor.datentopf_volume_used_volume_1
+                name: Disk

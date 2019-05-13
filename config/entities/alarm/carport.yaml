@@ -1,0 +1,13 @@
+---
+# The Carport alarm control panel using manual alarm component as Homematic siren wrapper.
+#
+# https://www.home-assistant.io/components/alarm_control_panel.manual/
+#
+
+platform: manual
+name: Alarm Carport
+pending_time: 0
+delay_time: 0
+trigger_time: 180
+disarmed:
+  trigger_time: 0

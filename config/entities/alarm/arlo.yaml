@@ -1,0 +1,9 @@
+---
+# The Arlo alarm control panel using aarlo custom component).
+#
+
+platform: aarlo
+home_mode_name: home
+away_mode_name: armed
+trigger_time: 30
+alarm_volume: 8

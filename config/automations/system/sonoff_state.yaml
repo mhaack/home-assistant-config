@@ -1,0 +1,12 @@
+---
+# Query state of all SonOff devices in the network on startup.
+#
+alias: "[System] Init Sonoff power state on start-up"
+trigger:
+  platform: homeassistant
+  event: start
+action:
+  - delay: 00:01
+  - service: mqtt.publish
+    data:
+      topic: cmnd/sonoffs/power

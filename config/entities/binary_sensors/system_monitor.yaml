@@ -1,0 +1,106 @@
+---
+# Shadow binary sensors for devices
+#
+# https://www.home-assistant.io/components/sensor.template/
+#
+
+platform: template
+sensors:
+  core_router:
+    friendly_name: UniFi Router
+    device_class: connectivity
+    entity_id: device_tracker.core_router
+    value_template: "{{ is_state('device_tracker.core_router', 'home') }}"
+    icon_template: mdi:router-wireless
+  core_switch:
+    friendly_name: UniFi Switch
+    device_class: connectivity
+    entity_id: device_tracker.core_switch
+    value_template: "{{ is_state('device_tracker.core_switch', 'home') }}"
+    icon_template: mdi:switch
+  unifi_controler:
+    friendly_name: UniFi Controller
+    device_class: connectivity
+    entity_id: device_tracker.unifi_controler
+    value_template: "{{ is_state('device_tracker.unifi_controler', 'home') }}"
+    icon_template: mdi:console-network
+  core_ap_untergeschoss:
+    friendly_name: UniFi AP Untergeschoss
+    device_class: connectivity
+    entity_id: device_tracker.core_ap_untergeschoss
+    value_template: "{{ is_state('device_tracker.core_ap_untergeschoss', 'home') }}"
+    icon_template: mdi:access-point-network
+  core_ap_obergeschoss:
+    friendly_name: UniFi AP Obergeschoss
+    device_class: connectivity
+    entity_id: device_tracker.core_ap_obergeschoss
+    value_template: "{{ is_state('device_tracker.core_ap_obergeschoss', 'home') }}"
+    icon_template: mdi:access-point-network
+  core_modem:
+    friendly_name: DayTrak DSL Modem
+    device_class: connectivity
+    entity_id: device_tracker.core_switch
+    value_template: "{{ is_state('device_tracker.core_switch', 'home') }}"
+    icon_template: mdi:wan
+  nas:
+    friendly_name: QNAP NAS
+    device_class: connectivity
+    entity_id: device_tracker.nas
+    value_template: "{{ is_state('device_tracker.nas', 'home') }}"
+    icon_template: mdi:nas
+  fritzbox:
+    friendly_name: Fritzbox
+    device_class: connectivity
+    entity_id: device_tracker.fritzbox
+    value_template: "{{ is_state('device_tracker.fritzbox', 'home') }}"
+    icon_template: mdi:phone-classic
+  hue_hub:
+    friendly_name: HUE Bridge
+    device_class: connectivity
+    entity_id: device_tracker.hue_hub
+    value_template: "{{ is_state('device_tracker.hue_hub', 'home') }}"
+    icon_template: >-
+      {% if is_state('device_tracker.hue_hub', 'home') %}
+        mdi:lightbulb
+      {% else %}
+        mdi:alert
+      {% endif %}
+  arlo_hub:
+    friendly_name: Arlo Bridge
+    device_class: connectivity
+    entity_id: device_tracker.arlo_hub
+    value_template: "{{ is_state('device_tracker.arlo_hub', 'home') }}"
+    icon_template: >-
+      {% if is_state('device_tracker.arlo_hub', 'home') %}
+        mdi:cctv
+      {% else %}
+        mdi:alert
+      {% endif %}
+  roomba:
+    friendly_name: Roomba
+    device_class: connectivity
+    entity_id: device_tracker.roomba_3177091801031880
+    value_template: "{{ is_state('device_tracker.roomba_3177091801031880', 'home') }}"
+    icon_template: >-
+      {% if is_state('device_tracker.roomba_3177091801031880', 'home') %}
+        mdi:robot-vacuum
+      {% else %}
+        mdi:alert
+      {% endif %}
+  printer:
+    friendly_name: Drucker
+    device_class: connectivity
+    entity_id: device_tracker.jama_printer
+    value_template: "{{ is_state('device_tracker.jama_printer', 'home') }}"
+    icon_template: mdi:printer
+  landroid:
+    friendly_name: Rasenmäher
+    device_class: connectivity
+    entity_id: device_tracker.landroid_s
+    value_template: "{{ is_state('device_tracker.landroid_s', 'home') }}"
+    icon_template: >-
+      {% if is_state('device_tracker.landroid_s', 'home') %}
+        mdi:sheep
+      {% else %}
+        mdi:alert
+      {% endif %}

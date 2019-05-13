@@ -1,0 +1,13 @@
+---
+# script notification alarm is blocked
+notify_alarm_not_possible:
+  sequence:
+    - service: notify.pushover_markus
+      data:
+        title: "JaMa Villa"
+        message: "Alarm Haus: Aktivierung nicht möglich Fenster / Tür ist offen"
+        data:
+          priority: 1
+          sound: alien
+    - delay: "00:00:01"
+    - service: python_script.jamavilla_display

@@ -1,0 +1,23 @@
+---
+# Dishwasher state management
+#
+# When the power drops, move the state of the dishwasher machine to Clean.
+#
+alias: "[Appliances] Set dishwasher machine Clean when power drops for 2 minutes"
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.funksteckdose_spuli_power
+    below: 0.2
+    for:
+      minutes: 2
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: sensor.dishwasher_machine_status
+      state: Running
+action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.dishwasher_machine_status
+      option: Clean

@@ -1,0 +1,8 @@
+---
+#
+# Customizes outdoor tree lights
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+light.baum_vorgarten:
+  icon: mdi:tree

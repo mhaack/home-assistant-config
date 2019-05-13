@@ -1,0 +1,9 @@
+---
+#
+# Customizes internet speedtest sensors.
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.speedtest_ping:
+  friendly_name: Ping
+  icon: mdi:pulse

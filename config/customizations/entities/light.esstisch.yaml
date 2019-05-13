@@ -1,0 +1,9 @@
+---
+#
+# Customizes Livingroom Esstisch lights
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+light.esstisch:
+  icon: mdi:ceiling-light
+  friendly_name: Esstichlicht

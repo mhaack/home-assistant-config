@@ -1,0 +1,8 @@
+---
+#
+# Customizes outdoor lights group
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+light.outdoor_lights:
+  friendly_name: Außenbeleuchtung

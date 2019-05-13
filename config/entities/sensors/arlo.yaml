@@ -1,0 +1,10 @@
+---
+# The Arlo binary sensor for Arlo motion detection (using aarlo custom component).
+#
+platform: aarlo
+monitored_conditions:
+  - last_capture
+  - total_cameras
+  - battery_level
+  - captured_today
+  - signal_strength

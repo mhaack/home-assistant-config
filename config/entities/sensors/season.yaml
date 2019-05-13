@@ -1,0 +1,6 @@
+---
+# Setup the seasons sensors.
+#
+# https://www.home-assistant.io/components/season/
+#
+platform: season

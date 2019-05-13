@@ -1,0 +1,8 @@
+---
+# Use switch light wrapper for Homematic hallway light which is connected as a switch.
+#
+# https://www.home-assistant.io/components/light.switch/
+#
+platform: switch
+name: Flurlicht
+entity_id: switch.licht_flur_eg

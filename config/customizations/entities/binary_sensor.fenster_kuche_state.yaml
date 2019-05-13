@@ -1,0 +1,8 @@
+---
+#
+# Customizes window contact sensors
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+binary_sensor.fenster_kuche_state:
+  friendly_name: Küche

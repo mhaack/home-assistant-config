@@ -1,0 +1,12 @@
+---
+# Send notifictaion is HA is stopped
+#
+alias: "[System] HA Stopped"
+trigger:
+  platform: homeassistant
+  event: shutdown
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "HA Status: Offline"

@@ -1,0 +1,14 @@
+---
+# Triggers when Jasmina's phone entering wrok
+#
+alias: "[Zone] Jasmina entering work"
+trigger:
+  - platform: zone
+    entity_id: device_tracker.iphone_von_jasmina
+    zone: zone.dnb
+    event: enter
+action:
+  - service: notify.pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "Jasmina ist auf Arbeit angekommen."

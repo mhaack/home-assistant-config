@@ -1,0 +1,127 @@
+---
+# JaMa Villa house view, displaying all indoor stuff
+#
+title: Haus
+icon: mdi:home
+panel: true
+path: house
+
+cards:
+  - type: vertical-stack
+    cards:
+      - type: 'custom:compact-custom-header'
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: glance
+            entities:
+              - entity: light.indoor_lights
+                tap_action:
+                  action: toggle
+              - entity: light.hallway_lights
+                tap_action:
+                  action: toggle
+              - entity: light.mia_lights
+                tap_action:
+                  action: toggle
+              - entity: light.mia_sterne
+                tap_action:
+                  action: toggle
+              - entity: light.mia_bett
+                tap_action:
+                  action: toggle
+              - entity: light.kuche
+                tap_action:
+                  action: toggle
+              - entity: light.esstisch
+                tap_action:
+                  action: toggle
+              - entity: light.tv_wand
+                tap_action:
+                  action: toggle
+              - entity: light.stehlampe
+                tap_action:
+                  action: toggle
+              - entity: light.schlafzimmer
+                tap_action:
+                  action: toggle
+            title: Innenbeleuchtung
+            show_state: false
+          - type: 'custom:mini-graph-card'
+            name: Temperatur
+            decimals: 1
+            hour24: true
+            entities:
+              - entity: sensor.temperature_livingroom
+                name: Wohnzimmer
+                show_state: true
+              - entity: sensor.temperature_equipmentroom
+                name: Technikraum
+                show_state: true
+          - type: 'custom:mini-graph-card'
+            name: Luftfeuchtigkeit
+            decimals: 1
+            hour24: true
+            entities:
+              - entity: sensor.humidity_livingroom
+                name: Wohnzimmer
+                show_state: true
+              - entity: sensor.humidity_equipmentroom
+                name: Technikraum
+                show_state: true
+            unit: '%'
+          - break
+          - type: entities
+            entities:
+              - cover.wohnzimmer_schiebetur
+              - cover.wohnzimmer_schiebetur_rechts
+              - cover.wohnzimmer_schiebetur_links
+              - cover.kuche
+              - cover.essbereich
+              - cover.wohnzimmer_tv
+              - cover.wohnzimmer_sofa
+            show_header_toggle: false
+            title: Rollläden
+          - type: 'custom:mini-media-player'
+            entity: media_player.buro
+            artwork: cover
+            hide:
+              volume: true
+              source: true
+              power_state: false
+          - type: 'custom:mini-media-player'
+            entity: media_player.kuche
+            artwork: cover
+            hide:
+              volume: true
+              source: true
+              power_state: false
+          - type: 'custom:mini-media-player'
+            entity: media_player.wohnzimmer
+            artwork: cover
+            hide:
+              volume: true
+              source: true
+              power_state: false
+          - break
+          - entities:
+              - switch.funksteckdose_office
+              - binary_sensor.office_status
+              - sensor.funksteckdose_office_power
+              - sensor.funksteckdose_office_energy_counter
+            show_header_toggle: false
+            title: Büro Markus
+            type: entities
+          - entities:
+              - switch.funksteckdose_spuli
+              - sensor.dishwasher_machine_status
+              - sensor.funksteckdose_spuli_power
+              - sensor.funksteckdose_spuli_energy_counter
+            show_header_toggle: false
+            title: Spülmaschine
+            type: entities
+          - type: entities
+            entities:
+              - vacuum.roomba
+            title: Staubsauger
+            show_header_toggle: false
