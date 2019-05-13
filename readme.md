@@ -7,11 +7,20 @@
 [![GitHub Activity][commits-shield]][commits]
 [![GitHub Last Commit][last-commit-shield]][commits]
 
-Here's our JaMa Villa Home Assistant configuration, running our home automations. [Home Assistant][home-assistant] (HA) is an open-source home automation platform which allows you to control devices easily, track multiple sensors and integrate with a wide variety of commercial & DIY solutions. I currently run it via [Hass.io](https://www.home-assistant.io/hassio/) on a single Raspberry Pi. My HA configuration structure is heavily inspired by the work done by [Franck Nijhof](https://github.com/frenck)
+Here's our JaMa Villa Home Assistant configuration, running our home
+automations. [Home Assistant][home-assistant] (HA) is an open-source home
+automation platform which allows you to control devices easily, track multiple
+sensors and integrate with a wide variety of commercial & DIY solutions.
+I currently run it via [Hass.io](https://www.home-assistant.io/hassio/) on
+a single Raspberry Pi. My HA configuration structure is heavily inspired by
+the work done by [Franck Nijhof](https://github.com/frenck)
 
 ![HA](img/header.png "header")
 
-I try regularly update my configuration files, there is always something to tweak or improve 😉. This repository is to inspire others, be free to use the code from this repo for your own HA setup. If you think it is helpful and like anything here, Be sure to 🌟 the GitHub repo.
+I try regularly update my configuration files, there is always something to
+tweak or improve 😉. This repository is to inspire others, be free to use the
+code from this repo for your own HA setup. If you think it is helpful and like
+anything here, Be sure to 🌟 the GitHub repo.
 
 ## My Devices
 
