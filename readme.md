@@ -1,7 +1,8 @@
 # JaMa Villa Home Assistant Configuration
 
-![Project Maintenance][maintenance-shield]
-[![License][license-shield]](LICENSE.md)
+![Project Maintenance][maintenance-shield] [![License][license-shield]](LICENSE)
+
+[![Circle CI][circleci-shield]][circleci] [![GitHub Activity][commits-shield]][commits] [![GitHub Last Commit][last-commit-shield]][commits]
 
 Here's our JaMa Villa Home Assistant configuration, running our home automations. [Home Assistant][home-assistant] (HA) is an open-source home automation platform which allows you to control devices easily, track multiple sensors and integrate with a wide variety of commercial & DIY solutions. I currently run it via [Hass.io](https://www.home-assistant.io/hassio/) on a single Raspberry Pi. My HA configuration structure is heavily inspired by the work done by [Franck Nijhof](https://github.com/frenck)
 
@@ -19,5 +20,10 @@ The original setup of this repository is by [Franck Nijhof](https://github.com/f
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
-[license-shield]: https://img.shields.io/github/mhaack/home-assistant-config.svg
+[license-shield]: https://img.shields.io/github/license/mhaack/home-assistant-config.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2019.svg
+[circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg
+[circleci]: https://circleci.com/gh/mhaack/workflows/home-assistant-config
+[commits]: https://github.com/mhaack/home-assistant-config/commits/master
+[commits-shield]: https://img.shields.io/github/commit-activity/m/mhaack/home-assistant-config.svg
+[last-commit-shield]: https://img.shields.io/github/last-commit/mhaack/home-assistant-config.svg
