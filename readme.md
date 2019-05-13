@@ -1,8 +1,11 @@
 # JaMa Villa Home Assistant Configuration
 
-![Project Maintenance][maintenance-shield] [![License][license-shield]](LICENSE)
+![Project Maintenance][maintenance-shield]
+[![License][license-shield]](LICENSE)
 
-[![Circle CI][circleci-shield]][circleci] [![GitHub Activity][commits-shield]][commits] [![GitHub Last Commit][last-commit-shield]][commits]
+[![Circle CI][circleci-shield]][circleci]
+[![GitHub Activity][commits-shield]][commits]
+[![GitHub Last Commit][last-commit-shield]][commits]
 
 Here's our JaMa Villa Home Assistant configuration, running our home automations. [Home Assistant][home-assistant] (HA) is an open-source home automation platform which allows you to control devices easily, track multiple sensors and integrate with a wide variety of commercial & DIY solutions. I currently run it via [Hass.io](https://www.home-assistant.io/hassio/) on a single Raspberry Pi. My HA configuration structure is heavily inspired by the work done by [Franck Nijhof](https://github.com/frenck)
 
