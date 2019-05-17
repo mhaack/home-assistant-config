@@ -10,3 +10,64 @@ recorder:
 
   # How often (in days) the purge task runs
   purge_interval: 1
+
+  # Exclude a few domains and enties as I'm not interested in keeping
+  # any of the database records for these items
+  exclude:
+    domains:
+      - camera
+      - group
+      - media_player
+      - scene
+      - script
+      - updater
+      - weather
+      - weblink
+    entities:
+      - binary_sensor.workday_sensor
+      - sensor.aarlo_arlo_cameras
+      - sensor.aarlo_battery_level_carport
+      - sensor.aarlo_battery_level_eingang
+      - sensor.aarlo_battery_level_garten
+      - sensor.aarlo_battery_level_pool
+      - sensor.aarlo_battery_level_terrasse
+      - sensor.aarlo_captured_today_carport
+      - sensor.aarlo_captured_today_eingang
+      - sensor.aarlo_captured_today_garten
+      - sensor.aarlo_captured_today_pool
+      - sensor.aarlo_captured_today_terrasse
+      - sensor.aarlo_last_carport
+      - sensor.aarlo_last_eingang
+      - sensor.aarlo_last_garten
+      - sensor.aarlo_last_pool
+      - sensor.aarlo_last_terrasse
+      - sensor.aarlo_signal_strength_carport
+      - sensor.aarlo_signal_strength_eingang
+      - sensor.aarlo_signal_strength_garten
+      - sensor.aarlo_signal_strength_pool
+      - sensor.aarlo_signal_strength_terrasse
+      - sensor.bewegungsmelder_flur_eg_1_brightness
+      - sensor.bewegungsmelder_flur_og_brightness
+      - sensor.bewegungsmelder_wohnzimmer_brightness
+      - sensor.custom_card_tracker
+      - sensor.custom_component_tracker
+      - sensor.date_time
+      - sensor.datentopf_cpu_usage
+      - sensor.datentopf_free_space_volume_1
+      - sensor.datentopf_memory_available
+      - sensor.datentopf_memory_usage
+      - sensor.datentopf_status
+      - sensor.datentopf_system_temperature
+      - sensor.datentopf_temperature_drive_1
+      - sensor.datentopf_temperature_drive_2
+      - sensor.datentopf_volume_used_volume_1
+      - sensor.dishwasher_machine_status
+      - sensor.disk_free
+      - sensor.disk_use_percent
+      - sensor.last_boot
+      - sensor.memory_use_percent
+      - sensor.memory_free
+      - sensor.processor_use
+      - sensor.version_available
+      - sensor.version_current
+      - sun.sun

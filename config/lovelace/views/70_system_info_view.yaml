@@ -63,6 +63,7 @@ cards:
           - type: entities
             entities:
               - sensor.disk_use_percent
+              - sensor.disk_free
               - sensor.memory_use_percent
               - sensor.memory_free
               - sensor.processor_use
