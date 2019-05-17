@@ -6,6 +6,6 @@
 #
 custom_updater:
   component_urls:
-    - https://raw.githubusercontent.com/rccoleman/hass-aarlo/master/custom_components.json
+    - https://raw.githubusercontent.com/twrecked/hass-aarlo/master/custom_components.json
   card_urls:
-    - https://raw.githubusercontent.com/rccoleman/hass-aarlo/master/custom_cards.json
+    - https://raw.githubusercontent.com/twrecked/hass-aarlo/master/custom_cards.jso
