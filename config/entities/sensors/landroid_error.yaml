@@ -1,0 +1,8 @@
+---
+# Connect to Worx Landroid lawnmover status via MQTT
+#
+# https://www.home-assistant.io/components/sensor.mqtt/
+#
+platform: mqtt
+name: "landroid_error"
+state_topic: "landroid/status/errorDescription"
