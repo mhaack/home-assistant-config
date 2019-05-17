@@ -4,5 +4,5 @@
 # https://www.home-assistant.io/components/light.switch/
 #
 platform: switch
-name: pool_light
-entity_id: switch.poollicht
+name: sonnendeck_positionslicht
+entity_id: switch.garten_multi_3

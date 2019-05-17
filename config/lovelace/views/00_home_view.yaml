@@ -102,6 +102,9 @@ cards:
               - entity: light.sonnendeck_led
                 tap_action:
                   action: toggle
+              - entity: light.sonnendeck_positionslicht
+                tap_action:
+                  action: toggle
               - entity: light.pool_light
                 tap_action:
                   action: toggle

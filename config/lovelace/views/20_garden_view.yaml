@@ -35,6 +35,9 @@ cards:
                   - entity: light.sonnendeck_led
                     tap_action:
                       action: toggle
+                  - entity: light.sonnendeck_positionslicht
+                    tap_action:
+                      action: toggle
                   - entity: light.pool_light
                     tap_action:
                       action: toggle
@@ -67,6 +70,7 @@ cards:
               - type: entities
                 entities:
                   - light.sonnendeck_led
+                  - light.sonnendeck_positionslicht
                   - switch.sonnendeck_steckdosen
                   - sensor.sonnendeck_steckdosen_power
                   - sensor.sonnendeck_steckdosen_energy_counter
@@ -143,3 +147,4 @@ cards:
                   - switch.teich_wasserfall
                   - input_select.pond_mode
                 show_header_toggle: false
+                
