@@ -1,4 +1,23 @@
 version: 2
+
+ha-check-config: &ha-check-config
+  environment:
+    PYTHONPATH: "/usr/src/app:$PYTHONPATH"
+  steps:
+    - checkout
+    - run:
+        name: Prepare
+        command: |
+          python -m homeassistant --version
+          cp -R ./.stubs/* ./config
+    - run:
+        name: Check config
+        command: |
+          python -m homeassistant \
+            --config ./config/ \
+            --script check_config \
+            --info all
+
 jobs:
   yamllint:
     docker:
@@ -52,25 +71,35 @@ jobs:
           command: |
             mdl --style all --warnings .
 
-  check-config:
+  check-ha-latest:
     docker:
       - image: homeassistant/home-assistant:latest
-    environment:
-      PYTHONPATH: "/usr/src/app:$PYTHONPATH"
-    steps:
-      - checkout
-      - run:
-          name: Prepare
-          command: |
-            python -m homeassistant --version
-            cp -R ./.stubs/* ./config
-      - run:
-          name: Check config
-          command: |
-            python -m homeassistant \
-              --config ./config/ \
-              --script check_config \
-              --info all
+    <<: *ha-check-config
+
+  check-ha-rc:
+    docker:
+      - image: homeassistant/home-assistant:rc
+    <<: *ha-check-config
+
+  # check-config:
+  #   docker:
+  #     - image: homeassistant/home-assistant:latest
+  #   environment:
+  #     PYTHONPATH: "/usr/src/app:$PYTHONPATH"
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Prepare
+  #         command: |
+  #           python -m homeassistant --version
+  #           cp -R ./.stubs/* ./config
+  #     - run:
+  #         name: Check config
+  #         command: |
+  #           python -m homeassistant \
+  #             --config ./config/ \
+  #             --script check_config \
+  #             --info all
 
 workflows:
   version: 2
@@ -79,7 +108,12 @@ workflows:
       - yamllint
       - jsonlint
       - markdownlint
-      - check-config:
+      - check-ha-latest:
+          requires:
+            - yamllint
+            - jsonlint
+            - markdownlint
+      - check-ha-rc:
           requires:
             - yamllint
             - jsonlint
