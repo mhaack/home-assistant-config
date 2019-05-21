@@ -1,0 +1,9 @@
+---
+# Entity configuration for Amazon Alexa.
+#
+# I use this to customize how the device shows up in Amazon Alexa.
+#
+# https://www.nabucasa.com/config/amazon_alexa/
+#
+light.sonnendeck_positionslicht:
+  name: Schiffslicht
