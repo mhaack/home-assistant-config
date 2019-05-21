@@ -12,15 +12,15 @@ condition:
       entity_id: group.family
       state: "home"
     - condition: state
-      entity_id: switch.pool_schlurfi
+      entity_id: switch.sonnendeck_steckdosen
       state: "on"
     - condition: state
       entity_id: input_boolean.pool_schlurfi_notification
       state: "on"
     - condition: template
       value_template: >
-        {% if states.automation.send_alert_when_pool_cleaner_is_still_on.last_triggered is not none %}
-          {% if as_timestamp(now()) | int -  as_timestamp(states.automation.send_alert_when_pool_cleaner_is_still_on.attributes.last_triggered) | int > 1800 %}
+        {% if states.automation.pool_send_alert_when_pool_cleaner_is_still_on.last_triggered is not none %}
+          {% if as_timestamp(now()) | int -  as_timestamp(automation.pool_send_alert_when_pool_cleaner_is_still_on.attributes.last_triggered) | int > 1800 %}
           true
           {% else %}
           false
@@ -31,7 +31,7 @@ condition:
 action:
   - service: switch.turn_off
     data:
-      entity_id: switch.pool_schlurfi
+      entity_id: switch.sonnendeck_steckdosen
   - service: notify.pushover_markus
     data:
       title: "JaMa Villa"

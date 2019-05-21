@@ -3,18 +3,19 @@
 #
 alias: "[Notify] Send motion sensor notifications"
 trigger:
-  - platform: event
-    event_type: state_changed
+  - platform: state
+    entity_id:
+      - binary_sensor.bewegungsmelder_flur_eg_1_motion
+      - binary_sensor.bewegungsmelder_flur_og_motion
+      - binary_sensor.bewegungsmelder_wohnzimmer_motion
+    to: "on"
 condition:
   - condition: state
     entity_id: input_boolean.send_notification
     state: "on"
-  - condition: template
-    value_template: >
-      {{ trigger.event.data.entity_id in state_attr('group.motion_sensors','entity_id') }}
 action:
   service: notify.pushover_markus
   data_template:
     title: "JaMa Villa"
     message: >
-      Bewegung bei {{ trigger.event.data.new_state.name }} erkannt!
+      Bewegung bei {{ trigger.to_state.attributes.friendly_name }} erkannt!

@@ -6,4 +6,3 @@
 #
 sensor.sonnendeck_steckdosen_power:
   friendly_name: Leistung Steckdosen
-  icon: mdi:pool

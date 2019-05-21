@@ -6,4 +6,3 @@
 #
 sensor.pool_filterpumpe_power:
   friendly_name: Leistung Poolpumpe
-  icon: mdi:pool
