@@ -9,7 +9,7 @@ homekit:
 
   # Configuration for specific entities. Allows customization of names and types
   # These are imported from another folder, to decouple them from the packages.
-  # entity_config: !include_dir_merge_named ../assistant/siri
+  entity_config: !include_dir_merge_named ../assistants/siri
 
   # Filters for entities to be included / excluded from HomeKit.
   filter:
@@ -27,6 +27,7 @@ homekit:
       - light.baum_vorgarten
       - light.teichlicht
       - light.sonnendeck_led
+      - light.sonnendeck_positionslicht
       - light.pool_light
       - light.mia_lights
       - light.mia_sterne
@@ -53,8 +54,8 @@ homekit:
       - binary_sensor.tur_carport_state
 
       - switch.pool_filterpumpe
-      - switch.pool_schlurfi
       - switch.pumpe_zisterne
+      - switch.sonnendeck_steckdosen
       - switch.teich_blubber
       - switch.teich_wasserfall
 
