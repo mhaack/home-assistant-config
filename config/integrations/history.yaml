@@ -5,3 +5,37 @@
 # https://www.home-assistant.io/components/history/
 #
 history:
+  exclude:
+    domains:
+      - automation
+      - alert
+      - camera
+      - media_player
+      - sun
+      - group
+      - script
+      - scene
+      - updater
+      - weather
+      - weblink
+    entities:
+      - binary_sensor.hue_hub
+      - binary_sensor.arlo_hub
+      - binary_sensor.roomba
+      - binary_sensor.printer
+      - binary_sensor.landroid
+      - binary_sensor.core_router
+      - binary_sensor.core_switch
+      - binary_sensor.core_modem
+      - binary_sensor.core_ap_untergeschoss
+      - binary_sensor.core_ap_obergeschoss
+      - binary_sensor.unifi_controler
+      - binary_sensor.nas
+      - binary_sensor.fritzbox
+      - binary_sensor.remote_ui
+      - binary_sensor.workday_sensor
+      - sensor.season
+      - sensor.temperatursensor_pool_3_temperature
+      - sensor.temperatursensor_pool_4_temperature
+      - sensor.temperatursensor_solar_3_temperature
+      - sensor.temperatursensor_solar_4_temperature

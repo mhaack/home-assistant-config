@@ -24,6 +24,8 @@ recorder:
       - weather
       - weblink
     entities:
+      - binary_sensor.landroid
+      - binary_sensor.landroid_batterycharging
       - binary_sensor.workday_sensor
       - sensor.aarlo_arlo_cameras
       - sensor.aarlo_battery_level_carport
@@ -64,6 +66,11 @@ recorder:
       - sensor.dishwasher_machine_status
       - sensor.disk_free
       - sensor.disk_use_percent
+      - sensor.landroid_batterylevel
+      - sensor.landroid_error
+      - sensor.landroid_totalbladetime
+      - sensor.landroid_totaldistance
+      - sensor.landroid_totaltime
       - sensor.last_boot
       - sensor.memory_use_percent
       - sensor.memory_free
