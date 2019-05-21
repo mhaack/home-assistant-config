@@ -7,6 +7,8 @@
 [![GitHub Activity][commits-shield]][commits]
 [![GitHub Last Commit][last-commit-shield]][commits]
 
+[![Twitter][twitter-badge]][twitter]
+
 Here's our JaMa Villa Home Assistant configuration, running our home
 automations. [Home Assistant][home-assistant] (HA) is an open-source home
 automation platform which allows you to control devices easily, track multiple
@@ -39,3 +41,5 @@ The original setup of this repository is by [Franck Nijhof](https://github.com/f
 [commits]: https://github.com/mhaack/home-assistant-config/commits/master
 [commits-shield]: https://img.shields.io/github/commit-activity/m/mhaack/home-assistant-config.svg
 [last-commit-shield]: https://img.shields.io/github/last-commit/mhaack/home-assistant-config.svg
+[twitter]: http://twitter.com/mhaack
+[twitter-badge]: https://img.shields.io/twitter/follow/mhaack.svg?style=social
