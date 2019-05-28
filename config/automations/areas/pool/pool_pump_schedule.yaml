@@ -10,12 +10,12 @@ trigger:
   - platform: time
     at: "18:00:00"
   - platform: time
-    at: "23:00:00"
+    at: "01:00:00"
 action:
   - service: switch.turn_on
     data:
       entity_id: switch.pool_filterpumpe
-  - delay: "2:00"
+  - delay: "3:00"
   - service: switch.turn_off
     data:
       entity_id: switch.pool_filterpumpe
