@@ -4,6 +4,5 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-sensor.funksteckdose_spuli_energy_counter:
-  friendly_name: Stromverbrauch Spüli Gesamt
-  icon: mdi:flash
+sensor.daily_energy_dishwasher:
+  friendly_name: Stromverbrauch Spüli Heute

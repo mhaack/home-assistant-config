@@ -4,6 +4,5 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-sensor.funksteckdose_office_energy_counter:
-  friendly_name: Stromverbrauch Büro Gesamt
-  icon: mdi:flash
+sensor.daily_energy_office:
+  friendly_name: Stromverbrauch Büro Heute

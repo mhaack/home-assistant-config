@@ -76,38 +76,44 @@ cards:
                   - sensor.sonnendeck_steckdosen_energy_counter
                 show_header_toggle: false
                 title: Sonnendeck
-              - type: entities
-                entities:
-                  - switch.pool_filterpumpe
-                  - light.pool_light
-                  - sensor.pool_filterpumpe_power
-                  - sensor.pool_filterpumpe_energy_counter
-                show_header_toggle: false
-                title: Pool
-              - type: "custom:mini-graph-card"
-                entities:
-                  - sensor.temperatursensor_pool_1_temperature
-                hours_to_show: 168
-                points_per_hour: 0.25
-          - type: vertical-stack
-            cards:
-              - type: entities
-                entities:
-                  - switch.pumpe_zisterne
-                  - sensor.pumpe_zisterne_power
-                  - sensor.pumpe_zisterne_energy_counter
-                show_header_toggle: false
-                title: Zisterne
-              - type: horizontal-stack
+              - type: custom:vertical-stack-in-card
                 cards:
+                  - type: entities
+                    show_header_toggle: false
+                    entities:
+                      - switch.pool_filterpumpe
+                      - light.pool_light
+                      - sensor.pool_filterpumpe_power
+                      - sensor.daily_energy_pool
+                      - sensor.pool_filterpumpe_energy_counter
+                    title: Pool
                   - type: "custom:mini-graph-card"
                     entities:
-                      - sensor.watertank_liter
-                    line_color: "#4C9AD7"
+                      - sensor.temperatursensor_pool_1_temperature
                     hours_to_show: 168
                     points_per_hour: 0.25
-                  - type: gauge
-                    entity: sensor.watertank_percent
+          - type: vertical-stack
+            cards:
+              - type: custom:vertical-stack-in-card
+                cards:
+                  - type: entities
+                    entities:
+                      - switch.pumpe_zisterne
+                      - sensor.pumpe_zisterne_power
+                      - sensor.daily_energy_zisterne
+                      - sensor.pumpe_zisterne_energy_counter
+                    show_header_toggle: false
+                    title: Zisterne
+                  - type: horizontal-stack
+                    cards:
+                      - type: "custom:mini-graph-card"
+                        entities:
+                          - sensor.watertank_liter
+                        line_color: "#4C9AD7"
+                        hours_to_show: 168
+                        points_per_hour: 0.25
+                      - type: gauge
+                        entity: sensor.watertank_percent
               - type: conditional
                 conditions:
                   - entity: sensor.landroid_error

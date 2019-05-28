@@ -1,0 +1,8 @@
+---
+# Utility meter for the daily water tank power consumption
+#
+# https://www.home-assistant.io/components/utility_meter/
+#
+daily_energy_zisterne:
+  source: sensor.pumpe_zisterne_power
+  cycle: daily
