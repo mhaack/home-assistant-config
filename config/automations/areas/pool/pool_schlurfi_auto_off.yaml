@@ -1,7 +1,7 @@
 ---
 # Send notication if pool cleaner is outside late in the evening
 #
-alias: "[Pool] Send alert when pool cleaner is still on"
+alias: "[Pool] Switch off pool cleaner if still on"
 trigger:
   platform: time
   at: "22:00:00"
@@ -9,18 +9,15 @@ condition:
   condition: and
   conditions:
     - condition: state
-      entity_id: group.family
-      state: "home"
-    - condition: state
       entity_id: switch.sonnendeck_steckdosen
       state: "on"
     - condition: state
-      entity_id: input_boolean.pool_schlurfi_notification
+      entity_id: input_boolean.pool_notification
       state: "on"
     - condition: template
       value_template: >
-        {% if states.automation.pool_send_alert_when_pool_cleaner_is_still_on.last_triggered is not none %}
-          {% if as_timestamp(now()) | int -  as_timestamp(automation.pool_send_alert_when_pool_cleaner_is_still_on.attributes.last_triggered) | int > 1800 %}
+        {% if states.automation.pool_switch_off_pool_cleaner_if_still_on.last_triggered is not none %}
+          {% if as_timestamp(now()) | int -  as_timestamp(states.automation.pool_switch_off_pool_cleaner_if_still_on.attributes.last_triggered) | int > 1800 %}
           true
           {% else %}
           false
@@ -32,7 +29,7 @@ action:
   - service: switch.turn_off
     data:
       entity_id: switch.sonnendeck_steckdosen
-  - service: notify.pushover_markus
+  - service: notify.ios_iphone_von_markus
     data:
       title: "JaMa Villa"
       message: "Achtung! Schlürfi war noch an, nicht vergessen ihn rein zu räumen."
