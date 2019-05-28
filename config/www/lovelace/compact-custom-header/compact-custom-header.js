@@ -1,4 +1,4 @@
-import "./compact-custom-header-editor.js?v=1.0.4b4";
+import "./compact-custom-header-editor.js?v=1.0.4b8";
 
 export const LitElement = Object.getPrototypeOf(
   customElements.get("ha-panel-lovelace")
@@ -36,6 +36,9 @@ export const defaultConfig = {
   background: "",
   hide_tabs: [],
   show_tabs: [],
+  kiosk_mode: false,
+  sidebar_swipe: true,
+  sidebar_closed: false,
   tab_color: {},
   button_color: {}
 };
@@ -257,6 +260,7 @@ if (!customElements.get("compact-custom-header")) {
         if (this.cchConfig.swipe) {
           this.swipeNavigation(root, tabs, tabContainer, view);
         }
+        this.sidebarMod(buttons);
         if (!this.editMode) this.tabContainerMargin(buttons, tabContainer);
         fireEvent(this, "iron-resize");
       }
@@ -370,9 +374,11 @@ if (!customElements.get("compact-custom-header")) {
     }
 
     styleHeader(root, tabContainer, header, view, tabs) {
-      if (!this.cchConfig.header && !this.editMode) {
+      if (
+        (!this.cchConfig.header && !this.editMode) ||
+        this.cchConfig.kiosk_mode
+      ) {
         header.style.display = "none";
-        return;
       } else if (!this.editMode) {
         view.style.marginTop = "-48.5px";
         if (view.querySelector("hui-view")) {
@@ -609,6 +615,20 @@ if (!customElements.get("compact-custom-header")) {
       }
     }
 
+    sidebarMod(buttons) {
+      let menu = buttons.menu.querySelector("paper-icon-button");
+      let sidebar = document
+        .querySelector("home-assistant")
+        .shadowRoot.querySelector("home-assistant-main")
+        .shadowRoot.querySelector("app-drawer");
+      if (!this.cchConfig.sidebar_swipe || this.cchConfig.kiosk_mode) {
+        sidebar.removeAttribute("swipe-open");
+      }
+      if (this.cchConfig.sidebar_closed || this.cchConfig.kiosk_mode) {
+        if (sidebar.hasAttribute("opened")) menu.click();
+      }
+    }
+
     // Restore hidden tabs if config has changed.
     restoreTabs(tabs, hidden_tabs) {
       for (let i = 0; i < tabs.length; i++) {
@@ -621,10 +641,14 @@ if (!customElements.get("compact-custom-header")) {
 
     hideTabs(tabContainer, tabs) {
       let hidden_tabs = String(this.cchConfig.hide_tabs).length
-        ? String(this.cchConfig.hide_tabs).replace(/\s+/g, "").split(",")
+        ? String(this.cchConfig.hide_tabs)
+            .replace(/\s+/g, "")
+            .split(",")
         : null;
       let shown_tabs = String(this.cchConfig.show_tabs).length
-        ? String(this.cchConfig.show_tabs).replace(/\s+/g, "").split(",")
+        ? String(this.cchConfig.show_tabs)
+            .replace(/\s+/g, "")
+            .split(",")
         : null;
 
       // Set the tab config source.
@@ -1106,11 +1130,12 @@ if (!customElements.get("compact-custom-header")) {
       });
 
       function handleTouchStart(event) {
-        if (typeof event.path == "object") {
-          for (let element of event.path) {
-            if (element.nodeName == "SWIPE-CARD") return;
-            else if (element.nodeName == "APP-HEADER") return;
-            else if (element.nodeName == "HUI-VIEW") break;
+        let ignored = ["APP-HEADER", "HA-SLIDER", "SWIPE-CARD"];
+        let path = (event.composedPath && event.composedPath()) || event.path;
+        if (path) {
+          for (let element of path) {
+            if (element.nodeName == "HUI-VIEW") break;
+            else if (ignored.indexOf(element.nodeName) > -1) return;
           }
         }
         xDown = event.touches[0].clientX;
@@ -1156,6 +1181,12 @@ if (!customElements.get("compact-custom-header")) {
       }
 
       function click(index) {
+        if (
+          (activeTab == 0 && !wrap && left) ||
+          (activeTab == tabs.length - 1 && !wrap && !left)
+        ) {
+          return;
+        }
         if (animate == "swipe") {
           let _in = left
             ? `${screen.width / 1.5}px`
@@ -1165,22 +1196,22 @@ if (!customElements.get("compact-custom-header")) {
             : `${screen.width / 1.5}px`;
           view.style.transitionDuration = "200ms";
           view.style.opacity = 0;
-          view.style.transform = `translate3d(${_in}, 0px, 0px)`;
-          view.style.transition = "transform 0.20s, opacity 0.18s";
+          view.style.transform = `translateX(${_in})`;
+          view.style.transition = "transform 0.20s, opacity 0.20s";
           setTimeout(function() {
             tabs[index].dispatchEvent(
               new MouseEvent("click", { bubbles: false, cancelable: true })
             );
             view.style.transitionDuration = "0ms";
-            view.style.transform = `translate3d(${_out}, 0px, 0px)`;
+            view.style.transform = `translateX(${_out})`;
             view.style.transition = "transform 0s";
           }, 210);
           setTimeout(function() {
             view.style.transitionDuration = "200ms";
             view.style.opacity = 1;
-            view.style.transform = `translate3d(0px, 0px, 0px)`;
-            view.style.transition = "transform 0.20s, opacity 0.18s";
-          }, 250);
+            view.style.transform = `translateX(0px)`;
+            view.style.transition = "transform 0.20s, opacity 0.20s";
+          }, 215);
         } else if (animate == "fade") {
           view.style.transitionDuration = "200ms";
           view.style.transition = "opacity 0.20s";
