@@ -4,6 +4,5 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-sensor.pumpe_zisterne_energy_counter:
-  friendly_name: Stromverbrauch Zisterne Gesamt
-  icon: mdi:flash
+sensor.daily_energy_pool:
+  friendly_name: Stromverbrauch Poolpumpe Heute

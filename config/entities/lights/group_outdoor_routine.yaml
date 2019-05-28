@@ -9,3 +9,4 @@ entities:
   - light.baum_garten
   - light.baum_vorgarten
   - light.teichlicht
+  - light.sonnendeck_positionslicht

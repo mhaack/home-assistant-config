@@ -97,6 +97,13 @@ cards:
               source: true
               power_state: false
           - type: 'custom:mini-media-player'
+            entity: media_player.esszimmer
+            artwork: cover
+            hide:
+              volume: true
+              source: true
+              power_state: false
+          - type: 'custom:mini-media-player'
             entity: media_player.wohnzimmer
             artwork: cover
             hide:
@@ -108,6 +115,7 @@ cards:
               - switch.funksteckdose_office
               - binary_sensor.office_status
               - sensor.funksteckdose_office_power
+              - sensor.daily_energy_office
               - sensor.funksteckdose_office_energy_counter
             show_header_toggle: false
             title: Büro Markus
@@ -116,6 +124,7 @@ cards:
               - switch.funksteckdose_spuli
               - sensor.dishwasher_machine_status
               - sensor.funksteckdose_spuli_power
+              - sensor.daily_energy_dishwasher
               - sensor.funksteckdose_spuli_energy_counter
             show_header_toggle: false
             title: Spülmaschine
