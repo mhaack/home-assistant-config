@@ -24,6 +24,7 @@ cards:
       - input_boolean.office_notification
       - input_boolean.dishwasher_notification
       - input_boolean.pool_notification
+      - input_boolean.bench_notification
     title: Benachrichtigungen
   - type: entities
     entities:

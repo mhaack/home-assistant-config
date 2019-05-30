@@ -1,0 +1,9 @@
+---
+# Control the garden bench notifications for the attached
+# vibration sensors.
+#
+# https://www.home-assistant.io/components/input_boolean/
+#
+bench_notification:
+  name: Benachrichtigen Gartenbank
+  icon: mdi:vibrate

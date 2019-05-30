@@ -34,6 +34,15 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      title: Garden Automations
+    filter:
+      include:
+        - entity_id: "automation.garden*"
+        - entity_id: "automation.watertank*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
       title: Pool Automations
     filter:
       include:
@@ -79,6 +88,8 @@ cards:
       include:
         - domain: automation
       exclude:
+        - entity_id: "automation.garden*"
+        - entity_id: "automation.watertank*"
         - entity_id: "automation.system*"
         - entity_id: "automation.appliances*"
         - entity_id: "automation.pond*"
