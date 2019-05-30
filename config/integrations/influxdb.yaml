@@ -23,6 +23,8 @@ influxdb:
       - sensor.temperature_garden
       - sensor.temperature_equipmentroom
       - sensor.temperature_livingroom
+      - sensor.schlafzimmer
+      - sensor.schlafzimmer_2
       - sensor.humidity_equipmentroom
       - sensor.humidity_garden
       - sensor.humidity_livingroom
@@ -30,8 +32,8 @@ influxdb:
       - sensor.funksteckdose_spuli_power
       # - sensor.funksteckdose_aquarium_power
       - sensor.pool_filterpumpe_power
-      - sensor.pool_power
       - sensor.sonnendeck_steckdosen_power
+      - sensor.sonnendeck_led_power
       - sensor.pumpe_zisterne_power
       - sensor.watertank_liter
       - sensor.speedtest_ping
