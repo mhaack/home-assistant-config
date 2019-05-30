@@ -1,7 +1,7 @@
 ---
 # Garden bench movement notification routine - on
 #
-alias: "[Garden] Turn on bench alarm and notification"
+alias: "[Garden] Bench alarm and notification on at 22:00"
 trigger:
   - platform: time
     at: "22:00:00"

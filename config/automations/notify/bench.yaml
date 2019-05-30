@@ -2,7 +2,7 @@
 # Garden bench movement notification. The bench should not be moved,
 # especially not in the night or if we are not at home.
 #
-alias: "[Garden] Bench movement notification"
+alias: "[Notify] Bench movement notification"
 trigger:
   - platform: state
     entity_id: binary_sensor.gartenbank

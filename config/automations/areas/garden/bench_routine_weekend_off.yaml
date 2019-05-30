@@ -1,7 +1,7 @@
 ---
 # Garden bench movement notification routine - off on weekends
 #
-alias: "[Garden] Turn off bench alarm and notification on weekends"
+alias: "[Garden] Bench alarm and notification off at 9:00 on weekends"
 trigger:
   - platform: time
     at: "9:00:00"
