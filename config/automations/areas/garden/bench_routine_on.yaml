@@ -1,0 +1,11 @@
+---
+# Garden bench movement notification routine - on
+#
+alias: "[Garden] Turn on bench alarm and notification"
+trigger:
+  - platform: time
+    at: "22:00:00"
+action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.bench_notification

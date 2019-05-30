@@ -1,0 +1,23 @@
+---
+# Garden bench movement notification. The bench should not be moved,
+# especially not in the night or if we are not at home.
+#
+alias: "[Garden] Bench movement notification"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.gartenbank
+    to: "on"
+condition:
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.send_notification
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.bench_notification
+        state: "on"
+action:
+  - service: notify.jama_group
+    data:
+      title: "JaMa Villa"
+      message: "Bank hat sich bewegt - was ist hier los?"

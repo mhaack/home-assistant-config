@@ -94,6 +94,13 @@ cards:
                     points_per_hour: 0.25
           - type: vertical-stack
             cards:
+              - type: entities
+                entities:
+                  - binary_sensor.gartenbank
+                  - entity: input_boolean.bench_notification
+                    name: Benachrichtigen
+                show_header_toggle: false
+                title: Gartenbank
               - type: custom:vertical-stack-in-card
                 cards:
                   - type: entities
