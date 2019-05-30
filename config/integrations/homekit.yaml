@@ -20,7 +20,6 @@ homekit:
       - light.stehlampe
       - light.tv_wand
       - light.hallway_lights
-      - light.volvolicht
       - light.terrassenlicht
       - light.terrassenlounge
       - light.baum_garten
@@ -38,9 +37,11 @@ homekit:
       - sensor.temperature_garden
       - sensor.temperature_equipmentroom
       - sensor.temperature_livingroom
+      - sensor.schlafzimmer
       - sensor.humidity_equipmentroom
       - sensor.humidity_garden
       - sensor.humidity_livingroom
+      - sensor.schlafzimmer_2
 
       - binary_sensor.fenster_arbeitszimmer_state
       - binary_sensor.fenster_essbereiclsh_state

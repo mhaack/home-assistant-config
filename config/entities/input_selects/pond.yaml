@@ -9,5 +9,4 @@ pond_mode:
     - Automatik
     - Nur Blubber
     - Nur Wasserfall
-  initial: Nur Blubber
   icon: mdi:waves
