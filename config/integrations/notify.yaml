@@ -1,11 +1,8 @@
 ---
-# The Pushover service is a platform for the notify component.
-# This allows components to send messages to the user using Pushover.
+# The notify component makes it possible to send notifications to a wide
+# variety of platforms. Please check the sidebar for a full list of platforms
+# that are supported.
 #
-# https://www.home-assistant.io/components/pushover/
+# https://www.home-assistant.io/components/notify/
 #
-notify:
-  - name: Pushover Markus
-    platform: pushover
-    api_key: !secret pushover_api_key
-    user_key: !secret pushover_user_key
+notify: !include_dir_list ../entities/notify
