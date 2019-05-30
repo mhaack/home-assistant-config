@@ -58,6 +58,8 @@ cards:
               - entity: sensor.temperature_equipmentroom
                 name: Technikraum
                 show_state: true
+              - entity: sensor.schlafzimmer
+                show_state: true
           - type: 'custom:mini-graph-card'
             name: Luftfeuchtigkeit
             decimals: 1
@@ -69,7 +71,20 @@ cards:
               - entity: sensor.humidity_equipmentroom
                 name: Technikraum
                 show_state: true
+              - entity: sensor.schlafzimmer_2
+                show_state: true
             unit: '%'
+          - type: horizontal-stack
+            cards:
+              - type: "custom:mini-graph-card"
+                name: Kühlschranktemperatur
+                entities:
+                  - sensor.kuhlschrank
+              - type: "custom:mini-graph-card"
+                name: Luftfeuchtigkeit Kühlschrank
+                line_color: "#4C9AD7"
+                entities:
+                  - sensor.kuhlschrank_2
           - break
           - type: entities
             entities:

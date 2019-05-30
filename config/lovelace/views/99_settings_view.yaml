@@ -48,6 +48,7 @@ cards:
   - type: entities
     title: Anwesenheit
     entities:
+      - group.family
       - type: custom:fold-entity-row
         head: person.markus
         open: true
