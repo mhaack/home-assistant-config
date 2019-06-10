@@ -59,6 +59,7 @@ cards:
                 name: Technikraum
                 show_state: true
               - entity: sensor.schlafzimmer
+                name: Schlafzimmer
                 show_state: true
           - type: 'custom:mini-graph-card'
             name: Luftfeuchtigkeit
@@ -72,6 +73,7 @@ cards:
                 name: Technikraum
                 show_state: true
               - entity: sensor.schlafzimmer_2
+                name: Schlafzimmer
                 show_state: true
             unit: '%'
           - type: horizontal-stack

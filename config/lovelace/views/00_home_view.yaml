@@ -191,6 +191,9 @@ cards:
               - entity: sensor.temperature_livingroom
                 name: Wohnzimmer
                 show_state: true
+              - entity: sensor.schlafzimmer
+                name: Schlafzimmer
+                show_state: true
               - entity: sensor.temperature_equipmentroom
                 name: Technikraum
                 show_state: true

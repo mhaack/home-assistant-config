@@ -28,12 +28,6 @@ cards:
     title: Benachrichtigungen
   - type: entities
     entities:
-      - automation.battery_alert
-      - automation.battery_alert_clear
-    show_header_toggle: false
-    title: Check Device Batteries
-  - type: entities
-    entities:
       - binary_sensor.sensor_error
       - automation.sensor_error
       - automation.sensor_error_clear
