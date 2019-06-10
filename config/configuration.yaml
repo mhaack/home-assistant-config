@@ -5,7 +5,7 @@
 # and contains some minimal, but vital, settings.
 #
 homeassistant:
-  name: JaMA Villa
+  name: JaMa Villa
 
   latitude: !secret lat_coord
   longitude: !secret long_coord
