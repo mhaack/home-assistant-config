@@ -10,3 +10,12 @@ action:
   - service: mqtt.publish
     data:
       topic: cmnd/sonoffs/power
+  - service: mqtt.publish
+    data:
+      topic: cmnd/sonoffs/power1
+  - service: mqtt.publish
+    data:
+      topic: cmnd/sonoffs/power2
+  - service: mqtt.publish
+    data:
+      topic: cmnd/sonoffs/power3
