@@ -2,7 +2,7 @@
 #
 # Clear the devide battery alert if batteries are ok
 #
-alias: battery_alert_clear
+alias: "[Appliances] Low battery alert clear"
 trigger:
   - platform: time_pattern
     minutes: "/30"

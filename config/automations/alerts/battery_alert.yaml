@@ -2,7 +2,7 @@
 #
 # Regularly check the wireless devide battery states and send alert if batteries are low
 #
-alias: battery_alert
+alias: "[Appliances] Low battery alert"
 trigger:
   - platform: time
     at: "10:00:00"
