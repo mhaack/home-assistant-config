@@ -5,8 +5,8 @@
 #
 platform: mqtt
 name: "Terrassenlicht"
-command_topic: cmnd/sonoff-terrassenlicht/POWER
-state_topic: stat/sonoff-terrassenlicht/POWER1
-availability_topic: tele/sonoff-terrassenlicht/LWT
+command_topic: cmnd/sonoff-garten/POWER1
+state_topic: stat/sonoff-garten/POWER1
+availability_topic: tele/sonoff-garten/LWT
 payload_available: Online
 payload_not_available: Offline

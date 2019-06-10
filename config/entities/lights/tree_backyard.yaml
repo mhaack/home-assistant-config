@@ -5,8 +5,8 @@
 #
 platform: mqtt
 name: "Baum Garten"
-command_topic: cmnd/sonoff-garten-baum/POWER
-state_topic: stat/sonoff-garten-baum/POWER1
-availability_topic: tele/sonoff-garten-baum/LWT
+command_topic: cmnd/sonoff-garten/POWER2
+state_topic: stat/sonoff-garten/POWER2
+availability_topic: tele/sonoff-garten/LWT
 payload_available: Online
 payload_not_available: Offline
