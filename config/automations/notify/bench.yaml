@@ -21,3 +21,13 @@ action:
     data:
       title: "JaMa Villa"
       message: "Bank hat sich bewegt - was ist hier los?"
+  - service: camera.aarlo_request_snapshot
+    data:
+      entity_id: camera.aarlo_carport
+  - service: switch.turn_on
+    data:
+      entity_id: switch.sirene_carport_3
+  - delay: '00:03:00'
+  - service: switch.turn_off
+    data:
+      entity_id: switch.sirene_carport_3
