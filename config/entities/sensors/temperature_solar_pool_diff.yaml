@@ -1,0 +1,15 @@
+---
+# Solar / pool temperature difference sensor
+#
+platform: template
+sensors:
+  temperature_solar_pool_diff:
+    entity_id:
+      - sensor.temperature_solar
+      - sensor.temperatursensor_pool_1_temperature
+    value_template: >-
+      {{(states.sensor.temperature_solar.state |float -
+         states.sensor.temperatursensor_pool_1_temperature.state |float) | round(1)}}
+    friendly_name: Temperaturdifferenz Solar / Pool
+    unit_of_measurement: "°C"
+    device_class: temperature
