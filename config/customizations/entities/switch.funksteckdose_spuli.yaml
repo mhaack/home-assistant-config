@@ -1,0 +1,9 @@
+---
+#
+# Customizes sensors & switches in the dishwasher
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+switch.funksteckdose_spuli:
+  friendly_name: Spühlmaschine
+  icon: mdi:dishwasher
