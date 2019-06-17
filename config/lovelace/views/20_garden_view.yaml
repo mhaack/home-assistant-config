@@ -82,7 +82,6 @@ cards:
                       - sensor.temperatursensor_solar_1_temperature
                       - sensor.temperatursensor_solar_2_temperature
                       - sensor.temperature_solar_pool_diff
-                    # title: Pooltemperatur
               - type: conditional
                 conditions:
                   - entity: timer.pool_pump

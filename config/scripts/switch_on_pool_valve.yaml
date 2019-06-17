@@ -1,8 +1,8 @@
 ---
 # Pool valve on script to control both Homematic switches.
-# 
+#
 # on = water via solar
-# off = water direct 
+# off = water direct
 #
 switch_on_pool_valve:
   sequence:

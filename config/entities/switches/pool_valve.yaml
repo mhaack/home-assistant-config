@@ -11,7 +11,7 @@ switches:
     turn_on:
       service: script.turn_on
       data:
-        entity_id:  script.switch_on_pool_valve
+        entity_id: script.switch_on_pool_valve
     turn_off:
       service: script.turn_on
       data:
