@@ -5,4 +5,5 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 switch.teich_blubber:
+  friendly_name: Teich Blubber
   icon: mdi:waves

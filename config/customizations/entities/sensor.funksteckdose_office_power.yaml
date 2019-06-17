@@ -5,4 +5,4 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 sensor.funksteckdose_office_power:
-  friendly_name: Leistung
+  friendly_name: Leistungsaufnahme

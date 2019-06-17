@@ -6,13 +6,13 @@ trigger:
   - platform: event
     event_type: homematic.keypress
     event_data:
-      name: Funksender
+      name: NEQ0391437
       channel: 1
       param: PRESS_SHORT
   - platform: event
     event_type: homematic.keypress
     event_data:
-      name: Status Schalter Flur EG
+      name: NEQ0711284
       channel: 2
       param: PRESS_SHORT
 action:

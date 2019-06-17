@@ -7,7 +7,9 @@ homematic:
   interfaces:
     wireless:
       host: !secret homematic
-      resolvenames: metadata
-  hosts:
-    ccu2:
+      resolvenames: json
+    rf:
+      host: !secret homematic
+      resolvenames: json
+    ip:
       host: !secret homematic
