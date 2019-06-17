@@ -6,7 +6,7 @@ trigger:
   - platform: event
     event_type: homematic.keypress
     event_data:
-      name: Status Schalter Flur EG
+      name: NEQ0711284
       channel: 1
       param: PRESS_LONG
 action:
