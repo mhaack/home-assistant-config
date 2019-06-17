@@ -1,0 +1,8 @@
+---
+#
+# Customizes sensors & switches in the garden for pool, pond, watertank, etc.
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.temperature_solar:
+  icon: mdi:oil-temperature

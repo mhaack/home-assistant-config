@@ -1,0 +1,26 @@
+---
+# Pool valve off script to control both Homematic switches.
+# 
+# on = water via solar
+# off = water direct 
+#
+switch_off_pool_valve:
+  sequence:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.garten_multi_1
+    - service: switch.turn_off
+      data:
+        entity_id: switch.garten_multi_2
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.pool_valve_mode
+        option: "Pool"
+    - delay: "00:00:01"
+    - service: switch.turn_on
+      data:
+        entity_id: switch.garten_multi_2
+    - delay: "00:00:30"
+    - service: switch.turn_off
+      data:
+        entity_id: switch.garten_multi_2

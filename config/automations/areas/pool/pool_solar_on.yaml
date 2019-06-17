@@ -1,0 +1,25 @@
+---
+# Switch on/off pool pump and solar valve based on the temperature different
+# of pool water and solar ripps on the carport roof
+#
+alias: "[Pool] Pool solar heating - on"
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.temperature_solar_pool_diff
+    above: 20
+    for:
+      minutes: 1
+condition:
+  - condition: state
+    entity_id: switch.pool_valve
+    state: "off"
+action:
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa"
+      message: >
+        Pool Control - solar heating = on
+  - service: switch.turn_on
+    entity_id: switch.pool_valve
+  - service: switch.turn_on
+    entity_id: switch.pool_filterpumpe

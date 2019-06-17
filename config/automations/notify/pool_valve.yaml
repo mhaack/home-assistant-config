@@ -1,0 +1,24 @@
+---
+# Pool valve state change notification
+#
+alias: "[Notify] Pool valve state change notifications"
+trigger:
+  - platform: state
+    entity_id:
+      - script.switch_off_pool_valve
+      - script.switch_on_pool_valve
+    to: "on"
+# condition:
+#   - condition: state
+#     entity_id: input_boolean.send_notification
+#     state: "on"
+action:
+  service: notify.pushover_markus
+  data_template:
+    title: "JaMa Villa"
+    message: >
+      Pool Ventil Controll {{ trigger.to_state.attributes.friendly_name }}:
+      Pooltemp: {{states.sensor.temperatursensor_pool_1_temperature.state}},
+      Solartemp: {{states.sensor.temperature_solar.state}},
+      Tempdiff: {{states.sensor.temperature_solar_pool_diff.state}},
+      Poolpumpe: {{states.switch.pool_filterpumpe.state}}
