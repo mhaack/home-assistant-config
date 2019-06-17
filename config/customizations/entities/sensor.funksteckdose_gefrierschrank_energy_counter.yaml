@@ -1,0 +1,9 @@
+---
+#
+# Customizes sensors of the freezer
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.funksteckdose_gefrierschrank_energy_counter:
+  friendly_name: Stromverbrauch Gefrierschrank Gesamt
+  icon: mdi:flash

@@ -128,7 +128,8 @@ cards:
               source: true
               power_state: false
           - break
-          - entities:
+          - type: entities
+            entities:
               - switch.funksteckdose_office
               - binary_sensor.office_status
               - sensor.funksteckdose_office_power
@@ -136,8 +137,8 @@ cards:
               - sensor.funksteckdose_office_energy_counter
             show_header_toggle: false
             title: Büro Markus
-            type: entities
-          - entities:
+          - type: entities
+            entities:
               - switch.funksteckdose_spuli
               - sensor.dishwasher_machine_status
               - sensor.funksteckdose_spuli_power
@@ -145,7 +146,14 @@ cards:
               - sensor.funksteckdose_spuli_energy_counter
             show_header_toggle: false
             title: Spülmaschine
-            type: entities
+          - type: entities
+            entities:
+              - switch.funksteckdose_gefrierschrank
+              - sensor.funksteckdose_gefrierschrank_power
+              - sensor.daily_energy_freezer
+              - sensor.funksteckdose_gefrierschrank_energy_counter
+            show_header_toggle: false
+            title: Gefrierschrank
           - type: entities
             entities:
               - vacuum.roomba
