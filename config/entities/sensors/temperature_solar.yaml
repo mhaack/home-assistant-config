@@ -1,0 +1,15 @@
+---
+# Aggregated pool solar temperature sensor
+#
+platform: template
+sensors:
+  temperature_solar:
+    entity_id:
+      - sensor.temperatursensor_solar_1_temperature
+      - sensor.temperatursensor_solar_2_temperature
+    value_template: >-
+      {{((states.sensor.temperatursensor_solar_1_temperature.state |float +
+         states.sensor.temperatursensor_solar_2_temperature.state |float) / 2) | round(1)}}
+    friendly_name: Solar Temperatur
+    unit_of_measurement: "°C"
+    device_class: temperature

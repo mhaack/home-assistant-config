@@ -1,0 +1,8 @@
+---
+# Pool pump timer
+#
+# https://www.home-assistant.io/components/timer/
+#
+pool_pump:
+  name: "Poolpumpen Timer"
+  duration: "03:00:00"

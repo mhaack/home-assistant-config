@@ -1,0 +1,18 @@
+---
+# Pool water controll valve via 2 Homematic switches
+#
+# https://www.home-assistant.io/components/switch.template/
+#
+platform: template
+switches:
+  pool_valve:
+    friendly_name: "Solarventil"
+    value_template: "{{ is_state('input_select.pool_valve_mode', 'Solar') }}"
+    turn_on:
+      service: script.turn_on
+      data:
+        entity_id: script.switch_on_pool_valve
+    turn_off:
+      service: script.turn_on
+      data:
+        entity_id: script.switch_off_pool_valve

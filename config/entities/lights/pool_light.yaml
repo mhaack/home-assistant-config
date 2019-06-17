@@ -5,4 +5,4 @@
 #
 platform: switch
 name: pool_light
-entity_id: switch.poollicht
+entity_id: switch.pool_light

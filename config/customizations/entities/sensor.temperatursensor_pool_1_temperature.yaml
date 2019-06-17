@@ -6,4 +6,4 @@
 #
 sensor.temperatursensor_pool_1_temperature:
   friendly_name: Pool Temperatur
-  icon: mdi:pool
+  icon: mdi:oil-temperature

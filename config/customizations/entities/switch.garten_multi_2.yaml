@@ -4,6 +4,5 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-sensor.temperatursensor_pool_2_temperature:
-  friendly_name: Pool Temperatur
-  icon: mdi:oil-temperature
+switch.garten_multi_2:
+  friendly_name: Ventilstellung Pool
