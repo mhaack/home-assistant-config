@@ -5,4 +5,5 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 switch.funksteckdose_office:
+  friendly_name: Büro Markus
   icon: mdi:office-building

@@ -5,4 +5,5 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 switch.sonnendeck_steckdosen:
+  friendly_name: Sonnendeck Steckdosen
   icon: mdi:power-plug
