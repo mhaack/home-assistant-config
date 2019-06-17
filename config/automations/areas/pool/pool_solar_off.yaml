@@ -10,7 +10,7 @@ trigger:
 condition:
   - condition: state
     entity_id: switch.pool_valve
-    state: "on"  
+    state: "on"
 action:
   - service: notify.pushover_markus
     data_template:
