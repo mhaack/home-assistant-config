@@ -82,11 +82,13 @@ cards:
                 name: Kühlschranktemperatur
                 entities:
                   - sensor.kuhlschrank
+                hour24: true
               - type: "custom:mini-graph-card"
                 name: Luftfeuchtigkeit Kühlschrank
                 line_color: "#4C9AD7"
                 entities:
                   - sensor.kuhlschrank_2
+                hour24: true
           - break
           - type: entities
             entities:

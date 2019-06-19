@@ -50,6 +50,7 @@ cards:
                 name: Garten Temperatur (24h)
                 entities:
                   - sensor.temperature_garden
+                hour24: true
               - type: horizontal-stack
                 cards:
                   - type: "custom:mini-graph-card"
@@ -58,6 +59,7 @@ cards:
                       - sensor.temperature_garden
                     hours_to_show: 168
                     points_per_hour: 0.25
+                    hour24: true
                   - type: "custom:mini-graph-card"
                     name: Luftfeuchtigkeit Garten (7d)
                     line_color: "#4C9AD7"
@@ -65,6 +67,7 @@ cards:
                       - sensor.humidity_garden
                     hours_to_show: 168
                     points_per_hour: 0.25
+                    hour24: true
           - type: vertical-stack
             cards:
               - type: custom:vertical-stack-in-card
@@ -74,14 +77,19 @@ cards:
                       - sensor.temperatursensor_pool_1_temperature
                     hours_to_show: 168
                     points_per_hour: 0.25
+                    hour24: true
                   - type: entities
                     show_header_toggle: false
                     entities:
                       - sensor.temperatursensor_pool_1_temperature
-                      - sensor.temperature_solar
-                      - sensor.temperatursensor_solar_1_temperature
-                      - sensor.temperatursensor_solar_2_temperature
                       - sensor.temperature_solar_pool_diff
+                      - type: custom:fold-entity-row
+                        head: sensor.temperature_solar
+                        items:
+                          - sensor.temperatursensor_solar_1_temperature
+                          - sensor.temperatursensor_solar_2_temperature
+                        group_config:
+                          secondary_info: last-changed
               - type: conditional
                 conditions:
                   - entity: timer.pool_pump
@@ -165,8 +173,11 @@ cards:
                         entities:
                           - sensor.watertank_liter
                         line_color: "#4C9AD7"
-                        hours_to_show: 168
-                        points_per_hour: 0.25
+                        decimals: 0
+                        hour24: true
+                        show:
+                          name: false
+                          icon: false
                       - type: gauge
                         entity: sensor.watertank_percent
               - type: conditional
