@@ -6,7 +6,7 @@
 #
 recorder:
   # The number of days of history to keep in the recorder database
-  purge_keep_days: 3
+  purge_keep_days: 7
 
   # How often (in days) the purge task runs
   purge_interval: 1
@@ -78,3 +78,6 @@ recorder:
       - sensor.version_available
       - sensor.version_current
       - sun.sun
+
+
+              
