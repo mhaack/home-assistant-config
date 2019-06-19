@@ -18,27 +18,33 @@ influxdb:
   # use whitelist which metrics are pushed to InfluxDB
   include:
     entities:
-      - sensor.temperatursensor_pool_1_temperature
-      - sensor.temperatursensor_pool_2_temperature
-      - sensor.temperature_garden
-      - sensor.temperature_equipmentroom
-      - sensor.temperature_livingroom
-      - sensor.schlafzimmer
-      - sensor.schlafzimmer_2
+      - sensor.funksteckdose_aquarium_power
+      - sensor.funksteckdose_gefrierschrank_power
+      - sensor.funksteckdose_office_power
+      - sensor.funksteckdose_spuli_power
+      - sensor.humidity_bathroom
+      - sensor.humidity_bedroom
       - sensor.humidity_equipmentroom
       - sensor.humidity_garden
       - sensor.humidity_livingroom
-      - sensor.funksteckdose_office_power
-      - sensor.funksteckdose_spuli_power
-      # - sensor.funksteckdose_aquarium_power
+      - sensor.humidity_mia
       - sensor.pool_filterpumpe_power
-      - sensor.sonnendeck_steckdosen_power
-      - sensor.sonnendeck_led_power
       - sensor.pumpe_zisterne_power
-      - sensor.watertank_liter
-      - sensor.speedtest_ping
+      - sensor.sonnendeck_led_power
+      - sensor.sonnendeck_steckdosen_power
       - sensor.speedtest_download
+      - sensor.speedtest_ping
       - sensor.speedtest_upload
+      - sensor.temperature_bathroom
+      - sensor.temperature_bedroom
+      - sensor.temperature_equipmentroom
+      - sensor.temperature_garden
+      - sensor.temperature_livingroom
+      - sensor.temperature_mia
+      - sensor.temperatursensor_pool_1_temperature
+      - sensor.temperatursensor_pool_2_temperature
+      - sensor.temperatursensor_solar_1_temperature
+      - sensor.watertank_liter
   tags:
     instance: prod
     source: hass

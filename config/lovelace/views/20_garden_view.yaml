@@ -47,21 +47,21 @@ cards:
                 title: Außenbeleuchtung
                 show_state: false
               - type: "custom:mini-graph-card"
-                name: Garten Temperatur (24h)
+                name: Garten (24h)
                 entities:
                   - sensor.temperature_garden
                 hour24: true
               - type: horizontal-stack
                 cards:
                   - type: "custom:mini-graph-card"
-                    name: Garten Temperatur (7d)
+                    name: Garten (7d)
                     entities:
                       - sensor.temperature_garden
                     hours_to_show: 168
                     points_per_hour: 0.25
                     hour24: true
                   - type: "custom:mini-graph-card"
-                    name: Luftfeuchtigkeit Garten (7d)
+                    name: Luftfeuchtigkeit (7d)
                     line_color: "#4C9AD7"
                     entities:
                       - sensor.humidity_garden
