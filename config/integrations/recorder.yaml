@@ -78,6 +78,3 @@ recorder:
       - sensor.version_available
       - sensor.version_current
       - sun.sun
-
-
-              
