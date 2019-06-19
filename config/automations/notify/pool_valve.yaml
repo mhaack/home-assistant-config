@@ -8,10 +8,10 @@ trigger:
       - script.switch_off_pool_valve
       - script.switch_on_pool_valve
     to: "on"
-# condition:
-#   - condition: state
-#     entity_id: input_boolean.send_notification
-#     state: "on"
+condition:
+  - condition: state
+    entity_id: input_boolean.pool_notification
+    state: "on"
 action:
   service: notify.pushover_markus
   data_template:
