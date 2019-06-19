@@ -12,11 +12,6 @@ condition:
     entity_id: switch.pool_valve
     state: "on"
 action:
-  - service: notify.pushover_markus
-    data_template:
-      title: "JaMa Villa"
-      message: >
-        Pool Control - solar heating = off
   - service: switch.turn_off
     entity_id: switch.pool_valve
   - condition: state
