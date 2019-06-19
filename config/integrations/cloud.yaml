@@ -14,34 +14,38 @@ cloud:
     # These are loaded from a separate directory.
     filter:
       include_entities:
-        - light.esstisch
-        - light.kuche
-        - light.schlafzimmer
-        - light.stehlampe
-        - light.tv_wand
-        - light.hallway_lights
-        - light.terrassenlicht
-        - light.terrassenlounge
         - light.baum_garten
         - light.baum_vorgarten
-        - light.teichlicht
-        - light.sonnendeck_led
-        - light.sonnendeck_positionslicht
-        - light.pool_light
+        - light.esstisch
+        - light.hallway_lights
+        - light.kuche
+        - light.mia_bett
         - light.mia_lights
         - light.mia_sterne
-        - light.mia_bett
+        - light.pool_light
+        - light.schlafzimmer
+        - light.sonnendeck_led
+        - light.sonnendeck_positionslicht
+        - light.stehlampe
+        - light.teichlicht
+        - light.terrassenlicht
+        - light.terrassenlounge
+        - light.tv_wand
 
-        - sensor.temperatursensor_pool_1_temperature
-        - sensor.temperatursensor_solar_1_temperature
-        - sensor.temperature_garden
-        - sensor.temperature_equipmentroom
-        - sensor.temperature_livingroom
-        - sensor.schlafzimmer
+        - sensor.humidity_bathroom
+        - sensor.humidity_bedroom
         - sensor.humidity_equipmentroom
         - sensor.humidity_garden
         - sensor.humidity_livingroom
-        - sensor.schlafzimmer_2
+        - sensor.humidity_mia
+        - sensor.temperature_bathroom
+        - sensor.temperature_bedroom
+        - sensor.temperature_equipmentroom
+        - sensor.temperature_garden
+        - sensor.temperature_livingroom
+        - sensor.temperature_mia
+        - sensor.temperatursensor_pool_1_temperature
+        - sensor.temperatursensor_solar_1_temperature
 
         - binary_sensor.fenster_arbeitszimmer_state
         - binary_sensor.fenster_essbereiclsh_state

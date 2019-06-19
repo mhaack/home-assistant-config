@@ -47,20 +47,35 @@ cards:
                   action: toggle
             title: Innenbeleuchtung
             show_state: false
-          - type: 'custom:mini-graph-card'
-            name: Temperatur
-            decimals: 1
-            hour24: true
-            entities:
-              - entity: sensor.temperature_livingroom
-                name: Wohnzimmer
-                show_state: true
-              - entity: sensor.temperature_equipmentroom
-                name: Technikraum
-                show_state: true
-              - entity: sensor.schlafzimmer
-                name: Schlafzimmer
-                show_state: true
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:mini-graph-card'
+                decimals: 1
+                hour24: true
+                entities:
+                  - entity: sensor.temperature_livingroom
+                    name: Wohnzimmer
+                    show_state: true
+              - type: 'custom:mini-graph-card'
+                decimals: 1
+                hour24: true
+                entities:
+                  - entity: sensor.temperature_bedroom
+                    show_state: true
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:mini-graph-card'
+                decimals: 1
+                hour24: true
+                entities:
+                  - entity: sensor.temperature_mia
+                    show_state: true
+              - type: 'custom:mini-graph-card'
+                decimals: 1
+                hour24: true
+                entities:
+                  - entity: sensor.temperature_bathroom
+                    show_state: true
           - type: 'custom:mini-graph-card'
             name: Luftfeuchtigkeit
             decimals: 1
@@ -68,26 +83,23 @@ cards:
             entities:
               - entity: sensor.humidity_livingroom
                 name: Wohnzimmer
-                show_state: true
-              - entity: sensor.humidity_equipmentroom
+              - entity: sensor.humidity_bedroom
+              - entity: sensor.humidity_bathroom
+              - entity: sensor.humidity_mia
                 name: Technikraum
-                show_state: true
-              - entity: sensor.schlafzimmer_2
-                name: Schlafzimmer
-                show_state: true
             unit: '%'
           - type: horizontal-stack
             cards:
               - type: "custom:mini-graph-card"
                 name: Kühlschranktemperatur
                 entities:
-                  - sensor.kuhlschrank
+                  - sensor.temperature_fridge
                 hour24: true
               - type: "custom:mini-graph-card"
                 name: Luftfeuchtigkeit Kühlschrank
                 line_color: "#4C9AD7"
                 entities:
-                  - sensor.kuhlschrank_2
+                  - sensor.humidity_fridge
                 hour24: true
           - break
           - type: entities
