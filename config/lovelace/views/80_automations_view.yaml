@@ -7,13 +7,6 @@ path: automations
 
 cards:
   - type: 'custom:compact-custom-header'
-  - type: custom:auto-entities
-    card:
-      type: entities
-      title: Notifications
-    filter:
-      include:
-        - entity_id: "automation.notify*"
 
   - type: custom:auto-entities
     card:
@@ -34,10 +27,19 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      title: House Automations
+    filter:
+      include:
+        - entity_id: "automation.house*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
       title: Garden Automations
     filter:
       include:
         - entity_id: "automation.garden*"
+        - entity_id: "automation.pond*"
         - entity_id: "automation.watertank*"
 
   - type: custom:auto-entities
@@ -47,14 +49,6 @@ cards:
     filter:
       include:
         - entity_id: "automation.pool*"
-
-  - type: custom:auto-entities
-    card:
-      type: entities
-      title: Pond Automations
-    filter:
-      include:
-        - entity_id: "automation.pond*"
 
   - type: custom:auto-entities
     card:
@@ -83,18 +77,27 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      title: Notifications
+    filter:
+      include:
+        - entity_id: "automation.notify*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
       title: Other Automations
     filter:
       include:
         - domain: automation
       exclude:
-        - entity_id: "automation.garden*"
-        - entity_id: "automation.watertank*"
-        - entity_id: "automation.system*"
         - entity_id: "automation.appliances*"
+        - entity_id: "automation.garden*"
+        - entity_id: "automation.house*"
+        - entity_id: "automation.light*"
+        - entity_id: "automation.notify*"
         - entity_id: "automation.pond*"
         - entity_id: "automation.pool*"
-        - entity_id: "automation.light*"
         - entity_id: "automation.security*"
-        - entity_id: "automation.notify*"
+        - entity_id: "automation.system*"
+        - entity_id: "automation.watertank*"
         - entity_id: "automation.zone*"
