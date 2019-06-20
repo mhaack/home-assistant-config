@@ -6,7 +6,10 @@ trigger:
   platform: homeassistant
   event: start
 action:
-  - service: notify.pushover_markus
+  - service: notify.ios_iphone_von_markus
     data:
       title: "JaMa Villa"
       message: "HA Status: Online"
+      data:
+        push:
+          thread-id: "ha-status-notification-group"

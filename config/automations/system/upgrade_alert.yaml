@@ -21,6 +21,9 @@ action:
       message: >-
         There is a Home Assistant upgrade for Hass.io pending!
         Version {{ states('sensor.version_available') }} just got released!
+      data:
+        push:
+          thread-id: "upgrade-notification-group"
   - service: persistent_notification.create
     data_template:
       title: Upgrade time!
