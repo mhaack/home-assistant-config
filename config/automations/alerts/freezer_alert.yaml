@@ -8,7 +8,7 @@ trigger:
     to: "off"
   - platform: numeric_state
     entity_id: sensor.funksteckdose_gefrierschrank_power
-    below: 1
+    below: 0.1
 action:
   - service: notify.jama_group
     data_template:
