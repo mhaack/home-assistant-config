@@ -6,7 +6,10 @@ trigger:
   platform: homeassistant
   event: shutdown
 action:
-  - service: notify.pushover_markus
+  - service: notify.ios_iphone_von_markus
     data:
       title: "JaMa Villa"
       message: "HA Status: Offline"
+      data:
+        push:
+          thread-id: "ha-status-notification-group"
