@@ -14,7 +14,7 @@ action:
     data_template:
       title: "JaMa Villa"
       message: >
-        "Stromanschluß vom Gefrierschrank sofort überprüfen. Trigger: Trigger: {{ trigger.to_state.attributes.friendly_name }}"
+        "Stromanschluß vom Gefrierschrank sofort überprüfen. Trigger: {{ trigger.entity_id }}"
       data:
         subtitle: "Problem mit Gefrierschrank!"
         push:
@@ -23,7 +23,7 @@ action:
     data_template:
       title: "JaMa Villa"
       message: >
-        "Stromanschluß vom Gefrierschrank sofort überprüfen. Trigger: Trigger: {{ trigger.to_state.attributes.friendly_name }}"
+        "Stromanschluß vom Gefrierschrank sofort überprüfen. Trigger: {{ trigger.entity_id }}"
       data:
         sound: tugboat
         priority: 1
