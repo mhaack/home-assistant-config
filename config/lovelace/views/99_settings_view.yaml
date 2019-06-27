@@ -67,7 +67,7 @@ cards:
       - sensor.adguard_dns_queries_blocked_ratio
       - sensor.adguard_dns_queries_blocked
       - sensor.adguard_parental_control_blocked
-      - sensor.adguard_safe_browsing_blocked      
+      - sensor.adguard_safe_browsing_blocked
       - sensor.adguard_average_processing_speed
       - sensor.adguard_rules_count
     show_header_toggle: false
@@ -81,5 +81,5 @@ cards:
       - switch.adguard_safe_browsing
       - switch.adguard_safe_search
     show_header_toggle: false
-    title: AdGuard Controll    
+    title: AdGuard Control
   - type: custom:tracker-card
