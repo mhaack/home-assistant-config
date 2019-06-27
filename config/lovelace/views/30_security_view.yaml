@@ -9,7 +9,6 @@ path: security
 cards:
   - type: vertical-stack
     cards:
-      - type: "custom:compact-custom-header"
       - type: custom:layout-card
         layout: horizontal
         max_columns: 2

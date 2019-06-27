@@ -4,9 +4,9 @@
 alias: Timer rule test 2
 trigger:
   platform: time_pattern
-  hours: "/1"
+  hours: "/4"
 action:
   - service: notify.pushover_markus
     data:
-      title: "1 Stunde"
-      message: "Und wieder 1 Stunde rum"
+      title: "4 Stunden"
+      message: "Und wieder 4 Stunden rum"

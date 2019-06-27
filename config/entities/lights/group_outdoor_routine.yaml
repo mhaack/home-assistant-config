@@ -8,5 +8,6 @@ name: outdoor_lights_daily_routine
 entities:
   - light.baum_garten
   - light.baum_vorgarten
+  - light.terrassenlounge
   - light.teichlicht
   - light.sonnendeck_positionslicht

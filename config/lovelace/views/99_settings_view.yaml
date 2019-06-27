@@ -17,7 +17,6 @@ popup_cards:
         - sensor.iphone_von_markus_battery_level
 
 cards:
-  - type: 'custom:compact-custom-header'
   - type: entities
     entities:
       - input_boolean.send_notification
@@ -62,5 +61,25 @@ cards:
           secondary_info: last-changed
     show_header_toggle: false
     show_state: false
-
+  - type: entities
+    entities:
+      - sensor.adguard_dns_queries
+      - sensor.adguard_dns_queries_blocked_ratio
+      - sensor.adguard_dns_queries_blocked
+      - sensor.adguard_parental_control_blocked
+      - sensor.adguard_safe_browsing_blocked
+      - sensor.adguard_average_processing_speed
+      - sensor.adguard_rules_count
+    show_header_toggle: false
+    title: AdGuard Statistics
+  - type: entities
+    entities:
+      - switch.adguard_filtering
+      - switch.adguard_parental_control
+      - switch.adguard_protection
+      - switch.adguard_query_log
+      - switch.adguard_safe_browsing
+      - switch.adguard_safe_search
+    show_header_toggle: false
+    title: AdGuard Control
   - type: custom:tracker-card

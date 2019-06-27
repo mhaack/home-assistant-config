@@ -9,7 +9,6 @@ path: house
 cards:
   - type: vertical-stack
     cards:
-      - type: 'custom:compact-custom-header'
       - type: custom:layout-card
         layout: vertical
         cards:
@@ -86,7 +85,6 @@ cards:
               - entity: sensor.humidity_bedroom
               - entity: sensor.humidity_bathroom
               - entity: sensor.humidity_mia
-                name: Technikraum
             unit: '%'
           - type: horizontal-stack
             cards:
@@ -111,6 +109,7 @@ cards:
               - cover.essbereich
               - cover.wohnzimmer_tv
               - cover.wohnzimmer_sofa
+              - cover.schlafzimmer
             show_header_toggle: false
             title: Rollläden
           - type: 'custom:mini-media-player'

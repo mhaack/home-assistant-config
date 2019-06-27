@@ -9,6 +9,24 @@
 #
 title: JaMa Villa
 resources: !include_dir_list lovelace/resources
+
+cch:
+  menu: show
+  notifications: show
+  voice: hide
+  options: clock
+  clock_format: 24
+  clock_am_pm: false
+  clock_date: false
+  exceptions:
+    - conditions:
+        user_agent: Mobile
+      config:
+        menu: overflow
+        notifications: overflow
+        swipe: true
+        swipe_animate: fade
+
 views:
   - !include lovelace/views/00_home_view.yaml
   - !include lovelace/views/10_house_view.yaml
