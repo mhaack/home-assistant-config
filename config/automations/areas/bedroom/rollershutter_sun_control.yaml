@@ -1,8 +1,8 @@
 ---
 # When the weather forecast predicts a sunny day with temperature > 25°C
-# or the actually temperature is already > 25°C then better close the livingroom roller shutter.
+# or the actually temperature is already > 25°C then better close the bedroom roller shutter.
 #
-alias: "[Livingroom] Turn down the roller shutter on hot days"
+alias: "[Bedroom] Turn down the roller shutter on hot days"
 initial_state: true
 trigger:
   - platform: state
@@ -14,7 +14,7 @@ condition:
       after: "09:00:00"
       before: "16:00:00"
     - condition: numeric_state
-      entity_id: cover.wohnzimmer_tv
+      entity_id: cover.schlafzimmer
       value_template: "{{ state.attributes.current_position }}"
       above: 40
     - condition: or
@@ -29,13 +29,5 @@ condition:
 action:
   - service: cover.set_cover_position
     data:
-      entity_id: cover.wohnzimmer_sofa
-      position: 70
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.wohnzimmer_tv
-      position: 35
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.essbereich
+      entity_id: cover.schlafzimmer
       position: 35

@@ -29,6 +29,8 @@ cards:
     filter:
       include:
         - entity_id: "automation.house*"
+        - entity_id: "automation.livingroom*"
+        - entity_id: "automation.bedroom*"
 
   - type: custom:auto-entities
     card:
@@ -89,9 +91,11 @@ cards:
         - domain: automation
       exclude:
         - entity_id: "automation.appliances*"
+        - entity_id: "automation.bedroom*"
         - entity_id: "automation.garden*"
         - entity_id: "automation.house*"
         - entity_id: "automation.light*"
+        - entity_id: "automation.livingroom*"
         - entity_id: "automation.notify*"
         - entity_id: "automation.pond*"
         - entity_id: "automation.pool*"
