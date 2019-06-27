@@ -29,21 +29,6 @@ popup_cards:
 cards:
   - type: vertical-stack
     cards:
-      - type: "custom:compact-custom-header"
-        main_config: true
-        menu: show
-        notifications: show
-        voice: hide
-        options: clock
-        clock_format: 24
-        clock_am_pm: false
-        clock_date: false
-        exceptions:
-          - conditions:
-              user_agent: Mobile
-            config:
-              menu: overflow
-              notifications: overflow
       - type: custom:layout-card
         layout: vertical
         cards:

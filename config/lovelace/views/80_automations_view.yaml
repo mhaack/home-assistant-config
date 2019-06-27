@@ -6,8 +6,6 @@ icon: mdi:arrow-decision-auto
 path: automations
 
 cards:
-  - type: 'custom:compact-custom-header'
-
   - type: custom:auto-entities
     card:
       type: entities

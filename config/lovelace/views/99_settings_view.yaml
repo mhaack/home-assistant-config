@@ -17,7 +17,6 @@ popup_cards:
         - sensor.iphone_von_markus_battery_level
 
 cards:
-  - type: 'custom:compact-custom-header'
   - type: entities
     entities:
       - input_boolean.send_notification

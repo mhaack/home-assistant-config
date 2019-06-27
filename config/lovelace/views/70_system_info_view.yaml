@@ -9,7 +9,6 @@ path: system-info
 cards:
   - type: vertical-stack
     cards:
-      - type: "custom:compact-custom-header"
       - type: custom:layout-card
         layout: vertical
         cards:
