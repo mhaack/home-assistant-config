@@ -5,8 +5,6 @@ alias: "[Notify] Send alarm status notifications"
 trigger:
   - platform: state
     entity_id:
-      #  - alarm_control_panel.alarm_haus
-      #  - alarm_control_panel.alarm_carport
       - sensor.sirene_haus_armstate
       - sensor.sirene_carport_armstate
 action:

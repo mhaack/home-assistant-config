@@ -4,7 +4,7 @@
 # https://www.home-assistant.io/components/input_select/
 #
 pond_mode:
-  name: "Teichautomatik"
+  name: Teichautomatik
   options:
     - Automatik
     - Nur Blubber
