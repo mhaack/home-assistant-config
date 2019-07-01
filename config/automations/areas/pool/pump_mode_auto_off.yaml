@@ -1,0 +1,24 @@
+---
+# Control the pool pump automations based on the mode selection.
+#
+alias: "[Pool] Pool pump mode - off"
+trigger:
+  - platform: state
+    entity_id: input_select.pool_pump_mode
+    to: "Aus"
+action:
+  - service: switch.turn_off
+    entity_id: switch.pool_filterpumpe
+  - service: homeassistant.turn_off
+    entity_id: automation.pool_daily_normal_pool_pump_schedule_on
+  - service: homeassistant.turn_off
+    entity_id: automation.pool_daily_normal_pool_pump_schedule_off
+  - service: homeassistant.turn_off
+    entity_id: automation.pool_daily_intense_pool_pump_schedule_on
+  - service: homeassistant.turn_off
+    entity_id: automation.pool_daily_intense_pool_pump_schedule_off
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa Pool"
+      message: >
+        Pool Pump Mode = {{states.input_select.pool_pump_mode.state}}

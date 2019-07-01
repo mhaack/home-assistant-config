@@ -13,6 +13,17 @@ condition:
   - condition: state
     entity_id: switch.pool_valve
     state: "off"
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: input_select.pool_pump_mode
+        state: "Auto - Normal"
+      - condition: state
+        entity_id: input_select.pool_pump_mode
+        state: "Auto - Intensiv"
+      - condition: state
+        entity_id: input_select.pool_pump_mode
+        state: "Dauerbetrieb"
 action:
   - service: switch.turn_on
     entity_id: switch.pool_valve

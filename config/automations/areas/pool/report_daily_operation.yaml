@@ -1,0 +1,14 @@
+---
+# Reports the daily operation time of the pool pump.
+#
+alias: "[Pool] Report Pump Operation"
+trigger:
+  platform: time
+  at: "23:59:00"
+action:
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa Pool"
+      message: "Pool Pump was on for <font color='#0000ff'><b>{{states.sensor.pool_pump_running_today.attributes.value}}</b></font> today. <br/>({{ states.input_number.run_pool_pump_hours.state | round(0) }}h)."
+      data:
+        html: 1

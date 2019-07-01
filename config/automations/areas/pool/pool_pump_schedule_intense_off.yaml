@@ -1,0 +1,23 @@
+---
+# Automation to run the daily intense pool pump schedule.
+#
+# Intense mode for pool pump which runs the pump longer then the normal mode.
+#
+alias: "[Pool] Daily intense pool pump schedule - off"
+trigger:
+  - platform: time
+    at: "00:00:00"
+  - platform: time
+    at: "06:00:00"
+  - platform: time
+    at: "12:00:00"
+  - platform: time
+    at: "18:00:00"
+action:
+  - service: switch.turn_off
+    entity_id: switch.pool_filterpumpe
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa Pool"
+      message: >
+        Pool pump = {{states.switch.pool_filterpumpe.state}}

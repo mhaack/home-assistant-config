@@ -4,7 +4,7 @@
 # Default control is time based but if we still have enough warm water on
 # the carport roof the pump is not turned off
 #
-alias: "[Pool] Daily pool pump schedule - off"
+alias: "[Pool] Daily normal pool pump schedule - off"
 trigger:
   - platform: time
     at: "11:00:00"
@@ -15,15 +15,10 @@ trigger:
   - platform: time
     at: "04:00:00"
 action:
-  - service: notify.pushover_markus
-    data_template:
-      title: "JaMa Villa"
-      message: >
-        Pool Control - pool pump = off
-  - service: timer.finish
-    entity_id: timer.pool_pump
-  - condition: numeric_state
-    entity_id: sensor.temperature_solar_pool_diff
-    below: 14
   - service: switch.turn_off
     entity_id: switch.pool_filterpumpe
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa Pool"
+      message: >
+        Pool pump = {{states.switch.pool_filterpumpe.state}}
