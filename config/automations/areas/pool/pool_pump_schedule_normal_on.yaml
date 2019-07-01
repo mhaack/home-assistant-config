@@ -22,11 +22,3 @@ action:
         Pool Control - pool pump = on
   - service: switch.turn_on
     entity_id: switch.pool_filterpumpe
-  - delay: '{{ run_pool_pump_hours | int }}:00:00'
-  - service: switch.turn_off
-    entity_id: switch.pool_filterpumpe
-  - service: notify.pushover_markus
-    data_template:
-      title: "JaMa Villa"
-      message: >
-        Pool Control - pool pump = off

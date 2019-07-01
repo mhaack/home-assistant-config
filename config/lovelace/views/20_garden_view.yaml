@@ -89,37 +89,16 @@ cards:
                           - sensor.temperatursensor_solar_2_temperature
                         group_config:
                           secondary_info: last-changed
-              - type: conditional
-                conditions:
-                  - entity: timer.pool_pump
-                    state: "idle"
-                card:
-                  type: entities
-                  show_header_toggle: false
-                  entities:
-                    - switch.pool_filterpumpe
-                    - switch.pool_valve
-                    - light.pool_light
-                    - sensor.pool_filterpumpe_power
-                    - sensor.daily_energy_pool
-                    - sensor.pool_filterpumpe_energy_counter
-                  title: Poolsteuerung
-              - type: conditional
-                conditions:
-                  - entity: timer.pool_pump
-                    state_not: "idle"
-                card:
-                  type: entities
-                  show_header_toggle: false
-                  entities:
-                    - switch.pool_filterpumpe
-                    - timer.pool_pump
-                    - switch.pool_valve
-                    - light.pool_light
-                    - sensor.pool_filterpumpe_power
-                    - sensor.daily_energy_pool
-                    - sensor.pool_filterpumpe_energy_counter
-                  title: Poolsteuerung
+              - type: entities
+                show_header_toggle: false
+                entities:
+                  - switch.pool_filterpumpe
+                  - switch.pool_valve
+                  - light.pool_light
+                  - sensor.pool_filterpumpe_power
+                  - sensor.daily_energy_pool
+                  - sensor.pool_filterpumpe_energy_counter
+                title: Poolsteuerung
               - type: entities
                 entities:
                   - light.sonnendeck_led
