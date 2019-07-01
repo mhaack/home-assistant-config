@@ -13,12 +13,12 @@ condition:
     entity_id: input_boolean.pool_notification
     state: "on"
 action:
-  service: notify.pushover_markus
-  data_template:
-    title: "JaMa Villa"
-    message: >
-      Pool Ventil Controll {{ trigger.to_state.attributes.friendly_name }}:
-      Pooltemp: {{states.sensor.temperatursensor_pool_1_temperature.state}},
-      Solartemp: {{states.sensor.temperature_solar.state}},
-      Tempdiff: {{states.sensor.temperature_solar_pool_diff.state}},
-      Poolpumpe: {{states.switch.pool_filterpumpe.state}}
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa Pool"
+      message: >
+        Ventil:  {{ trigger.to_state.attributes.friendly_name }}:
+        Pooltemp: {{states.sensor.temperatursensor_pool_1_temperature.state}},
+        Solartemp: {{states.sensor.temperature_solar.state}},
+        Tempdiff: {{states.sensor.temperature_solar_pool_diff.state}},
+        Poolpumpe: {{states.switch.pool_filterpumpe.state}}
