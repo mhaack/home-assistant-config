@@ -92,12 +92,14 @@ cards:
               - type: entities
                 show_header_toggle: false
                 entities:
+                  - input_select.pool_pump_mode
                   - switch.pool_filterpumpe
                   - switch.pool_valve
                   - light.pool_light
+                  - sensor.daily_pool_filterpumpe_hours
                   - sensor.pool_filterpumpe_power
-                  - sensor.daily_energy_pool
                   - sensor.pool_filterpumpe_energy_counter
+                  - sensor.daily_energy_pool
                 title: Poolsteuerung
               - type: entities
                 entities:

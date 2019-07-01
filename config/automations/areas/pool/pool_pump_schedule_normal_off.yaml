@@ -15,13 +15,10 @@ trigger:
   - platform: time
     at: "04:00:00"
 action:
-  - service: notify.pushover_markus
-    data_template:
-      title: "JaMa Villa"
-      message: >
-        Pool Control - pool pump = off
-  - condition: numeric_state
-    entity_id: sensor.temperature_solar_pool_diff
-    below: 10
   - service: switch.turn_off
     entity_id: switch.pool_filterpumpe
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa Pool"
+      message: >
+        Pool pump = {{states.switch.pool_filterpumpe.state}}
