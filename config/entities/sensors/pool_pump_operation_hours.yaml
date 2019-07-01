@@ -5,7 +5,7 @@
 #
 platform: history_stats
 name: daily_pool_filterpumpe_hours
-entity_id: witch.pool_filterpumpe
+entity_id: switch.pool_filterpumpe
 state: 'on'
 type: time
 start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'

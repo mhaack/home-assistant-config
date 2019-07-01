@@ -7,8 +7,8 @@ pool_pump_mode:
   name: Modus Poolpumpe
   icon: mdi:engine
   options:
-    - 'Auto - Normal'
-    - 'Auto - Intensiv'
-    - 'Dauerbetrieb'
-    - 'Aus'
-  initial: 'Auto - Normal'
+    - "Auto - Normal"
+    - "Auto - Intensiv"
+    - "Dauerbetrieb"
+    - "Aus"
+  initial: "Auto - Normal"
