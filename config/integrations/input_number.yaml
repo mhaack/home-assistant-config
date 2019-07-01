@@ -1,8 +1,0 @@
----
-# The input_number integration allows the user to define values that can be
-# controlled via the frontend and can be used within conditions of automation.
-# The frontend can display a slider, or a numeric input box.
-#
-# https://www.home-assistant.io/components/input_number/
-#
-input_number: !include_dir_merge_named ../entities/input_numbers

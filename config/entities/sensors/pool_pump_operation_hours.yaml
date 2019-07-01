@@ -4,7 +4,7 @@
 # https://www.home-assistant.io/components/history_stats/
 #
 platform: history_stats
-name: Pool Pump running today
+name: daily_pool_filterpumpe_hours
 entity_id: witch.pool_filterpumpe
 state: 'on'
 type: time
