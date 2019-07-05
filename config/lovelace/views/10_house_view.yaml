@@ -109,9 +109,15 @@ cards:
               - cover.essbereich
               - cover.wohnzimmer_tv
               - cover.wohnzimmer_sofa
-              - cover.schlafzimmer
             show_header_toggle: false
-            title: Rollläden
+            title: Rollläden EG
+          - type: entities
+            entities:
+              - cover.schlafzimmer
+              - cover.kinderzimmer
+              - cover.kinderzimmer_bett
+            show_header_toggle: false
+            title: Rollläden OG
           - type: 'custom:mini-media-player'
             entity: media_player.buro
             artwork: cover

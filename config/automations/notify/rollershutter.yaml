@@ -5,13 +5,14 @@ alias: "[Notify] Send roller shutter notifications"
 trigger:
   platform: state
   entity_id:
-    - cover.wohnzimmer_schiebetur
-    - cover.wohnzimmer_schiebetur_rechts
-    - cover.wohnzimmer_schiebetur_links
-    - cover.kueche
     - cover.essbereich
-    - cover.wohnzimmer_tv
+    - cover.kinderzimmer
+    - cover.kinderzimmer_bett
+    - cover.kuche
+    - cover.schlafzimmer
+    - cover.wohnzimmer_schiebetur
     - cover.wohnzimmer_sofa
+    - cover.wohnzimmer_tv
 condition:
   condition: state
   entity_id: input_boolean.send_notification
