@@ -1,8 +1,8 @@
 export const LitElement = Object.getPrototypeOf(
   customElements.get("ha-panel-lovelace")
 );
-
 export const html = LitElement.prototype.html;
+export const hass = document.querySelector("home-assistant").hass;
 
 export const fireEvent = (node, type, detail, options) => {
   options = options || {};
@@ -19,143 +19,97 @@ export const fireEvent = (node, type, detail, options) => {
 
 export const defaultConfig = {
   header: true,
+  disable: false,
   menu: "show",
-  notifications: "show",
   voice: "show",
+  notifications: "show",
   options: "show",
   clock_format: 12,
   clock_am_pm: true,
   clock_date: false,
-  date_locale: false,
-  disable: false,
+  date_locale: hass.language,
   chevrons: false,
   redirect: true,
   background: "",
   hide_tabs: [],
   show_tabs: [],
+  default_tab: [],
   kiosk_mode: false,
   sidebar_swipe: true,
   sidebar_closed: false,
-  tab_color: {},
-  button_color: {},
   hide_help: false,
   hide_config: false,
+  hide_unused: false,
+  tab_color: {},
+  button_color: {},
   swipe: false,
   swipe_amount: "15",
   swipe_animate: "none",
   swipe_skip: "",
   swipe_wrap: true,
   swipe_prevent_default: false,
-  date_locale: document.querySelector("home-assistant").hass.language,
-  default_tab: []
+  warning: true
 };
 
-export const huiRoot = () => {
-  let ll = document.querySelector("home-assistant");
-  ll = ll && ll.shadowRoot;
-  ll = ll && ll.querySelector("home-assistant-main");
-  ll = ll && ll.shadowRoot;
-  ll = ll && ll.querySelector("app-drawer-layout partial-panel-resolver");
-  ll = (ll && ll.shadowRoot) || ll;
-  ll = ll && ll.querySelector("ha-panel-lovelace");
-  ll = ll && ll.shadowRoot;
-  return ll && ll.querySelector("hui-root");
-};
+let root = document.querySelector("home-assistant");
+root = root && root.shadowRoot;
+root = root && root.querySelector("home-assistant-main");
+root = root && root.shadowRoot;
+root = root && root.querySelector("app-drawer-layout partial-panel-resolver");
+root = (root && root.shadowRoot) || root;
+root = root && root.querySelector("ha-panel-lovelace");
+root = root && root.shadowRoot;
+root = root && root.querySelector("hui-root");
 
-export const hass = document.querySelector("home-assistant").hass;
-const lovelace = huiRoot().lovelace;
-const root = huiRoot().shadowRoot;
-const config = lovelace.config.cch || {};
+const lovelace = root.lovelace;
+root = root.shadowRoot;
+let notifications = notificationCount();
 const header = root.querySelector("app-header");
+let cchConfig = buildConfig(lovelace.config.cch || {});
 const view = root.querySelector("ha-app-layout").querySelector('[id="view"]');
-const notifDrawer = huiRoot()
-  .shadowRoot.querySelector("hui-notification-drawer")
-  .shadowRoot.querySelector(".notifications");
-let notifications = notifDrawer.querySelectorAll(".notification").length;
-let editMode, cchConfig;
-let redirectedToDefaultTab = false;
+
+let defaultTabRedirect = false;
 let sidebarClosed = false;
+let editMode = false;
 let firstRun = true;
+let condState = [];
+let prevColor = {};
+let prevState = [];
+let buttons = {};
 
-if (
-  lovelace.config.cch == undefined &&
-  JSON.stringify(lovelace.config.views).includes("custom:compact-custom-header")
-) {
-  breakingChangeNotification();
-}
-
-buildConfig();
 run();
-
-if (lovelace.mode == "storage") {
-  import("./compact-custom-header-editor.js").then(() => {
-    document.createElement("compact-custom-header-editor");
-  });
-}
+breakingChangeNotification();
 
 function run() {
+  if (firstRun || buttons == undefined) buttons = getButtonElements();
+  if (!buttons.notifications) return;
   const disable = cchConfig.disable;
   const urlDisable = window.location.href.includes("disable_cch");
-  const buttons = getButtonElements();
   const tabContainer = root.querySelector("paper-tabs");
   const tabs = tabContainer
     ? Array.from(tabContainer.querySelectorAll("paper-tab"))
     : [];
 
-  if (editMode) {
-    if (!disable) removeStyles(tabContainer, tabs);
-    insertEditMenu(buttons, tabs);
-  } else if (!disable && !urlDisable) {
-    styleButtons(buttons, tabs);
-    styleHeader(tabContainer, tabs);
+  if (!disable && !urlDisable) {
+    insertEditMenu(tabs);
+    styleButtons(tabs);
+    styleHeader(tabContainer, tabs, header);
     restoreTabs(tabs, hideTabs(tabContainer, tabs));
     defaultTab(tabs, tabContainer);
-    sidebarMod(buttons);
-    if (cchConfig.swipe) swipeNavigation(tabs, tabContainer);
-    if (!editMode) tabContainerMargin(buttons, tabContainer);
-
+    sidebarMod();
+    hideMenuItems();
     for (const button in buttons) {
-      if (cchConfig[button] == "clock") {
-        insertClock(
-          buttons,
-          buttons[button].querySelector("paper-icon-button")
-            ? buttons[button]
-            : buttons[button].shadowRoot
-        );
-      }
+      if (cchConfig[button] == "clock") insertClock(button);
     }
-
-    if (firstRun && !disable && !urlDisable) {
-      window.hassConnection.then(({ conn }) => {
-        conn.socket.onmessage = () => {
-          if (!editMode && huiRoot()) conditionalStyling(buttons, tabs);
-        };
-      });
-    }
-
-    if (cchConfig.hide_help || cchConfig.hide_config) {
-      let menuItems = buttons.options
-        .querySelector("paper-listbox")
-        .querySelectorAll("paper-item");
-      [].forEach.call(menuItems, function(item) {
-        if (item.innerHTML == "<!---->Help<!---->" && cchConfig.hide_help) {
-          item.parentNode.removeChild(item);
-        } else if (
-          item.innerHTML == "<!---->Configure UI<!---->" &&
-          cchConfig.hide_config
-        ) {
-          item.parentNode.removeChild(item);
-        }
-      });
-    }
-
-    window.dispatchEvent(new Event("resize"));
+    if (!editMode) tabContainerMargin(tabContainer);
+    if (cchConfig.swipe) swipeNavigation(tabs, tabContainer);
   }
-  if (firstRun && !disable) monitorElements(tabs, urlDisable);
+  if (!disable && firstRun) observers(tabContainer, tabs, urlDisable, header);
+  window.dispatchEvent(new Event("resize"));
   firstRun = false;
 }
 
-function buildConfig() {
+function buildConfig(config) {
   let exceptionConfig = {};
   let highestMatch = 0;
   if (config.exceptions) {
@@ -184,7 +138,7 @@ function buildConfig() {
     delete config.hide_tabs;
   }
 
-  cchConfig = { ...defaultConfig, ...config, ...exceptionConfig };
+  return { ...defaultConfig, ...config, ...exceptionConfig };
 
   function countMatches(conditions) {
     const userVars = { user: hass.user.name, user_agent: navigator.userAgent };
@@ -204,44 +158,75 @@ function buildConfig() {
   }
 }
 
-function monitorElements(tabs, urlDisable) {
+function observers(tabContainer, tabs, urlDisable, header) {
   const callback = function(mutations) {
     mutations.forEach(mutation => {
-      if (mutation.target.className == "empty") {
-        notifications = mutation.target.style.display == "none" ? true : false;
-        if (!editMode && !firstRun && huiRoot() && !urlDisable) {
-          conditionalStyling(getButtonElements(), tabs);
+      if (mutation.target.className == "edit-mode") {
+        editMode = true;
+        if (!cchConfig.disable) removeStyles(tabContainer, tabs, header);
+        buttons.options = root.querySelector("paper-menu-button");
+        insertEditMenu(tabs);
+      } else if (mutation.target.nodeName == "APP-HEADER") {
+        for (let node of mutation.addedNodes) {
+          if (node.nodeName == "APP-TOOLBAR") {
+            editMode = false;
+            buttons = getButtonElements();
+            run();
+            return;
+          }
         }
-        return;
-      } else if (mutation.attributeName === "class") {
-        editMode = mutation.target.className == "edit-mode";
-        if (huiRoot()) run();
       } else if (mutation.addedNodes.length) {
-        if (mutation.addedNodes[0].nodeName == "HUI-UNUSED-ENTITIES") {
-          return;
-        }
-        let editor = !editMode
-          ? root.querySelector("ha-app-layout").querySelector("editor")
-          : null;
+        if (mutation.addedNodes[0].nodeName == "HUI-UNUSED-ENTITIES") return;
+        let editor = root
+          .querySelector("ha-app-layout")
+          .querySelector("editor");
         if (editor) root.querySelector("ha-app-layout").removeChild(editor);
-        if (!editMode && !urlDisable) {
-          conditionalStyling(getButtonElements(), tabs);
+        if (!editMode && !urlDisable && cchConfig.conditional_styles) {
+          conditionalStyling(tabs, header);
         }
       }
     });
   };
   new MutationObserver(callback).observe(view, { childList: true });
-  new MutationObserver(callback).observe(notifDrawer.querySelector(".empty"), {
-    attributes: true,
-    attributeFilter: ["style"]
+  new MutationObserver(callback).observe(root.querySelector("app-header"), {
+    childList: true
   });
-  new MutationObserver(callback).observe(header, {
-    attributes: true,
-    attributeFilter: ["class"]
-  });
+
+  if (!urlDisable) {
+    window.hassConnection.then(({ conn }) => {
+      conn.socket.onmessage = () => {
+        notifications = notificationCount();
+        if (cchConfig.conditional_styles && !editMode) {
+          conditionalStyling(tabs, header);
+        }
+      };
+    });
+  }
 }
 
-function tabContainerMargin(buttons, tabContainer) {
+function notificationCount() {
+  let i = 0;
+  let drawer = root
+    .querySelector("hui-notification-drawer")
+    .shadowRoot.querySelector(".notifications");
+  for (let notification of drawer.querySelectorAll(".notification")) {
+    if (notification.style.display !== "none") i++;
+  }
+  return i;
+}
+
+function getButtonElements() {
+  let buttons = {};
+  buttons.options = root.querySelector("paper-menu-button");
+  if (!editMode) {
+    buttons.menu = root.querySelector("ha-menu-button");
+    buttons.voice = root.querySelector("ha-start-voice-button");
+    buttons.notifications = root.querySelector("hui-notifications-button");
+  }
+  return buttons;
+}
+
+function tabContainerMargin(tabContainer) {
   let marginRight = 0;
   let marginLeft = 15;
   for (const button in buttons) {
@@ -253,7 +238,7 @@ function tabContainerMargin(buttons, tabContainer) {
       const clockWidth =
         (cchConfig.clock_format == 12 && cchConfig.clock_am_pm) ||
         cchConfig.clock_date
-          ? 90
+          ? 110
           : 80;
       if (button == "menu") marginLeft += clockWidth + 15;
       else marginRight += clockWidth;
@@ -265,16 +250,31 @@ function tabContainerMargin(buttons, tabContainer) {
   }
 }
 
-function insertEditMenu(buttons, tabs) {
-  if (cchConfig.hide_tabs && buttons.options) {
-    let editor = document.createElement("paper-item");
-    editor.setAttribute("id", "cch_settings");
-    editor.addEventListener("click", () => {
-      showEditor();
-    });
-    editor.innerHTML = "CCH Settings";
-    insertMenuItem(buttons.options.querySelector("paper-listbox"), editor);
+function hideMenuItems() {
+  if (cchConfig.hide_help || cchConfig.hide_config) {
+    let menuItems = buttons.options
+      .querySelector("paper-listbox")
+      .querySelectorAll("paper-item");
+    for (let item of menuItems) {
+      if (item.innerHTML.includes("Help") && cchConfig.hide_help) {
+        item.parentNode.removeChild(item);
+      } else if (
+        item.innerHTML.includes("Unused entities") &&
+        cchConfig.hide_unused
+      ) {
+        item.parentNode.removeChild(item);
+      } else if (
+        item.innerHTML.includes("Configure UI") &&
+        cchConfig.hide_config
+      ) {
+        item.parentNode.removeChild(item);
+      }
+    }
+  }
+}
 
+function insertEditMenu(tabs) {
+  if (cchConfig.hide_tabs && buttons.options && editMode) {
     let show_tabs = document.createElement("paper-item");
     show_tabs.setAttribute("id", "show_tabs");
     show_tabs.addEventListener("click", () => {
@@ -284,22 +284,18 @@ function insertEditMenu(buttons, tabs) {
     });
     show_tabs.innerHTML = "Show all tabs";
     insertMenuItem(buttons.options.querySelector("paper-listbox"), show_tabs);
+
+    let cchSettings = document.createElement("paper-item");
+    cchSettings.setAttribute("id", "cch_settings");
+    cchSettings.addEventListener("click", () => {
+      showEditor();
+    });
+    cchSettings.innerHTML = "CCH Settings";
+    insertMenuItem(buttons.options.querySelector("paper-listbox"), cchSettings);
   }
 }
 
-function getButtonElements() {
-  const buttons = {};
-  buttons.options = root.querySelector("paper-menu-button");
-
-  if (!editMode) {
-    buttons.menu = root.querySelector("ha-menu-button");
-    buttons.voice = root.querySelector("ha-start-voice-button");
-    buttons.notifications = root.querySelector("hui-notifications-button");
-  }
-  return buttons;
-}
-
-function removeStyles(tabContainer, tabs) {
+function removeStyles(tabContainer, tabs, header) {
   let header_colors = root.querySelector('[id="cch_header_colors"]');
   if (tabContainer) {
     tabContainer.style.marginLeft = "";
@@ -319,7 +315,7 @@ function removeStyles(tabContainer, tabs) {
   }
 }
 
-function styleHeader(tabContainer, tabs) {
+function styleHeader(tabContainer, tabs, header) {
   if ((!cchConfig.header && !editMode) || cchConfig.kiosk_mode) {
     header.style.display = "none";
   } else if (!editMode) {
@@ -409,8 +405,9 @@ function styleHeader(tabContainer, tabs) {
   }
 }
 
-function styleButtons(buttons, tabs) {
+function styleButtons(tabs) {
   let topMargin = tabs.length > 0 ? "margin-top:111px;" : "";
+  buttons = reverseObject(buttons);
   for (const button in buttons) {
     if (button == "options" && cchConfig[button] == "overflow") {
       cchConfig[button] = "show";
@@ -422,13 +419,13 @@ function styleButtons(buttons, tabs) {
               ${button == "options" ? "margin-right:-5px; padding:0;" : ""}
             `;
     } else if (cchConfig[button] == "overflow") {
-      const paperIconButton = buttons[button].querySelector("paper-icon-button")
+      const menu_items = buttons.options.querySelector("paper-listbox");
+      let paperIconButton = buttons[button].querySelector("paper-icon-button")
         ? buttons[button].querySelector("paper-icon-button")
         : buttons[button].shadowRoot.querySelector("paper-icon-button");
       if (paperIconButton.hasAttribute("hidden")) {
         continue;
       }
-      const menu_items = buttons.options.querySelector("paper-listbox");
       const id = `menu_item_${button}`;
       if (!menu_items.querySelector(`[id="${id}"]`)) {
         const wrapper = document.createElement("paper-item");
@@ -507,7 +504,7 @@ function getTranslation(button) {
 }
 
 function defaultTab(tabs, tabContainer) {
-  if (cchConfig.default_tab && !redirectedToDefaultTab) {
+  if (cchConfig.default_tab && !defaultTabRedirect && tabContainer) {
     let default_tab = cchConfig.default_tab;
     let activeTab = tabs.indexOf(tabContainer.querySelector(".iron-selected"));
     if (
@@ -517,11 +514,11 @@ function defaultTab(tabs, tabContainer) {
     ) {
       tabs[default_tab].click();
     }
-    redirectedToDefaultTab = true;
+    defaultTabRedirect = true;
   }
 }
 
-function sidebarMod(buttons) {
+function sidebarMod() {
   let menu = buttons.menu.querySelector("paper-icon-button");
   let sidebar = document
     .querySelector("home-assistant")
@@ -574,7 +571,7 @@ function hideTabs(tabContainer, tabs) {
     tabs[tab].style.display = "none";
   }
 
-  if (cchConfig.redirect) {
+  if (cchConfig.redirect && tabContainer) {
     const activeTab = tabContainer.querySelector("paper-tab.iron-selected");
     const activeTabIndex = tabs.indexOf(activeTab);
     // Is the current tab hidden and is there at least one tab is visible.
@@ -600,13 +597,16 @@ function insertMenuItem(menu_items, element) {
   }
 }
 
-function insertClock(buttons, clock_button) {
+function insertClock(button) {
+  const clock_button = buttons[button].querySelector("paper-icon-button")
+    ? buttons[button]
+    : buttons[button].shadowRoot;
   const clockIcon = clock_button.querySelector("paper-icon-button");
   const clockIronIcon = clockIcon.shadowRoot.querySelector("iron-icon");
   const clockWidth =
     (cchConfig.clock_format == 12 && cchConfig.clock_am_pm) ||
     cchConfig.clock_date
-      ? 90
+      ? 110
       : 80;
 
   if (
@@ -697,11 +697,8 @@ function updateClock(clock, clockFormat) {
   window.setTimeout(() => updateClock(clock, clockFormat), 60000);
 }
 
-let condState = [];
-let prevColor = {};
-let prevState = [];
-function conditionalStyling(buttons, tabs) {
-  if (!cchConfig.conditional_styles) return;
+// Abandon all hope, ye who enter here.
+function conditionalStyling(tabs, header) {
   let _hass = document.querySelector("home-assistant").hass;
   const conditional_styles = cchConfig.conditional_styles;
   let tabContainer = tabs[0] ? tabs[0].parentNode : "";
@@ -743,7 +740,7 @@ function conditionalStyling(buttons, tabs) {
     if (template) {
       if (!template.length) template = [template];
       for (let x = 0; x < template.length; x++) {
-        templates(template[x], buttons, tabs, _hass);
+        templates(template[x], tabs, _hass, header);
       }
       continue;
     }
@@ -832,11 +829,11 @@ function conditionalStyling(buttons, tabs) {
       }
     }
   }
-  tabContainerMargin(buttons, tabContainer);
+  tabContainerMargin(tabContainer);
   window.dispatchEvent(new Event("resize"));
 }
 
-function templates(template, buttons, tabs, _hass) {
+function templates(template, tabs, _hass, header) {
   // Variables for templates.
   let states = _hass.states;
   let entity = states;
@@ -921,9 +918,16 @@ function buildRanges(array) {
 }
 
 function showEditor() {
+  window.scrollTo(0, 0);
+  import("./compact-custom-header-editor.js?v=1.2.0").then(() => {
+    document.createElement("compact-custom-header-editor");
+  });
   if (!root.querySelector("ha-app-layout").querySelector("editor")) {
     const container = document.createElement("editor");
     const nest = document.createElement("div");
+    const loader = document.createElement("div");
+    loader.classList.add("lds-ring");
+    loader.innerHTML = "<div></div><div></div><div></div><div></div>";
     const cchEditor = document.createElement("compact-custom-header-editor");
     nest.style.cssText = `
       padding: 20px;
@@ -938,25 +942,66 @@ function showEditor() {
       box-sizing: border-box;
       position: absolute;
       background: var(--background-color, grey);
-      z-index: 1;
+      z-index: 2;
       padding: 5px;
     `;
+    nest.innerHTML += `
+      <style>
+      .lds-ring {
+        left: 50%;
+        margin-left: -32px;
+        display: inline-block;
+        position: relative;
+        width: 64px;
+        height: 64px;
+      }
+      .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 51px;
+        height: 51px;
+        margin: 6px;
+        border: 6px solid #fff;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: var(--primary-color) transparent transparent transparent;
+      }
+      .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+      .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+      .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+      }
+      @keyframes lds-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      </style>
+      `;
     root.querySelector("ha-app-layout").insertBefore(container, view);
     container.appendChild(nest);
+    nest.appendChild(loader);
     nest.appendChild(cchEditor);
   }
 }
 
-function breakingChangeNotification() {
-  hass.callService("persistent_notification", "create", {
-    title: "CCH Breaking Change",
-    message:
-      "Compact-Custom-Header's configuration method has changed. You are " +
-      "receiving this notification because you have updated CCH, but are " +
-      "using the old configuration method. Please, visit the " +
-      "[upgrade guide](https://maykar.github.io/compact-custom-header/1_1_0_upgrade/) " +
-      "for more info."
-  });
+function reverseObject(object) {
+  let newObject = {};
+  let keys = [];
+  for (let key in object) keys.push(key);
+  for (let i = keys.length - 1; i >= 0; i--) {
+    let value = object[keys[i]];
+    newObject[keys[i]] = value;
+  }
+  return newObject;
 }
 
 function swipeNavigation(tabs, tabContainer) {
@@ -1098,5 +1143,25 @@ function swipeNavigation(tabs, tabContainer) {
         new MouseEvent("click", { bubbles: false, cancelable: true })
       );
     }
+  }
+}
+
+function breakingChangeNotification() {
+  if (
+    lovelace.config.cch == undefined &&
+    JSON.stringify(lovelace.config.views).includes(
+      "custom:compact-custom-header"
+    )
+  ) {
+    hass.callService("persistent_notification", "create", {
+      title: "CCH Breaking Change",
+      notification_id: "CCH_Breaking_Change",
+      message:
+        "Compact-Custom-Header's configuration method has changed. You are " +
+        "receiving this notification because you have updated CCH, but are " +
+        "using the old config method. Please, visit the [upgrade guide]" +
+        "(https://maykar.github.io/compact-custom-header/1_1_0_upgrade/) " +
+        "for more info."
+    });
   }
 }
