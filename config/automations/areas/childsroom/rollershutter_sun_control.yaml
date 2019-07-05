@@ -1,0 +1,37 @@
+---
+# When the weather forecast predicts a sunny day with temperature > 25°C
+# or the actually temperature is already > 25°C then better close the bedroom roller shutter.
+#
+alias: "[Childsroom] Turn down the roller shutter on hot days"
+initial_state: true
+trigger:
+  - platform: state
+    entity_id: sensor.temperature_garden, weather.dark_sky
+condition:
+  condition: and
+  conditions:
+    - condition: time
+      after: "09:00:00"
+      before: "16:00:00"
+    - condition: numeric_state
+      entity_id: cover.kinderzimmer
+      value_template: "{{ state.attributes.current_position }}"
+      above: 40
+    - condition: or
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.temperature_garden
+          above: 25
+        - condition: numeric_state
+          entity_id: weather.dark_sky
+          value_template: "{{ state.attributes.temperature }}"
+          above: 25
+action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.kinderzimmer
+      position: 35
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.kinderzimmer_bett
+      position: 55

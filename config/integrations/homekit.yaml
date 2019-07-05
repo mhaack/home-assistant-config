@@ -64,8 +64,11 @@ homekit:
       - switch.teich_blubber
       - switch.teich_wasserfall
 
-      - cover.wohnzimmer_schiebetur
-      - cover.kuche
       - cover.essbereich
-      - cover.wohnzimmer_tv
+      - cover.kinderzimmer
+      - cover.kinderzimmer_bett
+      - cover.kuche
+      - cover.schlafzimmer
+      - cover.wohnzimmer_schiebetur
       - cover.wohnzimmer_sofa
+      - cover.wohnzimmer_tv
