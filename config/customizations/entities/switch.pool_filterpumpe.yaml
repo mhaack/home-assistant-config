@@ -5,5 +5,5 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 switch.pool_filterpumpe:
-  friendly_name: Filterpumpe
-  icon: mdi:pool
+  friendly_name: Poolpumpe
+  icon: mdi:engine

@@ -5,4 +5,4 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 switch.pool_valve:
-  icon: mdi:solar-panel
+  icon: mdi:white-balance-sunny
