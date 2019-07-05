@@ -16,8 +16,3 @@ trigger:
 action:
   - service: switch.turn_off
     entity_id: switch.pool_filterpumpe
-  - service: notify.pushover_markus
-    data_template:
-      title: "JaMa Villa Pool"
-      message: >
-        Pool pump = {{states.switch.pool_filterpumpe.state}}

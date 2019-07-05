@@ -5,7 +5,7 @@
 #
 pool_pump_mode:
   name: Modus Poolpumpe
-  icon: mdi:engine
+  icon: mdi:pool
   options:
     - "Auto - Normal"
     - "Auto - Intensiv"

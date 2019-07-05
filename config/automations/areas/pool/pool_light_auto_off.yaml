@@ -6,30 +6,17 @@ trigger:
   platform: time
   at: "22:00:00"
 condition:
-  condition: and
-  conditions:
-    - condition: state
-      entity_id: light.pool_light
-      state: "on"
-    - condition: state
-      entity_id: input_boolean.pool_notification
-      state: "on"
-    - condition: template
-      value_template: >
-        {% if states.automation.pool_switch_off_pool_light_if_still_on.last_triggered is not none %}
-          {% if as_timestamp(now()) | int -  as_timestamp(automation.pool_switch_off_pool_light_if_still_on.attributes.last_triggered) | int > 1800 %}
-          true
-          {% else %}
-          false
-          {% endif %}
-        {% else %}
-        false
-        {% endif %}
+  - condition: state
+    entity_id: light.pool_light
+    state: "on"
 action:
   - service: light.turn_off
     data:
       entity_id: light.pool_light
+  - condition: state
+    entity_id: input_boolean.pool_notification
+    state: "on"
   - service: notify.ios_iphone_von_markus
     data:
-      title: "JaMa Villa"
+      title: "JaMa Villa Pool"
       message: "Achtung! Poollicht war noch an."
