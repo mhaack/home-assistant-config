@@ -3,18 +3,13 @@ import {
   html,
   fireEvent,
   defaultConfig,
-  huiRoot,
   hass
 } from "./compact-custom-header.js";
 
-const lovelace = huiRoot().lovelace;
 const buttonOptions = ["show", "hide", "clock", "overflow"];
 const overflowOptions = ["show", "hide", "clock"];
 const swipeAnimation = ["none", "swipe", "fade", "flip"];
-const previousConfig = JSON.parse(JSON.stringify(lovelace.config));
-const cchConfig = lovelace.config.cch
-  ? JSON.parse(JSON.stringify(lovelace.config.cch))
-  : {};
+let lovelace;
 
 export class CompactCustomHeaderEditor extends LitElement {
   static get properties() {
@@ -23,60 +18,26 @@ export class CompactCustomHeaderEditor extends LitElement {
     };
   }
 
+  firstUpdated() {
+    let ll = document.querySelector("home-assistant");
+    ll = ll && ll.shadowRoot;
+    ll = ll && ll.querySelector("home-assistant-main");
+    ll = ll && ll.shadowRoot;
+    ll = ll && ll.querySelector("app-drawer-layout partial-panel-resolver");
+    ll = (ll && ll.shadowRoot) || ll;
+    ll = ll && ll.querySelector("ha-panel-lovelace");
+    ll = ll && ll.shadowRoot;
+    lovelace = ll && ll.querySelector("hui-root").lovelace;
+
+    let loader = this.parentNode.querySelector(".lds-ring");
+    loader.parentNode.removeChild(loader);
+    this._config = lovelace.config.cch ? deepcopy(lovelace.config.cch) : {};
+  }
+
   render() {
-    if (this._config == undefined) this._config = cchConfig;
-    const mwc_button = customElements.get("mwc-button") ? true : false;
-
-    const close = () => {
-      let editor = this.parentNode.parentNode.parentNode.querySelector(
-        "editor"
-      );
-      this.parentNode.parentNode.parentNode.removeChild(editor);
-    };
-
-    const save = () => {
-      for (var key in this._config) {
-        if (this._config[key] == defaultConfig[key]) {
-          delete this._config[key];
-        }
-      }
-      let newConfig = {
-        ...lovelace.config,
-        ...{ cch: this._config }
-      };
-      if (previousConfig.resources) {
-        try {
-          lovelace.saveConfig(newConfig).then(() => {
-            if (huiRoot().lovelace.config != newConfig) {
-              console.log("Save failed, reverting.");
-              lovelace.saveConfig(previousConfig);
-            } else {
-              location.reload(true);
-            }
-          });
-        } catch (e) {
-          console.log("Save failed: " + e);
-        }
-      }
-    };
-
-    const save_button = mwc_button
-      ? html`
-          <mwc-button raised @click="${save}">Save and Reload</mwc-button>
-        `
-      : html`
-          <paper-button raised @click="${save}">Save and Reload</paper-button>
-        `;
-    const cancel_button = mwc_button
-      ? html`
-          <mwc-button raised @click="${close}">Cancel</mwc-button>
-        `
-      : html`
-          <paper-button raised @click="${close}">Cancel</paper-button>
-        `;
-
+    if (!this._config || !lovelace) return html``;
     return html`
-      <div @click="${close}" class="title_control">
+      <div @click="${this._close}" class="title_control">
         X
       </div>
       ${this.renderStyle()}
@@ -103,7 +64,7 @@ export class CompactCustomHeaderEditor extends LitElement {
           })
         : ""}
       <br />
-      ${mwc_button
+      ${this._mwc_button
         ? html`
             <mwc-button @click="${this._addException}"
               >Add Exception
@@ -128,16 +89,65 @@ export class CompactCustomHeaderEditor extends LitElement {
       >
         ${!this.exception
           ? html`
-              ${save_button}
+              ${this._save_button}
             `
           : ""}
         ${!this.exception
           ? html`
-              ${cancel_button}
+              ${this._cancel_button}
             `
           : ""}
       </h4>
     `;
+  }
+
+  get _mwc_button() {
+    return customElements.get("mwc-button") ? true : false;
+  }
+
+  _close() {
+    let editor = this.parentNode.parentNode.parentNode.querySelector("editor");
+    this.parentNode.parentNode.parentNode.removeChild(editor);
+  }
+
+  _save() {
+    for (var key in this._config) {
+      if (this._config[key] == defaultConfig[key]) {
+        delete this._config[key];
+      }
+    }
+    let newConfig = {
+      ...lovelace.config,
+      ...{ cch: this._config }
+    };
+    try {
+      lovelace.saveConfig(newConfig).then(() => {
+        location.reload(true);
+      });
+    } catch (e) {
+      alert("Save failed: " + e);
+    }
+  }
+
+  get _save_button() {
+    return this._mwc_button
+      ? html`
+          <mwc-button raised @click="${this._save}">Save and Reload</mwc-button>
+        `
+      : html`
+          <paper-button raised @click="${this._save}"
+            >Save and Reload</paper-button
+          >
+        `;
+  }
+  get _cancel_button() {
+    return this._mwc_button
+      ? html`
+          <mwc-button raised @click="${this._close}">Cancel</mwc-button>
+        `
+      : html`
+          <paper-button raised @click="${this._close}">Cancel</paper-button>
+        `;
   }
 
   _addException() {
@@ -280,10 +290,10 @@ export class CchConfigEditor extends LitElement {
 
   get _clock() {
     return (
-      this._menu == "clock" ||
-      this._voice == "clock" ||
-      this._notifications == "clock" ||
-      this._options == "clock"
+      this.getConfig("menu") == "clock" ||
+      this.getConfig("voice") == "clock" ||
+      this.getConfig("notifications") == "clock" ||
+      this.getConfig("options") == "clock"
     );
   }
 
@@ -429,20 +439,9 @@ export class CchConfigEditor extends LitElement {
           ?checked="${this.getConfig("chevrons") !== false}"
           .configValue="${"chevrons"}"
           @change="${this._valueChanged}"
-          title="Tab/view scrolling controls in header."
+          title="View scrolling controls in header."
         >
           Display Tab Chevrons
-        </paper-toggle-button>
-        <paper-toggle-button
-          class="${this.exception && this.config.hide_help === undefined
-            ? "inherited"
-            : ""}"
-          ?checked="${this.getConfig("hide_help") !== false}"
-          .configValue="${"hide_help"}"
-          @change="${this._valueChanged}"
-          title='Hide "Help" in options menu.'
-        >
-          Hide "Help"
         </paper-toggle-button>
         <paper-toggle-button
           class="${this.exception && this.config.sidebar_closed === undefined
@@ -455,22 +454,6 @@ export class CchConfigEditor extends LitElement {
           title="Closes the sidebar on opening Lovelace."
         >
           Close Sidebar
-        </paper-toggle-button>
-        <paper-toggle-button
-          class="${this.exception && this.config.hide_config === undefined
-            ? "inherited"
-            : ""}"
-          ?checked="${this.getConfig("hide_config") !== false}"
-          .configValue="${"hide_config"}"
-          @change="${this._valueChanged}"
-          title='Hide "Configure UI" in options menu.'
-        >
-          Hide "Configure UI"
-          ${this.getConfig("warning")
-            ? html`
-                <iron-icon icon="hass:alert" class="alert"></iron-icon>
-              `
-            : ""}
         </paper-toggle-button>
         <paper-toggle-button
           class="${this.exception && this.config.sidebar_swipe === undefined
@@ -500,7 +483,47 @@ export class CchConfigEditor extends LitElement {
             `
           : ""}
       </div>
-
+      <h4 class="underline">Menu Items</h4>
+      <div class="side-by-side">
+        <paper-toggle-button
+          class="${this.exception && this.config.hide_config === undefined
+            ? "inherited"
+            : ""}"
+          ?checked="${this.getConfig("hide_config") !== false}"
+          .configValue="${"hide_config"}"
+          @change="${this._valueChanged}"
+          title='Hide "Configure UI" in options menu.'
+        >
+          Hide "Configure UI"
+          ${this.getConfig("warning")
+            ? html`
+                <iron-icon icon="hass:alert" class="alert"></iron-icon>
+              `
+            : ""}
+        </paper-toggle-button>
+        <paper-toggle-button
+          class="${this.exception && this.config.hide_help === undefined
+            ? "inherited"
+            : ""}"
+          ?checked="${this.getConfig("hide_help") !== false}"
+          .configValue="${"hide_help"}"
+          @change="${this._valueChanged}"
+          title='Hide "Help" in options menu.'
+        >
+          Hide "Help"
+        </paper-toggle-button>
+        <paper-toggle-button
+          class="${this.exception && this.config.hide_unused === undefined
+            ? "inherited"
+            : ""}"
+          ?checked="${this.getConfig("hide_unused") !== false}"
+          .configValue="${"hide_unused"}"
+          @change="${this._valueChanged}"
+          title='Hide "Help" in options menu.'
+        >
+          Hide "Unused Entities"
+        </paper-toggle-button>
+      </div>
       <h4 class="underline">Buttons</h4>
       <div class="buttons side-by-side">
         <div
@@ -604,7 +627,7 @@ export class CchConfigEditor extends LitElement {
             <div class="side-by-side">
               <paper-dropdown-menu
                 class="${this.exception &&
-                this.config.getConfig("clock_format") === undefined
+                this.getConfig("clock_format") === undefined
                   ? "inherited"
                   : ""}"
                 label="Clock format"
@@ -1145,3 +1168,20 @@ export class CchConditionsEditor extends LitElement {
 }
 
 customElements.define("cch-conditions-editor", CchConditionsEditor);
+
+function deepcopy(value) {
+  if (!(!!value && typeof value == "object")) {
+    return value;
+  }
+  if (Object.prototype.toString.call(value) == "[object Date]") {
+    return new Date(value.getTime());
+  }
+  if (Array.isArray(value)) {
+    return value.map(deepcopy);
+  }
+  var result = {};
+  Object.keys(value).forEach(function(key) {
+    result[key] = deepcopy(value[key]);
+  });
+  return result;
+}
