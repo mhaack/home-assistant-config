@@ -32,7 +32,7 @@ cards:
         - entity_id: "automation.livingroom*"
         - entity_id: "automation.bedroom*"
         - entity_id: "automation.childsroom*"
-        
+
   - type: custom:auto-entities
     card:
       type: entities
