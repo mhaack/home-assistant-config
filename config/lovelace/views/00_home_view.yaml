@@ -175,6 +175,8 @@ cards:
               - entity: sensor.temperature_livingroom
                 name: Wohnzimmer
               - entity: sensor.temperature_bedroom
+            show:
+              fill: fade
           - type: iframe
             aspect_ratio: 90%
             url: "https://embed.windy.com/embed2.html?lat=51.358&lon=12.384&zoom=11&level=surface&overlay=wind&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&detailLat=51.367&detailLon=12.383&metricWind=default&metricTemp=%C2%B0C&radarRange=-1"
