@@ -50,6 +50,8 @@ cards:
                 entities:
                   - sensor.temperature_garden
                 hour24: true
+                show:
+                  fill: fade
               - type: horizontal-stack
                 cards:
                   - type: "custom:mini-graph-card"
@@ -59,6 +61,8 @@ cards:
                     hours_to_show: 168
                     points_per_hour: 0.25
                     hour24: true
+                    show:
+                      fill: fade
                   - type: "custom:mini-graph-card"
                     name: Luftfeuchtigkeit (7d)
                     line_color: "#4C9AD7"
@@ -67,6 +71,8 @@ cards:
                     hours_to_show: 168
                     points_per_hour: 0.25
                     hour24: true
+                    show:
+                      fill: fade
           - type: vertical-stack
             cards:
               - type: custom:vertical-stack-in-card
@@ -77,6 +83,8 @@ cards:
                     hours_to_show: 168
                     points_per_hour: 0.25
                     hour24: true
+                    show:
+                      fill: fade
                   - type: entities
                     show_header_toggle: false
                     entities:
@@ -158,6 +166,7 @@ cards:
                         show:
                           name: false
                           icon: false
+                          fill: fade
                       - type: gauge
                         entity: sensor.watertank_percent
               - type: conditional

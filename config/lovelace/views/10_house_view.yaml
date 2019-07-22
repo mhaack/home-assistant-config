@@ -55,12 +55,16 @@ cards:
                   - entity: sensor.temperature_livingroom
                     name: Wohnzimmer
                     show_state: true
+                show:
+                  fill: fade
               - type: 'custom:mini-graph-card'
                 decimals: 1
                 hour24: true
                 entities:
                   - entity: sensor.temperature_bedroom
                     show_state: true
+                show:
+                  fill: fade
           - type: horizontal-stack
             cards:
               - type: 'custom:mini-graph-card'
@@ -69,12 +73,16 @@ cards:
                 entities:
                   - entity: sensor.temperature_mia
                     show_state: true
+                show:
+                  fill: fade
               - type: 'custom:mini-graph-card'
                 decimals: 1
                 hour24: true
                 entities:
                   - entity: sensor.temperature_bathroom
                     show_state: true
+                show:
+                  fill: fade
           - type: 'custom:mini-graph-card'
             name: Luftfeuchtigkeit
             decimals: 1
@@ -86,6 +94,8 @@ cards:
               - entity: sensor.humidity_bathroom
               - entity: sensor.humidity_mia
             unit: '%'
+            show:
+              fill: fade
           - type: horizontal-stack
             cards:
               - type: "custom:mini-graph-card"
@@ -93,12 +103,16 @@ cards:
                 entities:
                   - sensor.temperature_fridge
                 hour24: true
+                show:
+                  fill: fade
               - type: "custom:mini-graph-card"
                 name: Luftfeuchtigkeit Kühlschrank
                 line_color: "#4C9AD7"
                 entities:
                   - sensor.humidity_fridge
                 hour24: true
+                show:
+                  fill: fade
           - break
           - type: entities
             entities:
