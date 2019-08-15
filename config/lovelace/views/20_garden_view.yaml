@@ -104,11 +104,21 @@ cards:
                   - switch.pool_filterpumpe
                   - switch.pool_valve
                   - light.pool_light
-                  - sensor.daily_pool_filterpumpe_hours
-                  - sensor.pool_filterpumpe_power
-                  - sensor.pool_filterpumpe_energy_counter
-                  - sensor.daily_energy_pool
                 title: Poolsteuerung
+              - type: entities
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.daily_pool_filterpumpe_hours
+                    name: Betriebsstunden Pumpe
+                  - entity: sensor.daily_pool_valve_hours
+                    name: Betriebsstunden Solar
+                  - entity: sensor.pool_filterpumpe_power
+                    name: Leistung Pumpe
+                  - entity: sensor.daily_energy_pool
+                    name: Stromverbrauch Pumpe (heute)
+                  - entity: sensor.pool_filterpumpe_energy_counter
+                    name: Stromverbrauch Pumpe (gesamt)
+                title: Poolstatistik
               - type: entities
                 entities:
                   - light.sonnendeck_led
