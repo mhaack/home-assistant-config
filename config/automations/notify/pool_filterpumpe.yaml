@@ -5,6 +5,8 @@ alias: "[Notify] Pool pump state change notifications"
 trigger:
   - platform: state
     entity_id: switch.pool_filterpumpe
+  - platform: state
+    entity_id: switch.pool_valve
 condition:
   - condition: state
     entity_id: input_boolean.pool_notification
@@ -22,6 +24,7 @@ action:
       message: >
         Pump Mode: {{states.input_select.pool_pump_mode.state}},
         Pump State: {{states.switch.pool_filterpumpe.state}},
+        Solar State: {{states.switch.pool_valve.state}},
         Water Temp: {{states.sensor.temperatursensor_pool_1_temperature.state}},
         Solar Temp: {{states.sensor.temperature_solar.state}},
         Temp Diff: {{states.sensor.temperature_solar_pool_diff.state}}
