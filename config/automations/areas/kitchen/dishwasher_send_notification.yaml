@@ -33,8 +33,8 @@ condition:
       state: "on"
     - condition: template
       value_template: >
-        {% if states.automation.send_alert_when_dishwasher_machine_is_finished.last_triggered is not none %}
-          {% if as_timestamp(now()) | int -  as_timestamp(states.automation.send_alert_when_dishwasher_machine_is_finished.attributes.last_triggered) | int > 1800 %}
+        {% if states.automation.appliances_send_alert_when_dishwasher_machine_is_finished.last_triggered is not none %}
+          {% if as_timestamp(now()) | int -  as_timestamp(states.automation.appliances_send_alert_when_dishwasher_machine_is_finished.attributes.last_triggered) | int > 1800 %}
           true
           {% else %}
           false

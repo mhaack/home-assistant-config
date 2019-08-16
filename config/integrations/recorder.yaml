@@ -77,4 +77,7 @@ recorder:
       - sensor.processor_use
       - sensor.version_available
       - sensor.version_current
+      - sensor.window_door_status
       - sun.sun
+      - switch.sonnendeck_led
+
