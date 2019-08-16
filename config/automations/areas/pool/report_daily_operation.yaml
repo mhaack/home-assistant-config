@@ -10,3 +10,7 @@ action:
     data_template:
       title: "JaMa Villa Pool"
       message: "Die Poolfilterpumpe lief heute ingesamt {{states.sensor.daily_pool_filterpumpe_hours.state}} Stunden."
+  - service: notify.pushover_markus
+    data_template:
+      title: "JaMa Villa Pool"
+      message: "Die Solaranlage war heute ingesamt {{states.sensor.daily_pool_valve_hours.state}} Stunden in Betrieb."

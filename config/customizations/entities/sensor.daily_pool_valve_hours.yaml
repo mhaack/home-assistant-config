@@ -1,0 +1,8 @@
+---
+#
+# Customizes daily pool valve operation hours ensors.
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.daily_pool_valve_hours:
+  friendly_name: Betriebsstunden
