@@ -83,6 +83,14 @@ cards:
                     show_state: true
                 show:
                   fill: fade
+              - type: 'custom:mini-graph-card'
+                decimals: 1
+                hour24: true
+                entities:
+                  - entity: sensor.temperature_office
+                    show_state: true
+                show:
+                  fill: fade
           - type: 'custom:mini-graph-card'
             name: Luftfeuchtigkeit
             decimals: 1
@@ -93,6 +101,7 @@ cards:
               - entity: sensor.humidity_bedroom
               - entity: sensor.humidity_bathroom
               - entity: sensor.humidity_mia
+              - entity: sensor.humidity_office
             unit: '%'
             show:
               fill: fade
