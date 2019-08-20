@@ -1,6 +1,7 @@
 # JaMa Villa Home Assistant Configuration
 
 ![Project Maintenance][maintenance-shield]
+[![Home Assistant][home-assistant-shield]](home-assistant)
 [![License][license-shield]](LICENSE)
 
 [![Circle CI][circleci-shield]][circleci]
@@ -34,6 +35,7 @@ The original setup of this repository is by [Franck Nijhof](https://github.com/f
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
+[home-assistant-shield]:https://img.shields.io/badge/Home%20Assistant-0.97.2-blue
 [license-shield]: https://img.shields.io/github/license/mhaack/home-assistant-config.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2019.svg
 [circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg

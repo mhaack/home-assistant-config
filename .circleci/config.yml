@@ -81,26 +81,6 @@ jobs:
       - image: homeassistant/home-assistant:rc
     <<: *ha-check-config
 
-  # check-config:
-  #   docker:
-  #     - image: homeassistant/home-assistant:latest
-  #   environment:
-  #     PYTHONPATH: "/usr/src/app:$PYTHONPATH"
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Prepare
-  #         command: |
-  #           python -m homeassistant --version
-  #           cp -R ./.stubs/* ./config
-  #     - run:
-  #         name: Check config
-  #         command: |
-  #           python -m homeassistant \
-  #             --config ./config/ \
-  #             --script check_config \
-  #             --info all
-
 workflows:
   version: 2
   validate-and-check-config:
