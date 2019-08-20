@@ -1,0 +1,16 @@
+---
+# Activate carport alarm based on iOS message trigger.
+#
+alias: "[Security] Turn on carport alarm by iOS message"
+trigger:
+  platform: event
+  event_type: ios.notification_action_fired
+  event_data:
+    actionName: CARPORT_ALARM_ARMED_HOME
+condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_carport
+    state: disarmed
+action:
+  - service: alarm_control_panel.alarm_arm_home
+    entity_id: alarm_control_panel.alarm_carport
