@@ -14,10 +14,10 @@ ios:
           - identifier: 'CARPORT_ALARM_ARMED_HOME'
             title: 'Alarm aktivieren'
             activationMode: 'background'
-            authenticationRequired: yes
-            destructive: yes
+            authenticationRequired: true
+            destructive: true
           - identifier: 'CARPORT_LATER'
             title: 'Erinnere mich später'
             activationMode: 'background'
-            authenticationRequired: yes
-            destructive: no
+            authenticationRequired: true
+            destructive: false
