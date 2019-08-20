@@ -6,3 +6,18 @@
 # https://www.home-assistant.io/docs/ecosystem/ios/
 #
 ios:
+  push:
+    categories:
+      - name: Carport Alarm
+        identifier: 'carport_alarm'
+        actions:
+          - identifier: 'CARPORT_ALARM_ARMED_HOME'
+            title: 'Alarm aktivieren'
+            activationMode: 'background'
+            authenticationRequired: yes
+            destructive: yes
+          - identifier: 'CARPORT_LATER'
+            title: 'Erinnere mich später'
+            activationMode: 'background'
+            authenticationRequired: yes
+            destructive: no

@@ -1,0 +1,34 @@
+---
+# Activate carport alarm based on iOS message trigger.
+#
+alias: "[Security] Turn on carport alarm by iOS message"
+trigger:
+  platform: event
+  event_type: ios.notification_action_fired
+  event_data:
+    actionName: CARPORT_LATER
+condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_carport
+    state: disarmed
+action:
+  - service: notify.ios_iphone_von_markus
+    data:
+      title: "JaMa Villa"
+      message: "Ok. Carport Alarm Erinnerung in 30 Minuten."
+      data:
+        push:
+          thread-id: "ha-carport-alarm-notification-group"
+  - delay:
+      minutes: 30
+  - condition: state
+    entity_id: alarm_control_panel.alarm_carport
+    state: disarmed
+  - service: notify.ios_iphone_von_markus
+    data:
+      title: "JaMa Villa"
+      message: "Carport Alarm ist noch nicht aktiviert?"
+      data:
+        push:
+          thread-id: "ha-carport-alarm-notification-group"
+          category: "carport_alarm"
