@@ -48,6 +48,13 @@ recorder:
       - sensor.aarlo_signal_strength_garten
       - sensor.aarlo_signal_strength_pool
       - sensor.aarlo_signal_strength_terrasse
+      - sensor.adguard_average_processing_speed
+      - sensor.adguard_dns_queries
+      - sensor.adguard_dns_queries_blocked
+      - sensor.adguard_dns_queries_blocked_ratio
+      - sensor.adguard_parental_control_blocked
+      - sensor.adguard_rules_count
+      - sensor.adguard_safe_browsing_blocked
       - sensor.bewegungsmelder_flur_eg_1_brightness
       - sensor.bewegungsmelder_flur_og_brightness
       - sensor.bewegungsmelder_wohnzimmer_brightness
@@ -72,12 +79,11 @@ recorder:
       - sensor.landroid_totaldistance
       - sensor.landroid_totaltime
       - sensor.last_boot
-      - sensor.memory_use_percent
       - sensor.memory_free
+      - sensor.memory_use_percent
       - sensor.processor_use
       - sensor.version_available
       - sensor.version_current
       - sensor.window_door_status
       - sun.sun
       - switch.sonnendeck_led
-
