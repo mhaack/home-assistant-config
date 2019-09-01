@@ -6,7 +6,7 @@ alias: "[Pool] Pool solar heating - on"
 trigger:
   - platform: numeric_state
     entity_id: sensor.temperature_solar_pool_diff
-    above: 20
+    above: 15
     for:
       minutes: 1
 condition:
