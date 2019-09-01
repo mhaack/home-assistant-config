@@ -7,40 +7,40 @@
 platform: template
 sensors:
   core_router:
-    friendly_name: UniFi Router
+    friendly_name: UniFi USG
     device_class: connectivity
-    entity_id: device_tracker.core_router
-    value_template: "{{ is_state('device_tracker.core_router', 'home') }}"
+    entity_id: device_tracker.security_gateway
+    value_template: "{{ is_state('device_tracker.security_gateway', 'home') }}"
     icon_template: mdi:router-wireless
   core_switch:
     friendly_name: UniFi Switch
     device_class: connectivity
-    entity_id: device_tracker.core_switch
-    value_template: "{{ is_state('device_tracker.core_switch', 'home') }}"
+    entity_id: device_tracker.main_switch
+    value_template: "{{ is_state('device_tracker.main_switch', 'home') }}"
     icon_template: mdi:switch
   unifi_controler:
     friendly_name: UniFi Controller
     device_class: connectivity
-    entity_id: device_tracker.unifi_controler
-    value_template: "{{ is_state('device_tracker.unifi_controler', 'home') }}"
+    entity_id: device_tracker.unifi_controller
+    value_template: "{{ is_state('device_tracker.unifi_controller', 'home') }}"
     icon_template: mdi:console-network
   core_ap_untergeschoss:
     friendly_name: UniFi AP Untergeschoss
     device_class: connectivity
-    entity_id: device_tracker.core_ap_untergeschoss
-    value_template: "{{ is_state('device_tracker.core_ap_untergeschoss', 'home') }}"
+    entity_id: device_tracker.ap_untergeschoss
+    value_template: "{{ is_state('device_tracker.ap_untergeschoss', 'home') }}"
     icon_template: mdi:access-point-network
   core_ap_obergeschoss:
     friendly_name: UniFi AP Obergeschoss
     device_class: connectivity
-    entity_id: device_tracker.core_ap_obergeschoss
-    value_template: "{{ is_state('device_tracker.core_ap_obergeschoss', 'home') }}"
+    entity_id: device_tracker.ap_obergeschoss
+    value_template: "{{ is_state('device_tracker.ap_obergeschoss', 'home') }}"
     icon_template: mdi:access-point-network
   core_modem:
     friendly_name: DayTrak DSL Modem
     device_class: connectivity
-    entity_id: device_tracker.core_switch
-    value_template: "{{ is_state('device_tracker.core_switch', 'home') }}"
+    entity_id: device_tracker.core_modem
+    value_template: "{{ is_state('device_tracker.core_modem', 'home') }}"
     icon_template: mdi:wan
   nas:
     friendly_name: QNAP NAS
@@ -57,10 +57,10 @@ sensors:
   hue_hub:
     friendly_name: HUE Bridge
     device_class: connectivity
-    entity_id: device_tracker.hue_hub
-    value_template: "{{ is_state('device_tracker.hue_hub', 'home') }}"
+    entity_id: device_tracker.philips_hue
+    value_template: "{{ is_state('device_tracker.philips_hue', 'home') }}"
     icon_template: >-
-      {% if is_state('device_tracker.hue_hub', 'home') %}
+      {% if is_state('device_tracker.philips_hue', 'home') %}
         mdi:lightbulb
       {% else %}
         mdi:alert
@@ -68,10 +68,10 @@ sensors:
   arlo_hub:
     friendly_name: Arlo Bridge
     device_class: connectivity
-    entity_id: device_tracker.arlo_hub
-    value_template: "{{ is_state('device_tracker.arlo_hub', 'home') }}"
+    entity_id: device_tracker.vmb3010
+    value_template: "{{ is_state('device_tracker.vmb3010', 'home') }}"
     icon_template: >-
-      {% if is_state('device_tracker.arlo_hub', 'home') %}
+      {% if is_state('device_tracker.vmb3010', 'home') %}
         mdi:cctv
       {% else %}
         mdi:alert

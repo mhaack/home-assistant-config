@@ -9,12 +9,5 @@
 platform: ping
 hosts:
   core_modem: !secret core_modem
-  core_router: !secret core_router
-  core_switch: !secret core_switch
-  core_ap_untergeschoss: !secret core_ap_untergeschoss
-  core_ap_obergeschoss: !secret core_ap_obergeschoss
-  unifi_controler: !secret unifi_controler
   nas: !secret nas
   fritzbox: !secret fritzbox
-  arlo_hub: !secret arlo_hub
-  hue_hub: !secret hue_hub
