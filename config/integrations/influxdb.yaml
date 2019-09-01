@@ -23,11 +23,13 @@ influxdb:
       - sensor.funksteckdose_office_power
       - sensor.funksteckdose_spuli_power
       - sensor.humidity_bathroom
+      - sensor.humidity_bathroom
       - sensor.humidity_bedroom
       - sensor.humidity_equipmentroom
       - sensor.humidity_garden
       - sensor.humidity_livingroom
       - sensor.humidity_mia
+      - sensor.humidity_office
       - sensor.pool_filterpumpe_power
       - sensor.pumpe_zisterne_power
       - sensor.sonnendeck_led_power
@@ -35,12 +37,14 @@ influxdb:
       - sensor.speedtest_download
       - sensor.speedtest_ping
       - sensor.speedtest_upload
+      - sensor.temperature_attic
       - sensor.temperature_bathroom
       - sensor.temperature_bedroom
       - sensor.temperature_equipmentroom
       - sensor.temperature_garden
       - sensor.temperature_livingroom
       - sensor.temperature_mia
+      - sensor.temperature_office
       - sensor.temperatursensor_pool_1_temperature
       - sensor.temperatursensor_pool_2_temperature
       - sensor.temperatursensor_solar_1_temperature

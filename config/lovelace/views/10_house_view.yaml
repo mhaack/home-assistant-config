@@ -108,6 +108,19 @@ cards:
           - type: horizontal-stack
             cards:
               - type: "custom:mini-graph-card"
+                name: Dachboden
+                entities:
+                  - entity: sensor.temperature_attic
+                    name: Temperatur
+                  - entity: sensor.humidity_attic
+                    name: Luftfeuchtigkeit
+                    show_state: true
+                hour24: true
+                show:
+                  fill: fade
+          - type: horizontal-stack
+            cards:
+              - type: "custom:mini-graph-card"
                 name: Kühlschranktemperatur
                 entities:
                   - sensor.temperature_fridge
