@@ -97,7 +97,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     cameras = []
     for camera in arlo.cameras:
-        cameras.append( ArloCam(hass, camera, config) )
+        cameras.append( ArloCam(camera, config) )
 
     async_add_entities(cameras)
 
@@ -137,7 +137,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 class ArloCam(Camera):
     """An implementation of a Netgear Arlo IP camera."""
 
-    def __init__( self,hass,camera,config ):
+    def __init__( self,camera,config ):
         """Initialize an Arlo camera."""
         super().__init__()
         self._name          = camera.name
@@ -146,7 +146,6 @@ class ArloCam(Camera):
         self._state         = None
         self._recent        = False
         self._motion_status = False
-        self._ffmpeg           = hass.data[DATA_FFMPEG]
         self._ffmpeg_arguments = config.get(CONF_FFMPEG_ARGUMENTS)
         _LOGGER.info( 'ArloCam: %s created',self._name )
 
@@ -202,14 +201,17 @@ class ArloCam(Camera):
             _LOGGER.error(error_msg)
             return
 
-        stream = CameraMjpeg(self._ffmpeg.binary, loop=self.hass.loop)
+        ffmpeg_manager = self.hass.data[DATA_FFMPEG]
+        stream = CameraMjpeg(ffmpeg_manager.binary, loop=self.hass.loop)
         await stream.open_camera(
             video.video_url, extra_cmd=self._ffmpeg_arguments)
 
         try:
+            stream_reader = await stream.get_reader()
             return await async_aiohttp_proxy_stream(
-                self.hass, request, stream,
-                'multipart/x-mixed-replace;boundary=ffserver')
+                self.hass, request, stream_reader,
+                ffmpeg_manager.ffmpeg_stream_content_type)
+
         finally:
             await stream.close()
 
