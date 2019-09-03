@@ -11,4 +11,3 @@ pool_pump_mode:
     - "Auto - Intensiv"
     - "Dauerbetrieb"
     - "Aus"
-  initial: "Auto - Normal"
