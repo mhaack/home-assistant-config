@@ -7,6 +7,7 @@ platform: template
 covers:
   wohnzimmer_schiebetur:
     friendly_name: "Schiebetür"
+    icon_template: "mdi:format-align-justify"
     open_cover:
       service: script.cover_group
       data:
