@@ -21,3 +21,16 @@ ios:
             activationMode: 'background'
             authenticationRequired: true
             destructive: false
+      - name: Home Alarm
+        identifier: 'house_alarm'
+        actions:
+          - identifier: 'HOUSE_ALARM_ARMED_HOME'
+            title: 'Alarm aktivieren'
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: true
+          - identifier: 'HOUSE_LATER'
+            title: 'Erinnere mich später'
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: false
