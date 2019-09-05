@@ -1,0 +1,8 @@
+---
+#
+# Customizes the person image
+#
+# https://www.home-assistant.io/components/person/
+#
+person.jasmina:
+  entity_picture: !secret image_jasmina
