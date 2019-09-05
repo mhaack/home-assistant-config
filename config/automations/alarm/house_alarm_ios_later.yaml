@@ -1,0 +1,40 @@
+---
+# Activate house alarm based on iOS message trigger.
+#
+alias: "[Security] House alarm reminder iOS message"
+trigger:
+  platform: event
+  event_type: ios.notification_action_fired
+  event_data:
+    actionName: HOUSE_LATER
+condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_hause
+    state: disarmed
+  - condition: state
+    entity_id: group.family
+    state: not_home
+action:
+  - service: notify.ios_iphone_von_markus
+    data:
+      title: "JaMa Villa"
+      message: "Ok. Haus Alarm Erinnerung in 30 Minuten."
+      data:
+        push:
+          thread-id: "ha-house-alarm-notification-group"
+  - delay:
+      minutes: 30
+  - condition: state
+    entity_id: alarm_control_panel.alarm_haus
+    state: disarmed
+  - condition: state
+    entity_id: group.family
+    state: not_home
+  - service: notify.ios_iphone_von_markus
+    data:
+      title: "JaMa Villa"
+      message: "Alle haben das Haus verlassen, aber der Alarm ist noch nicht aktiviert?"
+      data:
+        push:
+          thread-id: "ha-house-alarm-notification-group"
+          category: "house_alarm"

@@ -1,0 +1,17 @@
+---
+# Describtion file for my pyhton scriopts
+#
+# https://www.home-assistant.io/components/python_script/#documenting-your-python-scripts
+#
+update_display:
+  description: A generic script to send updates to the HM-Dis-EP-WM55 display.
+
+jamavilla_display:
+  description: JaMa Villa display updated script.
+  fields:
+    led:
+      description: Active LED and set color
+      example: green
+    beep:
+      description: Activate Beeper
+      example: short_long

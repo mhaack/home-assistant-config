@@ -46,6 +46,12 @@ cards:
                   action: toggle
             title: Innenbeleuchtung
             show_state: false
+          - type: entity-filter
+            show_empty: false
+            entities:
+              - entity: timer.hallway_lights
+            state_filter:
+              - 'active'
           - type: horizontal-stack
             cards:
               - type: 'custom:mini-graph-card'
@@ -118,42 +124,42 @@ cards:
                 hour24: true
                 show:
                   fill: fade
-          - type: horizontal-stack
-            cards:
-              - type: "custom:mini-graph-card"
-                name: Kühlschranktemperatur
-                entities:
-                  - sensor.temperature_fridge
-                hour24: true
-                show:
-                  fill: fade
-              - type: "custom:mini-graph-card"
-                name: Luftfeuchtigkeit Kühlschrank
-                line_color: "#4C9AD7"
-                entities:
-                  - sensor.humidity_fridge
-                hour24: true
-                show:
-                  fill: fade
           - break
           - type: entities
             entities:
-              - cover.wohnzimmer_schiebetur
-              - cover.wohnzimmer_schiebetur_rechts
-              - cover.wohnzimmer_schiebetur_links
-              - cover.kuche
-              - cover.essbereich
-              - cover.wohnzimmer_tv
-              - cover.wohnzimmer_sofa
+              - label: Untergeschoss
+                type: section
+                style:
+                  height: 3px
+              - type: custom:fold-entity-row
+                head: cover.wohnzimmer_schiebetur
+                entities:
+                  - entity: cover.wohnzimmer_schiebetur_rechts
+                    icon: 'mdi:format-align-justify'
+                    name: Schiebetür rechts
+                  - entity: cover.wohnzimmer_schiebetur_links
+                    icon: 'mdi:format-align-justify'
+                    name: Schiebetür links
+              - entity: cover.kuche
+                icon: 'mdi:format-align-justify'
+              - entity: cover.essbereich
+                icon: 'mdi:format-align-justify'
+              - entity: cover.wohnzimmer_tv
+                icon: 'mdi:format-align-justify'
+              - entity: cover.wohnzimmer_sofa
+                icon: 'mdi:format-align-justify'
+              - label: Obergeschoss
+                type: section
+                style:
+                  height: 3px
+              - entity: cover.schlafzimmer
+                icon: 'mdi:format-align-justify'
+              - entity: cover.kinderzimmer
+                icon: 'mdi:format-align-justify'
+              - entity: cover.kinderzimmer_bett
+                icon: 'mdi:format-align-justify'
             show_header_toggle: false
-            title: Rollläden EG
-          - type: entities
-            entities:
-              - cover.schlafzimmer
-              - cover.kinderzimmer
-              - cover.kinderzimmer_bett
-            show_header_toggle: false
-            title: Rollläden OG
+            title: Rollläden
           - type: 'custom:mini-media-player'
             entity: media_player.buro
             artwork: cover
@@ -209,6 +215,12 @@ cards:
               - sensor.funksteckdose_gefrierschrank_energy_counter
             show_header_toggle: false
             title: Gefrierschrank
+          - type: entities
+            entities:
+              - sensor.temperature_fridge
+              - sensor.humidity_fridge
+            show_header_toggle: false
+            title: Kühlschrank
           - type: entities
             entities:
               - vacuum.roomba

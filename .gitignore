@@ -12,6 +12,7 @@ config/.aarlo
 config/.cloud
 config/.storage
 config/deps
+config/www/assets
 
 # Specific file ignores
 config/.config_entries.json
