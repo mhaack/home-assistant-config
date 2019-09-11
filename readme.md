@@ -31,9 +31,7 @@ anything here, Be sure to 🌟 the GitHub repo.
 
 ### Host System
 
-My Home Assistant system currently run's on a Raspberry PI 3 with 16GByte
-SanDisk Extrem microSD card. All is managent by hass.io and the following
-add-ons are currentyl used:
+My Home Assistant system currently run's on a Raspberry PI 3 with 16GByte SanDisk Extrem microSD card. All is managent by hass.io and the following add-ons are currentyl used:
 
 - [AdGuard Home](https://github.com/hassio-addons/addon-adguard-home)
 - [Configurator](https://home-assistant.io/addons/configurator) - would
@@ -63,10 +61,7 @@ add-ons are currentyl used:
 | [Ubiquiti Unifi Security Gateway (USG)](https://amzn.to/2AbZc3K)                  |    1     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Main router & firewall device           |
 | [Draytek Vigor 130 ADSL/VDSL modem](https://amzn.to/2NJI4Kv)                      |    1     | n/a                                                               | The connection to the outside world     |
 
-On network gear we are all-in for Unifi devices, they provide the a reliable
-and stable network for our house. The Draytek modem is connects us to the
-DSL line of the internet provider. The Unifi network equipment is also used
-as of one theprimary presence detection methods.
+On network gear we are all-in for Unifi devices, they provide the a reliable and stable network for our house. The Draytek modem is connects us to the DSL line of the internet provider. The Unifi network equipment is also used as of one theprimary presence detection methods.
 
 #### Lighting
 
@@ -89,11 +84,7 @@ as of one theprimary presence detection methods.
 | [Sonoff 4CH Pro R2](https://amzn.to/2LbEIhT)                                                                       |    1     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Used to control outdoor garden low power lighting                   |
 | [Sonoff TH16](https://amzn.to/2L8EVlF)                                                                             |    1     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Carport light and outdoor temperature & humidity with Si7021 sensor |
 
-Switches and outlets are used in various capacities, most are for lighting and
-some are for pool & pump devices. For devices consuming more energy I
-prefer the Homematic devices, they give a good and secure overall impression.
-For seasonal cristmas lighting (most are low power LEDs) I mainly use
-Sonoff outlets.
+Switches and outlets are used in various capacities, most are for lighting and some are for pool & pump devices. For devices consuming more energy I prefer the Homematic devices, they give a good and secure overall impression. For seasonal cristmas lighting (most are low power LEDs) I mainly use Sonoff outlets.
 
 #### Sensors
 
@@ -104,9 +95,7 @@ Sonoff outlets.
 | [Xiaomi Aqara Smart Vibration Sensor](https://amzn.to/2zwhQCX)                        |    2     | [deCONZ Sensor](https://www.home-assistant.io/components/deconz/#sensor) | Moving detection of our garden bench ;-)            |
 | [Sonoff TH16](https://amzn.to/2L8EVlF) with Si7021 sensor                             |    1     |   [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Garden & outdoor temperature & humidity sensor      |
 
-Most of the sensor got replaced with Xiaomi Aqara devices recently, they are
-small and very reliabale, connected via ZigBee deCONZ. Unfortunatelly they are
-only for indoor use, so I keep the Homematic HM-WDS30-OT2-SM for outdoor.
+Most of the sensor got replaced with Xiaomi Aqara devices recently, they are small and very reliabale, connected via ZigBee deCONZ. Unfortunatelly they are only for indoor use, so I keep the Homematic HM-WDS30-OT2-SM for outdoor.
 
 #### Security
 
@@ -136,8 +125,7 @@ only for indoor use, so I keep the Homematic HM-WDS30-OT2-SM for outdoor.
 | [Arlo HD](https://amzn.to/2Q4hLBN)    |    3     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Started with these, then added Arlo Pro 2 later       |
 | [Arlo Pro 2](https://amzn.to/2PPtZ0W) |    2     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Definetly much better quality then the 1st generation |
 
-Main argment to choose Arlo cameras was the power supply via battery, since I
-have them placed mainly in places without power supply.
+Main argment to choose Arlo cameras was the power supply via battery, since I have them placed mainly in places without power supply.
 
 #### Vacuum
 
@@ -151,11 +139,7 @@ have them placed mainly in places without power supply.
 | ------------------------------------------ | :----------------------------------------------------: | ------------------------------------------------------------------------------------------------------------ |
 | [Worx Landroid S](https://amzn.to/32GTGSV) | [MQTT](https://www.home-assistant.io/components/mqtt/) | This little guy is integrated via [Landroid Bridge](https://github.com/virtualzone/landroid-bridge) and MQTT |
 
-There is no direct integration of Landroid lawn mowers with Home Assitent yet,
-but the [Landroid Bridge](https://github.com/virtualzone/landroid-bridge)
-does a pretty good job. Landroid Bridge runs on a Raspberry Pi 3 in
-Docker container. It get the lawn mover updates from cloud and push them to
-Home Assistend via MQTT.
+There is no direct integration of Landroid lawn mowers with Home Assitent yet, but the [Landroid Bridge](https://github.com/virtualzone/landroid-bridge) does a pretty good job. Landroid Bridge runs on a Raspberry Pi 3 in Docker container. It get the lawn mover updates from cloud and push them to Home Assistend via MQTT.
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
