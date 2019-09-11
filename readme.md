@@ -125,14 +125,18 @@ Most of the sensor got replaced with Xiaomi Aqara devices recently, they are sma
 | [Arlo HD](https://amzn.to/2Q4hLBN)    |    3     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Started with these, then added Arlo Pro 2 later       |
 | [Arlo Pro 2](https://amzn.to/2PPtZ0W) |    2     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Definetly much better quality then the 1st generation |
 
-The main argument to choose Arlo cameras was the power supply via a battery,
-since I have them placed mainly in places without power supply.
+The main argument for us to choose Arlo cameras were they are powered
+via a battery since we have them placed mainly in places without power supply.
+They only record if motion (or sound on the Arlo Pro 2) is detected.
+The original Arlo HD requires special batteries and last ~6 months on one set.
+The Arlo Pro 2 comes with a rechargeable battery pack or can be operated
+with USB power supply.
 
 #### Vacuum
 
-| Device                                       | Home Assistant | Notes                                                             |
-| -------------------------------------------- | :------------: | ----------------------------------------------------------------- |
-| [iRobot Roomba 690](https://amzn.to/31lkpUU) |       1        | [iRobot Roomba](https://www.home-assistant.io/components/roomba/) | Not much to say, does the job. |
+| Device                                       |                          Home Assistant                           | Notes                          |
+| -------------------------------------------- | :---------------------------------------------------------------: | ------------------------------ |
+| [iRobot Roomba 690](https://amzn.to/31lkpUU) | [iRobot Roomba](https://www.home-assistant.io/components/roomba/) | Not much to say, does the job. |
 
 #### Garden
 
@@ -144,7 +148,7 @@ There is no direct integration of Landroid lawn mowers with Home Assistant yet, 
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
-[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.98.2-blue
+[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.98.4-blue
 [license-shield]: https://img.shields.io/github/license/mhaack/home-assistant-config.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2019.svg
 [circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg
