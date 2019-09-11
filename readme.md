@@ -50,17 +50,17 @@ add-ons are currentyl used:
 | Device                                        |                          Home Assistant                          | Notes                                       |
 | --------------------------------------------- | :--------------------------------------------------------------: | ------------------------------------------- |
 | [Homematic CCU3](https://amzn.to/2HyzEBK)     | [Homematic](https://www.home-assistant.io/components/homematic/) | Used to controll all Homematic devices      |
-| [deCONZ Conbee II](https://amzn.to/2PoKl0g)   |    [deCONZ](https://www.home-assistant.io/components/deconz/)    | The main ZigBee Hub                         |
-| [Philips Hue Bridge](https://amzn.to/2UdvVP8) |   [Philips Hue](https://www.home-assistant.io/components/hue/)   | Used to control all Philips Hue smart bulbs |
-| [Arlo Hub](https://amzn.to/34ujpPZ)           | [Aarlo](https://github.com/twrecked/hass-aarlo) custom component | Arlo camera system integration              |
+| [deCONZ Conbee II](https://amzn.to/2A73E3I)   |    [deCONZ](https://www.home-assistant.io/components/deconz/)    | The main ZigBee Hub                         |
+| [Philips Hue Bridge](https://amzn.to/2A74bCK) |   [Philips Hue](https://www.home-assistant.io/components/hue/)   | Used to control all Philips Hue smart bulbs |
+| [Arlo Hub](https://amzn.to/2Qf3D8S)           | [Aarlo](https://github.com/twrecked/hass-aarlo) custom component | Arlo camera system integration              |
 
 #### Network
 
 | Device                                                                            | Quantity | Home Assistant                                                    | Notes                                   |
 | --------------------------------------------------------------------------------- | :------: | ----------------------------------------------------------------- | --------------------------------------- |
-| [Ubiquiti Networks UniFi Switch - 16 Ports (US-16-150W)](https://amzn.to/2PjIFox) |    1     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Primary network switch                  |
-| [Ubiquiti Networks Unifi AP Lite (UAP-AC-LITE)](https://amzn.to/2zswivK)          |    2     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Wireless Access Point for interior use. |
-| [Ubiquiti Unifi Security Gateway (USG)](https://amzn.to/2Lg4vEd)                  |    1     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Main router & firewall device           |
+| [Ubiquiti Networks UniFi Switch - 16 Ports (US-16-150W)](https://amzn.to/2LqnXPQ) |    1     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Primary network switch                  |
+| [Ubiquiti Networks Unifi AP Lite (UAP-AC-LITE)](https://amzn.to/2Q7fbL5)          |    2     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Wireless Access Point for interior use. |
+| [Ubiquiti Unifi Security Gateway (USG)](https://amzn.to/2AbZc3K)                  |    1     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Main router & firewall device           |
 | [Draytek Vigor 130 ADSL/VDSL modem](https://amzn.to/2NJI4Kv)                      |    1     | n/a                                                               | The connection to the outside world     |
 
 On network gear we are all-in for Unifi devices, they provide the a reliable
@@ -121,10 +121,10 @@ only for indoor use, so I keep the Homematic HM-WDS30-OT2-SM for outdoor.
 
 | Device                                     | Quantity |                            Home Assistant                             | Notes                                                     |
 | ------------------------------------------ | :------: | :-------------------------------------------------------------------: | --------------------------------------------------------- |
-| [Sonos Play:3](https://amzn.to/2NYicuJ)    |    2     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | Our main music system in the house and Home Assistant TTS |
-| [Sonos Play:5](https://amzn.to/2NPajr8)    |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | Still the 1st generation one 😞, get the new one          |
-| [Sonos PlayBar](https://amzn.to/2LryGbM)   |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | TV sound                                                  |
-| [Sonos Sub](https://amzn.to/2PRq2su)       |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | TV sound                                                  |
+| [Sonos Play:3](https://amzn.to/2Lum6Ka)    |    2     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | Our main music system in the house and Home Assistant TTS |
+| [Sonos Play:5](https://amzn.to/30a38ME)    |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | Still the 1st generation one 😞, get the new one          |
+| [Sonos PlayBar](https://amzn.to/2N8Mco3)   |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | TV sound                                                  |
+| [Sonos Sub](https://amzn.to/34NUuau)       |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | TV sound                                                  |
 | [Amazon Echo](https://amzn.to/2HM0XIW)     |    1     |         Via [Nabu Casa](https://www.home-assistant.io/cloud/)         | Voice control                                             |
 | [Amazon Echo Dot](https://amzn.to/2Q4h9vZ) |    2     |         Via [Nabu Casa](https://www.home-assistant.io/cloud/)         | Voice control                                             |
 
@@ -139,36 +139,17 @@ Main argment to choose Arlo cameras was the power supply via battery, since I ha
 
 #### Vacuum
 
-| Device | Quantity | Home Assistant | Notes |
-| ------ | :------: | :------------: | ----- |
-
+| Device                                       | Home Assistant | Notes                                                             |
+| -------------------------------------------- | :------------: | ----------------------------------------------------------------- |
+| [iRobot Roomba 690](https://amzn.to/31lkpUU) |       1        | [iRobot Roomba](https://www.home-assistant.io/components/roomba/) | Not much to say, does the job. |
 
 #### Garden
 
-| Device | Quantity | Home Assistant | Notes |
-| ------ | :------: | :------------: | ----- |
+| Device                                     |                     Home Assistant                     | Notes                                                                                                        |
+| ------------------------------------------ | :----------------------------------------------------: | ------------------------------------------------------------------------------------------------------------ |
+| [Worx Landroid S](https://amzn.to/32GTGSV) | [MQTT](https://www.home-assistant.io/components/mqtt/) | This little guy is integrated via [Landroid Bridge](https://github.com/virtualzone/landroid-bridge) and MQTT |
 
-
-Landorid lawnmower robot
-
-#### Remotes
-
-| Device | Quantity | Home Assistant | Notes |
-| ------ | :------: | :------------: | ----- |
-
-
-Duofern
-Homematic
-
-#### Other devices
-
-| Device | Quantity | Home Assistant | Notes |
-| ------ | :------: | :------------: | ----- |
-
-
-Qnap
-Fritzbox
-Homematic Display
+There is no direct integration of Landroid lawn mowers with Home Assitent yet, but the [Landroid Bridge](https://github.com/virtualzone/landroid-bridge) does a pretty good job. Landroid Bridge runs on a Raspberry Pi 3 in Docker container. It get the lawn mover updates from cloud and push them to Home Assistend via MQTT.
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
