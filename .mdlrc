@@ -1,2 +1,3 @@
-rules "~MD026"
-rule 'MD013', :tables => false
+all
+rule 'MD013', :line_length => 100
+exclude_rule "MD026"

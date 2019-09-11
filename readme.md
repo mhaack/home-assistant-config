@@ -92,7 +92,8 @@ as of one theprimary presence detection methods.
 Switches and outlets are used in various capacities, most are for lighting and
 some are for pool & pump devices. For devices consuming more energy I
 prefer the Homematic devices, they give a good and secure overall impression.
-For seasonal cristmas lighting (most are low power LEDs) I mainly use Sonoff outlets.
+For seasonal cristmas lighting (most are low power LEDs) I mainly use
+Sonoff outlets.
 
 #### Sensors
 
@@ -135,7 +136,8 @@ only for indoor use, so I keep the Homematic HM-WDS30-OT2-SM for outdoor.
 | [Arlo HD](https://amzn.to/2Q4hLBN)    |    3     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Started with these, then added Arlo Pro 2 later       |
 | [Arlo Pro 2](https://amzn.to/2PPtZ0W) |    2     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Definetly much better quality then the 1st generation |
 
-Main argment to choose Arlo cameras was the power supply via battery, since I have them placed mainly in places without power supply.
+Main argment to choose Arlo cameras was the power supply via battery, since I
+have them placed mainly in places without power supply.
 
 #### Vacuum
 
@@ -149,7 +151,11 @@ Main argment to choose Arlo cameras was the power supply via battery, since I ha
 | ------------------------------------------ | :----------------------------------------------------: | ------------------------------------------------------------------------------------------------------------ |
 | [Worx Landroid S](https://amzn.to/32GTGSV) | [MQTT](https://www.home-assistant.io/components/mqtt/) | This little guy is integrated via [Landroid Bridge](https://github.com/virtualzone/landroid-bridge) and MQTT |
 
-There is no direct integration of Landroid lawn mowers with Home Assitent yet, but the [Landroid Bridge](https://github.com/virtualzone/landroid-bridge) does a pretty good job. Landroid Bridge runs on a Raspberry Pi 3 in Docker container. It get the lawn mover updates from cloud and push them to Home Assistend via MQTT.
+There is no direct integration of Landroid lawn mowers with Home Assitent yet,
+but the [Landroid Bridge](https://github.com/virtualzone/landroid-bridge)
+does a pretty good job. Landroid Bridge runs on a Raspberry Pi 3 in
+Docker container. It get the lawn mover updates from cloud and push them to
+Home Assistend via MQTT.
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
