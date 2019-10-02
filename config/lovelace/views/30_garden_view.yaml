@@ -75,59 +75,26 @@ cards:
                       fill: fade
           - type: vertical-stack
             cards:
-              - type: custom:vertical-stack-in-card
-                cards:
-                  - type: "custom:mini-graph-card"
-                    entities:
-                      - sensor.temperatursensor_pool_1_temperature
-                    hours_to_show: 168
-                    points_per_hour: 0.25
-                    hour24: true
-                    show:
-                      fill: fade
-                  - type: entities
-                    show_header_toggle: false
-                    entities:
-                      - sensor.temperatursensor_pool_1_temperature
-                      - sensor.temperature_solar_pool_diff
-                      - type: custom:fold-entity-row
-                        head: sensor.temperature_solar
-                        items:
-                          - sensor.temperatursensor_solar_1_temperature
-                          - sensor.temperatursensor_solar_2_temperature
-                        group_config:
-                          secondary_info: last-changed
-              - type: entities
-                show_header_toggle: false
-                entities:
-                  - input_select.pool_pump_mode
-                  - switch.pool_filterpumpe
-                  - switch.pool_valve
-                  - light.pool_light
-                title: Poolsteuerung
-              - type: entities
-                show_header_toggle: false
-                entities:
-                  - entity: sensor.daily_pool_filterpumpe_hours
-                    name: Betriebsstunden Pumpe
-                  - entity: sensor.daily_pool_valve_hours
-                    name: Betriebsstunden Solar
-                  - entity: sensor.pool_filterpumpe_power
-                    name: Leistung Pumpe
-                  - entity: sensor.daily_energy_pool
-                    name: Stromverbrauch Pumpe (heute)
-                  - entity: sensor.pool_filterpumpe_energy_counter
-                    name: Stromverbrauch Pumpe (gesamt)
-                title: Poolstatistik
               - type: entities
                 entities:
-                  - light.sonnendeck_led
-                  - light.sonnendeck_positionslicht
-                  - switch.sonnendeck_steckdosen
+                  - entity: light.sonnendeck_led
+                    name: LED
+                  - entity: light.sonnendeck_positionslicht
+                    name: Schiffslicht
+                  - entity: switch.sonnendeck_steckdosen
+                    name: Steckdosen
                   - sensor.sonnendeck_steckdosen_power
                   - sensor.sonnendeck_steckdosen_energy_counter
                 show_header_toggle: false
                 title: Sonnendeck
+              - type: entities
+                entities:
+                  - sensor.garden_luftdaten_air_quality_pm10
+                  - sensor.garden_luftdaten_pm_10
+                  - sensor.garden_luftdaten_air_quality_pm2_5
+                  - sensor.garden_luftdaten_pm_2_5
+                show_header_toggle: false
+                title: Luftqualität
           - type: vertical-stack
             cards:
               - type: conditional
@@ -137,19 +104,21 @@ cards:
                 card:
                   type: entities
                   entities:
-                    - binary_sensor.gartenbank
+                    - entity: binary_sensor.gartenbank
+                      name: Bewegungserkennung
                     - entity: input_boolean.bench_notification
                       name: Benachrichtigen
                   show_header_toggle: false
                   title: Gartenbank
               - type: conditional
                 conditions:
-                  - entity: timer.pool_pump
+                  - entity: switch.sirene_carport_3
                     state: "on"
                 card:
                   type: entities
                   entities:
-                    - binary_sensor.gartenbank
+                    - entity: binary_sensor.gartenbank
+                      name: Bewegungserkennung
                     - entity: input_boolean.bench_notification
                       name: Benachrichtigen
                     - switch.sirene_carport_3
