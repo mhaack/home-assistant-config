@@ -1,0 +1,7 @@
+---
+#
+# Customizes luftdaten.info air quality sensors
+#
+sensor.garden_luftdaten_pm_2_5:
+  friendly_name: PM 2.5 Konzentration
+  icon: mdi:cloud-outline
