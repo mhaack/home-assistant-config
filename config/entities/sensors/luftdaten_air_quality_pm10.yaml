@@ -1,0 +1,17 @@
+---
+# Calculate the air quality indey from the luftdaten.info sensor
+#
+platform: template
+sensors:
+  # Air Quality Index = (PM10 mean over 1 day / 50) * 100
+  garden_luftdaten_air_quality_pm10:
+    friendly_name: "Luftqualität PM 10"
+    value_template: >-
+      {%if ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 33 %}Very Good
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 66 | float > 33 %}Good
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 99 | float > 66 %}Fair
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 149 | float > 99 %}Poor
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 200 | float > 149 %}Very Poor
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) > 200 %}Hazardous
+      {%- endif %}
+    entity_id: sensor.garden_luftdaten_stats_pm_10
