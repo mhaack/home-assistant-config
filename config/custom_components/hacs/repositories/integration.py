@@ -1,5 +1,6 @@
 """Class for integrations in HACS."""
 import json
+from aiogithubapi import AIOGitHubException
 from homeassistant.loader import async_get_custom_components
 from .repository import HacsRepository, register_repository_class
 
@@ -17,6 +18,7 @@ class HacsIntegration(HacsRepository):
         self.information.category = self.category
         self.manifest = None
         self.domain = None
+        self.content.path.remote = "custom_components"
         self.content.path.local = self.localpath
 
     @property
@@ -44,17 +46,28 @@ class HacsIntegration(HacsRepository):
             )
 
         # Custom step 1: Validate content.
-        ccdir = await self.repository_object.get_contents("custom_components", self.ref)
-        if not isinstance(ccdir, list):
-            self.validate.errors.append("Repostitory structure not compliant")
+        if self.repository_manifest:
+            if self.repository_manifest.content_in_root:
+                self.content.path.remote = ""
 
-        self.content.path.remote = ccdir[0].path
+        if self.content.path.remote == "custom_components":
+            ccdir = await self.repository_object.get_contents(
+                self.content.path.remote, self.ref
+            )
+            if not isinstance(ccdir, list):
+                self.validate.errors.append("Repostitory structure not compliant")
+
+            for item in ccdir or []:
+                if item.type == "dir":
+                    self.content.path.remote = item.path
+                    break
+
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )
 
         self.content.files = []
-        for filename in self.content.objects:
+        for filename in self.content.objects or []:
             self.content.files.append(filename.name)
 
         if not await self.get_manifest():
@@ -86,14 +99,29 @@ class HacsIntegration(HacsRepository):
         await self.common_update()
 
         # Get integration objects.
-        ccdir = await self.repository_object.get_contents("custom_components", self.ref)
-        self.content.path.remote = ccdir[0].path
-        self.content.objects = await self.repository_object.get_contents(
-            self.content.path.remote, self.ref
-        )
+
+        if self.repository_manifest:
+            if self.repository_manifest.content_in_root:
+                self.content.path.remote = ""
+
+        if self.content.path.remote == "custom_components":
+            ccdir = await self.repository_object.get_contents(
+                self.content.path.remote, self.ref
+            )
+            if not isinstance(ccdir, list):
+                self.validate.errors.append("Repostitory structure not compliant")
+
+            self.content.path.remote = ccdir[0].path
+
+        try:
+            self.content.objects = await self.repository_object.get_contents(
+                self.content.path.remote, self.ref
+            )
+        except AIOGitHubException:
+            return
 
         self.content.files = []
-        for filename in self.content.objects:
+        for filename in self.content.objects or []:
             self.content.files.append(filename.name)
 
         await self.get_manifest()
@@ -124,6 +152,8 @@ class HacsIntegration(HacsRepository):
             self.domain = manifest["domain"]
             self.information.name = manifest["name"]
             self.information.homeassistant_version = manifest.get("homeassistant")
+
+            # Set local path
+            self.content.path.local = self.localpath
             return True
-        else:
-            return False
+        return False

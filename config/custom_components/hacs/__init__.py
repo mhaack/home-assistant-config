@@ -2,7 +2,7 @@
 Custom element manager for community created elements.
 
 For more details about this integration, please refer to the documentation at
-https://custom-components.github.io/hacs/
+https://hacs.netlify.com/
 """
 # pylint: disable=bad-continuation
 from asyncio import sleep
@@ -12,7 +12,9 @@ from distutils.version import LooseVersion
 import aiohttp
 
 import voluptuous as vol
+from homeassistant.components import websocket_api
 from homeassistant import config_entries
+from homeassistant.core import callback
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
@@ -30,11 +32,22 @@ from integrationhelper import Logger, Version
 
 from . import const
 from .api import HacsAPI, HacsRunningTask
-from .http import HacsWebResponse, HacsPluginView, HacsPlugin
+from .http import HacsWebResponse, HacsPluginView, HacsPlugin, HacsExperimental
 from .hacsbase import const as hacsconst, Hacs
 from .hacsbase.data import HacsData
 from .hacsbase.configuration import Configuration
 from .hacsbase.migration import ValidateData
+from .ws_api import setup_ws_api
+
+
+OPTIONS_SCHEMA = vol.Schema(
+    {
+        vol.Optional("country"): vol.All(cv.string, vol.In(const.LOCALE)),
+        vol.Optional("release_limit"): cv.positive_int,
+        vol.Optional("experimental"): cv.string,
+    }
+)
+
 
 CONFIG_SCHEMA = vol.Schema(
     {
@@ -47,6 +60,7 @@ CONFIG_SCHEMA = vol.Schema(
                 vol.Optional("appdaemon", default=False): cv.boolean,
                 vol.Optional("python_script", default=False): cv.boolean,
                 vol.Optional("theme", default=False): cv.boolean,
+                vol.Optional("options"): OPTIONS_SCHEMA,
             }
         )
     },
@@ -60,7 +74,9 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
         return True
     hass.data[const.DOMAIN] = config
     Hacs.hass = hass
-    Hacs.configuration = Configuration(config[const.DOMAIN])
+    Hacs.configuration = Configuration(
+        config[const.DOMAIN], config[const.DOMAIN].get("options")
+    )
     Hacs.configuration.config_type = "yaml"
     await startup_wrapper_for_yaml(Hacs)
     hass.async_create_task(
@@ -82,9 +98,10 @@ async def async_setup_entry(hass, config_entry):
             )
         return False
     Hacs.hass = hass
-    Hacs.configuration = Configuration(config_entry.data)
+    Hacs.configuration = Configuration(config_entry.data, config_entry.options)
     Hacs.configuration.config_type = "flow"
     Hacs.configuration.config_entry = config_entry
+    config_entry.add_update_listener(reload_hacs)
     startup_result = await hacs_startup(Hacs)
     if not startup_result:
         raise ConfigEntryNotReady
@@ -179,7 +196,7 @@ async def hacs_startup(hacs):
 
     # Print DEV warning
     if hacs.configuration.dev:
-        hacs.logger.error(const.DEV_MODE)
+        hacs.logger.warning(const.DEV_MODE)
         hacs.hass.components.persistent_notification.create(
             title="HACS DEV MODE",
             message=const.DEV_MODE,
@@ -215,8 +232,10 @@ def check_version(hacs):
 async def load_hacs_repository(hacs):
     """Load HACS repositroy."""
     try:
-        await hacs().register_repository("custom-components/hacs", "integration")
         repository = hacs().get_by_name("custom-components/hacs")
+        if repository is None:
+            await hacs().register_repository("custom-components/hacs", "integration")
+            repository = hacs().get_by_name("custom-components/hacs")
         if repository is None:
             raise AIOGitHubException("Unknown error")
         repository.status.installed = True
@@ -247,18 +266,21 @@ def check_custom_updater(hacs):
 
 def add_sensor(hacs):
     """Add sensor."""
-    if hacs.configuration.config_type == "yaml":
-        hacs.hass.async_create_task(
-            discovery.async_load_platform(
-                hacs.hass, "sensor", const.DOMAIN, {}, hacs.configuration.config
+    try:
+        if hacs.configuration.config_type == "yaml":
+            hacs.hass.async_create_task(
+                discovery.async_load_platform(
+                    hacs.hass, "sensor", const.DOMAIN, {}, hacs.configuration.config
+                )
             )
-        )
-    else:
-        hacs.hass.async_add_job(
-            hacs.hass.config_entries.async_forward_entry_setup(
-                hacs.configuration.config_entry, "sensor"
+        else:
+            hacs.hass.async_add_job(
+                hacs.hass.config_entries.async_forward_entry_setup(
+                    hacs.configuration.config_entry, "sensor"
+                )
             )
-        )
+    except ValueError:
+        pass
 
 
 async def setup_frontend(hacs):
@@ -269,16 +291,39 @@ async def setup_frontend(hacs):
     hacs.hass.http.register_view(HacsPluginView())
     hacs.hass.http.register_view(HacsRunningTask())
     hacs.hass.http.register_view(HacsWebResponse())
+    hacs.hass.http.register_view(HacsExperimental())
 
     # Add to sidepanel
     hacs.hass.components.frontend.async_register_built_in_panel(
         "iframe",
         hacs.configuration.sidepanel_title,
         hacs.configuration.sidepanel_icon,
-        hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_"),
+        "hacs_web",
         {"url": hacs.hacsweb + "/overview"},
         require_admin=True,
     )
+
+    if hacs.configuration.experimental:
+        custom_panel_config = {
+            "name": "hacs-frontend",
+            "embed_iframe": False,
+            "trust_external": False,
+            "js_url": "/hacs_experimental/main.js",
+        }
+
+        config = {}
+        config["_panel_custom"] = custom_panel_config
+
+        hacs.hass.components.frontend.async_register_built_in_panel(
+            component_name="custom",
+            sidebar_title=hacs.configuration.sidepanel_title + " (Experimental)",
+            sidebar_icon=hacs.configuration.sidepanel_icon,
+            frontend_url_path="hacs",
+            config=config,
+            require_admin=True,
+        )
+
+        await setup_ws_api(hacs)
 
 
 async def add_services(hacs):
@@ -330,31 +375,30 @@ async def test_repositories(hacs):
 
 async def async_remove_entry(hass, config_entry):
     """Handle removal of an entry."""
-    if Hacs.configuration is not None:
-        if Hacs.configuration.config_type == "yaml":
-            Hacs().logger.warning(
-                """
-            You can not remove HACS from the UI when you have configured it with YAML.
-            To start using UI configuration you need to remove it from YAML, then restart HA.
-            Before adding it under configuration -> integrations."""
-            )
-            hass.async_create_task(
-                hass.config_entries.flow.async_init(
-                    const.DOMAIN,
-                    context={"source": config_entries.SOURCE_IMPORT},
-                    data={},
-                )
-            )
-            return
     Hacs().logger.info("Disabling HACS")
     Hacs().logger.info("Removing recuring tasks")
     for task in Hacs().tasks:
         task()
     Hacs().logger.info("Removing sensor")
-    await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
+    try:
+        await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
+    except ValueError:
+        pass
     Hacs().logger.info("Removing sidepanel")
-    hass.components.frontend.async_remove_panel(
-        Hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_")
-    )
+    try:
+        hass.components.frontend.async_remove_panel("hacs_web")
+    except AttributeError:
+        pass
+    if Hacs().configuration.experimental:
+        try:
+            hass.components.frontend.async_remove_panel("hacs")
+        except AttributeError:
+            pass
     Hacs().system.disabled = True
     Hacs().logger.info("HACS is now disabled")
+
+
+async def reload_hacs(hass, config_entry):
+    """Reload HACS."""
+    await async_remove_entry(hass, config_entry)
+    await async_setup_entry(hass, config_entry)
