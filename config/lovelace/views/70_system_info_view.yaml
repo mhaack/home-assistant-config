@@ -104,3 +104,8 @@ cards:
               - type: gauge
                 entity: sensor.datentopf_volume_used_volume_1
                 name: Disk
+          - type: entities
+            entities:
+              - binary_sensor.mh_website
+            show_header_toggle: false
+            title: MH Website Online
