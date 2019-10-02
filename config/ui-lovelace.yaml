@@ -30,8 +30,9 @@ cch:
 views:
   - !include lovelace/views/00_home_view.yaml
   - !include lovelace/views/10_house_view.yaml
-  - !include lovelace/views/20_garden_view.yaml
-  - !include lovelace/views/30_security_view.yaml
+  - !include lovelace/views/20_security_view.yaml
+  - !include lovelace/views/30_garden_view.yaml
+  - !include lovelace/views/40_pool_view.yaml
   - !include lovelace/views/70_system_info_view.yaml
   - !include lovelace/views/80_automations_view.yaml
   - !include lovelace/views/99_settings_view.yaml

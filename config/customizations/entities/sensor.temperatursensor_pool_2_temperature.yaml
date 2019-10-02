@@ -5,5 +5,5 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 sensor.temperatursensor_pool_2_temperature:
-  friendly_name: Pool Temperatur
+  friendly_name: Pooltemperatur
   icon: mdi:oil-temperature

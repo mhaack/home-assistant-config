@@ -10,6 +10,6 @@ sensors:
     value_template: >-
       {{((states.sensor.temperatursensor_solar_1_temperature.state |float +
          states.sensor.temperatursensor_solar_2_temperature.state |float) / 2) | round(1)}}
-    friendly_name: Solar Temperatur
+    friendly_name: Solartemperatur
     unit_of_measurement: "°C"
     device_class: temperature

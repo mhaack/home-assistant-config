@@ -161,6 +161,7 @@ cards:
             show_header_toggle: false
             title: Rollläden
           - type: 'custom:mini-media-player'
+            icon: mdi:speaker
             entity: media_player.buro
             artwork: cover
             hide:
@@ -168,6 +169,7 @@ cards:
               source: true
               power_state: false
           - type: 'custom:mini-media-player'
+            icon: mdi:speaker
             entity: media_player.kuche
             artwork: cover
             hide:
@@ -175,6 +177,7 @@ cards:
               source: true
               power_state: false
           - type: 'custom:mini-media-player'
+            icon: mdi:speaker
             entity: media_player.esszimmer
             artwork: cover
             hide:
@@ -182,6 +185,7 @@ cards:
               source: true
               power_state: false
           - type: 'custom:mini-media-player'
+            icon: mdi:speaker
             entity: media_player.wohnzimmer
             artwork: cover
             hide:
