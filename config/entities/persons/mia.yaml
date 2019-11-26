@@ -1,0 +1,11 @@
+---
+# The person component allows connecting device tracker entities
+# to one or more person entities.
+# This configures "Mia"
+#
+# https://www.home-assistant.io/components/person/
+#
+name: Mia
+id: ac63602ce6d84985a0482d1be9d4cfb7
+device_trackers:
+  - device_tracker.iphonevonmia

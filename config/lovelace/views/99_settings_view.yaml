@@ -59,6 +59,14 @@ cards:
           - device_tracker.iphonevnjasmina
         group_config:
           secondary_info: last-changed
+      - type: custom:fold-entity-row
+        head: person.mia
+        open: true
+        items:
+          - device_tracker.iphonevonmia
+        group_config:
+          secondary_info: last-changed
+
     show_header_toggle: false
   - type: entities
     show_header_toggle: false

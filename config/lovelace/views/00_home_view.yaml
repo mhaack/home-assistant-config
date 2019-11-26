@@ -42,8 +42,9 @@ cards:
                 tap_action:
                   action: navigate
                   navigation_path: /lovelace/security
-              - person.markus
               - person.jasmina
+              - person.markus
+              - person.mia
             title: JaMa Villa
           - type: entity-filter
             show_empty: false
