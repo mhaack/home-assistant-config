@@ -1,0 +1,9 @@
+---
+#
+# Customizes Mia's iPhone device trackers
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+device_tracker.iphonevonmia:
+  icon: mdi:cellphone-wireless
+  friendly_name: Mia iPhone (Wifi)
