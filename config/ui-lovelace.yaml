@@ -26,10 +26,18 @@ cch:
         notifications: overflow
         swipe: true
         swipe_animate: fade
+  conditional_styles:
+    - entity: input_boolean.xmas_mode
+      condition:
+        state: "off"
+      tab:
+        xmas:
+          hide: true
 
 views:
   - !include lovelace/views/00_home_view.yaml
   - !include lovelace/views/10_house_view.yaml
+  - !include lovelace/views/12_xmas_view.yaml
   - !include lovelace/views/20_security_view.yaml
   - !include lovelace/views/30_garden_view.yaml
   - !include lovelace/views/40_pool_view.yaml

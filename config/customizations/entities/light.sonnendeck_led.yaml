@@ -5,4 +5,4 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 light.sonnendeck_led:
-  friendly_name: Sonnendeck LED
+  friendly_name: Sonnendeck Spots

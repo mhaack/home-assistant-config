@@ -1,7 +1,7 @@
 ---
-# Garden and outdoor lights automatic - off
+# XMAS lights automatic - off
 #
-alias: "[Light] Turn off outdoor lights daily routine"
+alias: "[Light] Turn off XMAS lights daily routine"
 trigger:
   - platform: sun
     event: sunrise
@@ -10,8 +10,8 @@ trigger:
 condition:
   - condition: state
     entity_id: input_boolean.xmas_mode
-    state: "off"
+    state: "on"
 action:
   - service: light.turn_off
     data:
-      entity_id: light.outdoor_lights_daily_routine
+      entity_id: light.xmas_indoor_lights

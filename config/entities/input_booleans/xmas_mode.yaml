@@ -1,0 +1,9 @@
+---
+# This is an input boolean to use with automations during the christma season,
+# mainly used to controll all of the extra xmas lights in and arround the house.
+#
+# https://www.home-assistant.io/components/input_boolean/
+#
+xmas_mode:
+  name: XMAS Mode
+  icon: mdi:pine-tree

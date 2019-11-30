@@ -31,6 +31,9 @@ cloud:
         - light.terrassenlicht
         - light.terrassenlounge
         - light.tv_wand
+        - light.xmas_lights
+        - light.xmas_indoor_lights
+        - light.xmas_outdoor_lights
 
         - sensor.humidity_bathroom
         - sensor.humidity_bedroom

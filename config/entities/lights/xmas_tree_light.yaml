@@ -1,0 +1,12 @@
+---
+# XMAS outdoor and indoor lights
+#
+# https://www.home-assistant.io/components/light.mqtt/
+#
+platform: mqtt
+name: "XMAS Tree"
+command_topic: cmnd/sonoff-xmas-christmastree/POWER
+state_topic: stat/sonoff-xmas-christmastree/POWER1
+availability_topic: tele/sonoff-xmas-christmastree/LWT
+payload_available: Online
+payload_not_available: Offline

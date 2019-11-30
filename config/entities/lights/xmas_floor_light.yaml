@@ -1,0 +1,12 @@
+---
+# XMAS outdoor and indoor lights
+#
+# https://www.home-assistant.io/components/light.mqtt/
+#
+platform: mqtt
+name: "XMAS Groundfloor"
+command_topic: cmnd/sonoff-xmas-floor/POWER
+state_topic: stat/sonoff-xmas-floor/POWER1
+availability_topic: tele/sonoff-xmas-floor/LWT
+payload_available: Online
+payload_not_available: Offline
