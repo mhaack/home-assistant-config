@@ -11,3 +11,4 @@ entities:
   - light.baum_garten
   - light.baum_vorgarten
   - light.sonnendeck_led
+  - light.terrassenlounge
