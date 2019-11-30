@@ -19,6 +19,12 @@ popup_cards:
 cards:
   - type: entities
     entities:
+      - entity: input_boolean.xmas_mode
+        name: Weihnachtsmodus
+    show_header_toggle: false
+    title: Modi
+  - type: entities
+    entities:
       - input_boolean.send_notification
       - input_boolean.office_notification
       - input_boolean.dishwasher_notification

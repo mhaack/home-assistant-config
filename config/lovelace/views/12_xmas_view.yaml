@@ -1,0 +1,50 @@
+---
+# XMAS light control
+#
+title: XMAS
+icon: mdi:pine-tree
+path: xmas
+
+cards:
+  - type: entities
+    entities:
+      - label: Alle
+        type: section
+        style:
+          height: 3px
+      - entity: light.xmas_lights
+      - label: Innen
+        type: section
+        style:
+          height: 3px
+      - entity: light.xmas_tree
+        name: Weihnachtsbaum
+        icon: mdi:pine-tree
+      - entity: light.xmas_livingroom_1
+        name: Stern Sofa
+        icon: mdi:star
+      - entity: light.xmas_livingroom_2
+        name: Hernhuter Stern & Schwibbogen
+        icon: mdi:star
+      - entity: light.xmas_livingroom_3
+        name: Sterne Stehlampe
+        icon: mdi:star
+      - entity: light.xmas_groundfloor
+        name: Flur
+        icon: mdi:star
+      - entity: light.xmas_office
+        name: Arbeitszimmer
+        icon: mdi:star
+      - label: Außen
+        type: section
+        style:
+          height: 3px
+      - entity: light.xmas_carport_light
+        name: Carport
+      - entity: light.baum_garten
+        icon: mdi:pine-tree
+      - entity: light.baum_vorgarten
+        icon: mdi:pine-tree
+      - entity: light.sonnendeck_led
+    show_header_toggle: false
+    title: Weihnachtsbeleuchtung
