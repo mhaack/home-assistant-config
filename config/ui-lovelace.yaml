@@ -28,7 +28,7 @@ cch:
         swipe_animate: fade
   conditional_styles:
     - entity: input_boolean.xmas_mode
-      condition:                     
+      condition:
         state: "off"
       tab:
         xmas:
