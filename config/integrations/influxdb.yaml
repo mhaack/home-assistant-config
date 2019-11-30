@@ -18,10 +18,18 @@ influxdb:
   # use whitelist which metrics are pushed to InfluxDB
   include:
     entities:
+      - sensor.backyard_lights_rssi
+      - sensor.backyard_pond_lights_rssi
+      - sensor.carport_light_rssi
+      - sensor.children_stars_rssi
+      - sensor.frontyard_treelight_rssi
       - sensor.funksteckdose_aquarium_power
       - sensor.funksteckdose_gefrierschrank_power
       - sensor.funksteckdose_office_power
       - sensor.funksteckdose_spuli_power
+      - sensor.garden_luftdaten_pm_10
+      - sensor.garden_luftdaten_pm_2_5
+      - sensor.garden_luftdaten_rssi
       - sensor.humidity_bathroom
       - sensor.humidity_bathroom
       - sensor.humidity_bedroom
@@ -30,6 +38,7 @@ influxdb:
       - sensor.humidity_livingroom
       - sensor.humidity_mia
       - sensor.humidity_office
+      - sensor.kitchen_sensor_rssi
       - sensor.pool_filterpumpe_power
       - sensor.pumpe_zisterne_power
       - sensor.sonnendeck_led_power
@@ -49,6 +58,7 @@ influxdb:
       - sensor.temperatursensor_pool_2_temperature
       - sensor.temperatursensor_solar_1_temperature
       - sensor.watertank_liter
+
   tags:
     instance: prod
     source: hass
