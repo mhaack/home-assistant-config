@@ -48,5 +48,6 @@ cards:
       - entity: light.baum_vorgarten
         icon: mdi:pine-tree
       - entity: light.sonnendeck_led
+      - entity: light.terrassenlounge
     show_header_toggle: false
     title: Weihnachtsbeleuchtung
