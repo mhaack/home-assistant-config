@@ -6,7 +6,7 @@ trigger:
   - platform: sun
     event: sunrise
   - platform: time
-    at: "23:59:00"
+    at: "23:00:00"
 condition:
   - condition: state
     entity_id: input_boolean.xmas_mode
@@ -14,4 +14,4 @@ condition:
 action:
   - service: light.turn_off
     data:
-      entity_id: light.xmas_lights
+      entity_id: light.xmas_indoor_lights

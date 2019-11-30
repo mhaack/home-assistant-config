@@ -13,6 +13,8 @@ cards:
         style:
           height: 3px
       - entity: light.xmas_lights
+      - entity: light.xmas_indoor_lights
+      - entity: light.xmas_outdoor_lights
       - label: Innen
         type: section
         style:
