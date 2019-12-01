@@ -16,7 +16,7 @@ action:
   - condition: state
     entity_id: input_boolean.pool_notification
     state: "on"
-  - service: notify.ios_iphone_von_markus
+  - service: notify.mobile_app_iphone_von_markus
     data:
       title: "JaMa Villa Pool"
       message: "Achtung! Poollicht war noch an."

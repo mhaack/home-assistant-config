@@ -10,7 +10,7 @@ condition:
     entity_id: alarm_control_panel.alarm_carport
     state: disarmed
 action:
-  - service: notify.ios_iphone_von_markus
+  - service: notify.mobile_app_iphone_von_markus
     data:
       title: "JaMa Villa"
       message: "Carport Alarm ist noch nicht aktiviert?"
