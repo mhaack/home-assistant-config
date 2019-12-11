@@ -5,7 +5,7 @@
 # https://www.home-assistant.io/components/homekit
 #
 homekit:
-  auto_start: false 
+  auto_start: false
 
   # Configuration for specific entities. Allows customization of names and types
   # These are imported from another folder, to decouple them from the packages.
