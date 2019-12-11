@@ -9,6 +9,9 @@ condition:
   - condition: state
     entity_id: switch.sonnendeck_steckdosen
     state: "on"
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: "off"
 action:
   - service: switch.turn_off
     data:

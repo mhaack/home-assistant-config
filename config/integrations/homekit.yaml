@@ -5,7 +5,7 @@
 # https://www.home-assistant.io/components/homekit
 #
 homekit:
-  auto_start: false
+  auto_start: false 
 
   # Configuration for specific entities. Allows customization of names and types
   # These are imported from another folder, to decouple them from the packages.
@@ -31,6 +31,9 @@ homekit:
       - light.terrassenlicht
       - light.terrassenlounge
       - light.tv_wand
+      - light.xmas_lights
+      - light.xmas_indoor_lights
+      - light.xmas_outdoor_lights
 
       - sensor.humidity_bathroom
       - sensor.humidity_bedroom
@@ -38,12 +41,14 @@ homekit:
       - sensor.humidity_garden
       - sensor.humidity_livingroom
       - sensor.humidity_mia
+      - sensor.humidity_office
       - sensor.temperature_bathroom
       - sensor.temperature_bedroom
       - sensor.temperature_equipmentroom
       - sensor.temperature_garden
       - sensor.temperature_livingroom
       - sensor.temperature_mia
+      - sensor.temperature_office
       - sensor.temperatursensor_pool_1_temperature
       - sensor.temperatursensor_solar_1_temperature
 

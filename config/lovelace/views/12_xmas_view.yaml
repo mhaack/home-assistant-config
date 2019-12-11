@@ -32,10 +32,13 @@ cards:
         name: Sterne Stehlampe
         icon: mdi:star
       - entity: light.xmas_groundfloor
-        name: Flur
+        name: Sterne Flur
+        icon: mdi:star
+      - entity: light.xmas_stairs
+        name: Treppe Flur
         icon: mdi:star
       - entity: light.xmas_office
-        name: Arbeitszimmer
+        name: Stern Arbeitszimmer
         icon: mdi:star
       - label: Außen
         type: section
@@ -49,5 +52,47 @@ cards:
         icon: mdi:pine-tree
       - entity: light.sonnendeck_led
       - entity: light.terrassenlounge
+        icon: mdi:pine-tree
+      - entity: light.xmas_candles
+        name: Kerzen
+        icon: mdi:candle
     show_header_toggle: false
     title: Weihnachtsbeleuchtung
+  - type: vertical-stack
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: entity-button
+            entity: light.xmas_lights
+          - type: entity-button
+            entity: light.xmas_indoor_lights
+          - type: entity-button
+            entity: light.xmas_outdoor_lights
+      - type: horizontal-stack
+        cards:
+          - type: entity-button
+            entity: light.xmas_tree
+            name: Weihnachtsbaum
+            icon: mdi:pine-tree
+          - type: entity-button
+            entity: light.xmas_livingroom_1
+            name: Stern Sofa
+            icon: mdi:star
+          - type: entity-button
+            entity: light.xmas_livingroom_2
+            name: Hernhuter Stern & Schwibbogen
+            icon: mdi:star
+      - type: horizontal-stack
+        cards:
+          - type: entity-button
+            entity: light.xmas_livingroom_3
+            name: Sterne Stehlampe
+            icon: mdi:star
+          - type: entity-button
+            entity: light.xmas_groundfloor
+            name: Sterne Flur
+            icon: mdi:star
+          - type: entity-button
+            entity: light.xmas_office
+            name: Stern Arbeitszimmer
+            icon: mdi:star
