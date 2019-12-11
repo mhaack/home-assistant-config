@@ -6,7 +6,7 @@ trigger:
   - platform: sun
     event: sunset
   - platform: time
-    at: "05:00:00"
+    at: "06:30:00"
 condition:
   - condition: state
     entity_id: input_boolean.xmas_mode
