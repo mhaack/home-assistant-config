@@ -1,0 +1,15 @@
+---
+# XMAS lights automatic - on
+#
+alias: "[Light] Turn on XMAS lights daily evening routine"
+trigger:
+  - platform: sun
+    event: sunset
+condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: "on"
+action:
+  - service: light.turn_on
+    data:
+      entity_id: light.xmas_indoor_lights

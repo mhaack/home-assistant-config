@@ -1,15 +1,16 @@
 ---
 # XMAS lights automatic - on
 #
-alias: "[Light] Turn on XMAS lights daily routine"
+alias: "[Light] Turn on XMAS lights daily morning routine"
 trigger:
-  - platform: sun
-    event: sunset
   - platform: time
     at: "06:45:00"
 condition:
   - condition: state
     entity_id: input_boolean.xmas_mode
+    state: "on"
+  - condition: state
+    entity_id: "binary_sensor.workday_sensor"
     state: "on"
 action:
   - service: light.turn_on
