@@ -27,6 +27,8 @@ anything here, Be sure to 🌟 the GitHub repo.
 
 ## System Overview
 
+![Setup](img/setup.png "setup")
+
 ## House Automation Hardware
 
 ### Host System
@@ -69,7 +71,8 @@ On network gear we are all-in for Unifi devices, they provide a reliable and sta
 | -------------------------------------------------------------------------- | :------: | :----------------------------------------------------------------------: | ------------------------------------------ |
 | [Philips Hue White and Color Ambiance](https://amzn.to/2ZAoV50)            |    3     | [Philips Hue Light](https://www.home-assistant.io/components/light.hue/) | Color-changing smart bulbs                 |
 | [Philips Hue White and Color Ambiance LightStrip](https://amzn.to/2zUd3LJ) |    2     | [Philips Hue Light](https://www.home-assistant.io/components/light.hue/) | Ambiante lights in kitchen and for TV wall |
-| [Paulman RGBW Controller ZigBee](https://amzn.to/2ZP2V1A)                  |    1     |  [deCONZ Light](https://www.home-assistant.io/components/deconz/#light)  | Driver for old reused classic LED strip    |
+| [Paulman RGBW Controller ZigBee](https://amzn.to/2ZP2V1A)                  |    1     |  [deCONZ Light](https://www.home-assistant.io/components/deconz/#light)  | Driver for old reused classic LED strip |
+| [Sonoff S20 Smart Socket](https://amzn.to/2Znqe7f)                         |    9     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | The main Christmas season light driver |
 
 #### Outlets & Switches
 
@@ -80,7 +83,7 @@ On network gear we are all-in for Unifi devices, they provide a reliable and sta
 | [Wireless Switch Actuator 1-channel, DIN-rail mount (HM-LC-Sw1-DR)](https://amzn.to/2L8Jv3p)                       |    4     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Used to control outdoor                                             |
 | [Wireless Switch Actuator 2-channel with power metering, DIN-rail mount (HM-ES-PMSw1-DR)](https://amzn.to/2NMf2tA) |    4     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Used to control pumps of the pool and water tank                    |
 | [Wireless Switch Actuator 4-channel, DIN-rail mount (HM-LC-Sw4-DR)](https://amzn.to/2ZrPUPZ)                       |    1     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Used to control outdoor and pool lighting                           |
-| [Sonoff S20 Smart Socket](https://amzn.to/2Znqe7f)                                                                 |    8     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | The main Christmas season light driver                              |
+| [Sonoff S20 Smart Socket](https://amzn.to/2Znqe7f)                                                                 |    9     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | The main Christmas season light driver                              |
 | [Sonoff 4CH Pro R2](https://amzn.to/2LbEIhT)                                                                       |    1     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Used to control outdoor garden low power lighting                   |
 | [Sonoff TH16](https://amzn.to/2L8EVlF)                                                                             |    1     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Carport light and outdoor temperature & humidity with Si7021 sensor |
 
@@ -93,7 +96,9 @@ Switches and outlets are used in various capacities, most are for lighting and s
 | [Wireless Differential Temperature Sensor (HM-WDS30-OT2-SM)](https://amzn.to/2PnlppL) |    2     | [Homematic Sensor](https://www.home-assistant.io/components/homematic/)  | Pool & solar temperature sensor for pool automation |
 | [Xiaomi Aqara Smart Temperature Humidity Sensor](https://amzn.to/2ZqKXac)             |    6     | [deCONZ Sensor](https://www.home-assistant.io/components/deconz/#sensor) | Main indoor temperature & humidity sensor           |
 | [Xiaomi Aqara Smart Vibration Sensor](https://amzn.to/2zwhQCX)                        |    2     | [deCONZ Sensor](https://www.home-assistant.io/components/deconz/#sensor) | Moving detection of our garden bench ;-)            |
-| [Sonoff TH16](https://amzn.to/2L8EVlF) with Si7021 sensor                             |    1     |   [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Garden & outdoor temperature & humidity sensor      |
+| [Sonoff TH16](https://amzn.to/2L8EVlF) with Si7021 sensor                             |    1     |   [MQTT Sensor](https://www.home-assistant.io/integrations/sensor.mqtt/)   | Garden & outdoor temperature & humidity sensor      |
+
+| [luftdaten.info](https://luftdaten.info/) air quality sensor                         |    1     |   [REST Sensor](https://www.home-assistant.io/integrations/rest/)   | DYI Fine dust & air quality sensor based on SDS011 board with additional BME280 sensor to measure temperature & air pressure and humidity |
 
 Most of the sensor got replaced with Xiaomi Aqara devices recently, they are small and very reliable, connected via ZigBee deCONZ. Unfortunately, they are only for indoor use, so I keep the Homematic HM-WDS30-OT2-SM for outdoor.
 
@@ -148,7 +153,7 @@ There is no direct integration of Landroid lawn mowers with Home Assistant yet, 
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
-[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.98.4-blue
+[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.102.3-blue
 [license-shield]: https://img.shields.io/github/license/mhaack/home-assistant-config.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2019.svg
 [circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg
