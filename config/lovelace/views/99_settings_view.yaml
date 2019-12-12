@@ -5,17 +5,6 @@ title: Settings
 icon: mdi:cogs
 path: system-settings
 
-popup_cards:
-  person.markus:
-    title: Markus
-    card:
-      type: entities
-      entities:
-        - device_tracker.iphone_von_markus
-        - device_tracker.iphonevonmarkus
-        - sensor.iphone_von_markus_battery_state
-        - sensor.iphone_von_markus_battery_level
-
 cards:
   - type: entities
     entities:

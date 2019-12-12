@@ -13,9 +13,12 @@ popup_cards:
       type: entities
       entities:
         - device_tracker.iphone_von_markus
+        - entity: sensor.iphone_von_markus_geocoded_location
+          name: Standort
         - device_tracker.iphonevonmarkus
-        - sensor.iphone_von_markus_battery_state
         - sensor.iphone_von_markus_battery_level
+        - sensor.iphone_von_markus_battery_state
+        - sensor.iphone_von_markus_connection_type
   person.jasmina:
     title: Jasmina
     card:
