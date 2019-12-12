@@ -37,7 +37,7 @@ My Home Assistant system currently runs on a Raspberry PI 3 with 16GByte SanDisk
 
 - [AdGuard Home](https://github.com/hassio-addons/addon-adguard-home)
 - [Configurator](https://home-assistant.io/addons/configurator) - would
-  like to use the VSC add-on but that is not avilable on Raspberry PI
+  like to use the VSC add-on but that is not available on Raspberry PI
 - [Grafana](https://github.com/hassio-addons/addon-grafana)
 - [InfluxDB](https://github.com/hassio-addons/addon-influxdb)
 - [Log Viewer](https://github.com/hassio-addons/addon-log-viewer)
@@ -49,7 +49,7 @@ My Home Assistant system currently runs on a Raspberry PI 3 with 16GByte SanDisk
 
 | Device                                        |                          Home Assistant                          | Notes                                       |
 | --------------------------------------------- | :--------------------------------------------------------------: | ------------------------------------------- |
-| [Homematic CCU3](https://amzn.to/2HyzEBK)     | [Homematic](https://www.home-assistant.io/components/homematic/) | Used to controll all Homematic devices      |
+| [Homematic CCU3](https://amzn.to/2HyzEBK)     | [Homematic](https://www.home-assistant.io/components/homematic/) | Used to control all Homematic devices      |
 | [deCONZ Conbee II](https://amzn.to/2A73E3I)   |    [deCONZ](https://www.home-assistant.io/components/deconz/)    | The main ZigBee Hub                         |
 | [Philips Hue Bridge](https://amzn.to/2A74bCK) |   [Philips Hue](https://www.home-assistant.io/components/hue/)   | Used to control all Philips Hue smart bulbs |
 | [Arlo Hub](https://amzn.to/2Qf3D8S)           | [Aarlo](https://github.com/twrecked/hass-aarlo) custom component | Arlo camera system integration              |
@@ -107,10 +107,10 @@ Most of the sensor got replaced with Xiaomi Aqara devices recently, they are sma
 | Device                                                                       | Quantity |                                 Home Assistant                                 | Notes                                                                        |
 | ---------------------------------------------------------------------------- | :------: | :----------------------------------------------------------------------------: | ---------------------------------------------------------------------------- |
 | [Wireless Door/Window Sensor, optical (HM-Sec-SCo)](https://amzn.to/2HxLPim) |    9     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Door sensors to detect if windows & exterior doors have been opened / closed |
-| [Wireless Shutter Contact (HM-Sec-SC-2)](https://amzn.to/2zwj1Cw)            |    1     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Door sensors to detect if windows have been opened / closed                  |
-| [Wireless Motion Detector (HM-Sec-MDIR-3)](https://amzn.to/2PnuM97)          |    3     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Indoor motion detection                                                      |
-| [Wireless Siren (HM-Sec-Sir-WM)](https://amzn.to/2ZtDu5q)                    |    2     |    [Homematic Switch](https://www.home-assistant.io/components/homematic/)     | Indoor alarm sirene                                                          |
-| [Rademacher DuoFern Motor Actuator 9471-1](https://amzn.to/2NGKnhC)          |    9     |       [pyduofern](https://github.com/gluap/pyduofern) (custom component)       | Flush-mounted actuator for roller shutter motors                             |
+| [Wireless Shutter Contact (HM-Sec-SC-2)](https://amzn.to/2zwj1Cw)            |    1     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Door sensors to detect if windows have been opened / closed |
+| [Wireless Motion Detector (HM-Sec-MDIR-3)](https://amzn.to/2PnuM97)          |    3     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Indoor motion detection |
+| [Wireless Siren (HM-Sec-Sir-WM)](https://amzn.to/2ZtDu5q)                    |    2     |    [Homematic Switch](https://www.home-assistant.io/components/homematic/)     | Indoor alarm siren |
+| [Rademacher DuoFern Motor Actuator 9471-1](https://amzn.to/2NGKnhC)          |    9     |       [pyduofern](https://github.com/gluap/pyduofern) (custom component)       | Flush-mounted actuator for roller shutter motors |
 
 #### Media & Voice Assistant
 
@@ -128,7 +128,7 @@ Most of the sensor got replaced with Xiaomi Aqara devices recently, they are sma
 | Device                                | Quantity |                 Home Assistant                  | Notes                                                 |
 | ------------------------------------- | :------: | :---------------------------------------------: | ----------------------------------------------------- |
 | [Arlo HD](https://amzn.to/2Q4hLBN)    |    3     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Started with these, then added Arlo Pro 2 later       |
-| [Arlo Pro 2](https://amzn.to/2PPtZ0W) |    2     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Definetly much better quality then the 1st generation |
+| [Arlo Pro 2](https://amzn.to/2PPtZ0W) |    2     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Definitely much better quality then the 1st generation |
 
 The main argument for us to choose Arlo cameras were they are powered
 via a battery since we have them placed mainly in places without power supply.
