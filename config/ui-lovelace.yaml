@@ -10,29 +10,10 @@
 title: JaMa Villa
 resources: !include_dir_list lovelace/resources
 
-cch:
-  menu: show
-  notifications: show
-  voice: hide
-  options: clock
-  clock_format: 24
-  clock_am_pm: false
-  clock_date: false
-  exceptions:
-    - conditions:
-        user_agent: Mobile
-      config:
-        menu: overflow
-        notifications: overflow
-        swipe: true
-        swipe_animate: fade
-  conditional_styles:
-    - entity: input_boolean.xmas_mode
-      condition:
-        state: "off"
-      tab:
-        xmas:
-          hide: true
+custom_header:
+  compact_mode: true
+  hide_config: true
+  hide_tabs: '{% if is_state("input_boolean.xmas_mode", "off") %}xmas{% endif %}'
 
 views:
   - !include lovelace/views/00_home_view.yaml
