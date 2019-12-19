@@ -18,6 +18,8 @@ influxdb:
   # use whitelist which metrics are pushed to InfluxDB
   include:
     entities:
+      - binary_sensor.pool_filterpumpe_state
+      - binary_sensor.pool_valve_state
       - sensor.backyard_lights_rssi
       - sensor.backyard_pond_lights_rssi
       - sensor.carport_light_rssi
@@ -27,6 +29,8 @@ influxdb:
       - sensor.funksteckdose_gefrierschrank_power
       - sensor.funksteckdose_office_power
       - sensor.funksteckdose_spuli_power
+      - sensor.garden_luftdaten_air_quality_pm2_5
+      - sensor.garden_luftdaten_air_quality_pm10
       - sensor.garden_luftdaten_pm_10
       - sensor.garden_luftdaten_pm_2_5
       - sensor.garden_luftdaten_rssi
@@ -54,10 +58,16 @@ influxdb:
       - sensor.temperature_livingroom
       - sensor.temperature_mia
       - sensor.temperature_office
+      - sensor.temperature_solar
       - sensor.temperatursensor_pool_1_temperature
       - sensor.temperatursensor_pool_2_temperature
-      - sensor.temperatursensor_solar_1_temperature
       - sensor.watertank_liter
+
+  component_config_glob:
+    sensor.garden_luftdaten_air_quality*:
+      override_measurement: air_quality
+    binary_sensor.pool_*_state:
+      override_measurement: pool_operation
 
   tags:
     instance: prod

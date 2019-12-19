@@ -3,6 +3,6 @@
 #
 platform: template
 sensors:
-  dishwasher_machine_status:
+  dishwasher_machine_state:
     value_template: "{{ states.input_select.dishwasher_machine_status.state}}"
-    friendly_name: Spühlmaschine Status
+    friendly_name: Status Spühlmaschine

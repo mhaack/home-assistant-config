@@ -43,7 +43,8 @@ cards:
         open: true
         items:
           - device_tracker.iphone_von_markus
-          - device_tracker.iphonevonmarkus
+          - device_tracker.iphone_markus_wifi_private
+          - device_tracker.iphone_markus_wifi_work
         group_config:
           secondary_info: last-changed
       - type: custom:fold-entity-row
@@ -51,14 +52,14 @@ cards:
         open: true
         items:
           - device_tracker.iphone_von_jasmina
-          - device_tracker.iphonevnjasmina
+          - device_tracker.iphone_jasmina_wifi
         group_config:
           secondary_info: last-changed
       - type: custom:fold-entity-row
         head: person.mia
         open: true
         items:
-          - device_tracker.iphonevonmia
+          - device_tracker.iphone_mia_wifi
         group_config:
           secondary_info: last-changed
 

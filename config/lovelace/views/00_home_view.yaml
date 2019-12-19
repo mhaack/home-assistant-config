@@ -15,7 +15,7 @@ popup_cards:
         - device_tracker.iphone_von_markus
         - entity: sensor.iphone_von_markus_geocoded_location
           name: Standort
-        - device_tracker.iphonevonmarkus
+        - device_tracker.iphone_markus_wifi_private
         - sensor.iphone_von_markus_battery_level
         - sensor.iphone_von_markus_battery_state
         - sensor.iphone_von_markus_connection_type
@@ -25,7 +25,7 @@ popup_cards:
       type: entities
       entities:
         - device_tracker.iphone_von_jasmina
-        - device_tracker.iphonevnjasmina
+        - device_tracker.iphone_jasmina_wifi
         - sensor.iphone_von_jasmina_battery_state
         - sensor.iphone_von_jasmina_battery_level
 

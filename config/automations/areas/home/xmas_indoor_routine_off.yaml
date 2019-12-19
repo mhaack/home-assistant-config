@@ -1,7 +1,7 @@
 ---
 # XMAS lights automatic - off
 #
-alias: "[Light] Turn off XMAS lights daily routine"
+alias: "[XMAS] Turn off XMAS indoor lights daily routine"
 trigger:
   - platform: sun
     event: sunrise
