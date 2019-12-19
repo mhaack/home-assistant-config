@@ -1,7 +1,7 @@
 ---
 # XMAS lights automatic - on
 #
-alias: "[Light] Turn on XMAS lights daily morning routine"
+alias: "[XMAS] Turn on XMAS indoor lights daily morning routine"
 trigger:
   - platform: time
     at: "06:45:00"

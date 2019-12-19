@@ -1,11 +1,11 @@
 ---
 # XMAS lights automatic - off
 #
-alias: "[Light] Turn off XMAS lights daily routine"
+alias: "[XMAS] Turn off XMAS oudoor lights daily routine"
 trigger:
   - platform: sun
     event: sunrise
-    offset: "01:00:00"
+    offset: "00:30:00"
   - platform: time
     at: "23:00:00"
 condition:

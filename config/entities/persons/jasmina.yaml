@@ -9,4 +9,4 @@ name: Jasmina
 id: !secret id_jasmina
 device_trackers:
   - device_tracker.iphone_von_jasmina
-  - device_tracker.iphonevnjasmina
+  - device_tracker.iphone_jasmina_wifi

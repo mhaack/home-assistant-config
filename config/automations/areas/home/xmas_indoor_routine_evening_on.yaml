@@ -1,7 +1,7 @@
 ---
 # XMAS lights automatic - on
 #
-alias: "[Light] Turn on XMAS lights daily evening routine"
+alias: "[XMAS] Turn on XMAS indoor lights daily evening routine"
 trigger:
   - platform: sun
     event: sunset

@@ -205,7 +205,7 @@ cards:
           - type: entities
             entities:
               - switch.funksteckdose_spuli
-              - sensor.dishwasher_machine_status
+              - sensor.dishwasher_machine_state
               - sensor.funksteckdose_spuli_power
               - sensor.daily_energy_dishwasher
               - sensor.funksteckdose_spuli_energy_counter

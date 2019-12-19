@@ -4,6 +4,6 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-device_tracker.iphonevonmia:
+device_tracker.iphone_mia_wifi:
   icon: mdi:cellphone-wireless
   friendly_name: Mia iPhone (Wifi)

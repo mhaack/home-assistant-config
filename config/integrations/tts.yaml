@@ -1,0 +1,11 @@
+---
+# Text-to-Speech (TTS) enables Home Assistant to speak to you.
+#
+# https://www.home-assistant.io/components/tts/
+#
+tts:
+  - platform: google_translate
+    language: 'de'
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300

@@ -4,6 +4,6 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-device_tracker.iphonevonmarkus:
+device_tracker.iphone_markus_wifi_work:
   icon: mdi:cellphone-wireless
-  friendly_name: Markus iPhone (Wifi)
+  friendly_name: Markus iPhone (Work)

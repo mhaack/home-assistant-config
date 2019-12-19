@@ -1,0 +1,9 @@
+---
+# Pool pump sensor representing current state of the pool pump (on/off).
+#
+platform: template
+sensors:
+  pool_valve_state:
+    value_template: "{{is_state('switch.pool_valve', 'on') }}"
+    entity_id: switch.pool_valve
+    friendly_name: Status Poolheizung

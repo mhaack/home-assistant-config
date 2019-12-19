@@ -1,0 +1,25 @@
+---
+# XMAS lights off if we all out
+#
+alias: "[XMAS] Turn off XMAS indoor lights if nobody is home"
+trigger:
+  - platform: state
+    entity_id: group.family
+    from: 'home'
+    to: 'not_home'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: "on"
+action:
+  - service: light.turn_off
+    data:
+      entity_id: light.xmas_indoor_lights
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa"
+      message: "Alle sind ausgeflogen, Weihnachtsbeleuchtung wurde ausgeschaltet"
