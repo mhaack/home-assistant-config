@@ -8,12 +8,7 @@ trigger:
       - sensor.sirene_haus_armstate
       - sensor.sirene_carport_armstate
 action:
-  - service: notify.pushover_markus
-    data_template:
-      title: "JaMa Villa"
-      message: >
-        Alarm Modus {{ trigger.to_state.attributes.friendly_name }} geändert auf {{ trigger.to_state.state | replace("disarmed", "'deaktiviert'") | replace("extsens_armed", "'aktiviert anwesend'") | replace("allsens_armed", "'aktiviert abwesend'")}} ({{ states('sensor.date_time') }})
-  - service: notify.ios_iphone_von_jasmina
+  - service: notify.jama_group
     data_template:
       title: "JaMa Villa"
       message: >

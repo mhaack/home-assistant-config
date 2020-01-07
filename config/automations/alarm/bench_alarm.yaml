@@ -2,7 +2,7 @@
 # Garden bench movement notification. The bench should not be moved,
 # especially not in the night or if we are not at home.
 #
-alias: "[Notify] Bench movement notification"
+alias: "[Security] Bench movement alarm"
 trigger:
   - platform: state
     entity_id: binary_sensor.gartenbank
@@ -21,6 +21,10 @@ action:
     data:
       title: "JaMa Villa"
       message: "Bank hat sich bewegt - was ist hier los?"
+      data:
+        push:
+          thread-id: "ha-carport-alarm-notification-group"
+          category: "bench_alarm"      
   - service: camera.aarlo_request_snapshot
     data:
       entity_id: camera.aarlo_carport

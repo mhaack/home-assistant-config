@@ -1,0 +1,26 @@
+---
+# Reminder to turn on house alarm if nobody is at home
+#
+alias: "[Security] House alarm evening reminder"
+trigger:
+  - platform: state
+    entity_id: group.family
+    from: home
+    to: not_home
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_carport
+    state: disarmed
+action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa"
+      message: "Alle haben das Haus verlassen, aber der Carport Alarm ist noch nicht aktiviert?"
+      data:
+        push:
+          thread-id: "ha-carport-alarm-notification-group"
+          category: "carport_alarm"

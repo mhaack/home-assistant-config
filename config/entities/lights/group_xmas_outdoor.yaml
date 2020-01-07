@@ -9,6 +9,6 @@ entities:
   - light.xmas_carport_light
   - light.baum_garten
   - light.baum_vorgarten
-  - light.sonnendeck_led
+  # - light.sonnendeck_led
   - light.terrassenlounge
-  - light.xmas_candles
+  # - light.xmas_candles

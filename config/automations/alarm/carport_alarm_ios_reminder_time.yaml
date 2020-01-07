@@ -1,7 +1,7 @@
 ---
-# Reminder to turn on carport alarm at 10pm in case it is still deactivated.
+# Reminder to turn on carport alarm if we are away in case it is still deactivated.
 #
-alias: "[Security] Carport alarm reminder"
+alias: "[Security] Carport alarm away reminder"
 trigger:
   platform: time
   at: "22:00:00"
