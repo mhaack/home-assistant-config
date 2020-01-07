@@ -10,10 +10,7 @@ trigger:
   to: "off"
 action:
   - service: homematic.reconnect
-  - service: notify.pushover_markus
+  - service: notify.mobile_app_iphone_von_markus
     data:
       title: "JaMa Villa Fehler"
       message: "Homematic CCU disconnect, try reconnect"
-      data:
-        priority: 1
-        sound: alien

@@ -7,5 +7,5 @@
 name: JaMa Group
 platform: group
 services:
-  - service: ios_iphone_von_markus
-  - service: ios_iphone_von_jasmina
+  - service: mobile_app_iphone_von_markus
+  - service: mobile_app_iphone_von_jasmina

@@ -34,3 +34,11 @@ ios:
             activationMode: 'background'
             authenticationRequired: true
             destructive: false
+      - name: Bank Alarm
+        identifier: 'bench_alarm'
+        actions:
+          - identifier: 'BENCH_DISABLE_ALARM'
+            title: 'Alarm deaktivieren'
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: true

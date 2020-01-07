@@ -1,7 +1,7 @@
 ---
 # Activate carport alarm based on iOS message trigger.
 #
-alias: "[Security] Turn on carport alarm by iOS message"
+alias: "[Security] Turn on carport alarm by iOS trigger"
 trigger:
   platform: event
   event_type: ios.notification_action_fired

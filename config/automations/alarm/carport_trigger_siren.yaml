@@ -18,7 +18,7 @@ action:
         expire: 3600
         retry: 180
         sound: alien
-  - service: notify.ios_iphone_von_jasmina
+  - service: notify.mobile_app_iphone_von_jasmina
     data:
       title: "JaMa Villa Alarm"
       message: "Alarm ausgelöst: Jemand ist im Carport, Tür wurde geöffnet - Sirene aktiviert!"

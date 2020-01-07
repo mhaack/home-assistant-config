@@ -5,8 +5,8 @@ alias: "[XMAS] Turn off XMAS indoor lights if nobody is home"
 trigger:
   - platform: state
     entity_id: group.family
-    from: 'home'
-    to: 'not_home'
+    from: home
+    to: not_home
     for:
       hours: 0
       minutes: 1
@@ -15,6 +15,9 @@ condition:
   - condition: state
     entity_id: input_boolean.xmas_mode
     state: "on"
+  - condition: state
+    entity_id: light.xmas_indoor_lights
+    state: "on"
 action:
   - service: light.turn_off
     data:
@@ -22,4 +25,4 @@ action:
   - service: notify.mobile_app_iphone_von_markus
     data:
       title: "JaMa Villa"
-      message: "Alle sind ausgeflogen, Weihnachtsbeleuchtung wurde ausgeschaltet"
+      message: "Alle haben das Haus verlassen, Weihnachtsbeleuchtung wurde ausgeschaltet."

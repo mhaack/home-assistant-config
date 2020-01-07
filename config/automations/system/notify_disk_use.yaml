@@ -7,7 +7,10 @@ trigger:
   entity_id: sensor.disk_use_percent
   above: 85
 action:
-  - service: notify.pushover_markus
+  - service: notify.mobile_app_iphone_von_markus
     data_template:
       title: "JaMa Villa Warnung"
-      message: "Warning - HA Server Disk Use is over {{states.sensor.sensor.disk_use_percent.state}}%"
+      message: "Warning - HA Server Disk Use is over {{states.sensor.disk_use_percent.state}}%"
+      data:
+        push:
+          thread-id: "ha-status-notification-group"
