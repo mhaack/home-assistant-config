@@ -24,7 +24,7 @@ action:
       data:
         push:
           thread-id: "ha-carport-alarm-notification-group"
-          category: "bench_alarm"      
+          category: "bench_alarm"
   - service: camera.aarlo_request_snapshot
     data:
       entity_id: camera.aarlo_carport
