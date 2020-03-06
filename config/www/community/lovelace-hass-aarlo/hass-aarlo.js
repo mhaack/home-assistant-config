@@ -303,17 +303,19 @@ class AarloGlance extends LitElement {
                     <ha-icon @click="${() => { this.wsUpdateSnapshot(); }}" class="${this._s.snapshotOn} ${this._v.snapshot}" icon="${this._s.snapshotIcon}" title="${this._s.snapshotText}"></ha-icon>
                     <ha-icon @click="${() => { this.moreInfo(this._s.batteryId); }}" class="${this._s.batteryState} ${this._v.battery}" icon="mdi:${this._s.batteryIcon}" title="${this._s.batteryText}"></ha-icon>
                     <ha-icon @click="${() => { this.moreInfo(this._s.signalId); }}" class="state-update ${this._v.signal}" icon="${this._s.signalIcon}" title="${this._s.signalText}"></ha-icon>
+                    <ha-icon @click="${() => { this.toggleLight(this._s.lightId); }}" class="${this._s.lightOn} ${this._v.lightLeft}" icon="${this._s.lightIcon}" title="${this._s.lightText}"></ha-icon>
                 </div>
                 <div class="box-title ${this._v.bottomDate} ${this._v.image_date}" title="${this._s.imageFullDate}">
                     ${this._s.imageDate}
                 </div>
-                <div class="box-status ${this._v.doorStatus}">
+                <div class="box-status ${this._v.externalsStatus}">
                     <ha-icon @click="${() => { this.moreInfo(this._s.doorId); }}" class="${this._s.doorOn} ${this._v.door}" icon="${this._s.doorIcon}" title="${this._s.doorText}"></ha-icon>
                     <ha-icon @click="${() => { this.moreInfo(this._s.doorBellId); }}" class="${this._s.doorBellOn} ${this._v.doorBell}" icon="${this._s.doorBellIcon}" title="${this._s.doorBellText}"></ha-icon>
                     <ha-icon @click="${() => { this.toggleLock(this._s.doorLockId); }}" class="${this._s.doorLockOn} ${this._v.doorLock}" icon="${this._s.doorLockIcon}" title="${this._s.doorLockText}"></ha-icon>
                     <ha-icon @click="${() => { this.moreInfo(this._s.door2Id); }}" class="${this._s.door2On} ${this._v.door2}" icon="${this._s.door2Icon}" title="${this._s.door2Text}"></ha-icon>
                     <ha-icon @click="${() => { this.moreInfo(this._s.door2BellId); }}" class="${this._s.door2BellOn} ${this._v.door2Bell}" icon="${this._s.door2BellIcon}" title="${this._s.door2BellText}"></ha-icon>
                     <ha-icon @click="${() => { this.toggleLock(this._s.door2LockId); }}" class="${this._s.door2LockOn} ${this._v.door2Lock}" icon="${this._s.door2LockIcon}" title="${this._s.door2LockText}"></ha-icon>
+                    <ha-icon @click="${() => { this.toggleLight(this._s.lightId); }}" class="${this._s.lightOn} ${this._v.lightRight}" icon="${this._s.lightIcon}" title="${this._s.lightText}"></ha-icon>
                 </div>
                 <div class="box-status ${this._v.bottomStatus}">
                     ${this._s.cameraState}
@@ -332,6 +334,7 @@ class AarloGlance extends LitElement {
             </div>
             <div class="box box-bottom ${this._v.videoControls}">
                 <div >
+                    <ha-icon @click="${() => { this.toggleLight(this._s.lightId); }}" class="${this._s.lightOn} ${this._v.light}" icon="${this._s.lightIcon}" title="${this._s.lightText}"></ha-icon>
                     <ha-icon @click="${() => { this.controlStopVideoOrStream(); }}" class="${this._v.videoStop}" icon="mdi:stop" title="Click to stop"></ha-icon>
                     <ha-icon @click="${() => { this.controlPlayVideo(); }}" class="${this._v.videoPlay}" icon="mdi:play" title="Click to play"></ha-icon>
                     <ha-icon @click="${() => { this.controlPauseVideo(); }}" class="${this._v.videoPause}" icon="mdi:pause" title="Click to pause"></ha-icon>
@@ -393,7 +396,7 @@ class AarloGlance extends LitElement {
             libraryNext: 'hidden',
             topBar: 'hidden',
             bottomBar: 'hidden',
-            doorStatus: 'hidden',
+            externalsStatus: 'hidden',
             videoControls: 'hidden',
 
             // sensors
@@ -415,6 +418,10 @@ class AarloGlance extends LitElement {
             videoPause: 'hidden',
             videoSeek: 'hidden',
             videoFull: 'hidden',
+
+            light: 'hidden',
+            lightLeft: 'hidden',
+            lightRight: 'hidden',
         }
     }
 
@@ -471,6 +478,10 @@ class AarloGlance extends LitElement {
             door2BellOn: 'not-used',
             door2BellText: 'not-used',
             door2BellIcon: 'not-used',
+
+            lightOn: 'not-used',
+            lightText: 'not-used',
+            lightIcon: 'not-used',
         };
 
         this.emptyLibrary();
@@ -495,12 +506,12 @@ class AarloGlance extends LitElement {
         // has happened.
         if ( camera.state !== this._s.cameraState ) {
             if ( this._s.cameraState === 'taking snapshot' ) {
-                console.log( 'updating1 ' + this._s.cameraName + ':' + this._s.cameraState + '-->' + camera.state );
+                //console.log( 'updating1 ' + this._s.cameraName + ':' + this._s.cameraState + '-->' + camera.state );
                 this.wsUpdateCameraImageSrc();
                 this.updateCameraImageSourceLater(5);
                 this.updateCameraImageSourceLater(10)
             } else {
-                console.log( 'updating2 ' + this._s.cameraName + ':' + this._s.cameraState + '-->' + camera.state );
+                //console.log( 'updating2 ' + this._s.cameraName + ':' + this._s.cameraState + '-->' + camera.state );
                 this.wsUpdateCameraImageSrc()
             }
         }
@@ -509,7 +520,7 @@ class AarloGlance extends LitElement {
         this._s.cameraState = camera.state;
 
         if ( this._s.imageSource !== camera.attributes.image_source ) {
-            console.log( 'updating3 ' + this._s.cameraName + ':' + this._s.imageSource + '-->' + camera.attributes.image_source );
+            //console.log( 'updating3 ' + this._s.cameraName + ':' + this._s.imageSource + '-->' + camera.attributes.image_source );
             this._s.imageSource = camera.attributes.image_source
         }
 
@@ -611,6 +622,15 @@ class AarloGlance extends LitElement {
             this._s.door2BellIcon = 'mdi:doorbell-video';
         }
 
+        if( this._v.light === '' ) {
+            const lightState = this.getState(this._s.lightId, 'off');
+            this._s.lightOn   = lightState.state === 'on' ? 'state-on' : '';
+            this._s.lightText = lightState.attributes.friendly_name + ': ' + (this._s.lightOn === 'state-on' ? 'on!' : 'off');
+            this._s.lightIcon = 'mdi:lightbulb';
+            this._v.lightLeft = this._s.lightLeft ? '' : 'hidden';
+            this._v.lightRight = this._s.lightLeft ? 'hidden' : '';
+        }
+
         this.changed();
     }
 
@@ -664,6 +684,7 @@ class AarloGlance extends LitElement {
             this._v.videoPause = '';
             this._v.videoSeek = '';
             this._v.videoFull = '';
+            this._v.light = 'hidden';
             this.setUpSeekBar();
             this.showVideoControls(2);
 
@@ -729,7 +750,7 @@ class AarloGlance extends LitElement {
                     break;
 
                 case '_change':
-                    console.log( 'change is updated' );
+                    //console.log( 'change is updated' );
                     break;
             }
         });
@@ -810,6 +831,10 @@ class AarloGlance extends LitElement {
         this._s.door2BellId = config.door2_bell ? config.door2_bell : null;
         this._s.door2LockId = config.door2_lock ? config.door2_lock : null;
 
+        // light definition
+        this._s.lightId     = config.light ? config.light: null;
+        this._s.lightLeft     = config.light_left ? config.light_left : false;
+
         // what are we hiding?
         const hide = this._config.hide || [];
         const hide_title  = hide.includes('title') ? 'hidden':'';
@@ -846,9 +871,13 @@ class AarloGlance extends LitElement {
         this._v.door2     = this._s.door2Id ? '':'hidden';
         this._v.door2Lock = this._s.door2LockId ? '':'hidden';
         this._v.door2Bell = this._s.door2BellId ? '':'hidden';
-        this._v.doorStatus = ( this._v.door === '' || this._v.doorLock === '' ||
-                                this._v.doorBell === '' || this._v.door2 === '' ||
-                                this._v.door2Lock === '' || this._v.door2Bell === '' ) ? '':'hidden';
+
+        this._v.light = this._s.lightId ? '':'hidden';
+
+        this._v.externalsStatus = ( this._v.door === '' || this._v.doorLock === '' ||
+                                    this._v.doorBell === '' || this._v.door2 === '' ||
+                                    this._v.door2Lock === '' || this._v.door2Bell === '' ||
+                                    this._v.light === '') ? '':'hidden';
 
         // render changes
         this.changed();
@@ -1067,6 +1096,14 @@ class AarloGlance extends LitElement {
             this._hass.callService( 'lock','unlock', { entity_id:id } )
         } else {
             this._hass.callService( 'lock','lock', { entity_id:id } )
+        }
+    }
+
+    toggleLight( id ) {
+        if ( this.getState(id,'on').state === 'on' ) {
+            this._hass.callService( 'light','turn_off', { entity_id:id } )
+        } else {
+            this._hass.callService( 'light','turn_on', { entity_id:id } )
         }
     }
 

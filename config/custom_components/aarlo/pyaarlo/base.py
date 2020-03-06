@@ -1,3 +1,5 @@
+import time
+
 from .constant import (AUTOMATION_PATH, DEFAULT_MODES, DEFINITIONS_PATH,
                        MODE_ID_TO_NAME_KEY, MODE_KEY,
                        MODE_NAME_TO_ID_KEY, MODE_IS_SCHEDULE_KEY,
@@ -5,12 +7,14 @@ from .constant import (AUTOMATION_PATH, DEFAULT_MODES, DEFINITIONS_PATH,
 from .device import ArloDevice
 from .util import time_to_arlotime
 
+day_of_week = [ 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo'];
 
 class ArloBase(ArloDevice):
 
     def __init__(self, name, arlo, attrs):
         super().__init__(name, arlo, attrs)
         self._refresh_rate = 15
+        self._schedules = None
 
     def _id_to_name(self, mode_id):
         return self._arlo.st.get([self.device_id, MODE_ID_TO_NAME_KEY, mode_id], None)
@@ -35,7 +39,28 @@ class ArloBase(ArloDevice):
                 self._arlo.st.set([self.device_id, MODE_NAME_TO_ID_KEY, mode_name.lower()], mode_id)
                 self._arlo.st.set([self.device_id, MODE_IS_SCHEDULE_KEY, mode_name.lower()], False)
 
+    def schedule_to_modes(self):
+        if self._schedules is None:
+            return []
+        now = time.localtime()
+        day = day_of_week[now.tm_wday]
+        minute = (now.tm_hour * 60) + now.tm_min
+        for schedule in self._schedules:
+            if not schedule.get('enabled',False):
+                continue
+            for schedule in schedule.get('schedule',[]):
+                if day in schedule.get('days',[]):
+                    start = schedule.get('startTime',65535)
+                    duration = schedule.get('duration',65536)
+                    if minute >= start and minute < (start + duration):
+                        modes = schedule.get('startActions',{}).get('enableModes',None)
+                        if modes:
+                            self._arlo.debug("schdule={}".format(modes[0]))
+                            return modes
+        return []
+
     def _parse_schedules(self, schedules):
+        self._schedules = schedules
         for schedule in schedules:
             schedule_id = schedule.get('id', None)
             schedule_name = schedule.get('name', '')
@@ -66,13 +91,6 @@ class ArloBase(ArloDevice):
         # mode change?
         elif resource == 'activeAutomations':
 
-            # mode present? we just set to new ones...
-            mode_ids = event.get('activeModes', [])
-            if mode_ids:
-                self._arlo.debug(self.name + ' mode change ' + mode_ids[0])
-                mode_name = self._id_to_name(mode_ids[0])
-                self._save_and_do_callbacks(MODE_KEY, mode_name)
-
             # schedule on or off?
             schedule_ids = event.get('activeSchedules', [])
             if schedule_ids:
@@ -83,6 +101,20 @@ class ArloBase(ArloDevice):
                 self._arlo.debug(self.name + ' schedule cleared ')
                 self._save_and_do_callbacks(SCHEDULE_KEY, None)
 
+            # mode present? we just set to new one... If no mode but schedule
+            # then try to parse that out
+            mode_ids = event.get('activeModes', [])
+            if not mode_ids and schedule_ids:
+                mode_ids = self.schedule_to_modes()
+            if mode_ids:
+                self._arlo.debug(self.name + ' mode change ' + mode_ids[0])
+                mode_name = self._id_to_name(mode_ids[0])
+                self._save_and_do_callbacks(MODE_KEY, mode_name)
+
+        # schdule has changed, so reload
+        elif resource == 'automationRevisionUpdate':
+            self.update_modes()
+
         # pass on to lower layer
         else:
             super()._event_handler(resource, event)
@@ -90,16 +122,16 @@ class ArloBase(ArloDevice):
     @property
     def _v1_modes(self):
         if self._arlo.cfg.mode_api.lower() == 'v1':
-            self._arlo.debug('forced v1 api')
+            self._arlo.vdebug('forced v1 api')
             return True
         if self._arlo.cfg.mode_api.lower() == 'v2':
-            self._arlo.debug('forced v2 api')
+            self._arlo.vdebug('forced v2 api')
             return False
         if self.model_id == 'ABC1000' or self.device_type == 'arloq' or self.device_type == 'arloqs':
-            self._arlo.debug('deduced v1 api')
+            self._arlo.vdebug('deduced v1 api')
             return True
         else:
-            self._arlo.debug('deduced v2 api')
+            self._arlo.vdebug('deduced v2 api')
             return False
 
     @property
@@ -145,10 +177,10 @@ class ArloBase(ArloDevice):
             else:
                 def _set_mode_v2_cb():
                     params = {'activeAutomations':
-                              [{'deviceId': self.device_id,
-                                'timestamp': time_to_arlotime(),
-                                active: [mode_id],
-                                inactive: []}]}
+                                  [{'deviceId': self.device_id,
+                                    'timestamp': time_to_arlotime(),
+                                    active: [mode_id],
+                                    inactive: []}]}
                     for i in range(1, 3):
                         body = self._arlo.be.post(AUTOMATION_PATH, params=params, raw=True)
                         if body['success']:
@@ -210,6 +242,8 @@ class ArloBase(ArloDevice):
                 return True
         if cap in 'siren':
             if self.model_id.startswith('VMB400'):
+                return True
+            if self.model_id.startswith('VMB450'):
                 return True
         return super().has_capability(cap)
 

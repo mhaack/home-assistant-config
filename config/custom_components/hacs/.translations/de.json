@@ -56,6 +56,7 @@
         "exist": "{item} existiert bereits",
         "generic": "Bist du dir sicher?",
         "home_assistant_is_restarting": "Bitte warte, Home Assistant wird jetzt neu gestartet.",
+        "home_assistant_version_not_correct": "Du benutzt die Home Assistant-Version '{haversion}', für dieses Repository muss jedoch die Mindestversion '{minversion}' installiert sein.",
         "no": "Nein",
         "no_upgrades": "Keine Upgrades ausstehend",
         "ok": "OK",
@@ -70,16 +71,21 @@
         "step": {
             "user": {
                 "data": {
+                    "appdaemon": "AppDaemon App-Discovery & Tracking aktivieren",
                     "country": "Nach Ländercode filtern.",
                     "debug": "Debug aktivieren.",
                     "experimental": "Experimentelle Funktionen aktivieren",
-                    "release_limit": "Anzahl anzuzeigender Releases."
+                    "not_in_use": "Nicht in Verwendung mit YAML",
+                    "release_limit": "Anzahl anzuzeigender Releases.",
+                    "sidepanel_icon": "Sidepanel Symbol",
+                    "sidepanel_title": "Sidepanel Titel"
                 }
             }
         }
     },
     "repository_banner": {
         "config_flow": "Diese Integration unterstützt config_flow. Das bedeutet, dass du jetzt in den Integrationsbereich deiner Benutzeroberfläche wechseln kannst, um es zu konfigurieren.",
+        "config_flow_title": "UI-Konfiguration unterstützt",
         "integration_not_loaded": "Diese Integration ist in Home Assistant nicht geladen.",
         "no_restart_required": "Kein Neustart erforderlich",
         "not_loaded": "Nicht geladen",
