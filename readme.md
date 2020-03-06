@@ -51,7 +51,6 @@ My Home Assistant system currently runs on a Raspberry PI 3 with 16GByte SanDisk
 | --------------------------------------------- | :--------------------------------------------------------------: | ------------------------------------------- |
 | [Homematic CCU3](https://amzn.to/2HyzEBK)     | [Homematic](https://www.home-assistant.io/components/homematic/) | Used to control all Homematic devices      |
 | [deCONZ Conbee II](https://amzn.to/2A73E3I)   |    [deCONZ](https://www.home-assistant.io/components/deconz/)    | The main ZigBee Hub                         |
-| [Philips Hue Bridge](https://amzn.to/2A74bCK) |   [Philips Hue](https://www.home-assistant.io/components/hue/)   | Used to control all Philips Hue smart bulbs |
 | [Arlo Hub](https://amzn.to/2Qf3D8S)           | [Aarlo](https://github.com/twrecked/hass-aarlo) custom component | Arlo camera system integration              |
 
 #### Network
@@ -153,7 +152,7 @@ There is no direct integration of Landroid lawn mowers with Home Assistant yet, 
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
-[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.103.6-blue
+[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.105.x-blue
 [license-shield]: https://img.shields.io/github/license/mhaack/home-assistant-config.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2019.svg
 [circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg
