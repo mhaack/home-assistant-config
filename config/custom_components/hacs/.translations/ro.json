@@ -1,8 +1,13 @@
 {
     "common": {
+        "about": "Despre",
         "appdaemon": "AppDaemon",
         "appdaemon_apps": "Aplicații AppDaemon",
         "background_task": "Activitatea de fundal se execută, această pagină se va reîncărca atunci când este gata.",
+        "continue": "Continua",
+        "disabled": "Dezactivat",
+        "documentation": "Documentație",
+        "hacs_is_disabled": "HACS este dezactivat",
         "installed": "instalat",
         "integration": "Integrare",
         "integrations": "Integrări",
@@ -40,25 +45,46 @@
         "title": "HACS (Home Assistant Community Store)"
     },
     "confirm": {
-        "delete": "Sigur doriți să ștergeți „{item}”?"
+        "bg_task": "Acțiunea este dezactivată în timp ce activitățile de fundal se execută.",
+        "cancel": "Anulare",
+        "delete": "Sigur doriți să ștergeți '{item}'?",
+        "exist": "{item} există deja",
+        "no": "Nu",
+        "ok": "OK",
+        "uninstall": "Sigur doriți să dezinstalați '{item}'?",
+        "yes": "Da"
     },
     "options": {
         "step": {
             "user": {
                 "data": {
+                    "appdaemon": "Activați descoperirea și urmărirea aplicațiilor AppDaemon",
                     "country": "Filtrează cu codul țării.",
                     "experimental": "Activați funcțiile experimentale",
-                    "release_limit": "Număr de versiuni afișate."
+                    "not_in_use": "Nu este utilizat cu YAML",
+                    "release_limit": "Număr de versiuni afișate.",
+                    "sidepanel_icon": "Pictogramă Panou lateral",
+                    "sidepanel_title": "Titlu panou lateral"
                 }
             }
         }
     },
+    "repository_banner": {
+        "integration_not_loaded": "Această integrare nu este încărcată în Home Assistant.",
+        "no_restart_required": "Nu este necesară repornirea",
+        "restart": "Trebuie să reporniți Home Assistant.",
+        "restart_pending": "Reporniți în așteptare"
+    },
     "repository": {
+        "add_to_lovelace": "Adăugați la Lovelace",
         "authors": "Autori",
         "available": "Disponibil",
         "back_to": "Înapoi la",
         "changelog": "Jurnal modificari",
+        "downloads": "Descărcări",
         "flag_this": "Semnalizează",
+        "frontend_version": "Versiune frontend",
+        "github_stars": "Stele GitHub",
         "hide": "Ascunde",
         "hide_beta": "Ascundere beta",
         "install": "Instalează",
@@ -75,6 +101,7 @@
         "open_plugin": "Deschide plugin",
         "reinstall": "Reinstalare",
         "repository": "Depozit",
+        "restart_home_assistant": "Reporniți Home Assistant",
         "show_beta": "Afișare beta",
         "uninstall": "Dezinstalare",
         "update_information": "Actualizare informație",
@@ -82,18 +109,64 @@
     },
     "settings": {
         "add_custom_repository": "ADĂUGARE DEPOZIT PERSONALIZAT",
+        "adding_new_repo": "Adăugarea unui depozit nou '{repo}'",
+        "adding_new_repo_category": "Cu categoria '{categoria}'.",
         "category": "Categorie",
+        "compact_mode": "Modul compact",
         "custom_repositories": "DEPOZITE PERSONALIZATE",
         "delete": "Șterge",
         "display": "Afişeaza",
         "grid": "Grilă",
         "hacs_repo": "HACS repo",
+        "hidden_repositories": "depozite ascunse",
+        "missing_category": "Trebuie să selectați o categorie",
+        "open_repository": "Deschideți depozitul",
         "reload_data": "Reîncărcați datele",
+        "reload_window": "Reîncărcați fereastra",
+        "repository_configuration": "Configurația depozitului",
         "save": "Salveaza",
         "table": "Tabel",
+        "table_view": "Vizualizare tabel",
+        "unhide": "Unhide",
         "upgrade_all": "Actualizați toate"
     },
     "store": {
-        "placeholder_search": "Vă rugăm să introduceți un termen de căutare ..."
+        "ascending": "ascendent",
+        "descending": "descendent",
+        "last_updated": "Ultima actualizare",
+        "name": "Nume",
+        "new_repositories": "Noi depozite",
+        "placeholder_search": "Vă rugăm să introduceți un termen de căutare ...",
+        "sort": "fel",
+        "stars": "Stele",
+        "status": "Starea"
+    },
+    "time": {
+        "ago": "în urmă",
+        "day": "zi",
+        "days": "zi",
+        "hour": "oră",
+        "hours": "ore",
+        "minute": "minut",
+        "minutes": "minute",
+        "month": "lună",
+        "months": "luni",
+        "one": "Unu",
+        "one_day_ago": "acum o zi",
+        "one_hour_ago": "acum o oră",
+        "one_minute_ago": "acum un minut",
+        "one_month_ago": "acum o luna",
+        "one_second_ago": "acum o secunda",
+        "one_year_ago": "acum un an",
+        "second": "al doilea",
+        "seconds": "secunde",
+        "x_days_ago": "{x} zile în urmă",
+        "x_hours_ago": "{x} ore în urmă",
+        "x_minutes_ago": "{x} minute în urmă",
+        "x_months_ago": "{x} luni în urmă",
+        "x_seconds_ago": "{x} secunde în urmă",
+        "x_years_ago": "{x} ani în urmă",
+        "year": "an",
+        "years": "ani"
     }
 }

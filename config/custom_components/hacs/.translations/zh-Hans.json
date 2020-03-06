@@ -52,32 +52,42 @@
         "cancel": "取消",
         "continue": "你确定你要继续吗？",
         "delete": "是否确实要删除\"{item}\"？",
-        "delete_installed": "已安装“ {item}”，需要先将其卸载，然后才能将其删除。",
+        "delete_installed": "已安装 '{item}'，需要先将其卸载，然后才能将其删除。",
         "exist": "{item}已经存在",
         "generic": "你确定吗？",
-        "no": "不",
+        "home_assistant_is_restarting": "请等待，Home Assistant现在正在重新启动。",
+        "home_assistant_version_not_correct": "您正在运行Home Assistant的版本为'{haversion}'，但是这个需要安装最低版本是'{minversion}'。",
+        "no": "取消",
         "no_upgrades": "暂无升级",
         "ok": "确定",
         "overwrite": "这样做会覆盖它。",
         "reload_data": "这将重新加载HACS知道的所有仓库的数据，这需要一些时间才能完成。",
+        "restart_home_assistant": "您确定要重新启动Home Assistant吗？",
         "uninstall": "您确定要卸载“ {item} ”吗？",
         "upgrade_all": "这将升级所有这些仓库，请确保在继续之前已阅读所有仓库的发行说明。",
-        "yes": "是"
+        "yes": "确定"
     },
     "options": {
         "step": {
             "user": {
                 "data": {
+                    "appdaemon": "启用AppDaemon应用发现和跟踪",
                     "country": "用国家代码过滤。",
                     "debug": "启用调试。",
                     "experimental": "启用实验功能",
-                    "release_limit": "要显示的发行数量。"
+                    "not_in_use": "不适用于 YAML",
+                    "release_limit": "要显示的发行数量。",
+                    "sidepanel_icon": "侧面板图标",
+                    "sidepanel_title": "侧面板标题"
                 }
             }
         }
     },
     "repository_banner": {
+        "config_flow": "此组件支持config_flow，这意味着您现在可以转到UI的“集成”部分进行配置。",
+        "config_flow_title": "支持UI配置",
         "integration_not_loaded": "此集成未加载到Home Assistant中。",
+        "no_restart_required": "无需重启",
         "not_loaded": "未加载",
         "plugin_not_loaded": "该插件未添加到您的Lovelace资源中。",
         "restart": "您需要重新启动Home Assistant。",
@@ -92,6 +102,8 @@
         "downloads": "下载",
         "flag_this": "标记",
         "frontend_version": "前端版本",
+        "github_stars": "GitHub星级",
+        "goto_integrations": "转到组件",
         "hide": "隐藏",
         "hide_beta": "隐藏测试版",
         "install": "安装",
@@ -108,6 +120,7 @@
         "open_plugin": "打开插件",
         "reinstall": "重新安装",
         "repository": "仓库",
+        "restart_home_assistant": "重新启动Home Assistant",
         "show_beta": "显示测试版",
         "uninstall": "卸载",
         "update_information": "更新信息",
@@ -115,8 +128,8 @@
     },
     "settings": {
         "add_custom_repository": "添加自定义仓库",
-        "adding_new_repo": "添加新的仓库“ {repo}”",
-        "adding_new_repo_category": "类别为“ {category}”。",
+        "adding_new_repo": "添加新的仓库 '{repo}'",
+        "adding_new_repo_category": "类别为 '{category}'。",
         "bg_task_custom": "自定义仓库在后台任务运行时被隐藏。",
         "category": "类别",
         "compact_mode": "紧凑模式",
@@ -129,6 +142,7 @@
         "missing_category": "您需要选择一个类别",
         "open_repository": "打开仓库",
         "reload_data": "重载数据",
+        "reload_window": "重新加载窗口",
         "repository_configuration": "仓库数据配置",
         "save": "保存",
         "table": "列表",
@@ -160,8 +174,20 @@
         "month": "月",
         "months": "月",
         "one": "一",
+        "one_day_ago": "一天前",
+        "one_hour_ago": "一个小时之前",
+        "one_minute_ago": "一分钟前",
+        "one_month_ago": "一个月前",
+        "one_second_ago": "一秒钟前",
+        "one_year_ago": "一年前",
         "second": "秒",
         "seconds": "秒",
+        "x_days_ago": "{x}天前",
+        "x_hours_ago": "{x}小时前",
+        "x_minutes_ago": "{x}分钟前",
+        "x_months_ago": "{x}个月前",
+        "x_seconds_ago": "{x}秒前",
+        "x_years_ago": "{x}年前",
         "year": "年",
         "years": "年"
     }

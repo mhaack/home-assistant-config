@@ -1,12 +1,11 @@
 import json
 import pprint
 import re
+import requests
+import requests.adapters
 import threading
 import time
 import uuid
-
-import requests
-import requests.adapters
 
 from .constant import (DEFAULT_RESOURCES, LOGIN_PATH, LOGOUT_PATH,
                        NOTIFY_PATH, SUBSCRIBE_PATH, TRANSID_PREFIX, DEVICES_PATH)
@@ -111,14 +110,15 @@ class ArloBackEnd(object):
 
         #
         # I'm trying to keep this as generic as possible... but it needs some
-        # smarts to figure out where to send responses.
+        # smarts to figure out where to send responses - the packets from Arlo
+        # are anything but consistent...
         # See docs/packets for and idea of what we're parsing.
         #
 
         # Answer for async ping. Note and finish.
         # Packet number #1.
         if resource.startswith('subscriptions/'):
-            self._arlo.debug('async ping response ' + resource)
+            self._arlo.vdebug('async ping response ' + resource)
             return
 
         # These is a base station mode response. Find base station ID and
@@ -160,15 +160,21 @@ class ArloBackEnd(object):
             if device_id is not None and properties is not None:
                 responses.append((device_id, resource, properties))
 
-        # These are generic responses, we look for device IDs and forward
-        # hoping the device can handle it.
+        # This a list ditch effort to funnel the answer the correct place...
+        #  Check for device_id
+        #  Check for unique_id
+        # If none of those then is unhandled
         # Packet number #?.
         else:
             device_id = response.get('deviceId', None)
             if device_id is not None:
                 responses.append((device_id, resource, response))
             else:
-                self._arlo.debug('unhandled response {} - {}'.format(resource, response))
+                device_id = response.get('uniqueId', None)
+                if device_id is not None:
+                    responses.append((device_id, resource, response))
+                else:
+                    self._arlo.debug('unhandled response {} - {}'.format(resource, response))
 
         # Now find something waiting for this/these.
         for device_id, resource, response in responses:
@@ -399,6 +405,9 @@ class ArloBackEnd(object):
             if device.device_id not in self._callbacks:
                 self._callbacks[device.device_id] = []
             self._callbacks[device.device_id].append(callback)
+            if device.unique_id not in self._callbacks:
+                self._callbacks[device.unique_id] = []
+            self._callbacks[device.unique_id].append(callback)
 
     def add_any_listener(self, callback):
         with self._lock:

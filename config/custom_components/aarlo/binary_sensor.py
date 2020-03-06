@@ -24,7 +24,8 @@ DEPENDENCIES = ['aarlo']
 SENSOR_TYPES = {
     'sound': ['Sound', 'sound', 'audioDetected'],
     'motion': ['Motion', 'motion', 'motionDetected'],
-    'ding': ['Ding', 'occupancy', 'buttonPressed']
+    'ding': ['Ding', 'occupancy', 'buttonPressed'],
+    'cry': ['Cry', 'sound', 'babyCryDetection'],
 }
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
@@ -99,6 +100,7 @@ class ArloBinarySensor(BinarySensorDevice):
         attrs[ATTR_ATTRIBUTION] = CONF_ATTRIBUTION
         attrs['brand'] = DEFAULT_BRAND
         attrs['friendly_name'] = self._name
+        attrs['camera_name'] = self._device.name
 
         return attrs
 
