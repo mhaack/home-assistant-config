@@ -1,0 +1,25 @@
+---
+# Reset mailbox state to empty when the mailbox back door has been opened.
+#
+id: 49713e37-f761-4049-a4d9-76bf5c704c53
+alias: "[Mailbox] Notification"
+trigger:
+  - platform: time
+    at: "18:00:00"
+  - platform: time
+    at: "20:00:00"
+condition:
+  - condition: state
+    entity_id: input_boolean.garden_mailbox_notification
+    state: "on"
+  - condition: state
+    entity_id: input_boolean.garden_mailbox
+    state: "on"
+action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \uD83D\uDCEC"
+      message: Der Briefkasten wurde noch nicht geleert, da ist noch ✉️ drin.
+      data:
+        push:
+          thread-id: "ha-mailbox-notification-group"

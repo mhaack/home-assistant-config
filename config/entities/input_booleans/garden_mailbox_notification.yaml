@@ -1,0 +1,6 @@
+---
+# Control the mail box notifications.
+#
+garden_mailbox_notification:
+  name: Benachrichtigen Briefkasten
+  icon: mdi:email-alert-outline

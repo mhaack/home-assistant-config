@@ -13,7 +13,7 @@ condition:
 action:
   - service: notify.mobile_app_iphone_von_markus
     data:
-      message: Creating weekly backup 💾 snapshot!
+      message: "Creating weekly backup \uD83D\uDCBE snapshot!"
       title: JaMa Villa - Backup
       data:
         push:

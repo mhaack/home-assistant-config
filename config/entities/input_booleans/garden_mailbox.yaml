@@ -1,0 +1,7 @@
+---
+# Monitoring of the mailbox, this entity in true/on state means some
+# mail waiting to be picked up.
+#
+garden_mailbox:
+  name: Post
+  icon: mdi:email-outline
