@@ -1,0 +1,15 @@
+---
+# Nursery room light & switch automatic
+#
+id: 1ed1b1d1-6af5-40ef-8aa5-65e880dc3e6d
+alias: "[Light] Turn off nursery room lights at 22:00"
+trigger:
+  - platform: time
+    at: "22:00:00"
+action:
+  - service: light.turn_off
+    data:
+      entity_id: light.nursery_lights
+  - service: switch.turn_off
+    data:
+      entity_id: switch.nursery_dollhouse

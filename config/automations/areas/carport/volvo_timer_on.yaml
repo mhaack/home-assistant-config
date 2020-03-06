@@ -4,10 +4,10 @@
 alias: "[Light] Turn on timer if Volvo light are on"
 trigger:
   - platform: state
-    entity_id: light.volvolicht
+    entity_id: light.garden_carport_volvo
     from: "off"
     to: "on"
 action:
   - service: timer.start
     data:
-      entity_id: timer.volvo_light
+      entity_id: timer.garden_carport_volvo_light

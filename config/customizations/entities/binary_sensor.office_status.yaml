@@ -4,5 +4,5 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-binary_sensor.office_status:
+binary_sensor.office_desk:
   icon: mdi:office-building

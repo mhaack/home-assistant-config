@@ -1,0 +1,7 @@
+---
+#
+# Customizes XMAS light hall
+#
+light.xmas_hall:
+  friendly_name: Weihnachtsbeleuchtung Flur
+  icon: mdi:pine-tree

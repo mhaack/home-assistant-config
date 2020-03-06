@@ -8,7 +8,7 @@ trigger:
     zone: zone.home
     event: leave
 action:
-  - service: notify.pushover_markus
+  - service: notify.system_pushover_markus
     data:
       title: "JaMa Villa"
       message: "Jasmina hat das Haus verlassen."

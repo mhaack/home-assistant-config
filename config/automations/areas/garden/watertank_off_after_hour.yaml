@@ -2,18 +2,19 @@
 # Watertank pump automation to switch if off after 1 hour because we sometimes
 # forget about that.
 #
+id: 103c1305-c013-49cf-8a2b-a2b4dbec218b
 alias: "[Watertank] Pump off after 1 hour"
 trigger:
   - platform: state
-    entity_id: switch.pumpe_zisterne
+    entity_id: switch.garden_watertank_pump
     to: "on"
     for:
       hours: 1
 action:
   - service: switch.turn_off
     data:
-      entity_id: switch.pumpe_zisterne
-  - service: notify.pushover_markus
+      entity_id: switch.garden_watertank_pump
+  - service: notify.system_pushover_markus
     data:
       title: "JaMa Villa"
       message: "Wasser sparen - die Zisternenpumpe war über 1 Stunde an und wurde jetzt ausgeschaltet!"

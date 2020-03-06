@@ -1,0 +1,6 @@
+---
+#
+# Customizes litter box sensors
+#
+binary_sensor.hall_litterbox_*:
+  icon: mdi:cat

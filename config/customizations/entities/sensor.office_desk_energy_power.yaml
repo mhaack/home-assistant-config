@@ -1,0 +1,8 @@
+---
+#
+# Customizes sensors in the office
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.office_desk_power:
+  friendly_name: Leistungsaufnahme

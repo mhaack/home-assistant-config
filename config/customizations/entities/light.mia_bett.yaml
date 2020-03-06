@@ -1,8 +1,0 @@
----
-#
-# Customizes Mia bed LED stripe
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-light.mia_bett:
-  icon: mdi:hotel

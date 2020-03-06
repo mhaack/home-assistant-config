@@ -3,6 +3,7 @@
 # Default for sprint, summer, autum: automatic
 # Default for winter: blubber (= set on pond_mode initialization)
 #
+id: 2987f701-2421-430b-aca6-5cf8a23f20d7
 alias: "[Pond] Startup Mode Initialization"
 trigger:
   - platform: homeassistant
@@ -15,5 +16,5 @@ action:
   - delay: 00:01
   - service: input_select.select_option
     data:
-      entity_id: input_select.pond_mode
+      entity_id: input_select.garden_pond_mode
       option: "Automatik"

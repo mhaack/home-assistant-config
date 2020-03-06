@@ -1,0 +1,16 @@
+---
+# When the alarm gets armed turn off the lights
+#
+alias: "[Light] Turn off nursery lights if alarm was activated"
+initial_state: true
+trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_haus
+    to: "armed_away"
+  - platform: state
+    entity_id: alarm_control_panel.alarm_haus
+    to: "armed_home"
+action:
+  service: light.turn_off
+  entity_id:
+    - light.nursery_lights

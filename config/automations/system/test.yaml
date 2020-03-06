@@ -6,7 +6,7 @@ trigger:
   platform: time_pattern
   hours: "/4"
 action:
-  - service: notify.pushover_markus
+  - service: notify.system_pushover_markus
     data:
       title: "4 Stunden"
       message: "Und wieder 4 Stunden rum"

@@ -1,16 +1,17 @@
 ---
 # Reports the daily operation time of the pool pump.
 #
+id: 4d7a851f-23ec-4647-9d22-791552f29b8c
 alias: "[Pool] Report Pump Operation"
 trigger:
   platform: time
   at: "23:59:00"
 action:
-  - service: notify.pushover_markus
+  - service: notify.system_pushover_markus
     data_template:
       title: "JaMa Villa Pool"
-      message: "Die Poolfilterpumpe lief heute ingesamt {{states.sensor.daily_pool_filterpumpe_hours.state}} Stunden."
-  - service: notify.pushover_markus
+      message: "Die Poolfilterpumpe lief heute ingesamt {{states.sensor.pool_daily_pump_hours.state}} Stunden."
+  - service: notify.system_pushover_markus
     data_template:
       title: "JaMa Villa Pool"
-      message: "Die Solaranlage war heute ingesamt {{states.sensor.daily_pool_valve_hours.state}} Stunden in Betrieb."
+      message: "Die Solaranlage war heute ingesamt {{states.sensor.pool_daily_valve_hours.state}} Stunden in Betrieb."

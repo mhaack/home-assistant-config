@@ -1,0 +1,18 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+# https://www.home-assistant.io/integrations/sensor.template/
+#
+platform: template
+sensors:
+  system_arlo_hub:
+    friendly_name: Arlo Bridge
+    device_class: connectivity
+    entity_id: device_tracker.vmb3010
+    value_template: "{{ is_state('device_tracker.vmb3010', 'home') }}"
+    icon_template: >-
+      {% if is_state('device_tracker.vmb3010', 'home') %}
+        mdi:cctv
+      {% else %}
+        mdi:alert
+      {% endif %}

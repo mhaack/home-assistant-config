@@ -4,10 +4,10 @@
 alias: "[Light] Turn on Volvo light when carport door open"
 trigger:
   - platform: state
-    entity_id: binary_sensor.tur_carport_state
+    entity_id: binary_sensor.garden_carport_door
     from: "off"
     to: "on"
 action:
   - service: light.turn_on
     data:
-      entity_id: light.volvolicht
+      entity_id: light.garden_carport_volvo

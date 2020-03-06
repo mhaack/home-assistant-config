@@ -1,9 +1,6 @@
 ---
 # Entity configuration for HomeKit.
+# https://www.home-assistant.io/integrations/homekit/#entity_config
 #
-# I use this to customize how the device shows up in HomeKit.
-#
-# https://www.home-assistant.io/components/homekit/#entity_config
-#
-light.sonnendeck_positionslicht:
+light.garden_sundeck_positionlight:
   name: Schiffslicht

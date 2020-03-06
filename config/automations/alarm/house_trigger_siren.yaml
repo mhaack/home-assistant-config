@@ -8,8 +8,8 @@ trigger:
     to: triggered
 action:
   - service: switch.turn_on
-    entity_id: switch.sirene_haus_1
-  - service: notify.pushover_markus
+    entity_id: switch.hall_siren_1
+  - service: notify.system_pushover_markus
     data:
       title: "JaMa Villa Alarm"
       message: "Alarm ausgelöst: Jemand ist im Haus - Sirene aktiviert!"

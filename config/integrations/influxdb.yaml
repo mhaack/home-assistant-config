@@ -5,7 +5,7 @@
 #
 # https://github.com/hassio-addons/addon-influxdb
 # https://github.com/hassio-addons/addon-grafana
-# https://www.home-assistant.io/components/influxdb/
+# https://www.home-assistant.io/integrations/influxdb/
 #
 influxdb:
   host: a0d7b954-influxdb
@@ -15,53 +15,53 @@ influxdb:
   password: !secret influxdb_password
   max_retries: 3
 
-  # use whitelist which metrics are pushed to InfluxDB
   include:
     entities:
-      - binary_sensor.pool_filterpumpe_state
+      - binary_sensor.pool_pump_state
       - binary_sensor.pool_valve_state
-      - sensor.backyard_lights_rssi
-      - sensor.backyard_pond_lights_rssi
-      - sensor.carport_light_rssi
-      - sensor.children_stars_rssi
-      - sensor.frontyard_treelight_rssi
-      - sensor.funksteckdose_aquarium_power
-      - sensor.funksteckdose_gefrierschrank_power
-      - sensor.funksteckdose_office_power
-      - sensor.funksteckdose_spuli_power
-      - sensor.garden_luftdaten_air_quality_pm2_5
+      - sensor.attic_humidity
+      - sensor.attic_temperature
+      - sensor.bathroom_humidity
+      - sensor.bathroom_temperature
+      - sensor.bedroom_humidity
+      - sensor.bedroom_temperature
+      - sensor.equipmentroom_humidity
+      - sensor.equipmentroom_temperature
+      - sensor.garden_backyard_lights_rssi
+      - sensor.garden_carport_volvo_rssi
+      - sensor.garden_frontyard_treelight_rssi
+      - sensor.garden_humidity
       - sensor.garden_luftdaten_air_quality_pm10
+      - sensor.garden_luftdaten_air_quality_pm2_5
       - sensor.garden_luftdaten_pm_10
       - sensor.garden_luftdaten_pm_2_5
       - sensor.garden_luftdaten_rssi
-      - sensor.humidity_bathroom
-      - sensor.humidity_bathroom
-      - sensor.humidity_bedroom
-      - sensor.humidity_equipmentroom
-      - sensor.humidity_garden
-      - sensor.humidity_livingroom
-      - sensor.humidity_mia
-      - sensor.humidity_office
-      - sensor.kitchen_sensor_rssi
-      - sensor.pool_filterpumpe_power
-      - sensor.pumpe_zisterne_power
-      - sensor.sonnendeck_led_power
-      - sensor.sonnendeck_steckdosen_power
+      - sensor.garden_pond_light_rssi
+      - sensor.garden_sundeck_sockets_power
+      - sensor.garden_sundeck_spots_power
+      - sensor.garden_temperature
+      - sensor.garden_watertank_liter
+      - sensor.garden_watertank_pump_power
+      - sensor.kitchen_dishwasher_power
+      - sensor.kitchen_fridge_temperature
+      - sensor.kitchen_rssi
+      - sensor.kitchen_temperature
+      - sensor.laundryroom_freezer_power
+      - sensor.livingroom_humidity
+      - sensor.livingroom_temperature
+      - sensor.nursery_humidity
+      - sensor.nursery_stars_rssi
+      - sensor.nursery_temperature
+      - sensor.office_desk_power
+      - sensor.office_humidity
+      - sensor.office_temperature
+      - sensor.pool_pump_power
+      - sensor.pool_solar_temperature
+      - sensor.pool_water_temperature_1
+      - sensor.pool_water_temperature_2
       - sensor.speedtest_download
       - sensor.speedtest_ping
       - sensor.speedtest_upload
-      - sensor.temperature_attic
-      - sensor.temperature_bathroom
-      - sensor.temperature_bedroom
-      - sensor.temperature_equipmentroom
-      - sensor.temperature_garden
-      - sensor.temperature_livingroom
-      - sensor.temperature_mia
-      - sensor.temperature_office
-      - sensor.temperature_solar
-      - sensor.temperatursensor_pool_1_temperature
-      - sensor.temperatursensor_pool_2_temperature
-      - sensor.watertank_liter
 
   component_config_glob:
     sensor.garden_luftdaten_air_quality*:

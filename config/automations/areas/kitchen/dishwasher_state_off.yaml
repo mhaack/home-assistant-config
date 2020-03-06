@@ -6,7 +6,7 @@
 alias: "[Appliances] Set dishwasher machine to Off after timeout"
 trigger:
   - platform: state
-    entity_id: input_select.dishwasher_machine_status
+    entity_id: input_select.kitchen_dishwasher_state
     to: Clean
     for:
       minutes: 10
@@ -14,10 +14,10 @@ condition:
   condition: and
   conditions:
     - condition: state
-      entity_id: input_select.dishwasher_machine_status
+      entity_id: input_select.kitchen_dishwasher_state
       state: Clean
 action:
   - service: input_select.select_option
     data:
-      entity_id: input_select.dishwasher_machine_status
+      entity_id: input_select.kitchen_dishwasher_state
       option: Idle

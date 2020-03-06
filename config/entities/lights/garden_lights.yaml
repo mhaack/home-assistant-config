@@ -1,0 +1,16 @@
+---
+# Collect all outdoor lights in a light group
+#
+# https://www.home-assistant.io/integrations/light.group/
+#
+platform: group
+name: garden_lights
+entities:
+  - light.garden_carport_volvo
+  - light.garden_terrace_spots
+  - light.garden_terrace_lounge
+  - light.garden_backyard_tree
+  - light.garden_frontyard_tree
+  - light.garden_pond_light
+  - light.pool_light
+  - light.garden_sundeck_spots

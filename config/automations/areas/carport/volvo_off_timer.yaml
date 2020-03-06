@@ -6,8 +6,8 @@ trigger:
   - platform: event
     event_type: timer.finished
     event_data:
-      entity_id: timer.volvo_light
+      entity_id: timer.garden_carport_volvo_light
 action:
   - service: light.turn_off
     data:
-      entity_id: light.volvolicht
+      entity_id: light.garden_carport_volvo

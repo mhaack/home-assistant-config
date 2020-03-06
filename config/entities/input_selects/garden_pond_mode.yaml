@@ -1,0 +1,12 @@
+---
+# Control the pond blubber and waterfall mode
+#
+# https://www.home-assistant.io/integrations/input_select/
+#
+garden_pond_mode:
+  name: Teichautomatik
+  options:
+    - Automatik
+    - Nur Blubber
+    - Nur Wasserfall
+  icon: mdi:waves

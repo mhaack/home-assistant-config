@@ -4,10 +4,10 @@
 alias: "[Security] Send notification panic mode triggerd"
 trigger:
   - platform: state
-    entity_id: switch.sirene_haus_3
+    entity_id: switch.hall_siren_3
     to: "on"
 action:
-  - service: notify.pushover_markus
+  - service: notify.system_pushover_markus
     data:
       title: "JaMa Villa Alarm"
       message: "Panikmodus wurde aktiviert!"

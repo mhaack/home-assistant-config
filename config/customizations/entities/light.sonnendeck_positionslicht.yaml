@@ -1,9 +1,0 @@
----
-#
-# Customizes Sonnendeck Positionslicht lights
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-light.sonnendeck_positionslicht:
-  friendly_name: Sonnendeck Positionslicht
-  icon: mdi:ship-wheel

@@ -1,0 +1,12 @@
+---
+# Terrace spot SonOff light
+#
+# https://www.home-assistant.io/integrations/light.mqtt/
+#
+platform: mqtt
+name: garden_terrace_spots
+command_topic: cmnd/sonoff-garten/POWER1
+state_topic: stat/sonoff-garten/POWER1
+availability_topic: tele/sonoff-garten/LWT
+payload_available: Online
+payload_not_available: Offline

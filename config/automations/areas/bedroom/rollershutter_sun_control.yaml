@@ -6,7 +6,7 @@ alias: "[Bedroom] Turn down the roller shutter on hot days"
 initial_state: true
 trigger:
   - platform: state
-    entity_id: sensor.temperature_garden, weather.dark_sky
+    entity_id: sensor.garden_temperature, weather.dark_sky
 condition:
   condition: and
   conditions:
@@ -14,13 +14,13 @@ condition:
       after: "09:00:00"
       before: "16:00:00"
     - condition: numeric_state
-      entity_id: cover.schlafzimmer
+      entity_id: cover.bedroom
       value_template: "{{ state.attributes.current_position }}"
       above: 40
     - condition: or
       conditions:
         - condition: numeric_state
-          entity_id: sensor.temperature_garden
+          entity_id: sensor.garden_temperature
           above: 25
         - condition: numeric_state
           entity_id: weather.dark_sky
@@ -29,5 +29,5 @@ condition:
 action:
   - service: cover.set_cover_position
     data:
-      entity_id: cover.schlafzimmer
+      entity_id: cover.bedroom
       position: 35

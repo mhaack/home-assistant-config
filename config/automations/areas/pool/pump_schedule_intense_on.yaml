@@ -1,0 +1,19 @@
+---
+# Automation to run the daily intense pool pump schedule.
+#
+# Intense mode for pool pump which runs the pump longer then the normal mode.
+#
+id: 292db941-2482-4d69-beaa-bd3d6eb321c7
+alias: "[Pool] Daily intense pool pump schedule - on"
+trigger:
+  - platform: time
+    at: "02:00:00"
+  - platform: time
+    at: "08:00:00"
+  - platform: time
+    at: "14:00:00"
+  - platform: time
+    at: "20:00:00"
+action:
+  - service: switch.turn_on
+    entity_id: switch.pool_pump

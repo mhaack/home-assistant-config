@@ -1,7 +1,0 @@
----
-#
-# Customizes the Worx Landroid sensors
-#
-sensor.landroid_status:
-  friendly_name: Status
-  icon: mdi:sheep

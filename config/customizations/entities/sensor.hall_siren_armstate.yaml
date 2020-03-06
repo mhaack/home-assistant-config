@@ -1,0 +1,9 @@
+---
+#
+# Customizes Homematic siren in house
+#
+# https://www.home-assistant.io/integrations/homematic/
+#
+sensor.hall_siren_armstate:
+  friendly_name: Sirene Haus
+  icon: mdi:alarm-light

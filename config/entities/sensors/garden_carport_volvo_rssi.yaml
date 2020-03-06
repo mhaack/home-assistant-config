@@ -1,0 +1,10 @@
+---
+# Volvo SonOff carport light RSSI sensor
+#
+# https://www.home-assistant.io/integrations/sensor.mqtt/
+#
+platform: mqtt
+name: garden_carport_volvo_rssi
+state_topic: tele/sonoff-volvolicht/STATE
+value_template: "{{ value_json.Wifi.RSSI }}"
+unit_of_measurement: "%"

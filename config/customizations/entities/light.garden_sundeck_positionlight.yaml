@@ -1,0 +1,7 @@
+---
+#
+# Customizes Sonnendeck Positionslicht lights
+#
+light.garden_sundeck_positionlight:
+  friendly_name: Sonnendeck Positionslicht
+  icon: mdi:ship-wheel

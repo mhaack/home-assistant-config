@@ -1,0 +1,14 @@
+---
+# Triggers when Jasmina's phone leaving work
+#
+alias: "[Zone] Jasmina leaving work"
+trigger:
+  - platform: zone
+    entity_id: device_tracker.iphone_von_jasmina
+    zone: zone.dnb
+    event: leave
+action:
+  - service: notify.system_pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "Jasmina hat die DNB verlassen."

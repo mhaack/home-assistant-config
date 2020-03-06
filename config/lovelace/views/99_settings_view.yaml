@@ -7,33 +7,35 @@ path: system-settings
 
 cards:
   - type: entities
+    title: Modi
     entities:
       - entity: input_boolean.xmas_mode
         name: Weihnachtsmodus
     show_header_toggle: false
-    title: Modi
+    state_color: true
   - type: entities
-    entities:
-      - input_boolean.send_notification
-      - input_boolean.office_notification
-      - input_boolean.dishwasher_notification
-      - input_boolean.pool_notification
-      - input_boolean.bench_notification
     title: Benachrichtigungen
-  - type: entities
     entities:
-      - binary_sensor.sensor_error
-      - automation.sensor_error
-      - automation.sensor_error_clear
-    show_header_toggle: false
+      - input_boolean.system_notification
+      - input_boolean.office_desk_notification
+      - input_boolean.kitchen_dishwasher_notification
+      - input_boolean.pool_notification
+      - input_boolean.garden_bench_notification
+      - input_boolean.hall_litterbox_notification
+    state_color: true
+  - type: entities
     title: Check Sensor Error
-  - entities:
+    entities:
+      - binary_sensor.system_device_error
+      - automation.system_sensor_error_detection
+      - automation.system_sensor_error_clear
+    show_header_toggle: false
+  - type: entities
+    title: Sun
+    entities:
       - sun.sun
       - sensor.season
     show_header_toggle: false
-    title: Sun
-    type: entities
-
   - type: entities
     title: Anwesenheit
     entities:
@@ -62,10 +64,8 @@ cards:
           - device_tracker.iphone_mia_wifi
         group_config:
           secondary_info: last-changed
-
     show_header_toggle: false
   - type: entities
-    show_header_toggle: false
     title: AdGuard
     entities:
       - label: Control
@@ -87,5 +87,8 @@ cards:
       - sensor.adguard_dns_queries_blocked
       - sensor.adguard_parental_control_blocked
       - sensor.adguard_safe_browsing_blocked
+      - sensor.adguard_searches_safe_search_enforced
       - sensor.adguard_average_processing_speed
       - sensor.adguard_rules_count
+    show_header_toggle: false
+    state_color: true

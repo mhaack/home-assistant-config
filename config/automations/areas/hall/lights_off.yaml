@@ -1,0 +1,14 @@
+---
+# Hallway light automatic light off by timer
+#
+id: 20ee787c-79b6-49f2-ac5a-b2b61a91b1c5
+alias: "[Light] Turn off hallway lights 5 minutes after trigger"
+trigger:
+  platform: event
+  event_type: timer.finished
+  event_data:
+    entity_id: timer.hall_lights
+action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.hall_basement_light_switch

@@ -1,9 +1,0 @@
----
-#
-# Customizes XMAS light group
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-light.xmas_outdoor_lights:
-  friendly_name: Weihnachtsbeleuchtung außen
-  icon: mdi:pine-tree

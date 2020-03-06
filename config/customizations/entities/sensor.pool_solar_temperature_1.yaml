@@ -1,0 +1,6 @@
+---
+#
+# Customizes sensors & switches in the garden for pool, pond, watertank, etc.
+#
+sensor.pool_solar_temperature_1:
+  friendly_name: Solar Temperatur (Sensor 1)

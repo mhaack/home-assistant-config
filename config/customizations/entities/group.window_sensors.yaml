@@ -2,7 +2,5 @@
 #
 # Customizes window contact sensors
 #
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-group.window_sensors:
+group.system_window_sensors:
   icon: mdi:window-closed

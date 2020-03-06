@@ -1,0 +1,8 @@
+---
+# Group containting all door contact sensors.
+#
+system_door_sensors:
+  name: Türen
+  entities:
+    - binary_sensor.garden_carport_door
+    - binary_sensor.hall_frontdoor

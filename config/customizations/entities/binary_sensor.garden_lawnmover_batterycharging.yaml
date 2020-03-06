@@ -1,0 +1,7 @@
+---
+#
+# Customizes the Worx Landroid sensors
+#
+binary_sensor.garden_lawnmover_batterycharging:
+  friendly_name: Batterie lädt
+  icon: mdi:battery-charging

@@ -1,8 +1,0 @@
----
-#
-# Customizes sensors of the freezer
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-sensor.funksteckdose_gefrierschrank_power:
-  friendly_name: Leistungsaufnahme

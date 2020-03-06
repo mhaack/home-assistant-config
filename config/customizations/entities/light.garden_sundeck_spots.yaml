@@ -1,0 +1,7 @@
+---
+#
+# Customizes Sonnendeck LED spot lights
+#
+light.garden_sundeck_spots:
+  friendly_name: Sonnendeck Spots
+  icon: mdi:spotlight-beam

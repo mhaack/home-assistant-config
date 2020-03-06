@@ -1,0 +1,7 @@
+---
+#
+# Customizes garden pond lights
+#
+light.garden_pond_light:
+  friendly_name: Teichlicht
+  icon: mdi:wave

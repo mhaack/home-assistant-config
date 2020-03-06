@@ -4,10 +4,8 @@
 # devices are running a firewall and are blocking UDP or TCP packets
 # but responding to ICMP requests (like Android phones).
 #
-# https://www.home-assistant.io/components/device_tracker.ping/
+# https://www.home-assistant.io/integrations/device_tracker.ping/
 #
 platform: ping
 hosts:
   core_modem: !secret core_modem
-  nas: !secret nas
-  fritzbox: !secret fritzbox

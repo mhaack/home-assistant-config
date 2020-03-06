@@ -2,7 +2,5 @@
 #
 # Customizes motion detector sensors
 #
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-group.motion_sensors:
+group.system_motion_sensors:
   icon: mdi:run

@@ -16,7 +16,8 @@ cards:
             cards:
               - type: "custom:mini-graph-card"
                 entities:
-                  - sensor.temperatursensor_pool_1_temperature
+                  - entity: sensor.pool_water_temperature_1
+                    name: Wassertemperatur
                 hours_to_show: 168
                 points_per_hour: 0.25
                 hour24: true
@@ -25,13 +26,14 @@ cards:
               - type: entities
                 show_header_toggle: false
                 entities:
-                  - sensor.temperatursensor_pool_1_temperature
-                  - sensor.temperature_solar_pool_diff
+                  - entity: sensor.pool_water_temperature_1
+                    name: Wassertemperatur
+                  - sensor.pool_solar_temperature_diff
                   - type: custom:fold-entity-row
-                    head: sensor.temperature_solar
+                    head: sensor.pool_solar_temperature
                     items:
-                      - sensor.temperatursensor_solar_1_temperature
-                      - sensor.temperatursensor_solar_2_temperature
+                      - sensor.pool_solar_temperature_1
+                      - sensor.pool_solar_temperature_2
                     group_config:
                       secondary_info: last-changed
           - type: vertical-stack
@@ -40,33 +42,33 @@ cards:
                 show_header_toggle: false
                 entities:
                   - input_select.pool_pump_mode
-                  - switch.pool_filterpumpe
+                  - switch.pool_pump
                   - switch.pool_valve
                   - light.pool_light
                 title: Poolsteuerung
               - type: entities
                 show_header_toggle: false
                 entities:
-                  - entity: sensor.daily_pool_filterpumpe_hours
+                  - entity: sensor.pool_daily_pump_hours
                     name: Betriebsstunden Pumpe
-                  - entity: sensor.daily_pool_valve_hours
+                  - entity: sensor.pool_daily_valve_hours
                     name: Betriebsstunden Solar
-                  - entity: sensor.pool_filterpumpe_power
+                  - entity: sensor.pool_pump_power
                     name: Leistung Pumpe
-                  - entity: sensor.daily_energy_pool
+                  - entity: sensor.pool_pump_daily_energy
                     name: Stromverbrauch Pumpe (heute)
-                  - entity: sensor.pool_filterpumpe_energy_counter
+                  - entity: sensor.pool_pump_energy_counter
                     name: Stromverbrauch Pumpe (gesamt)
                 title: Poolstatistik
           - type: entities
             entities:
-              - entity: light.sonnendeck_led
+              - entity: light.garden_sundeck_spots
                 name: LED
-              - entity: light.sonnendeck_positionslicht
+              - entity: light.garden_sundeck_positionlight
                 name: Schiffslicht
-              - entity: switch.sonnendeck_steckdosen
+              - entity: switch.garden_sundeck_sockets
                 name: Steckdosen
-              - sensor.sonnendeck_steckdosen_power
-              - sensor.sonnendeck_steckdosen_energy_counter
+              - sensor.garden_sundeck_sockets_power
+              - sensor.garden_sundeck_sockets_energy_counter
             show_header_toggle: false
             title: Pool-Sonnendeck

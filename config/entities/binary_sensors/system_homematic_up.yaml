@@ -1,0 +1,18 @@
+---
+# Homematic availibility tracker
+#
+# https://www.home-assistant.io/integrations/sensor.template/
+#
+platform: template
+sensors:
+  system_homematic_up:
+    friendly_name: "Homematic is sending updates"
+    entity_id:
+      - sensor.kitchen_dishwasher_frequency
+      - sensor.office_desk_voltage
+      - sensor.pool_pump_voltage
+      - sensor.time
+    value_template: >-
+      {{as_timestamp(now()) - as_timestamp(states.sensor.office_desk_voltage.last_changed) < 600 or
+        as_timestamp(now()) - as_timestamp(states.sensor.kitchen_dishwasher_frequency.last_changed) < 600 or
+        as_timestamp(now()) - as_timestamp(states.sensor.pool_pump_voltage.last_changed) < 600}}

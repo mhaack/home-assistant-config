@@ -4,5 +4,5 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-sensor.window_door_status:
+sensor.system_window_door_state:
   icon: mdi:door

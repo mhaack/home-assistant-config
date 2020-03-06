@@ -1,0 +1,14 @@
+---
+# Collect all indoor lights in a light group
+#
+# https://www.home-assistant.io/integrations/light.group/
+#
+platform: group
+name: indoor_lights
+entities:
+  - light.kitchen_ledstrip
+  - light.livingroom_lamp
+  - light.livingroom_tv
+  - light.hall_lights
+  - light.nursery_bed
+  - light.nursery_stars

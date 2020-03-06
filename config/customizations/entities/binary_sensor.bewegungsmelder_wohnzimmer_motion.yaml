@@ -1,8 +1,0 @@
----
-#
-# Customizes motion detector sensors
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-binary_sensor.bewegungsmelder_wohnzimmer_motion:
-  friendly_name: Wohnzimmer

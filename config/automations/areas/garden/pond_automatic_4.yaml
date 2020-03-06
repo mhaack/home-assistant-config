@@ -1,15 +1,16 @@
 ---
 # Pond automatic mode
 #
+id: c402c4be-a9a0-4d2b-9892-1eb46d81a8cf 
 alias: "[Pond] Pond automatic mode 4"
 trigger:
   - platform: time
     at: "23:30:00"
 condition:
   - condition: state
-    entity_id: input_select.pond_mode
+    entity_id: input_select.garden_pond_mode
     state: "Automatik"
 action:
   - service: switch.turn_off
     data:
-      entity_id: switch.teich_blubber
+      entity_id: switch.garden_pond_blubber

@@ -1,6 +1,7 @@
 ---
 # Garden bench movement notification routine - off on weekends
 #
+id: c72ae259-914d-43ff-9dcb-6911e112895d
 alias: "[Garden] Bench alarm and notification off at 9:00 on weekends"
 trigger:
   - platform: time
@@ -12,4 +13,4 @@ condition:
 action:
   - service: input_boolean.turn_off
     data:
-      entity_id: input_boolean.bench_notification
+      entity_id: input_boolean.garden_bench_notification

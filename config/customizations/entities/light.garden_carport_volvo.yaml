@@ -1,0 +1,7 @@
+---
+#
+# Customizes old carport Volvo light
+#
+light.garden_carport_volvo:
+  icon: mdi:car-light-dimmed
+  friendly_name: Volvolicht

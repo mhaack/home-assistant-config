@@ -1,8 +1,0 @@
----
-#
-# Customizes sensors of the dishwasher machine
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-sensor.daily_energy_dishwasher:
-  friendly_name: Stromverbrauch Spüli Heute

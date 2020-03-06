@@ -1,0 +1,117 @@
+---
+# The security dashboard
+#
+title: Security
+icon: mdi:security
+panel: true
+path: security
+
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:layout-card
+        layout: horizontal
+        max_columns: 2
+        cards:
+          - type: glance
+            title: Bewegungsmelder
+            entities:
+              - binary_sensor.hall_downstairs_motion
+              - binary_sensor.hall_upstairs_motion
+              - binary_sensor.livingroom_motion
+            show_header_toggle: false
+            show_state: false
+          - type: glance
+            title: Fenster & Türen
+            entities:
+              - binary_sensor.hall_frontdoor
+              - binary_sensor.garden_carport_door
+              - binary_sensor.livingroom_window_3
+              - binary_sensor.livingroom_window_4
+              - binary_sensor.kitchen_window
+              - binary_sensor.livingroom_window_1
+              - binary_sensor.livingroom_window_2
+              - binary_sensor.guests_window
+              - binary_sensor.laundryroom_window
+              - binary_sensor.office_window
+            show_header_toggle: false
+            show_state: false
+          - break
+          - type: "custom:aarlo-glance"
+            entity: camera.aarlo_eingang
+            show:
+              - motion
+              - sound
+              - snapshot
+              - battery_level
+              - signal_strength
+              - captured_today
+            top_title: false
+            top_status: false
+          - type: "custom:aarlo-glance"
+            entity: camera.aarlo_carport
+            show:
+              - motion
+              - sound
+              - snapshot
+              - battery_level
+              - signal_strength
+              - captured_today
+            top_title: false
+            top_status: false
+          - type: "custom:aarlo-glance"
+            entity: camera.aarlo_garten
+            show:
+              - motion
+              - sound
+              - snapshot
+              - battery_level
+              - signal_strength
+              - captured_today
+            top_title: false
+            top_status: false
+          - type: "custom:aarlo-glance"
+            entity: camera.aarlo_terrasse
+            show:
+              - motion
+              - sound
+              - snapshot
+              - battery_level
+              - signal_strength
+              - captured_today
+            top_title: false
+            top_status: false
+          - break
+          - type: "custom:aarlo-glance"
+            entity: camera.aarlo_pool
+            show:
+              - motion
+              - sound
+              - snapshot
+              - battery_level
+              - signal_strength
+              - captured_today
+            top_title: false
+            top_status: false
+      - type: custom:layout-card
+        layout: horizontal
+        max_columns: 2
+        cards:
+          - type: entities
+            entities:
+              - entity: alarm_control_panel.alarm_haus
+              - entity: sensor.hall_siren_armstate
+              - entity: switch.hall_siren_1
+              - entity: switch.hall_siren_2
+              - entity: switch.hall_siren_3
+            show_header_toggle: false
+            title: Alarm Haus
+          - type: entities
+            entities:
+              - entity: alarm_control_panel.alarm_carport
+              - entity: sensor.garden_carport_siren_armstate
+              - entity: switch.garden_carport_siren_1
+              - entity: switch.garden_carport_siren_2
+              - entity: switch.garden_carport_siren_3
+            show_header_toggle: false
+            title: Alarm Carport

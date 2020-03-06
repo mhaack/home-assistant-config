@@ -1,0 +1,26 @@
+---
+#
+# Clear the devide error alert if errors are ok
+#
+id: d76be217-d014-4661-9788-4df735ba5dad
+alias: "[System] Sensor Error Clear"
+trigger:
+  - platform: time_pattern
+    minutes: "/30"
+    seconds: 00
+condition:
+  - condition: template
+    value_template: >
+      {% macro sensor_error() %}
+      {%- set domains = ['sensor', 'binary_sensor'] -%}
+      {%- for domain in domains -%}
+        {%- for item in states[domain] if ((item.attributes.error is defined and item.attributes['error'] | lower != "no") or (item.attributes.sabotage is defined and item.attributes['sabotage'] | lower != "no")) -%}
+          {{ item.attributes.friendly_name }}
+        {%- endfor -%}
+      {%- endfor -%}
+      {% endmacro %}
+      {{ sensor_error() | trim == ""}}
+action:
+  - service: persistent_notification.dismiss
+    data:
+      notification_id: sensor-error-alert

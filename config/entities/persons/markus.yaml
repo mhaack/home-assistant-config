@@ -3,7 +3,7 @@
 # to one or more person entities.
 # This configures "Markus"
 #
-# https://www.home-assistant.io/components/person/
+# https://www.home-assistant.io/integrations/person/
 #
 name: Markus
 id: !secret id_markus

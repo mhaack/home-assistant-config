@@ -1,0 +1,8 @@
+---
+# Utility meter for the daily freezer power consumption
+#
+# https://www.home-assistant.io/integrations/utility_meter/
+#
+laundryroom_freezer_daily_energy:
+  source: sensor.laundryroom_freezer_power
+  cycle: daily

@@ -1,7 +1,0 @@
----
-#
-# Customizes the Worx Landroid sensors
-#
-sensor.landroid_error:
-  friendly_name: Fehler
-  icon: mdi:alert-circle

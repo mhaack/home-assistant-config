@@ -1,8 +1,0 @@
----
-# Hallway light timer
-#
-# https://www.home-assistant.io/components/timer/
-#
-hallway_lights:
-  name: "Flurlicht Timer"
-  duration: "00:05:00"

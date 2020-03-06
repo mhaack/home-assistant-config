@@ -1,9 +1,0 @@
----
-#
-# Customizes carport siren signal 1
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-switch.sirene_carport_1:
-  friendly_name: Sirene Carport
-  icon: mdi:alarm-light

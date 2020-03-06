@@ -1,11 +1,11 @@
 ---
 # History sensor collection the pool pump operation ours.
 #
-# https://www.home-assistant.io/components/history_stats/
+# https://www.home-assistant.io/integrations/history_stats/
 #
 platform: history_stats
-name: daily_pool_filterpumpe_hours
-entity_id: switch.pool_filterpumpe
+name: pool_daily_pump_hours
+entity_id: switch.pool_pump
 state: 'on'
 type: time
 start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'

@@ -1,0 +1,12 @@
+---
+# Mia bed stars SonOff light
+#
+# https://www.home-assistant.io/integrations/light.mqtt/
+#
+platform: mqtt
+name: nursery_stars
+command_topic: cmnd/sonoff-mia-sterne/POWER
+state_topic: stat/sonoff-mia-sterne/POWER
+availability_topic: tele/sonoff-mia-sterne/LWT
+payload_available: Online
+payload_not_available: Offline

@@ -2,6 +2,6 @@
 # This component allows you to write Python scripts that are
 # exposed as services in Home Assistant.
 #
-# https://www.home-assistant.io/components/python_script/
+# https://www.home-assistant.io/integrations/python_script/
 #
 python_script:

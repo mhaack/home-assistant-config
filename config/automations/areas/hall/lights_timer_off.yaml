@@ -1,0 +1,16 @@
+---
+# Hallway light automatic timer off
+#
+id: 49e94577-84bc-4eae-989d-57a3189b0ba6
+alias: "[Light] Turn off timer if hallway lights are off"
+trigger:
+  - platform: state
+    entity_id: switch.hall_basement_light_switch
+    to: "off"
+condition:
+  - condition: template
+    value_template: "{{ not is_state('timer.hall_lights', 'idle') }}"
+action:
+  - service: timer.cancel
+    data:
+      entity_id: timer.hall_lights

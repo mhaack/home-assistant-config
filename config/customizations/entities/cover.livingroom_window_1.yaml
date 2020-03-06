@@ -1,0 +1,7 @@
+---
+# Customizes rollershutters
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+cover.livingroom_window_1:
+  friendly_name: Wohnzimmer Sofa

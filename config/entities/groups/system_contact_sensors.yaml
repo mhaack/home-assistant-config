@@ -1,0 +1,16 @@
+---
+# Group containting all window & door contact sensors.
+#
+system_contact_sensors:
+  name: Kontaktsensoren
+  entities:
+    - binary_sensor.garden_carport_door
+    - binary_sensor.guests_window
+    - binary_sensor.hall_frontdoor
+    - binary_sensor.kitchen_window
+    - binary_sensor.laundryroom_window
+    - binary_sensor.livingroom_window_1
+    - binary_sensor.livingroom_window_2
+    - binary_sensor.livingroom_window_3
+    - binary_sensor.livingroom_window_4
+    - binary_sensor.office_window

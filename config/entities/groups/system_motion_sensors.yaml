@@ -1,0 +1,9 @@
+---
+# Group containting all motion detector sensors.
+#
+system_motion_sensors:
+  name: Bewegungsmelder
+  entities:
+    - binary_sensor.hall_downstairs_motion
+    - binary_sensor.hall_upstairs_motion
+    - binary_sensor.livingroom_motion

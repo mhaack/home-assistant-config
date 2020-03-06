@@ -1,0 +1,9 @@
+---
+#
+# Customizes sensors & switches of the freezer
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+switch.laundryroom_freezer:
+  friendly_name: Gefrierschrank
+  icon: mdi:snowflake

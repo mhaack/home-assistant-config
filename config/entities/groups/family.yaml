@@ -3,9 +3,7 @@
 #
 family:
   name: Family
-  view: false
-  control: hidden
   entities:
-    - person.markus
     - person.jasmina
+    - person.markus
     - person.mia

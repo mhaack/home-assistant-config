@@ -1,8 +1,0 @@
----
-#
-# Customizes Mia stars lights
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-light.mia_sterne:
-  icon: mdi:star-face

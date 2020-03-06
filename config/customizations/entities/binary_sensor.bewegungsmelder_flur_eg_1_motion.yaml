@@ -1,8 +1,0 @@
----
-#
-# Customizes motion detector sensors
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-binary_sensor.bewegungsmelder_flur_eg_1_motion:
-  friendly_name: Flur EG

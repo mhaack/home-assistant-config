@@ -1,0 +1,8 @@
+---
+#
+# Customizes window contact sensors
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+binary_sensor.livingroom_window_2:
+  friendly_name: Wohnzimmer

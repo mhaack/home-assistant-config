@@ -1,9 +1,9 @@
 ---
-# script to update schiebetuer cover state
 cover_group:
+  alias: Update sliding door cover state
   sequence:
     - service_template: "cover.{{modus}}_cover"
       data:
         entity_id:
-          - cover.wohnzimmer_schiebetur_rechts
-          - cover.wohnzimmer_schiebetur_links
+          - cover.livingroom_window_4a
+          - cover.livingroom_window_4b

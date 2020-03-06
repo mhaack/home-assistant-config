@@ -1,0 +1,14 @@
+---
+# XMAS group for all indoor and outdoor xmas lights
+#
+# https://www.home-assistant.io/integrations/light.group/
+#
+platform: group
+name: xmas_garden_lights
+entities:
+  - light.xmas_carport
+  - light.garden_backyard_tree
+  - light.garden_frontyard_tree
+  # - light.garden_sundeck_spots
+  - light.garden_terrace_lounge
+  # - light.xmas_candles

@@ -1,0 +1,6 @@
+---
+#
+# Customizes livingroom TV LED strip
+#
+light.livingroom_tv:
+  icon: mdi:led-strip-variant

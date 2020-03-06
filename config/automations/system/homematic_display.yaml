@@ -1,12 +1,12 @@
 ---
 # Update Homematic display on contact change
 #
-# https://www.home-assistant.io/components/homematic/#detecting-lost-connections
+# https://www.home-assistant.io/integrations/homematic/#detecting-lost-connections
 #
 alias: "[System] Display update window/door change"
 trigger:
   - platform: state
-    entity_id: group.all_contact_sensors
+    entity_id: group.system_contact_sensors
 action:
   - service: python_script.jamavilla_display
     data:

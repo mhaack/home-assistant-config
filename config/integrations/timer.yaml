@@ -1,6 +1,6 @@
 ---
 # The timer component aims to simplify automations based on (dynamic) durations.
 #
-# https://www.home-assistant.io/components/timer/
+# https://www.home-assistant.io/integrations/timer/
 #
 timer: !include_dir_merge_named ../entities/timers

@@ -14,12 +14,17 @@ custom_header:
   compact_mode: true
   hide_config: true
   hide_tabs: '{% if is_state("input_boolean.xmas_mode", "off") %}xmas{% endif %}'
+  background: var(--app-header-background-color)
+  elements_color: var(--app-header-text-color)
+  active_tab_color: var(--state-icon-active-color)
+  tab_indicator_color: var(--state-icon-active-color)
 
 views:
   - !include lovelace/views/00_home_view.yaml
   - !include lovelace/views/10_house_view.yaml
-  - !include lovelace/views/12_xmas_view.yaml
-  - !include lovelace/views/20_security_view.yaml
+  - !include lovelace/views/12_security_view.yaml
+  - !include lovelace/views/13_cat_view.yaml
+  - !include lovelace/views/15_xmas_view.yaml
   - !include lovelace/views/30_garden_view.yaml
   - !include lovelace/views/40_pool_view.yaml
   - !include lovelace/views/70_system_info_view.yaml

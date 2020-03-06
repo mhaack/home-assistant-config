@@ -1,0 +1,9 @@
+---
+#
+# Customizes house siren signal 3
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+switch.hall_siren_3:
+  friendly_name: Sirene Haus
+  icon: mdi:alarm-light

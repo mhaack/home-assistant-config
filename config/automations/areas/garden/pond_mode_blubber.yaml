@@ -1,18 +1,19 @@
 ---
 # Pond mode management
 #
+id: 8b0c77ed-1afa-4269-8d13-8f6392ae3746
 alias: "[Pond] Set Pond Mode To Blubber"
 trigger:
   - platform: state
-    entity_id: input_select.pond_mode
+    entity_id: input_select.garden_pond_mode
     to: "Nur Blubber"
   - platform: state
-    entity_id: input_select.pond_mode
+    entity_id: input_select.garden_pond_mode
     to: "Automatik"
 action:
   - service: switch.turn_off
     data:
-      entity_id: switch.teich_wasserfall
+      entity_id: switch.garden_pond_waterfall
   - service: switch.turn_on
     data:
-      entity_id: switch.teich_blubber
+      entity_id: switch.garden_pond_blubber

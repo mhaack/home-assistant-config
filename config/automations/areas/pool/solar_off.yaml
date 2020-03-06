@@ -1,0 +1,28 @@
+---
+# Switch on/off pool pump and solar valve based on the temperature different
+# of pool water and solar ripps on the carport roof
+#
+id: 2576ae90-9a99-4cdc-8059-a39780ca7ed9
+alias: "[Pool] Solar heating - off"
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.pool_solar_temperature_diff
+    below: 5
+condition:
+  - condition: state
+    entity_id: switch.pool_valve
+    state: "on"
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: input_select.pool_pump_mode
+        state: "Auto - Normal"
+      - condition: state
+        entity_id: input_select.pool_pump_mode
+        state: "Auto - Intensiv"
+      - condition: state
+        entity_id: input_select.pool_pump_mode
+        state: "Dauerbetrieb"
+action:
+  - service: switch.turn_off
+    entity_id: switch.pool_valve

@@ -1,0 +1,16 @@
+---
+# Litter box lid sensor detection if box is open/closed
+#
+# https://www.home-assistant.io/integrations/sensor.template/
+#
+platform: template
+sensors:
+  hall_litterbox_1_lid:
+    friendly_name: "Deckel Katzenklo 1"
+    device_class: opening
+    entity_id:
+      - binary_sensor.hall_litterbox_1
+    value_template: >-
+      {% if state_attr('binary_sensor.hall_litterbox_1', 'orientation') != None %}
+        {{ state_attr('binary_sensor.hall_litterbox_1', 'orientation')[2] > -50 }}
+      {% endif %}

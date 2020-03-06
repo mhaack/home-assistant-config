@@ -1,0 +1,18 @@
+---
+# Hallway light automatic timer on
+#
+id: 6a04ccdf-19e8-40a7-a862-988376820693
+alias: "[Light] Turn on timer if hallway lights are on"
+trigger:
+  - platform: state
+    entity_id: switch.hall_basement_light_switch
+    from: "off"
+    to: "on"
+condition:
+  - condition: state
+    entity_id: timer.hall_lights
+    state: "idle"
+action:
+  - service: timer.start
+    data:
+      entity_id: timer.hall_lights

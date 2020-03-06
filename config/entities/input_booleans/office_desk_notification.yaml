@@ -1,0 +1,9 @@
+---
+# Control the office notifications
+#
+# https://www.home-assistant.io/integrations/input_boolean/
+#
+office_desk_notification:
+  name: Benachrichtigen Büro Markus
+  initial: true
+  icon: mdi:office-building

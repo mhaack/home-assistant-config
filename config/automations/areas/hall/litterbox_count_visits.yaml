@@ -1,0 +1,33 @@
+---
+#
+# Count visits of litterbox
+#
+id: 742b00bc-392f-4679-b166-3e112efd0e8f
+alias: "[Litterbox] count visits"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.hall_litterbox_motion
+    to: "on"
+    for:
+      seconds: 20
+condition:
+  - condition: state
+    entity_id: binary_sensor.hall_litterbox_1_lid
+    state: "off"
+  - condition: state
+    entity_id: binary_sensor.hall_litterbox_2_lid
+    state: "off"
+action:
+  - service: counter.increment
+    data:
+      entity_id: counter.hall_litterbox_visits
+  - condition: state
+    entity_id: input_boolean.hall_litterbox_notification
+    state: "on"
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa - Katzenklo
+      message: Miau Miau, eine Katze hat 💩 gemacht. {{ states.sensor.hall_all_litterbox_visits.state_with_unit }} seit der letzen Leerung.
+      data:
+        push:
+          thread-id: "ha-litterbox-notification-group"

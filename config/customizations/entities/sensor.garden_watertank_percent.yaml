@@ -1,0 +1,9 @@
+---
+#
+# Customizes sensors & switches in the garden for pool, pond, watertank, etc.
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.garden_watertank_percent:
+  friendly_name: Zisterne Füllstand
+  icon: mdi:water-pump

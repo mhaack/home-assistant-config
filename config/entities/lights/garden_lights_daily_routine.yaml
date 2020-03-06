@@ -1,0 +1,13 @@
+---
+# Collect all outdoor lights for daily routine in a light group
+#
+# https://www.home-assistant.io/integrations/light.group/
+#
+platform: group
+name: garden_lights_daily_routine
+entities:
+  - light.garden_backyard_tree
+  - light.garden_frontyard_tree
+  - light.garden_terrace_lounge
+  - light.garden_pond_light
+  - light.garden_sundeck_positionlight
