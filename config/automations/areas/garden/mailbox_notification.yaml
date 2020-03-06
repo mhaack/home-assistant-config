@@ -18,7 +18,7 @@ condition:
 action:
   - service: notify.mobile_app_iphone_von_markus
     data:
-      title: "JaMa Villa - \uD83D\uDCEC"
+      title: JaMa Villa - {{"\uD83D\uDCEC"}}
       message: Der Briefkasten wurde noch nicht geleert, da ist noch ✉️ drin.
       data:
         push:

@@ -17,7 +17,7 @@ action:
     state: "on"
   - service: notify.mobile_app_iphone_von_markus
     data:
-      title: "JaMa Villa - \uD83D\uDCEC"
+      title: JaMa Villa - {{"\uD83D\uDCEC"}}
       message: Trari, trara, die Post ✉️ ist da!
       data:
         push:
