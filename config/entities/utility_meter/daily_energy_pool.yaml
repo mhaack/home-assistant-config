@@ -1,8 +1,0 @@
----
-# Utility meter for the daily pool power consumption
-#
-# https://www.home-assistant.io/components/utility_meter/
-#
-daily_energy_pool:
-  source: sensor.pool_filterpumpe_power
-  cycle: daily

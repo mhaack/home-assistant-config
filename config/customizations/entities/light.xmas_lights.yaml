@@ -2,8 +2,6 @@
 #
 # Customizes XMAS light group
 #
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
 light.xmas_lights:
   friendly_name: Weihnachtsbeleuchtung
   icon: mdi:pine-tree

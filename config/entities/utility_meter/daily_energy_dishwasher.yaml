@@ -1,8 +1,0 @@
----
-# Utility meter for the daily dishwasher power consumption
-#
-# https://www.home-assistant.io/components/utility_meter/
-#
-daily_energy_dishwasher:
-  source: sensor.funksteckdose_spuli_power
-  cycle: daily

@@ -1,8 +1,0 @@
----
-#
-# Customizes all device tracker
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-"device_tracker.*":
-  hidden: true

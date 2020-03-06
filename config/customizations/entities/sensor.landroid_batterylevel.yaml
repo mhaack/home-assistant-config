@@ -1,6 +1,0 @@
----
-#
-# Customizes the Worx Landroid sensors
-#
-sensor.landroid_batterylevel:
-  friendly_name: Batterie

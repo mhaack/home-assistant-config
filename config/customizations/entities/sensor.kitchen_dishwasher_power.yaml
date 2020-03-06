@@ -1,0 +1,8 @@
+---
+#
+# Customizes sensors of the dishwasher machine
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.kitchen_dishwasher_power:
+  friendly_name: Leistungsaufnahme

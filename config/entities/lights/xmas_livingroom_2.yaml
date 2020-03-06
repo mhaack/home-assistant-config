@@ -1,0 +1,12 @@
+---
+# XMAS outdoor and indoor lights
+#
+# https://www.home-assistant.io/integrations/light.mqtt/
+#
+platform: mqtt
+name: xmas_livingroom_2
+command_topic: cmnd/sonoff-xmas-herrnhuter-star/POWER
+state_topic: stat/sonoff-xmas-herrnhuter-star/POWER1
+availability_topic: tele/sonoff-xmas-herrnhuter-star/LWT
+payload_available: Online
+payload_not_available: Offline

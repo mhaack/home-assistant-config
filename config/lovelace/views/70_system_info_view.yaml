@@ -15,25 +15,23 @@ cards:
           - type: glance
             title: Core Network
             entities:
-              - binary_sensor.core_router
-              - binary_sensor.core_switch
-              - binary_sensor.core_modem
-              - binary_sensor.core_ap_untergeschoss
-              - binary_sensor.core_ap_obergeschoss
-              - binary_sensor.unifi_controler
-              - binary_sensor.nas
-              - binary_sensor.fritzbox
+              - binary_sensor.system_dsl_modem
+              - binary_sensor.system_unifi_router
+              - binary_sensor.system_unifi_switch
+              - binary_sensor.system_unifi_controller
+              - binary_sensor.livingroom_system_accesspoint
+              - binary_sensor.office_system_accesspoint
               - binary_sensor.remote_ui
             show_header_toggle: false
             show_state: false
           - type: glance
             title: Device Network
             entities:
-              - binary_sensor.hue_hub
-              - binary_sensor.arlo_hub
-              - binary_sensor.roomba
-              - binary_sensor.printer
-              - binary_sensor.landroid
+              - binary_sensor.system_arlo_hub
+              - binary_sensor.office_system_printer
+              - binary_sensor.system_nas
+              - binary_sensor.system_fritzbox
+              - binary_sensor.garden_lawnmover
             show_header_toggle: false
             show_state: false
 
@@ -60,6 +58,7 @@ cards:
                 line_width: 2
           - break
           - type: entities
+            title: HA Server Resources
             entities:
               - sensor.disk_use_percent
               - sensor.disk_free
@@ -68,18 +67,26 @@ cards:
               - sensor.processor_use
               - sensor.last_boot
             show_header_toggle: false
-            title: HA Server Resources
-          - type: horizontal-stack
-            cards:
-              - type: gauge
-                entity: sensor.processor_use
-                name: Processor
-              - type: gauge
-                entity: sensor.memory_use_percent
-                name: Memory
-              - type: gauge
-                entity: sensor.disk_use_percent
-                name: SD Card
+          - type: custom:mini-graph-card
+            entities:
+              - sensor.processor_use
+            name: CPU
+            line_color: '#2980b9'
+            line_width: 2
+            hours_to_show: 24
+          - type: custom:bar-card
+            entity: sensor.disk_use_percent
+            title: SD Card
+            title_position: inside
+            align: split
+            show_icon: true
+            color: '#00ba6a'
+          - type: custom:bar-card
+            entity: sensor.memory_use_percent
+            title: RAM
+            title_position: inside
+            align: split
+            show_icon: true
           - break
           - type: entities
             entities:
@@ -93,19 +100,23 @@ cards:
               - sensor.datentopf_temperature_drive_2
             show_header_toggle: false
             title: QNAP NAS Resources
-          - type: horizontal-stack
-            cards:
-              - type: gauge
-                entity: sensor.datentopf_cpu_usage
-                name: Processor
-              - type: gauge
-                entity: sensor.datentopf_memory_usage
-                name: Memory
-              - type: gauge
-                entity: sensor.datentopf_volume_used_volume_1
-                name: Disk
-          - type: entities
+          - type: custom:mini-graph-card
             entities:
-              - binary_sensor.mh_website
-            show_header_toggle: false
-            title: MH Website Online
+              - sensor.datentopf_cpu_usage
+            name: CPU
+            line_color: '#2980b9'
+            line_width: 2
+            hours_to_show: 24
+          - type: custom:bar-card
+            entity: sensor.datentopf_volume_used_volume_1
+            title: Disk
+            title_position: inside
+            align: split
+            show_icon: true
+            color: '#00ba6a'
+          - type: custom:bar-card
+            entity: sensor.datentopf_memory_usage
+            title: RAM
+            title_position: inside
+            align: split
+            show_icon: true

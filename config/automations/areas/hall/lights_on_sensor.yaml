@@ -1,0 +1,24 @@
+---
+# Hallway light automatic switched on by sensors
+#
+id: cf516bec-00f9-4ca2-9be7-83b16dc5fc96
+alias: "[Light] Turn on hallway light when there is movement or front door open"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.hall_frontdoor, binary_sensor.hall_downstairs_motion
+    from: "off"
+    to: "on"
+condition:
+  - condition: state
+    entity_id: sun.sun
+    state: "below_horizon"
+action:
+  - service: timer.cancel
+    data:
+      entity_id: timer.hall_lights
+  - service: timer.start
+    data:
+      entity_id: timer.hall_lights
+  - service: switch.turn_on
+    data:
+      entity_id: switch.hall_basement_light_switch

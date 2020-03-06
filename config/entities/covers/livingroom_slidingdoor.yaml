@@ -1,0 +1,31 @@
+---
+# Define combination of livingroom roller shuter
+#
+# https://www.home-assistant.io/integrations/cover.template/
+#
+platform: template
+covers:
+  livingroom_slidingdoor:
+    friendly_name: "Schiebetür"
+    icon_template: "mdi:format-align-justify"
+    open_cover:
+      service: script.cover_group
+      data:
+        modus: "open"
+    close_cover:
+      service: script.cover_group
+      data:
+        modus: "close"
+    stop_cover:
+      service: script.cover_group
+      data:
+        modus: "stop"
+    set_cover_position:
+      service: script.cover_group_position
+      data_template:
+        position: "{{position}}"
+    position_template: >-
+      {{ [states.cover.livingroom_window_4b.attributes['current_position'], states.cover.livingroom_window_4a.attributes['current_position']] | max }}
+    entity_id:
+      - cover.livingroom_window_4a
+      - cover.livingroom_window_4b

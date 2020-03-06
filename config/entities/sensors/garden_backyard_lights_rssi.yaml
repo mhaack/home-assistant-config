@@ -1,0 +1,10 @@
+---
+# RSSI sensor of the SonOff switch in the backyard gard
+#
+# https://www.home-assistant.io/integrations/sensor.mqtt/
+#
+platform: mqtt
+name: garden_backyard_lights_rssi
+state_topic: tele/sonoff-garten/STATE
+value_template: "{{ value_json.Wifi.RSSI }}"
+unit_of_measurement: "%"

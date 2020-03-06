@@ -1,8 +1,0 @@
----
-#
-# Customizes garden bench vibration sensor
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-binary_sensor.gartenbank:
-  icon: mdi:vibrate

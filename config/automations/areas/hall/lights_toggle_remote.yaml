@@ -1,0 +1,16 @@
+---
+# Hallway light controlled by homematic remote
+#
+id: 3f725332-d586-4641-9099-f5ee4423ebd2
+alias: "[Light] Remote toggle hallway light"
+trigger:
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: NEQ0391437
+      channel: 3
+      param: PRESS_SHORT
+action:
+  - service: switch.toggle
+    data:
+      entity_id: switch.hall_basement_light_switch

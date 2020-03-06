@@ -1,12 +1,13 @@
 ---
 # Homematic reconnect script in case connection to Homematic is lost.
 #
-# https://www.home-assistant.io/components/homematic/#detecting-lost-connections
+# https://www.home-assistant.io/integrations/homematic/#detecting-lost-connections
 #
+id: 890e2f49-9fce-4845-9945-b7acd85db469
 alias: "[System] Homematic Reconnect"
 trigger:
   platform: state
-  entity_id: binary_sensor.homematic_up
+  entity_id: binary_sensor.system_homematic_up
   to: "off"
 action:
   - service: homematic.reconnect

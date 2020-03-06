@@ -1,0 +1,23 @@
+---
+# Getting RSSI for luftdaten.info sensor data directly from device via REST API
+#
+# https://www.home-assistant.io/integrations/rest/
+#
+platform: rest
+name: garden_luftdaten_rssi
+resource: !secret luftdaten_url
+timeout: 30
+value_template: >-
+  {% for i in value_json.sensordatavalues %}
+      {% if i.value_type == 'signal' %}
+          {% set rssi = i.value | int %}
+          {% if rssi > -50 %}
+            {% set rssi = -50 %}
+          {% endif %}
+          {% if rssi < -100 %}
+            {% set rssi = -100 %}
+          {% endif %}
+          {{ (rssi + 100) * 2 }}
+      {% endif %}
+  {% endfor %}
+unit_of_measurement: "%"

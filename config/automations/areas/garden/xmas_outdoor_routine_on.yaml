@@ -1,6 +1,7 @@
 ---
 # XMAS lights automatic - on
 #
+id: e6d07a0b-11e7-40c0-8267-59105adbbbb4
 alias: "[XMAS] Turn on XMAS outdoor lights daily routine"
 trigger:
   - platform: sun
@@ -14,4 +15,4 @@ condition:
 action:
   - service: light.turn_on
     data:
-      entity_id: light.xmas_outdoor_lights
+      entity_id: light.xmas_garden_lights

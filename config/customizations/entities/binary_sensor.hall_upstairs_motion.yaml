@@ -1,0 +1,8 @@
+---
+#
+# Customizes motion detector sensors
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+binary_sensor.hall_upstairs_motion:
+  friendly_name: Flur OG

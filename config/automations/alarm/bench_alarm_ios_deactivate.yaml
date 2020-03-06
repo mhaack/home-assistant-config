@@ -1,6 +1,7 @@
 ---
 # Deactivate bench alarm based on iOS message trigger.
 #
+id: 1b2b3e96-95ca-4b59-866b-567cb3244b4a
 alias: "[Security] Turn off bench alarm by iOS trigger"
 trigger:
   platform: event
@@ -9,9 +10,9 @@ trigger:
     actionName: BENCH_DISABLE_ALARM
 # condition:
 #   - condition: state
-#     entity_id: switch.sirene_carport_3
+#     entity_id: switch.garden_carport_siren_3
 #     state: on
 action:
   - service: switch.turn_off
     data:
-      entity_id: switch.sirene_carport_3
+      entity_id: switch.garden_carport_siren_3

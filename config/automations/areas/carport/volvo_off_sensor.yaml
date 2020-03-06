@@ -4,13 +4,13 @@
 alias: "[Light] Turn off Volvo light when carport door closed"
 trigger:
   - platform: state
-    entity_id: binary_sensor.tur_carport_state
+    entity_id: binary_sensor.garden_carport_door
     from: "on"
     to: "off"
 action:
   - service: light.turn_off
     data:
-      entity_id: light.volvolicht
+      entity_id: light.garden_carport_volvo
   - service: timer.cancel
     data:
-      entity_id: timer.volvo_light
+      entity_id: timer.garden_carport_volvo_light

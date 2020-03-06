@@ -1,0 +1,7 @@
+---
+#
+# Customizes outdoor tree lights
+#
+light.garden_frontyard_tree:
+  icon: mdi:tree
+  friendly_name: Baum Vorgarten

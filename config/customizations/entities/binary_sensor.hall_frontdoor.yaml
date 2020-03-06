@@ -1,0 +1,9 @@
+---
+#
+# Customizes front door contact sensor
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+binary_sensor.hall_frontdoor:
+  icon: mdi:door
+  friendly_name: Haustür

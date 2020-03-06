@@ -2,7 +2,5 @@
 #
 # Customizes door contact sensors
 #
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-group.door_sensors:
+group.system_door_sensors:
   icon: mdi:door

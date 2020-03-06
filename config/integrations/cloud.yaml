@@ -2,7 +2,7 @@
 # The Home Assistant Cloud allows you to quickly integrate your local
 # Home Assistant with various cloud services like Amazon Alexa and Google Home.
 #
-# https://www.home-assistant.io/components/cloud/
+# https://www.home-assistant.io/integrations/cloud/
 #
 cloud:
   alexa:
@@ -14,53 +14,51 @@ cloud:
     # These are loaded from a separate directory.
     filter:
       include_entities:
-        - light.baum_garten
-        - light.baum_vorgarten
-        - light.esstisch
-        - light.hallway_lights
-        - light.kuche
-        - light.mia_bett
-        - light.mia_lights
-        - light.mia_sterne
+        - binary_sensor.garden_carport_door
+        - binary_sensor.guests_window
+        - binary_sensor.hall_frontdoor
+        - binary_sensor.kitchen_window
+        - binary_sensor.laundryroom_window
+        - binary_sensor.livingroom_window_1
+        - binary_sensor.livingroom_window_2
+        - binary_sensor.livingroom_window_3
+        - binary_sensor.livingroom_window_4
+        - binary_sensor.office_window
+        - light.garden_backyard_tree
+        - light.garden_frontyard_tree
+        - light.garden_pond_light
+        - light.garden_sundeck_positionlight
+        - light.garden_sundeck_spots
+        - light.garden_terrace_lounge
+        - light.garden_terrace_spots
+        - light.hall_lights
+        - light.kitchen_ledstrip
+        - light.livingroom_lamp
+        - light.livingroom_tv
+        - light.nursery_bed
+        - light.nursery_lights
+        - light.nursery_stars
         - light.pool_light
-        - light.schlafzimmer
-        - light.sonnendeck_led
-        - light.sonnendeck_positionslicht
-        - light.stehlampe
-        - light.teichlicht
-        - light.terrassenlicht
-        - light.terrassenlounge
-        - light.tv_wand
-        - light.xmas_lights
+        - light.xmas_garden_lights
         - light.xmas_indoor_lights
-        - light.xmas_outdoor_lights
-
-        - sensor.humidity_bathroom
-        - sensor.humidity_bedroom
-        - sensor.humidity_equipmentroom
-        - sensor.humidity_garden
-        - sensor.humidity_livingroom
-        - sensor.humidity_mia
-        - sensor.temperature_bathroom
-        - sensor.temperature_bedroom
-        - sensor.temperature_equipmentroom
-        - sensor.temperature_garden
-        - sensor.temperature_livingroom
-        - sensor.temperature_mia
-        - sensor.temperatursensor_pool_1_temperature
-        - sensor.temperatursensor_solar_1_temperature
-
-        - binary_sensor.fenster_arbeitszimmer_state
-        - binary_sensor.fenster_essbereiclsh_state
-        - binary_sensor.fenster_gaste_wc_state
-        - binary_sensor.fenster_hwr_state
-        - binary_sensor.fenster_kuche_state
-        - binary_sensor.fenster_wohnzimmer_sofa_state
-        - binary_sensor.fenster_wohnzimmer_state
-        - binary_sensor.haustur_state
-        - binary_sensor.schiebetur_wohnzimmer_state
-        - binary_sensor.tur_carport_state
-
-        - switch.teich_blubber
-        - switch.teich_wasserfall
-        - switch.sonnendeck_steckdosen
+        - light.xmas_lights
+        - sensor.bathroom_humidity
+        - sensor.bathroom_temperature
+        - sensor.bedroom_humidity
+        - sensor.bedroom_temperature
+        - sensor.equipmentroom_humidity
+        - sensor.equipmentroom_temperature
+        - sensor.garden_humidity
+        - sensor.garden_temperature
+        - sensor.livingroom_humidity
+        - sensor.livingroom_temperature
+        - sensor.nursery_humidity
+        - sensor.nursery_temperature
+        - sensor.office_humidity
+        - sensor.office_temperature
+        - sensor.pool_solar_temperature_1
+        - sensor.pool_water_temperature_1
+        - switch.garden_pond_blubber
+        - switch.garden_pond_waterfall
+        - switch.garden_sundeck_sockets
+        - switch.nursery_dollhouse

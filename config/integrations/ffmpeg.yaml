@@ -3,6 +3,6 @@
 # to process video and audio streams. This component supports all
 # FFmpeg versions since 3.0.0; if you have an older version, please update.
 #
-# https://www.home-assistant.io/components/ffmpeg/
+# https://www.home-assistant.io/integrations/ffmpeg/
 #
 ffmpeg:

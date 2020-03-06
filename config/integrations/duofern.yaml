@@ -6,4 +6,4 @@
 duofern:
   code: !secret duofern_code
   config_file: duofern.json
-  serial_port: /dev/ttyUSB0
+  serial_port: /dev/serial/by-id/usb-Rademacher_DuoFern_USB-Stick_WR04ZGAF-if00-port0

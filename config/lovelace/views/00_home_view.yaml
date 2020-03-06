@@ -40,11 +40,11 @@ cards:
         cards:
           - type: glance
             entities:
-              - entity: sensor.window_door_status
+              - entity: sensor.system_window_door_state
                 tap_action:
                   action: navigate
                   navigation_path: /lovelace/security
-              - entity: group.motion_sensors
+              - entity: group.system_motion_sensors
                 tap_action:
                   action: navigate
                   navigation_path: /lovelace/security
@@ -55,52 +55,43 @@ cards:
           - type: entity-filter
             show_empty: false
             entities:
-              - entity: light.hallway_lights
+              - entity: light.hall_lights
                 tap_action:
                   action: toggle
-              - entity: light.mia_sterne
+              - entity: light.nursery_stars
                 tap_action:
                   action: toggle
-              - entity: light.mia_bett
+              - entity: light.nursery_bed
                 tap_action:
                   action: toggle
-              - entity: light.kuche
+              - entity: light.kitchen_ledstrip
                 tap_action:
                   action: toggle
-              - entity: light.esstisch
+              - entity: light.livingroom_tv
                 tap_action:
                   action: toggle
-              - entity: light.tv_wand
+              - entity: light.garden_backyard_tree
                 tap_action:
                   action: toggle
-              - entity: light.stehlampe
+              - entity: light.garden_frontyard_tree
                 tap_action:
                   action: toggle
-              - entity: light.schlafzimmer
+              - entity: light.garden_terrace_spots
                 tap_action:
                   action: toggle
-              - entity: light.baum_garten
+              - entity: light.garden_terrace_lounge
                 tap_action:
                   action: toggle
-              - entity: light.baum_vorgarten
+              - entity: light.garden_sundeck_spots
                 tap_action:
                   action: toggle
-              - entity: light.terrassenlicht
-                tap_action:
-                  action: toggle
-              - entity: light.terrassenlounge
-                tap_action:
-                  action: toggle
-              - entity: light.sonnendeck_led
-                tap_action:
-                  action: toggle
-              - entity: light.sonnendeck_positionslicht
+              - entity: light.garden_sundeck_positionlight
                 tap_action:
                   action: toggle
               - entity: light.pool_light
                 tap_action:
                   action: toggle
-              - entity: light.teichlicht
+              - entity: light.garden_pond_light
                 tap_action:
                   action: toggle
             state_filter:
@@ -155,17 +146,23 @@ cards:
             title: Sicherheit
             entities:
               - type: custom:fold-entity-row
-                head: group.motion_sensors
+                head: group.system_motion_sensors
                 group_config:
                   secondary_info: last-changed
               - type: custom:fold-entity-row
-                head: group.door_sensors
+                head: group.system_door_sensors
                 group_config:
                   secondary_info: last-changed
               - type: custom:fold-entity-row
-                head: group.window_sensors
+                head: group.system_window_sensors
                 group_config:
                   secondary_info: last-changed
+            show_header_toggle: false
+            show_state: false
+          - type: entities
+            title: Katzenklo
+            entities:
+              - entity: sensor.hall_all_litterbox_visits
             show_header_toggle: false
             show_state: false
           - break
@@ -173,15 +170,32 @@ cards:
             entity: weather.dark_sky
             name: Wetter
           - type: "custom:mini-graph-card"
-            name: Temperatur
             decimals: 1
             hour24: true
             entities:
-              - entity: sensor.temperature_garden
+              - entity: sensor.garden_temperature
                 name: Garten
-              - entity: sensor.temperature_livingroom
+                show_state: true
+            show:
+              fill: fade
+          - type: 'custom:mini-graph-card'
+            name: Haus
+            decimals: 1
+            hour24: true
+            entities:
+              - entity: sensor.livingroom_temperature
                 name: Wohnzimmer
-              - entity: sensor.temperature_bedroom
+                show_state: true
+              - entity: sensor.kitchen_temperature
+                name: Küche
+              - entity: sensor.bedroom_temperature
+                name: Schlafzimmer
+              - entity: sensor.bathroom_temperature
+                name: Bad
+              - entity: sensor.nursery_temperature
+                name: Kinderzimmer
+              - entity: sensor.office_temperature
+                name: Büro
             show:
               fill: fade
           - type: iframe

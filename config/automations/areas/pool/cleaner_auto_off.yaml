@@ -1,0 +1,26 @@
+---
+# Send notication if pool cleaner is outside late in the evening
+#
+id: 9680f6fc-cc0c-45ea-99e2-30fecf27db47
+alias: "[Pool] Switch off pool cleaner if still on"
+trigger:
+  platform: time
+  at: "22:00:00"
+condition:
+  - condition: state
+    entity_id: switch.garden_sundeck_sockets
+    state: "on"
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: "off"
+action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.garden_sundeck_sockets
+  - condition: state
+    entity_id: input_boolean.pool_notification
+    state: "on"
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa"
+      message: "Achtung! Schlürfi war noch an, nicht vergessen ihn rein zu räumen."

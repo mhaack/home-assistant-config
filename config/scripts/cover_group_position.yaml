@@ -1,10 +1,10 @@
 ---
-# script to update schiebetuer cover position
 cover_group_position:
+  alias: Update sliding door cover position
   sequence:
     - service: cover.set_cover_position
       data_template:
         entity_id:
-          - cover.wohnzimmer_schiebetur_rechts
-          - cover.wohnzimmer_schiebetur_links
+          - cover.livingroom_window_4a
+          - cover.livingroom_window_4b
         position: "{{position}}"

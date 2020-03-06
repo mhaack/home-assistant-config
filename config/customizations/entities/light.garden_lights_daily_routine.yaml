@@ -1,0 +1,6 @@
+---
+#
+# Customizes daily routine light group
+#
+light.garden_lights_daily_routine:
+  friendly_name: Dekobeleuchtung außen

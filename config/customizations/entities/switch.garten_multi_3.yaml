@@ -4,5 +4,5 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-switch.garten_multi_3:
+switch.garden_multi_3:
   friendly_name: Sonnendeck Positionsleuchten

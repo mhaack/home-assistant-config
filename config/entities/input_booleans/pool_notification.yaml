@@ -1,7 +1,7 @@
 ---
 # Control the pool notifications
 #
-# https://www.home-assistant.io/components/input_boolean/
+# https://www.home-assistant.io/integrations/input_boolean/
 #
 pool_notification:
   name: Benachrichtigen Pool

@@ -1,0 +1,9 @@
+---
+#
+# Customizes sensors of the dishwasher machine
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.kitchen_dishwasher_energy_counter:
+  friendly_name: Stromverbrauch Spüli Gesamt
+  icon: mdi:flash

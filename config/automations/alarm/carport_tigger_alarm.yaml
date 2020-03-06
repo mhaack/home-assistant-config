@@ -4,7 +4,7 @@
 alias: "[Security] Trigger carport alarm if door was opened"
 trigger:
   - platform: state
-    entity_id: binary_sensor.tur_carport_state
+    entity_id: binary_sensor.garden_carport_door
     to: "on"
 condition:
   condition: or

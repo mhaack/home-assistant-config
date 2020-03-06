@@ -4,7 +4,7 @@
 alias: "[Security] Trigger house alarm if door or window was opened"
 trigger:
   - platform: state
-    entity_id: group.all_contact_sensors
+    entity_id: group.system_contact_sensors
     to: "on"
 condition:
   condition: or
@@ -16,7 +16,7 @@ condition:
       entity_id: alarm_control_panel.alarm_haus
       state: armed_home
 action:
-  - service: notify.pushover_markus
+  - service: notify.system_pushover_markus
     data:
       title: "JaMa Villa Alarm"
       message: "Alarm ausgelöst: Jemand ist im Haus - Fenster und Türen wurden geöffnet, Sirene aktiv in 30s"

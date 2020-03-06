@@ -1,8 +1,0 @@
----
-#
-# Customizes brightness sensor of motion detectors
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-"sensor.bewegungsmelder_*_brightness":
-  hidden: true

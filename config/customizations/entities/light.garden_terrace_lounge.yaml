@@ -1,0 +1,6 @@
+---
+#
+# Customizes terrace loung lights
+#
+light.garden_terrace_lounge:
+  friendly_name: Terrassenlounge

@@ -1,0 +1,7 @@
+---
+# Customizes rollershutters
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+cover.livingroom_window_4a:
+  friendly_name: Schiebetür links

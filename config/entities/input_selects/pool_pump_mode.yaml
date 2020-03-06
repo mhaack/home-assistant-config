@@ -1,0 +1,13 @@
+---
+# Control the pool filter pump mode and intensity.
+#
+# https://www.home-assistant.io/integrations/input_select/
+#
+pool_pump_mode:
+  name: Modus Poolpumpe
+  icon: mdi:pool
+  options:
+    - "Auto - Normal"
+    - "Auto - Intensiv"
+    - "Dauerbetrieb"
+    - "Aus"

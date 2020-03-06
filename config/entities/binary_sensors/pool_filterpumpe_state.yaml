@@ -1,9 +1,0 @@
----
-# Pool pump sensor representing current state of the pool pump (on/off).
-#
-platform: template
-sensors:
-  pool_filterpumpe_state:
-    value_template: "{{is_state('switch.pool_filterpumpe', 'on') }}"
-    entity_id: switch.pool_filterpumpe
-    friendly_name: Status Poolpumpe

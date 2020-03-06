@@ -1,7 +1,7 @@
 ---
 # Pool water controll valve via 2 Homematic switches
 #
-# https://www.home-assistant.io/components/switch.template/
+# https://www.home-assistant.io/integrations/switch.template/
 #
 platform: template
 switches:

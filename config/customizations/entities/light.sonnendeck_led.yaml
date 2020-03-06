@@ -1,8 +1,0 @@
----
-#
-# Customizes Sonnendeck LED spot lights
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-light.sonnendeck_led:
-  friendly_name: Sonnendeck Spots

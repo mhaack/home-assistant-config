@@ -1,8 +1,0 @@
----
-#
-# Customizes sensors of the freezer
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-sensor.daily_energy_freezer:
-  friendly_name: Stromverbrauch Gefrierschrank Heute

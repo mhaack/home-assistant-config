@@ -17,31 +17,22 @@ cards:
               - entity: light.indoor_lights
                 tap_action:
                   action: toggle
-              - entity: light.hallway_lights
+              - entity: light.hall_lights
                 tap_action:
                   action: toggle
-              - entity: light.mia_lights
+              - entity: light.nursery_lights
                 tap_action:
                   action: toggle
-              - entity: light.mia_sterne
+              - entity: light.nursery_stars
                 tap_action:
                   action: toggle
-              - entity: light.mia_bett
+              - entity: light.nursery_bed
                 tap_action:
                   action: toggle
-              - entity: light.kuche
+              - entity: light.kitchen_ledstrip
                 tap_action:
                   action: toggle
-              - entity: light.esstisch
-                tap_action:
-                  action: toggle
-              - entity: light.tv_wand
-                tap_action:
-                  action: toggle
-              - entity: light.stehlampe
-                tap_action:
-                  action: toggle
-              - entity: light.schlafzimmer
+              - entity: light.livingroom_tv
                 tap_action:
                   action: toggle
             title: Innenbeleuchtung
@@ -49,7 +40,7 @@ cards:
           - type: entity-filter
             show_empty: false
             entities:
-              - entity: timer.hallway_lights
+              - entity: timer.hall_lights
             state_filter:
               - 'active'
           - type: horizontal-stack
@@ -58,7 +49,7 @@ cards:
                 decimals: 1
                 hour24: true
                 entities:
-                  - entity: sensor.temperature_livingroom
+                  - entity: sensor.livingroom_temperature
                     name: Wohnzimmer
                     show_state: true
                 show:
@@ -67,7 +58,17 @@ cards:
                 decimals: 1
                 hour24: true
                 entities:
-                  - entity: sensor.temperature_bedroom
+                  - entity: sensor.kitchen_temperature
+                    name: Küche
+                    show_state: true
+                show:
+                  fill: fade
+              - type: 'custom:mini-graph-card'
+                decimals: 1
+                hour24: true
+                entities:
+                  - entity: sensor.bedroom_temperature
+                    name: Schlafzimmer
                     show_state: true
                 show:
                   fill: fade
@@ -77,7 +78,8 @@ cards:
                 decimals: 1
                 hour24: true
                 entities:
-                  - entity: sensor.temperature_mia
+                  - entity: sensor.nursery_temperature
+                    name: Kinderzimmer
                     show_state: true
                 show:
                   fill: fade
@@ -85,7 +87,8 @@ cards:
                 decimals: 1
                 hour24: true
                 entities:
-                  - entity: sensor.temperature_bathroom
+                  - entity: sensor.bathroom_temperature
+                    name: Bad
                     show_state: true
                 show:
                   fill: fade
@@ -93,7 +96,8 @@ cards:
                 decimals: 1
                 hour24: true
                 entities:
-                  - entity: sensor.temperature_office
+                  - entity: sensor.office_temperature
+                    name: Büro
                     show_state: true
                 show:
                   fill: fade
@@ -102,12 +106,18 @@ cards:
             decimals: 1
             hour24: true
             entities:
-              - entity: sensor.humidity_livingroom
+              - entity: sensor.livingroom_humidity
                 name: Wohnzimmer
-              - entity: sensor.humidity_bedroom
-              - entity: sensor.humidity_bathroom
-              - entity: sensor.humidity_mia
-              - entity: sensor.humidity_office
+              - entity: sensor.kitchen_humidity
+                name: Küche
+              - entity: sensor.bedroom_humidity
+                name: Schlafzimmer
+              - entity: sensor.bathroom_humidity
+                name: Bad
+              - entity: sensor.nursery_humidity
+                name: Kinderzimmer
+              - entity: sensor.office_humidity
+                name: Büro
             unit: '%'
             show:
               fill: fade
@@ -116,9 +126,20 @@ cards:
               - type: "custom:mini-graph-card"
                 name: Dachboden
                 entities:
-                  - entity: sensor.temperature_attic
+                  - entity: sensor.attic_temperature
                     name: Temperatur
-                  - entity: sensor.humidity_attic
+                  - entity: sensor.attic_humidity
+                    name: Luftfeuchtigkeit
+                    show_state: true
+                hour24: true
+                show:
+                  fill: fade
+              - type: "custom:mini-graph-card"
+                name: Technikraum
+                entities:
+                  - entity: sensor.equipmentroom_temperature
+                    name: Temperatur
+                  - entity: sensor.equipmentroom_humidity
                     name: Luftfeuchtigkeit
                     show_state: true
                 hour24: true
@@ -132,37 +153,37 @@ cards:
                 style:
                   height: 3px
               - type: custom:fold-entity-row
-                head: cover.wohnzimmer_schiebetur
+                head: cover.livingroom_slidingdoor
                 entities:
-                  - entity: cover.wohnzimmer_schiebetur_rechts
+                  - entity: cover.livingroom_window_4b
                     icon: 'mdi:format-align-justify'
                     name: Schiebetür rechts
-                  - entity: cover.wohnzimmer_schiebetur_links
+                  - entity: cover.livingroom_window_4a
                     icon: 'mdi:format-align-justify'
                     name: Schiebetür links
-              - entity: cover.kuche
+              - entity: cover.kitchen
                 icon: 'mdi:format-align-justify'
-              - entity: cover.essbereich
+              - entity: cover.livingroom_window_3
                 icon: 'mdi:format-align-justify'
-              - entity: cover.wohnzimmer_tv
+              - entity: cover.livingroom_window_2
                 icon: 'mdi:format-align-justify'
-              - entity: cover.wohnzimmer_sofa
+              - entity: cover.livingroom_window_1
                 icon: 'mdi:format-align-justify'
               - label: Obergeschoss
                 type: section
                 style:
                   height: 3px
-              - entity: cover.schlafzimmer
+              - entity: cover.bedroom
                 icon: 'mdi:format-align-justify'
-              - entity: cover.kinderzimmer
+              - entity: cover.nursery
                 icon: 'mdi:format-align-justify'
-              - entity: cover.kinderzimmer_bett
+              - entity: cover.nursery_bed
                 icon: 'mdi:format-align-justify'
             show_header_toggle: false
             title: Rollläden
           - type: 'custom:mini-media-player'
             icon: mdi:speaker
-            entity: media_player.buro
+            entity: media_player.office
             artwork: cover
             hide:
               volume: true
@@ -170,7 +191,7 @@ cards:
               power_state: false
           - type: 'custom:mini-media-player'
             icon: mdi:speaker
-            entity: media_player.kuche
+            entity: media_player.livingroom
             artwork: cover
             hide:
               volume: true
@@ -178,15 +199,7 @@ cards:
               power_state: false
           - type: 'custom:mini-media-player'
             icon: mdi:speaker
-            entity: media_player.esszimmer
-            artwork: cover
-            hide:
-              volume: true
-              source: true
-              power_state: false
-          - type: 'custom:mini-media-player'
-            icon: mdi:speaker
-            entity: media_player.wohnzimmer
+            entity: media_player.move
             artwork: cover
             hide:
               volume: true
@@ -195,38 +208,40 @@ cards:
           - break
           - type: entities
             entities:
-              - switch.funksteckdose_office
-              - binary_sensor.office_status
-              - sensor.funksteckdose_office_power
-              - sensor.daily_energy_office
-              - sensor.funksteckdose_office_energy_counter
+              - switch.office_desk
+              - binary_sensor.office_desk
+              - sensor.office_desk_power
+              - sensor.office_desk_daily_energy
+              - sensor.office_desk_energy_counter
             show_header_toggle: false
             title: Büro Markus
           - type: entities
             entities:
-              - switch.funksteckdose_spuli
-              - sensor.dishwasher_machine_state
-              - sensor.funksteckdose_spuli_power
-              - sensor.daily_energy_dishwasher
-              - sensor.funksteckdose_spuli_energy_counter
+              - switch.kitchen_dishwasher
+              - sensor.kitchen_dishwasher_state
+              - sensor.kitchen_dishwasher_power
+              - sensor.kitchen_dishwasher_daily_energy
+              - sensor.kitchen_dishwasher_energy_counter
             show_header_toggle: false
             title: Spülmaschine
           - type: entities
             entities:
-              - switch.funksteckdose_gefrierschrank
-              - sensor.funksteckdose_gefrierschrank_power
-              - sensor.daily_energy_freezer
-              - sensor.funksteckdose_gefrierschrank_energy_counter
+              - switch.laundryroom_freezer
+              - sensor.laundryroom_freezer_power
+              - sensor.laundryroom_freezer_daily_energy
+              - sensor.laundryroom_freezer_energy_counter
             show_header_toggle: false
             title: Gefrierschrank
           - type: entities
             entities:
-              - sensor.temperature_fridge
-              - sensor.humidity_fridge
+              - sensor.kitchen_fridge_temperature
+              - sensor.kitchen_fridge_humidity
             show_header_toggle: false
             title: Kühlschrank
           - type: entities
             entities:
-              - vacuum.roomba
-            title: Staubsauger
+              - light.nursery_bed
+              - light.nursery_stars
+              - switch.nursery_dollhouse
+            title: Kinderzimmer
             show_header_toggle: false

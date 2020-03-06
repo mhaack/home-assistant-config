@@ -3,7 +3,7 @@
 # to one or more person entities.
 # This configures "Mia"
 #
-# https://www.home-assistant.io/components/person/
+# https://www.home-assistant.io/integrations/person/
 #
 name: Mia
 id: ac63602ce6d84985a0482d1be9d4cfb7

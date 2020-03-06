@@ -1,0 +1,23 @@
+---
+# Switch off pool light and send notication
+#
+id: 7ba02808-de25-4faf-a423-7769ba05e92d
+alias: "[Pool] Switch off pool light if still on"
+trigger:
+  platform: time
+  at: "22:00:00"
+condition:
+  - condition: state
+    entity_id: light.pool_light
+    state: "on"
+action:
+  - service: light.turn_off
+    data:
+      entity_id: light.pool_light
+  - condition: state
+    entity_id: input_boolean.pool_notification
+    state: "on"
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa Pool"
+      message: "Achtung! Poollicht war noch an."

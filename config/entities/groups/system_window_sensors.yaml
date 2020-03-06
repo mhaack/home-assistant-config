@@ -1,0 +1,14 @@
+---
+# Group containting all window contact sensors.
+#
+system_window_sensors:
+  name: Fenster
+  entities:
+    - binary_sensor.guests_window
+    - binary_sensor.kitchen_window
+    - binary_sensor.laundryroom_window
+    - binary_sensor.livingroom_window_1
+    - binary_sensor.livingroom_window_2
+    - binary_sensor.livingroom_window_3
+    - binary_sensor.livingroom_window_4
+    - binary_sensor.office_window

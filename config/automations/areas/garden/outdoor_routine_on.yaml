@@ -1,6 +1,7 @@
 ---
 # Garden and outdoor lights automatic - on
 #
+id: 69b4e7d6-8e7c-4164-ada1-321e78a87a4b
 alias: "[Light] Turn on outdoor lights daily routine"
 trigger:
   - platform: sun
@@ -14,4 +15,4 @@ condition:
 action:
   - service: light.turn_on
     data:
-      entity_id: light.outdoor_lights_daily_routine
+      entity_id: light.garden_lights_daily_routine

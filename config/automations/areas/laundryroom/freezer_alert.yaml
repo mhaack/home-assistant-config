@@ -1,0 +1,29 @@
+---
+# Trigger notification if freezer is off or out of electricity
+#
+alias: "[Appliances] Freezer has no electricity"
+trigger:
+  - platform: state
+    entity_id: switch.laundryroom_freezer
+    to: "off"
+  - platform: numeric_state
+    entity_id: sensor.laundryroom_freezer_power
+    below: 0.1
+action:
+  - service: notify.system_group_jama
+    data_template:
+      title: "JaMa Villa"
+      message: >
+        "Stromanschluß vom Gefrierschrank sofort überprüfen. Trigger: {{ trigger.entity_id }}"
+      data:
+        subtitle: "Problem mit Gefrierschrank!"
+        push:
+          thread-id: "fridge-notification-group"
+  - service: notify.system_pushover_markus
+    data_template:
+      title: "JaMa Villa"
+      message: >
+        "Stromanschluß vom Gefrierschrank sofort überprüfen. Trigger: {{ trigger.entity_id }}"
+      data:
+        sound: tugboat
+        priority: 1

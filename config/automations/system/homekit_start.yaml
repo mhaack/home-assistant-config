@@ -2,7 +2,7 @@
 # I've disabled auto_start on HomeKit, to prevent
 # HomeKit from starting when Homematic or Duofern isn't ready yet.
 #
-# https://www.home-assistant.io/components/homekit/#disable-auto-start
+# https://www.home-assistant.io/integrations/homekit/#disable-auto-start
 #
 alias: "[System] Homekit Start"
 trigger:

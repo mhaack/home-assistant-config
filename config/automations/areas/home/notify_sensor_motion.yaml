@@ -1,0 +1,21 @@
+---
+# Motion sensor notification
+#
+alias: "[Notify] Send motion sensor notifications"
+trigger:
+  - platform: state
+    entity_id:
+      - binary_sensor.hall_downstairs_motion
+      - binary_sensor.hall_upstairs_motion
+      - binary_sensor.livingroom_motion
+    to: "on"
+condition:
+  - condition: state
+    entity_id: input_boolean.system_notification
+    state: "on"
+action:
+  service: notify.system_pushover_markus
+  data_template:
+    title: "JaMa Villa"
+    message: >
+      Bewegung bei {{ trigger.to_state.attributes.friendly_name }} erkannt!

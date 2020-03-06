@@ -1,9 +1,9 @@
 ---
 #
-# Customizes hallway lights
+# Customizes hall lights
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-light.hallway_lights:
+light.hall_lights:
   icon: mdi:ceiling-light
   friendly_name: Flurlicht

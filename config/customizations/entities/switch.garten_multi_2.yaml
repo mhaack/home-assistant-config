@@ -4,5 +4,5 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-switch.garten_multi_2:
+switch.garden_multi_2:
   friendly_name: Ventilstellung Pool

@@ -4,14 +4,13 @@
 #
 # This configration disables some logs to be less chaty
 #
-# https://www.home-assistant.io/components/logger/
+# https://www.home-assistant.io/integrations/logger/
 #
 # Log Severities: notset, debug, info, warn, warning, error, fatal, critical
 
 logger:
   default: info
   logs:
-    roomba.roomba: error
     pyhomematic.devicetypes.generic: warn
     homeassistant.helpers.script: warn
     homeassistant.components.python_script: warn

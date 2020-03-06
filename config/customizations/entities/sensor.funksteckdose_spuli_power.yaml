@@ -1,8 +1,0 @@
----
-#
-# Customizes sensors of the dishwasher machine
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-sensor.funksteckdose_spuli_power:
-  friendly_name: Leistungsaufnahme

@@ -2,7 +2,5 @@
 #
 # Customizes Pool LED spot lights
 #
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
 light.pool_light:
   friendly_name: Poollicht

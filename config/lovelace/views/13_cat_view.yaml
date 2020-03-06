@@ -1,0 +1,27 @@
+---
+# Cats litter box
+#
+title: Cats
+icon: mdi:cat
+panel: true
+path: cats
+
+cards:
+  - type: custom:layout-card
+    layout: vertical
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                show_header_toggle: false
+                entities:
+                  - binary_sensor.hall_litterbox_motion
+                  - binary_sensor.hall_litterbox_1
+                  - binary_sensor.hall_litterbox_2
+                  - counter.hall_litterbox_visits
+                  - sensor.hall_all_litterbox_visits
+                  - binary_sensor.hall_litterbox_1_lid
+                  - binary_sensor.hall_litterbox_2_lid
+                  - input_boolean.hall_litterbox_notification

@@ -15,8 +15,8 @@ action:
       value: 0
   - service: switch.turn_off
     entity_id:
-      - switch.sirene_carport_1
-      - switch.sirene_carport_2
-      - switch.sirene_carport_3
+      - switch.garden_carport_siren_1
+      - switch.garden_carport_siren_2
+      - switch.garden_carport_siren_3
   - delay: '00:00:01'
   - service: python_script.jamavilla_display

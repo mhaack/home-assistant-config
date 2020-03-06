@@ -16,7 +16,7 @@ condition:
     entity_id: alarm_control_panel.alarm_haus
     state: disarmed
 action:
-  - service: notify.jama_group
+  - service: notify.system_group_jama
     data:
       title: "JaMa Villa"
       message: "Alle haben das Haus verlassen, aber der Alarm ist noch nicht aktiviert?"

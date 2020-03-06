@@ -1,10 +1,10 @@
 ---
 # Humidity sensors outside in the garden.
 #
-# https://www.home-assistant.io/components/sensor.mqtt/
+# https://www.home-assistant.io/integrations/sensor.mqtt/
 #
 platform: mqtt
-name: "temperature_garden"
+name: garden_temperature
 state_topic: "tele/sonoff-volvolicht/SENSOR"
 unit_of_measurement: "°C"
 value_template: "{{ value_json['SI7021'].Temperature }}"

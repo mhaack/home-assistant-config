@@ -1,0 +1,7 @@
+---
+#
+# Customizes XMAS light in carport
+#
+light.xmas_carport:
+  friendly_name: Weihnachtsbeleuchtung Carport
+  icon: mdi:pine-tree

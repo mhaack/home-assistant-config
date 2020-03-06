@@ -1,0 +1,10 @@
+---
+# Mia room light group
+#
+# https://www.home-assistant.io/integrations/light.group/
+#
+platform: group
+name: nursery_lights
+entities:
+  - light.nursery_stars
+  - light.nursery_bed

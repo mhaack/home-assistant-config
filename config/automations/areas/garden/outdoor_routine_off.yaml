@@ -1,6 +1,7 @@
 ---
 # Garden and outdoor lights automatic - off
 #
+id: fd013269-583b-4104-8e5d-8f79ff1ea769
 alias: "[Light] Turn off outdoor lights daily routine"
 trigger:
   - platform: sun
@@ -14,4 +15,4 @@ condition:
 action:
   - service: light.turn_off
     data:
-      entity_id: light.outdoor_lights_daily_routine
+      entity_id: light.garden_lights_daily_routine

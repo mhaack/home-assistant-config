@@ -5,7 +5,7 @@
 alias: "[Appliances] Send alert when dishwasher machine is finished"
 trigger:
   - platform: state
-    entity_id: sensor.dishwasher_machine_status
+    entity_id: sensor.kitchen_dishwasher_state
     to: Clean
     for:
       minutes: 1
@@ -26,10 +26,10 @@ condition:
       entity_id: group.family
       state: "home"
     - condition: state
-      entity_id: input_select.dishwasher_machine_status
+      entity_id: input_select.kitchen_dishwasher_state
       state: Clean
     - condition: state
-      entity_id: input_boolean.dishwasher_notification
+      entity_id: input_boolean.kitchen_dishwasher_notification
       state: "on"
     - condition: template
       value_template: >
@@ -43,7 +43,7 @@ condition:
         false
         {% endif %}
 action:
-  - service: notify.pushover_markus
+  - service: notify.system_pushover_markus
     data:
       title: "JaMa Villa"
       message: "Der Geschirrspüler ist fertig und kann jetzt ausgeräumt werden."

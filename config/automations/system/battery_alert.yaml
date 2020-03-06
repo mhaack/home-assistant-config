@@ -1,0 +1,62 @@
+---
+#
+# Regularly check the wireless devide battery states and send alert if batteries are low
+#
+alias: "[Appliances] Low battery alert"
+trigger:
+  - platform: time
+    at: "10:00:00"
+  - platform: time
+    at: "18:00:00"
+condition:
+  - condition: template
+    value_template: >
+      {% macro battery_level() %}
+      {%- set threshold = 15 -%}
+      {%- set domains = ['light', 'switch', 'sensor',  'binary_sensor', 'camera'] -%}
+      {%- for domain in domains -%}
+        {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or item.attributes.battery is defined and (item.attributes['battery'] | lower == "low" or item.attributes['battery'] | lower == "unknown")) -%}
+          {{ item.attributes.friendly_name }}
+        {%- endfor -%}
+      {%- endfor -%}
+      {% endmacro %}
+      {{ battery_level() | trim != "" }}
+action:
+  - service: persistent_notification.create
+    data_template:
+      title: "Low Battery levels"
+      notification_id: low-battery-alert
+      message: >
+        {% macro battery_level() %}
+        {%- set threshold = 15 -%}
+        {%- set domains = ['light', 'switch', 'sensor',  'binary_sensor', 'camera'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or item.attributes.battery is defined and (item.attributes['battery'] | lower == "low" or item.attributes['battery'] | lower == "unknown")) -%}
+            {{ item.attributes.friendly_name }}
+            {%- if item.attributes.battery_level is defined -%}
+              ({{ item.attributes.battery_level}}%)
+            {%- endif -%}
+            {%- if not loop.last -%}
+              {{', '}}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+        {% endmacro %}
+        Gerät(e) mit schwacher Batterie: {{ battery_level() }}
+  - service: notify.system_pushover_markus
+    data_template:
+      title: "JaMa Villa Warnung"
+      message: >
+        {% macro battery_level() %}
+        {%- set threshold = 15 -%}
+        {%- set domains = ['light', 'switch', 'sensor',  'binary_sensor', 'camera'] -%}
+        {%- for domain in domains -%}
+          {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or item.attributes.battery is defined and (item.attributes['battery'] | lower == "low" or item.attributes['battery'] | lower == "unknown")) -%}
+            {{ item.attributes.friendly_name }}
+            {%- if item.attributes.battery_level is defined -%}
+              ({{ item.attributes.battery_level}}%)
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+        {% endmacro %}
+        Gerät(e) mit schwacher Batterie: {{ battery_level() }}

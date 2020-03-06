@@ -1,9 +1,0 @@
----
-# Control the dishwasher notifications
-#
-# https://www.home-assistant.io/components/input_boolean/
-#
-dishwasher_notification:
-  name: Benachrichtigen Spülmaschine
-  initial: true
-  icon: mdi:dishwasher

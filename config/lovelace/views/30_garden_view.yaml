@@ -16,31 +16,31 @@ cards:
             cards:
               - type: glance
                 entities:
-                  - entity: light.outdoor_lights
+                  - entity: light.garden_lights
                     tap_action:
                       action: toggle
-                  - entity: light.baum_garten
+                  - entity: light.garden_backyard_tree
                     tap_action:
                       action: toggle
-                  - entity: light.baum_vorgarten
+                  - entity: light.garden_frontyard_tree
                     tap_action:
                       action: toggle
-                  - entity: light.terrassenlicht
+                  - entity: light.garden_terrace_spots
                     tap_action:
                       action: toggle
-                  - entity: light.terrassenlounge
+                  - entity: light.garden_terrace_lounge
                     tap_action:
                       action: toggle
-                  - entity: light.sonnendeck_led
+                  - entity: light.garden_sundeck_spots
                     tap_action:
                       action: toggle
-                  - entity: light.sonnendeck_positionslicht
+                  - entity: light.garden_sundeck_positionlight
                     tap_action:
                       action: toggle
                   - entity: light.pool_light
                     tap_action:
                       action: toggle
-                  - entity: light.teichlicht
+                  - entity: light.garden_pond_light
                     tap_action:
                       action: toggle
                 title: Außenbeleuchtung
@@ -48,7 +48,7 @@ cards:
               - type: "custom:mini-graph-card"
                 name: Garten (24h)
                 entities:
-                  - sensor.temperature_garden
+                  - sensor.garden_temperature
                 hour24: true
                 show:
                   fill: fade
@@ -57,7 +57,7 @@ cards:
                   - type: "custom:mini-graph-card"
                     name: Garten (7d)
                     entities:
-                      - sensor.temperature_garden
+                      - sensor.garden_temperature
                     hours_to_show: 168
                     points_per_hour: 0.25
                     hour24: true
@@ -67,7 +67,7 @@ cards:
                     name: Luftfeuchtigkeit (7d)
                     line_color: "#4C9AD7"
                     entities:
-                      - sensor.humidity_garden
+                      - sensor.garden_humidity
                     hours_to_show: 168
                     points_per_hour: 0.25
                     hour24: true
@@ -77,14 +77,14 @@ cards:
             cards:
               - type: entities
                 entities:
-                  - entity: light.sonnendeck_led
+                  - entity: light.garden_sundeck_spots
                     name: LED
-                  - entity: light.sonnendeck_positionslicht
+                  - entity: light.garden_sundeck_positionlight
                     name: Schiffslicht
-                  - entity: switch.sonnendeck_steckdosen
+                  - entity: switch.garden_sundeck_sockets
                     name: Steckdosen
-                  - sensor.sonnendeck_steckdosen_power
-                  - sensor.sonnendeck_steckdosen_energy_counter
+                  - sensor.garden_sundeck_sockets_power
+                  - sensor.garden_sundeck_sockets_energy_counter
                 show_header_toggle: false
                 title: Sonnendeck
               - type: entities
@@ -99,46 +99,46 @@ cards:
             cards:
               - type: conditional
                 conditions:
-                  - entity: switch.sirene_carport_3
+                  - entity: switch.garden_carport_siren_3
                     state_not: "on"
                 card:
                   type: entities
                   entities:
-                    - entity: binary_sensor.gartenbank
+                    - entity: binary_sensor.garden_bench
                       name: Bewegungserkennung
-                    - entity: input_boolean.bench_notification
+                    - entity: input_boolean.garden_bench_notification
                       name: Benachrichtigen
                   show_header_toggle: false
                   title: Gartenbank
               - type: conditional
                 conditions:
-                  - entity: switch.sirene_carport_3
+                  - entity: switch.garden_carport_siren_3
                     state: "on"
                 card:
                   type: entities
                   entities:
-                    - entity: binary_sensor.gartenbank
+                    - entity: binary_sensor.garden_bench
                       name: Bewegungserkennung
-                    - entity: input_boolean.bench_notification
+                    - entity: input_boolean.garden_bench_notification
                       name: Benachrichtigen
-                    - switch.sirene_carport_3
+                    - switch.garden_carport_siren_3
                   show_header_toggle: false
                   title: Gartenbank
               - type: custom:vertical-stack-in-card
                 cards:
                   - type: entities
                     entities:
-                      - switch.pumpe_zisterne
-                      - sensor.pumpe_zisterne_power
-                      - sensor.daily_energy_zisterne
-                      - sensor.pumpe_zisterne_energy_counter
+                      - switch.garden_watertank_pump
+                      - sensor.garden_watertank_pump_power
+                      - sensor.garden_watertank_pump_daily_energy
+                      - sensor.garden_watertank_pump_energy_counter
                     show_header_toggle: false
                     title: Zisterne
                   - type: horizontal-stack
                     cards:
                       - type: "custom:mini-graph-card"
                         entities:
-                          - sensor.watertank_liter
+                          - sensor.garden_watertank_liter
                         line_color: "#4C9AD7"
                         decimals: 0
                         hour24: true
@@ -147,43 +147,43 @@ cards:
                           icon: false
                           fill: fade
                       - type: gauge
-                        entity: sensor.watertank_percent
+                        entity: sensor.garden_watertank_percent
               - type: conditional
                 conditions:
-                  - entity: sensor.landroid_error
+                  - entity: sensor.garden_lawnmover_error
                     state: "No error"
                 card:
                   type: entities
                   title: Rasenmäher Shaun
                   show_header_toggle: false
                   entities:
-                    - switch.rasenmaher
-                    - sensor.landroid_status
-                    - binary_sensor.landroid_batterycharging
-                    - sensor.landroid_batterylevel
-                    - sensor.landroid_totaldistance
-                    - sensor.landroid_totaltime
-                    - sensor.landroid_totalbladetime
+                    - switch.garden_lawnmower_power
+                    - sensor.garden_lawnmover_status
+                    - binary_sensor.garden_lawnmover_batterycharging
+                    - sensor.garden_lawnmover_batterylevel
+                    - sensor.garden_lawnmover_totaldistance
+                    - sensor.garden_lawnmover_totaltime
+                    - sensor.garden_lawnmover_totalbladetime
               - type: conditional
                 conditions:
-                  - entity: sensor.landroid_error
+                  - entity: sensor.garden_lawnmover_error
                     state_not: "No error"
                 card:
                   type: entities
                   title: Rasenmäher Shaun
                   show_header_toggle: false
                   entities:
-                    - sensor.landroid_error
-                    - sensor.landroid_status
-                    - switch.rasenmaher
-                    - sensor.landroid_batterylevel
-                    - sensor.landroid_totaldistance
-                    - sensor.landroid_totaltime
-                    - sensor.landroid_totalbladetime
+                    - sensor.garden_lawnmover_error
+                    - sensor.garden_lawnmover_status
+                    - switch.garden_lawnmower_power
+                    - sensor.garden_lawnmover_batterylevel
+                    - sensor.garden_lawnmover_totaldistance
+                    - sensor.garden_lawnmover_totaltime
+                    - sensor.garden_lawnmover_totalbladetime
               - title: Teich
                 type: entities
                 entities:
-                  - switch.teich_blubber
-                  - switch.teich_wasserfall
-                  - input_select.pond_mode
+                  - switch.garden_pond_blubber
+                  - switch.garden_pond_waterfall
+                  - input_select.garden_pond_mode
                 show_header_toggle: false

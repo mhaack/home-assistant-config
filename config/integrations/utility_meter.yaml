@@ -3,6 +3,6 @@
 # The utility meter component provides functionality to track consumptions of
 # various utilities (e.g., energy, gas, water, heating).
 #
-# https://www.home-assistant.io/components/utility_meter/
+# https://www.home-assistant.io/integrations/utility_meter/
 #
 utility_meter: !include_dir_merge_named ../entities/utility_meter

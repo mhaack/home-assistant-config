@@ -1,8 +1,0 @@
----
-#
-# Customizes sensors in the livingroom
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-sensor.humidity_livingroom:
-  friendly_name: Luftfeuchtigkeit Wohnzimmer

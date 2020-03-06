@@ -1,0 +1,8 @@
+---
+#
+# Customizes daily pool pump operation hours ensors.
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+sensor.pool_daily_pump_hours:
+  friendly_name: Betriebsstunden Pumpe

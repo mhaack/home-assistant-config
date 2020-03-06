@@ -1,0 +1,15 @@
+---
+# Group containting all devices which should be ignored when sending state
+# change notifications.
+#
+system_notify_disabled:
+  name: Keine Benachrichtigung
+  entities:
+    - light.garden_carport_volvo
+    - light.garden_lights
+    - light.garden_lights_daily_routine
+    - light.indoor_lights
+    - light.nursery_lights
+    - switch.garden_multi_3
+    - switch.garden_sundeck_spots
+    - switch.hall_basement_light_switch

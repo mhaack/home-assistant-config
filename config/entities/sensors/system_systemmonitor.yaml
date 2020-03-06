@@ -1,0 +1,15 @@
+---
+# Setup the host RPi system monitor sensors.
+#
+# https://www.home-assistant.io/integrations/sensor.systemmonitor/
+#
+platform: systemmonitor
+resources:
+  - type: disk_use_percent
+    arg: "/"
+  - type: disk_free
+    arg: "/"
+  - type: memory_use_percent
+  - type: memory_free
+  - type: processor_use
+  - type: last_boot

@@ -1,10 +1,10 @@
 ---
 # History sensor collection the pool pump operation ours.
 #
-# https://www.home-assistant.io/components/history_stats/
+# https://www.home-assistant.io/integrations/history_stats/
 #
 platform: history_stats
-name: daily_pool_valve_hours
+name: pool_daily_valve_hours
 entity_id: switch.pool_valve
 state: 'on'
 type: time

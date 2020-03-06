@@ -1,8 +1,0 @@
----
-# Use switch light wrapper for xmas candles connected to the outdoor power outlet.
-#
-# https://www.home-assistant.io/components/light.switch/
-#
-platform: switch
-name: "XMAS Candles"
-entity_id: switch.sonnendeck_steckdosen

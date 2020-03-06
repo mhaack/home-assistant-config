@@ -2,7 +2,7 @@
 #
 # Customizes the person image
 #
-# https://www.home-assistant.io/components/person/
+# https://www.home-assistant.io/integrations/person/
 #
 person.markus:
   entity_picture: !secret image_markus

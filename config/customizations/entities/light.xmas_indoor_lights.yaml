@@ -1,8 +1,6 @@
 ---
 #
-# Customizes XMAS light group
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
+# Customizes XMAS lights indoor group
 #
 light.xmas_indoor_lights:
   friendly_name: Weihnachtsbeleuchtung innen

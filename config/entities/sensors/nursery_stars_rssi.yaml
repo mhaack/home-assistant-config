@@ -1,0 +1,10 @@
+---
+# Childrens room LED stars RSSI sensor
+#
+# https://www.home-assistant.io/integrations/sensor.mqtt/
+#
+platform: mqtt
+name: nursery_stars_rssi
+state_topic: tele/sonoff-mia-sterne/STATE
+value_template: "{{ value_json.Wifi.RSSI }}"
+unit_of_measurement: "%"

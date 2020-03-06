@@ -1,0 +1,11 @@
+---
+# The group notification platform allows you to combine multiple notify
+# platforms into a single service.
+#
+# https://www.home-assistant.io/integrations/notify.group/
+#
+name: system_group_jama
+platform: group
+services:
+  - service: mobile_app_iphone_von_markus
+  - service: mobile_app_iphone_von_jasmina

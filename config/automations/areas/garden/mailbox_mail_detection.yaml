@@ -1,0 +1,24 @@
+---
+# Reset mailbox state to empty when the mailbox back door has been opened.
+#
+id: 52e45c0e-ca72-4fa4-85de-1f72ff1f76dc
+alias: "[Mailbox] Mail detection"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_mailbox_flap
+    from: "off"
+    to: "on"
+action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.garden_mailbox
+  - condition: state
+    entity_id: input_boolean.garden_mailbox_notification
+    state: "on"
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa - {{"\uD83D\uDCEC"}}
+      message: Trari, trara, die Post ✉️ ist da!
+      data:
+        push:
+          thread-id: "ha-mailbox-notification-group"

@@ -8,7 +8,7 @@ trigger:
     zone: zone.home
     event: enter
 action:
-  - service: notify.pushover_markus
+  - service: notify.system_pushover_markus
     data:
       title: "JaMa Villa"
       message: "Markus ist nach Hause gekommen."

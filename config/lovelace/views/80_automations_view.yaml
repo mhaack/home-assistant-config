@@ -86,6 +86,14 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      title: Cats
+    filter:
+      include:
+        - entity_id: "automation.cat*"
+
+  - type: custom:auto-entities
+    card:
+      type: entities
       title: XMAS
     filter:
       include:
@@ -101,6 +109,7 @@ cards:
       exclude:
         - entity_id: "automation.appliances*"
         - entity_id: "automation.bedroom*"
+        - entity_id: "automation.cat*"
         - entity_id: "automation.childsroom*"
         - entity_id: "automation.garden*"
         - entity_id: "automation.house*"
@@ -112,5 +121,5 @@ cards:
         - entity_id: "automation.security*"
         - entity_id: "automation.system*"
         - entity_id: "automation.watertank*"
-        - entity_id: "automation.zone*"
         - entity_id: "automation.xmas*"
+        - entity_id: "automation.zone*"

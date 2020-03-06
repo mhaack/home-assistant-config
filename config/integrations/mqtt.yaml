@@ -5,7 +5,7 @@
 #
 # This config set's up my Mosquitto brocker running via Hass.io addon.
 #
-# https://www.home-assistant.io/components/mqtt/
+# https://www.home-assistant.io/integrations/mqtt/
 # https://www.home-assistant.io/addons/mosquitto/
 #
 mqtt:

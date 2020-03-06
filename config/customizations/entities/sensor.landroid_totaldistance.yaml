@@ -1,7 +1,0 @@
----
-#
-# Customizes the Worx Landroid sensors
-#
-sensor.landroid_totaldistance:
-  friendly_name: Wegstrecke
-  icon: mdi:map-marker-distance

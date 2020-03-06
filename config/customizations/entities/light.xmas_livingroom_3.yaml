@@ -1,0 +1,6 @@
+---
+#
+# Customizes livingroom XMAS lights
+#
+light.xmas_livingroom_3:
+  friendly_name: Weihnachtsbeleuchtung Stehlampe

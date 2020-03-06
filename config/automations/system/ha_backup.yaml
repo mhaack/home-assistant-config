@@ -1,0 +1,24 @@
+---
+# Create regular HA snapshots
+#
+id: 5a7aa7cc-afba-45bb-b67f-eb377e69a671
+alias: "[System] HA Backup"
+trigger:
+  - platform: time
+    at: '20:00:00'
+condition:
+  - condition: time
+    weekday:
+      - sat
+action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      message: Creating weekly backup {{"\uD83D\uDCBE"}} snapshot!
+      title: JaMa Villa - Backup
+      data:
+        push:
+          thread-id: "ha-status-notification-group"
+  - service: hassio.snapshot_full
+    data_template:
+      name: >
+        Backup_{{ now().strftime('%d-%m-%Y') }}

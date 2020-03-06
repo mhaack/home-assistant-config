@@ -1,0 +1,10 @@
+---
+# Connect to Worx Landroid lawnmover status via MQTT
+#
+# https://www.home-assistant.io/integrations/sensor.mqtt/
+#
+platform: mqtt
+name: garden_lawnmover_totaldistance
+state_topic: "landroid/status/totalDistance"
+value_template: '{{ (value | float / 1000) | int }}'
+unit_of_measurement: "km"

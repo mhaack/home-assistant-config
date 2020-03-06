@@ -2,22 +2,23 @@
 # Garden bench movement notification. The bench should not be moved,
 # especially not in the night or if we are not at home.
 #
+id: 7d61c8a2-c685-488a-9559-85f0748041fe
 alias: "[Security] Bench movement alarm"
 trigger:
   - platform: state
-    entity_id: binary_sensor.gartenbank
+    entity_id: binary_sensor.garden_bench
     to: "on"
 condition:
   - condition: or
     conditions:
       - condition: state
-        entity_id: input_boolean.send_notification
+        entity_id: input_boolean.system_notification
         state: "on"
       - condition: state
-        entity_id: input_boolean.bench_notification
+        entity_id: input_boolean.garden_bench_notification
         state: "on"
 action:
-  - service: notify.jama_group
+  - service: notify.system_group_jama
     data:
       title: "JaMa Villa"
       message: "Bank hat sich bewegt - was ist hier los?"
@@ -25,13 +26,14 @@ action:
         push:
           thread-id: "ha-carport-alarm-notification-group"
           category: "bench_alarm"
-  - service: camera.aarlo_request_snapshot
+  - service: camera.aarlo_start_recording
     data:
       entity_id: camera.aarlo_carport
+      duration: 30
   - service: switch.turn_on
     data:
-      entity_id: switch.sirene_carport_3
+      entity_id: switch.garden_carport_siren_3
   - delay: '00:03:00'
   - service: switch.turn_off
     data:
-      entity_id: switch.sirene_carport_3
+      entity_id: switch.garden_carport_siren_3

@@ -1,0 +1,8 @@
+---
+# Counter for litter box visits
+#
+# https://www.home-assistant.io/integrations/counter/
+#
+hall_litterbox_visits:
+  name: Besuche Katzenklo
+  step: 1

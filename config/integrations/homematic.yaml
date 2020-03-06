@@ -1,7 +1,7 @@
 ---
 # Setting up the Homematic CCU integration with our Homegear server.
 #
-# https://www.home-assistant.io/components/homematic/
+# https://www.home-assistant.io/integrations/homematic/
 #
 homematic:
   interfaces:

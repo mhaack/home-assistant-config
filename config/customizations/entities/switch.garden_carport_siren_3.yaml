@@ -1,0 +1,10 @@
+---
+#
+# Customizes carport siren signal 3 which is used for the garden bench motion
+# detection.
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+switch.garden_carport_siren_3:
+  friendly_name: Sirene Gartenbank
+  icon: mdi:alarm-light

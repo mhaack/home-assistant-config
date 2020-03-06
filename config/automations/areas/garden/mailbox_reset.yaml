@@ -1,0 +1,14 @@
+---
+# Reset mailbox state to empty when the mailbox back door has been opened.
+#
+id: 996da590-9358-4383-b8bc-f6b064232a30
+alias: "[Mailbox] Reset"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_mailbox_door
+    from: "off"
+    to: "on"
+action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.garden_mailbox

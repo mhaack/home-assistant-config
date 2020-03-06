@@ -1,0 +1,8 @@
+---
+#
+# Customizes Homematic hall light switch
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+switch.hall_basement_light_switch:
+  friendly_name: Schalter Flurlicht

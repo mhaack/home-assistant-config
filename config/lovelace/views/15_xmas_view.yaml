@@ -1,0 +1,78 @@
+---
+# XMAS light control
+#
+title: XMAS
+icon: mdi:pine-tree
+path: xmas
+
+cards:
+  - type: vertical-stack
+    cards:
+      - type: horizontal-stack
+        title: Weihnachtsbeleuchtung
+        cards:
+          - type: custom:button-card
+            entity: light.xmas_lights
+            name: Alle
+          - type: custom:button-card
+            entity: light.xmas_indoor_lights
+            name: Innen
+          - type: custom:button-card
+            entity: light.xmas_garden_lights
+            name: Außen
+      - type: horizontal-stack
+        title: Weihnachtsbeleuchtung Innen
+        cards:
+          - type: custom:button-card
+            entity: light.xmas_tree
+            name: Weihnachtsbaum
+            icon: mdi:pine-tree
+          - type: custom:button-card
+            entity: light.xmas_livingroom_1
+            name: Stern Sofa
+            icon: mdi:star
+          - type: custom:button-card
+            entity: light.xmas_livingroom_2
+            name: Hernhuter Stern
+            icon: mdi:star
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            entity: light.xmas_livingroom_3
+            name: Stehlampe
+            icon: mdi:star
+          - type: custom:button-card
+            entity: light.xmas_hall
+            name: Sterne Flur
+            icon: mdi:star
+          - type: custom:button-card
+            entity: light.xmas_stairs
+            name: Treppe Flur
+            icon: mdi:star
+          - type: custom:button-card
+            entity: light.xmas_office
+            name: Arbeitszimmer
+            icon: mdi:star
+      - type: horizontal-stack
+        title: Weihnachtsbeleuchtung Außen
+        cards:
+          - type: custom:button-card
+            entity: light.xmas_carport
+            name: Carport
+          - type: custom:button-card
+            entity: light.garden_backyard_tree
+            icon: mdi:pine-tree
+          - type: custom:button-card
+            entity: light.garden_frontyard_tree
+            icon: mdi:pine-tree
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            entity: light.garden_sundeck_spots
+          - type: custom:button-card
+            entity: light.garden_terrace_lounge
+            icon: mdi:pine-tree
+          - type: custom:button-card
+            entity: light.xmas_candles
+            icon: mdi:candle
+            name: Kerzen

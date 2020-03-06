@@ -1,0 +1,6 @@
+---
+#
+# Customizes kitchen LED strip
+#
+light.kitchen_ledstrip:
+  icon: mdi:led-strip-variant

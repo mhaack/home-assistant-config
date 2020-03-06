@@ -2,11 +2,11 @@
 # The recorder component is storing details in a database which
 # then are handled by the history component.
 #
-# https://www.home-assistant.io/components/recorder/
+# https://www.home-assistant.io/integrations/recorder/
 #
 recorder:
   # The number of days of history to keep in the recorder database
-  purge_keep_days: 7
+  purge_keep_days: 5
 
   # How often (in days) the purge task runs
   purge_interval: 1
@@ -24,8 +24,29 @@ recorder:
       - weather
       - weblink
     entities:
-      - binary_sensor.landroid
-      - binary_sensor.landroid_batterycharging
+      - binary_sensor.garden_carport_door_lowbat
+      - binary_sensor.garden_carport_siren_1_lowbat
+      - binary_sensor.garden_carport_siren_2_lowbat
+      - binary_sensor.garden_carport_siren_3_lowbat
+      - binary_sensor.garden_lawnmover_batterycharging
+      - binary_sensor.garden_lawnmover_landroid
+      - binary_sensor.guests_window_lowbat
+      - binary_sensor.hall_downstairs_motion_lowbat
+      - binary_sensor.hall_frontdoor_lowbat
+      - binary_sensor.hall_siren_1_lowbat
+      - binary_sensor.hall_siren_2_lowbat
+      - binary_sensor.hall_siren_3_lowbat
+      - binary_sensor.hall_upstairs_motion_lowbat
+      - binary_sensor.kitchen_window_lowbat
+      - binary_sensor.laundryroom_window_lowbat
+      - binary_sensor.livingroom_motion_lowbat
+      - binary_sensor.livingroom_window_1_lowbat
+      - binary_sensor.livingroom_window_2_lowbat
+      - binary_sensor.livingroom_window_3_lowbat
+      - binary_sensor.livingroom_window_4_lowbat
+      - binary_sensor.office_window_lowbat
+      - binary_sensor.pool_solar_lowbat
+      - binary_sensor.pool_water_lowbat
       - binary_sensor.workday_sensor
       - sensor.aarlo_arlo_cameras
       - sensor.aarlo_battery_level_carport
@@ -55,11 +76,7 @@ recorder:
       - sensor.adguard_parental_control_blocked
       - sensor.adguard_rules_count
       - sensor.adguard_safe_browsing_blocked
-      - sensor.bewegungsmelder_flur_eg_1_brightness
-      - sensor.bewegungsmelder_flur_og_brightness
-      - sensor.bewegungsmelder_wohnzimmer_brightness
-      - sensor.custom_card_tracker
-      - sensor.custom_component_tracker
+      - sensor.bedroom_battery_level
       - sensor.date_time
       - sensor.datentopf_cpu_usage
       - sensor.datentopf_free_space_volume_1
@@ -70,20 +87,61 @@ recorder:
       - sensor.datentopf_temperature_drive_1
       - sensor.datentopf_temperature_drive_2
       - sensor.datentopf_volume_used_volume_1
-      - sensor.dishwasher_machine_status
       - sensor.disk_free
       - sensor.disk_use_percent
-      - sensor.landroid_batterylevel
-      - sensor.landroid_error
-      - sensor.landroid_totalbladetime
-      - sensor.landroid_totaldistance
-      - sensor.landroid_totaltime
+      - sensor.equipmentroom_battery_level
+      - sensor.garden_bench_1_battery_level
+      - sensor.garden_bench_2_battery_level
+      - sensor.garden_lawnmover_batterylevel
+      - sensor.garden_lawnmover_batterylevel
+      - sensor.garden_lawnmover_error
+      - sensor.garden_lawnmover_totalbladetime
+      - sensor.garden_lawnmover_totaldistance
+      - sensor.garden_lawnmover_totaltime
+      - sensor.hall_downstairs_brightness
+      - sensor.hall_litterbox_1_battery_level
+      - sensor.hall_litterbox_2_battery_level
+      - sensor.hall_upstairs_brightness
+      - sensor.iphone_von_jasmina_activity
+      - sensor.iphone_von_jasmina_average_active_pace
+      - sensor.iphone_von_jasmina_battery_level
+      - sensor.iphone_von_jasmina_battery_state
+      - sensor.iphone_von_jasmina_bssid
+      - sensor.iphone_von_jasmina_connection_type
+      - sensor.iphone_von_jasmina_distance
+      - sensor.iphone_von_jasmina_floors_ascended
+      - sensor.iphone_von_jasmina_floors_descended
+      - sensor.iphone_von_jasmina_geocoded_location
+      - sensor.iphone_von_jasmina_last_update_trigger
+      - sensor.iphone_von_jasmina_sim_1
+      - sensor.iphone_von_jasmina_ssid
+      - sensor.iphone_von_jasmina_steps
+      - sensor.iphone_von_markus_activity
+      - sensor.iphone_von_markus_average_active_pace
+      - sensor.iphone_von_markus_battery_level
+      - sensor.iphone_von_markus_battery_state
+      - sensor.iphone_von_markus_bssid
+      - sensor.iphone_von_markus_connection_type
+      - sensor.iphone_von_markus_distance
+      - sensor.iphone_von_markus_floors_ascended
+      - sensor.iphone_von_markus_floors_descended
+      - sensor.iphone_von_markus_geocoded_location
+      - sensor.iphone_von_markus_last_update_trigger
+      - sensor.iphone_von_markus_sim_1
+      - sensor.iphone_von_markus_ssid
+      - sensor.iphone_von_markus_steps
+      - sensor.kitchen_battery_level
+      - sensor.kitchen_dishwasher_state
+      - sensor.kitchen_fridge_battery_level
       - sensor.last_boot
+      - sensor.livingroom_battery_level
+      - sensor.livingroom_brightness
       - sensor.memory_free
       - sensor.memory_use_percent
-      - sensor.processor_use
+      - sensor.nursery_battery_level
+      - sensor.office_battery_level
+      - sensor.system_window_door_state
       - sensor.version_available
       - sensor.version_current
-      - sensor.window_door_status
       - sun.sun
-      - switch.sonnendeck_led
+      - switch.garden_sundeck_spots

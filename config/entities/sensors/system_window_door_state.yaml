@@ -1,0 +1,34 @@
+---
+# Aggregated sensor holding the combined window & door state
+#
+platform: template
+sensors:
+  system_window_door_state:
+    entity_id:
+      - binary_sensor.garden_carport_door
+      - binary_sensor.guests_window
+      - binary_sensor.hall_frontdoor
+      - binary_sensor.kitchen_window
+      - binary_sensor.laundryroom_window
+      - binary_sensor.livingroom_window_1
+      - binary_sensor.livingroom_window_2
+      - binary_sensor.livingroom_window_3
+      - binary_sensor.livingroom_window_4
+      - binary_sensor.office_window
+    value_template: >-
+      {% macro contact_status() %}
+      {% set open_windows = (states.binary_sensor|selectattr('entity_id','in',state_attr('group.system_window_sensors','entity_id'))|selectattr('state','eq','on')|list)|length %}
+      {% set open_doors = (states.binary_sensor|selectattr('entity_id','in',state_attr('group.system_door_sensors','entity_id'))|selectattr('state','eq','on')|list)|length %}
+      {% if open_windows == 0 and open_doors == 0 -%}
+        Alles geschlossen
+      {%- else -%}
+        {% if open_doors > 0 -%}
+          {% if open_doors == 1 -%}{{ open_doors}} Tür {% else -%}{{ open_doors}} Türen {% endif %}
+        {%- endif %}
+        {% if open_windows != 0 and open_doors != 0 -%}und {% endif %}
+        {% if open_windows > 0 -%}{{ open_windows }} Fenster {% endif -%}
+        offen
+      {% endif %}
+      {% endmacro %}
+      {{ contact_status()}}
+    friendly_name: Fenster & Türen
