@@ -205,6 +205,13 @@ cards:
               volume: true
               source: true
               power_state: false
+          - type: entities
+            entities:
+              - vacuum.hall_robbie
+              - switch.hall_robbie_schedule
+              - sensor.hall_robbie_battery
+          - type: picture-entity
+            entity: camera.hall_robbie_cleaning_map
           - break
           - type: entities
             entities:
