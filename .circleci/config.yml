@@ -71,6 +71,33 @@ jobs:
           command: |
             mdl --style all --warnings .
 
+  esphome:
+    docker:
+      - image: esphome/esphome:latest
+    steps:
+      - checkout
+      - run:
+          name: ESPHome Version
+          command: |
+            esphome dummy.yaml version
+      - run:
+          name: Prepare secrets.yaml
+          command: |
+            cp -R ./.stubs/* ./config/esphome/
+
+
+    # script:
+    #   - |
+    #     for file in $(find \
+    #       ./config/esphome \
+    #       -type f \
+    #       -name "*.yaml"\
+    #       -not -name "secrets.yaml"
+    #       ); do
+    #       esphome $file config
+    #     done
+
+
   check-ha-latest:
     docker:
       - image: homeassistant/home-assistant:latest
@@ -88,6 +115,7 @@ workflows:
       - yamllint
       - jsonlint
       - markdownlint
+      - esphome
       - check-ha-latest:
           requires:
             - yamllint
