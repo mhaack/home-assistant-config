@@ -13,8 +13,8 @@ trigger:
     event_type: homematic.keypress
     event_data:
       name: NEQ0711284
-      channel: 1
-      param: PRESS_SHORT
+      channel: 2
+      param: PRESS_LONG
 action:
   - service: alarm_control_panel.alarm_disarm
     entity_id: alarm_control_panel.alarm_haus
