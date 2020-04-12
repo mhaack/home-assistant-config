@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/main.js',
   mode: 'production',
   output: {
-    filename: 'layout-card.js',
+    filename: 'card-mod.js',
     path: path.resolve(__dirname)
   }
 };

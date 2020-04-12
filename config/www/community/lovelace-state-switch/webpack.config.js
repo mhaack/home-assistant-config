@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/main.js',
   mode: 'production',
   output: {
-    filename: 'fold-entity-row.js',
+    filename: 'state-switch.js',
     path: path.resolve(__dirname)
   }
 };

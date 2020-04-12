@@ -48,10 +48,12 @@ class ArloDoorBell(ArloChildDevice):
         return "doorbells"
 
     def has_capability(self, cap):
-        if cap in 'motionDetected':
-            return True
-        if cap in ('battery_level', 'signal_strength'):
-            return True
         if cap.startswith('button'):
             return True
+        # video doorbell provides these as a camera type
+        if not self.model_id.startswith('AVD1001'):
+            if cap in 'motionDetected':
+                return True
+            if cap in ('battery_level', 'signal_strength'):
+                return True
         return super().has_capability(cap)
