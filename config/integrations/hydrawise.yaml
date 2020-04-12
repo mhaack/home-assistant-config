@@ -3,7 +3,7 @@
 # https://www.home-assistant.io/integrations/hydrawise/
 #
 hydrawise-custom:
-  access_token: !secret hydrawise-token
+  access_token: !secret hydrawise_token
 
 # binary_sensor:
 #   - platform: hydrawise-custom
