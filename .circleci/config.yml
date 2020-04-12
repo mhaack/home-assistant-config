@@ -84,19 +84,17 @@ jobs:
           name: Prepare secrets.yaml
           command: |
             cp -R ./.stubs/* ./config/esphome/
-
-
-    # script:
-    #   - |
-    #     for file in $(find \
-    #       ./config/esphome \
-    #       -type f \
-    #       -name "*.yaml"\
-    #       -not -name "secrets.yaml"
-    #       ); do
-    #       esphome $file config
-    #     done
-
+      - run:
+          name: Check ESPHome sketches
+          command: |
+            for file in $(find \
+              ./config/esphome \
+              -type f \
+              -name "*.yaml"\
+              -not -name "secrets.yaml"
+              ); do
+              esphome $file config
+            done
 
   check-ha-latest:
     docker:
