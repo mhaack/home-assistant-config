@@ -1,6 +1,5 @@
 ---
 # The Hunter Hydrawise integration to controll our garden watering in HA.
-# 
 # https://www.home-assistant.io/integrations/hydrawise/
 #
 hydrawise-custom:
