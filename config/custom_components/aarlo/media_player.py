@@ -23,7 +23,7 @@ from homeassistant.const import (
     STATE_PLAYING
 )
 import homeassistant.helpers.config_validation as cv
-from . import CONF_ATTRIBUTION, DATA_ARLO, DEFAULT_BRAND
+from . import COMPONENT_ATTRIBUTION, COMPONENT_DATA, COMPONENT_BRAND
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -54,7 +54,7 @@ SUPPORT_ARLO = (
 
 async def async_setup_platform(hass, config, async_add_entities, _discovery_info=None):
     """Set up an Arlo media player."""
-    arlo = hass.data.get(DATA_ARLO)
+    arlo = hass.data.get(COMPONENT_DATA)
     if not arlo:
         return
 
@@ -91,7 +91,7 @@ class ArloMediaPlayerDevice(MediaPlayerDevice):
 
         @callback
         def update_state(_device, attr, props):
-            _LOGGER.info('media_player callback:' + attr + ':' + str(props)[:80])
+            _LOGGER.info('callback:' + self._name + ':' + attr + ':' + str(props)[:80])
             if attr == "status":
                 status = props.get('status')
                 if status == 'playing':
@@ -181,8 +181,8 @@ class ArloMediaPlayerDevice(MediaPlayerDevice):
         """Return the device state attributes."""
         attrs = {}
 
-        attrs[ATTR_ATTRIBUTION] = CONF_ATTRIBUTION
-        attrs['brand'] = DEFAULT_BRAND
+        attrs[ATTR_ATTRIBUTION] = COMPONENT_ATTRIBUTION
+        attrs['brand'] = COMPONENT_BRAND
         attrs['friendly_name'] = self._name
 
         return attrs

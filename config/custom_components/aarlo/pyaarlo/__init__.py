@@ -11,7 +11,7 @@ from .background import ArloBackground
 from .base import ArloBase
 from .camera import ArloCamera
 from .cfg import ArloCfg
-from .constant import (BLANK_IMAGE, DEVICE_KEYS, DEVICES_PATH,
+from .constant import (BLANK_IMAGE, DEVICES_PATH,
                        FAST_REFRESH_INTERVAL, SLOW_REFRESH_INTERVAL,
                        TOTAL_BELLS_KEY, TOTAL_CAMERAS_KEY, TOTAL_LIGHTS_KEY, MEDIA_LIBRARY_DELAY,
                        REFRESH_CAMERA_DELAY, INITIAL_REFRESH_DELAY)
@@ -23,7 +23,7 @@ from .util import time_to_arlotime
 
 _LOGGER = logging.getLogger('pyaarlo')
 
-__version__ = '0.6.13'
+__version__ = '0.6.17'
 
 
 class PyArlo(object):
@@ -64,7 +64,6 @@ class PyArlo(object):
         # Get devices, fill local db, and create device instance.
         self.info('pyaarlo starting')
         self._refresh_devices()
-        self._parse_devices()
         for device in self._devices:
             dname = device.get('deviceName')
             dtype = device.get('deviceType')
@@ -72,13 +71,19 @@ class PyArlo(object):
                 self.info('skipping ' + dname + ': state unknown')
                 continue
 
+            # This needs it's own code now... Does no parent indicate a base station???
             if dtype == 'basestation' or \
-                    device.get('modelId') == 'ABC1000' or dtype == 'arloq' or dtype == 'arloqs' or \
-                    device.get('modelId') == 'AVD1001A':
+                    device.get('modelId') == 'ABC1000' or dtype == 'arloq' or dtype == 'arloqs':
                 self._bases.append(ArloBase(dname, self, device))
+            # video doorbell can be its own base station, it can also be assigned to a real base station
+            if device.get('modelId').startswith('AVD1001'):
+                parent_id = device.get('parentId', None)
+                if parent_id is None or parent_id == device.get('deviceId', None):
+                    self._bases.append(ArloBase(dname, self, device))
             if dtype == 'arlobridge':
                 self._bases.append(ArloBase(dname, self, device))
-            if dtype == 'camera' or dtype == 'arloq' or dtype == 'arloqs' or device.get('modelId') == 'AVD1001A':
+            if dtype == 'camera' or dtype == 'arloq' or dtype == 'arloqs' or \
+                    device.get('modelId').startswith('AVD1001'):
                 self._cameras.append(ArloCamera(dname, self, device))
             if dtype == 'doorbell':
                 self._doorbells.append(ArloDoorBell(dname, self, device))
@@ -111,15 +116,7 @@ class PyArlo(object):
 
     def _refresh_devices(self):
         self._devices = self._be.get(DEVICES_PATH + "?t={}".format(time_to_arlotime()))
-
-    def _parse_devices(self):
-        for device in self._devices:
-            device_id = device.get('deviceId', None)
-            if device_id is not None:
-                for key in DEVICE_KEYS:
-                    value = device.get(key, None)
-                    if value is not None:
-                        self._st.set([device_id, key], value)
+        self.vdebug("devices={}".format(pprint.pformat(self._devices)))
 
     def _refresh_camera_thumbnails(self):
         """ Request latest camera thumbnails, called at start up. """
