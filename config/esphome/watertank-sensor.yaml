@@ -1,0 +1,97 @@
+esphome:
+  name: watertank
+  platform: ESP8266
+  board: d1_mini_pro
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: esp01
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: !secret esphome_api_password
+
+ota:
+  password: !secret esphome_ota_password
+
+sensor:
+  # WiFi Signal sensor.
+  - platform: wifi_signal
+    name: garden_watertank_wifi
+    update_interval: 600s
+    unit_of_measurement: "%"
+    filters:
+      - lambda: |-
+          if (x <= -100) {
+            return 0;
+          } else {
+            if (x >= -50) {
+              return 100;
+            } else {
+              return 2 * (x + 100);
+            }
+          }
+
+  - platform: ultrasonic
+    trigger_pin: D1
+    echo_pin: D2
+    name: garden_watertank_distance
+    update_interval: 300s
+    pulse_time: 50us
+    filters:
+      - filter_out: nan
+      - median:
+          window_size: 7
+          send_every: 4
+          send_first_at: 3
+
+  - platform: ultrasonic
+    trigger_pin: D1
+    echo_pin: D2
+    name: garden_watertank_liter
+    icon: "mdi:water"
+    update_interval: 300s
+    pulse_time: 50us
+    unit_of_measurement: "l"
+    filters:
+      - filter_out: nan
+      - median:
+          window_size: 7
+          send_every: 4
+          send_first_at: 3
+      - calibrate_linear:
+          - 0.55 -> 1.86
+          - 2.41 -> 0.0
+      # V = π * r2 * h
+      # V (qm) = π * 1m*1m * x
+      # V (l) = π * 1m*1m * x * 1000
+      - lambda: return x * 3141.592653589793238;
+
+  - platform: ultrasonic
+    trigger_pin: D1
+    echo_pin: D2
+    name: garden_watertank_percent
+    icon: "mdi:water-percent"
+    update_interval: 300s
+    pulse_time: 50us
+    unit_of_measurement: "%"
+    filters:
+      - filter_out: nan
+      - median:
+          window_size: 7
+          send_every: 4
+          send_first_at: 3
+      - calibrate_linear:
+          - 0.55 -> 1.86
+          - 2.41 -> 0.0
+      # V (l) = π * 1m*1m * x * 1000 / 5820 * 100
+      - lambda: return x * 53.979255216319471;
