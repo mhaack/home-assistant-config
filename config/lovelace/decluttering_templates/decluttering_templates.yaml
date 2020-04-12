@@ -1,0 +1,7 @@
+---
+# Shared templates using the custom decluttering-card
+#
+card_header:
+  !include card_header.yaml
+welcome_header:
+  !include welcome_header.yaml

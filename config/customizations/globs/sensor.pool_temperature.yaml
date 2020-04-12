@@ -5,4 +5,4 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 sensor.pool_*temperature_*:
-  icon: mdi:oil-temperature
+  icon: mdi:coolant-temperature

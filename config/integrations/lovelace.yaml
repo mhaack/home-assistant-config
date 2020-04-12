@@ -9,3 +9,12 @@
 #
 lovelace:
   mode: yaml
+  resources: !include_dir_list ../lovelace/resources
+  dashboards:
+    lovelace-admin:
+      mode: yaml
+      title: Admin
+      icon: mdi:tools
+      show_in_sidebar: true
+      require_admin: true
+      filename: ui-lovelace-admin.yaml

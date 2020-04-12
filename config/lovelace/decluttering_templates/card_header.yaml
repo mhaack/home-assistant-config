@@ -1,0 +1,30 @@
+---
+# Shared card header templates
+#
+default:
+  - icon: ""
+card:
+  type: horizontal-stack
+  cards:
+    - type: markdown
+      content: |
+        {% if '[[icon]]' != '' %}
+          ## <ha-icon icon=[[icon]]></ha-icon> [[content]]
+        {% else %}
+          ## [[content]]
+        {% endif %}
+      style: |
+        ha-card {
+          margin: 0px 14px -5px 14px;
+          box-shadow: none;
+          background: none;
+        }
+        ha-icon {
+          float: right;
+        }
+        h2 {
+          font-size: 18px;
+          font-weight: 400;
+          padding-left: 10px;
+          border-left: 3px solid rgba(68, 153, 0);
+        }

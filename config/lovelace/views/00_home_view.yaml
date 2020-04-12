@@ -3,7 +3,6 @@
 #
 title: Home
 icon: mdi:information-outline
-panel: true
 path: home
 
 popup_cards:
@@ -32,26 +31,122 @@ popup_cards:
         - sensor.iphone_von_jasmina_battery_level
         - sensor.iphone_von_jasmina_connection_type
 
+badges: []
 cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/markus.jpg'
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/jasmina.jpg'
+
   - type: vertical-stack
     cards:
-      - type: custom:layout-card
-        layout: vertical
+      - type: markdown
+        content: |
+          {% if now().month in (1,) %}
+          ## Januar {{ now().day }}
+          {% elif now().month in (2,) %}
+          ## Februar {{ now().day }}
+          {% elif now().month in (3,) %}
+          ## März {{ now().day }}
+          {% elif now().month in (4,) %}
+          ## April {{ now().day }}
+          {% elif now().month in (5,) %}
+          ## Mai {{ now().day }}
+          {% elif now().month in (6,) %}
+          ## Juni {{ now().day }}
+          {% elif now().month in (7,) %}
+          ## Juli {{ now().day }}
+          {% elif now().month in (8,) %}
+          ## August {{ now().day }}
+          {% elif now().month in (9,) %}
+          ## September {{ now().day }}
+          {% elif now().month in (10,) %}
+          ## Oktober {{ now().day }}
+          {% elif now().month in (11,) %}
+          ## November {{ now().day }}
+          {% elif now().month in (12,) %}
+          ## Dezember {{ now().day }}
+          {% endif %}
+        style: |
+          ha-card {
+            margin: 12px 14px -5px 14px;
+            box-shadow: none;
+            background: none;
+          }
+          h2 {
+            font-size: 18px;
+            font-weight: 400;
+            padding-left: 10px;
+            border-left: 3px solid rgba(68, 153, 0);
+          }
+      - type: custom:state-switch
+        entity: weather.dark_sky
+        default: default
+        states:
+          sunny:
+            type: custom:simple-weather-card
+            style: |
+              ha-card {
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 14px 15px 14px;
+              }
+            entity: weather.dark_sky
+            name: "zu Hause"
+            secondary_info: precipitation
+            tap_action:
+              action: more-info
+              cards:
+            backdrop:
+              day: 'rgba(249, 233, 181)'
+              text: var(--app-header-text-color)
+              night: 'rgba(76, 87, 110)'
+              fade: true
+          default:
+            type: custom:simple-weather-card
+            style: |
+              ha-card {
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 14px 15px 14px;
+              }
+            entity: weather.dark_sky
+            name: "zu Hause"
+            secondary_info: precipitation
+            tap_action:
+              action: more-info
+              cards:
+            backdrop:
+              day: 'rgba(159, 193, 249)'
+              text: var(--app-header-text-color)
+              night: 'rgba(76, 87, 110)'
+              fade: true
+
+      - type: vertical-stack
         cards:
+          - type: custom:decluttering-card
+            template: card_header
+            variables:
+              - content: 'Die Drei'
           - type: glance
+            style: |
+              ha-card {
+                --paper-card-background-color: var(--sidebar-background-color);
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 14px 5px 14px;
+              }
             entities:
-              - entity: sensor.system_window_door_state
-                tap_action:
-                  action: navigate
-                  navigation_path: /lovelace/security
-              - entity: group.system_motion_sensors
-                tap_action:
-                  action: navigate
-                  navigation_path: /lovelace/security
               - person.jasmina
               - person.markus
               - person.mia
-            title: JaMa Villa
+
           - type: entity-filter
             show_empty: false
             entities:
@@ -98,112 +193,177 @@ cards:
               - "on"
             card:
               type: glance
-              title: Beleuchtung
+              style: |
+                ha-card {
+                  --paper-card-background-color: var(--sidebar-background-color);
+                  box-shadow: var(--card-box-shadow);
+                  margin: 0px 14px 5px 14px;
+                }
               show_state: false
-          - type: entity-filter
-            show_empty: false
-            entities:
-              - entity: camera.aarlo_eingang
-                tap_action:
-                  action: navigate
-                  navigation_path: /lovelace/security
-              - entity: camera.aarlo_carport
-                tap_action:
-                  action: navigate
-                  navigation_path: /lovelace/security
-              - entity: camera.aarlo_garten
-                tap_action:
-                  action: navigate
-                  navigation_path: /lovelace/security
-              - entity: camera.aarlo_terrasse
-                tap_action:
-                  action: navigate
-                  navigation_path: /lovelace/security
-              - entity: camera.aarlo_pool
-                tap_action:
-                  action: navigate
-                  navigation_path: /lovelace/security
-            card:
-              type: glance
-              title: Aktive Kameras
-              show_state: false
-            state_filter:
-              - recently active
-              - streaming
-              - recording
-          - type: alarm-panel
-            entity: alarm_control_panel.alarm_haus
-            name: Alarm Haus
-            states:
-              - arm_home
-              - arm_away
-          - type: alarm-panel
-            entity: alarm_control_panel.alarm_carport
-            name: Alarm Carport
-            states:
-              - arm_home
-          - type: entities
-            title: Sicherheit
-            entities:
-              - type: custom:fold-entity-row
-                head: group.system_motion_sensors
-                group_config:
-                  secondary_info: last-changed
-              - type: custom:fold-entity-row
-                head: group.system_door_sensors
-                group_config:
-                  secondary_info: last-changed
-              - type: custom:fold-entity-row
-                head: group.system_window_sensors
-                group_config:
-                  secondary_info: last-changed
-            show_header_toggle: false
-            show_state: false
-          - type: entities
-            title: Briefkasten
-            entities:
-              - entity: sensor.garden_mailbox_mail
-            show_header_toggle: false
-            show_state: false
-          - type: entities
-            title: Katzenklo
-            entities:
-              - entity: sensor.hall_all_litterbox_visits
-            show_header_toggle: false
-            show_state: false
-          - break
-          - type: custom:weather-card
-            entity: weather.dark_sky
-            name: Wetter
-          - type: "custom:mini-graph-card"
-            decimals: 1
-            hour24: true
-            entities:
-              - entity: sensor.garden_temperature
-                name: Garten
-                show_state: true
-            show:
-              fill: fade
-          - type: 'custom:mini-graph-card'
-            name: Haus
-            decimals: 1
-            hour24: true
-            entities:
-              - entity: sensor.livingroom_temperature
-                name: Wohnzimmer
-                show_state: true
-              - entity: sensor.kitchen_temperature
-                name: Küche
-              - entity: sensor.bedroom_temperature
-                name: Schlafzimmer
-              - entity: sensor.bathroom_temperature
-                name: Bad
-              - entity: sensor.nursery_temperature
-                name: Kinderzimmer
-              - entity: sensor.office_temperature
-                name: Büro
-            show:
-              fill: fade
-          - type: iframe
-            aspect_ratio: 90%
-            url: "https://embed.windy.com/embed2.html?lat=51.358&lon=12.384&zoom=11&level=surface&overlay=wind&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&detailLat=51.367&detailLon=12.383&metricWind=default&metricTemp=%C2%B0C&radarRange=-1"
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Sicherheit'
+          - icon: "mdi:security"
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - type: custom:fold-entity-row
+            head: group.system_motion_sensors
+            group_config:
+              secondary_info: last-changed
+          - entity: binary_sensor.hall_frontdoor
+          - entity: binary_sensor.garden_carport_door
+          - type: custom:fold-entity-row
+            head: group.system_window_sensors
+            group_config:
+              secondary_info: last-changed
+          - alarm_control_panel.alarm_haus
+          - alarm_control_panel.alarm_carport
+        show_header_toggle: false
+        show_state: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Alarm'
+          - icon: "mdi:alarm-light"
+      - type: alarm-panel
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: alarm_control_panel.alarm_haus
+        name: Alarm Haus
+        states:
+          - arm_home
+          - arm_away
+      - type: alarm-panel
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: alarm_control_panel.alarm_carport
+        name: Alarm Carport
+        states:
+          - arm_home
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Briefkasten'
+          - icon: "mdi:mailbox-open"
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.garden_mailbox_mail
+        show_header_toggle: false
+        show_state: false
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Garten'
+          - icon: mdi:flower
+      - type: 'custom:mini-graph-card'
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        align_header: left
+        align_icon: left
+        decimals: 1
+        hour24: true
+        points_per_hour: 1
+        entities:
+          - entity: sensor.garden_temperature
+          - entity: sensor.garden_humidity
+            show_state: true
+            show_graph: false
+        show:
+          name: false
+          icon: false
+          fill: fade
+          extrema: true
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Wohnzimmer'
+                  - icon: mdi:home-thermometer
+              - type: 'custom:mini-graph-card'
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 2px 5px 14px;
+                  }
+                align_header: left
+                align_icon: left
+                decimals: 1
+                hour24: true
+                points_per_hour: 1
+                entities:
+                  - entity: sensor.livingroom_temperature
+                  - entity: sensor.livingroom_humidity
+                    show_state: true
+                    show_graph: false
+                show:
+                  fill: fade
+                  extrema: true
+                  name: false
+                  icon: false
+          - type: vertical-stack
+            cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Schlafzimmer'
+                  - icon: mdi:home-thermometer
+              - type: 'custom:mini-graph-card'
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 14px 5px 2px;
+                  }
+                align_header: left
+                align_icon: left
+                decimals: 1
+                hour24: true
+                points_per_hour: 1
+                entities:
+                  - entity: sensor.bedroom_temperature
+                  - entity: sensor.bedroom_humidity
+                    show_state: true
+                    show_graph: false
+                show:
+                  fill: fade
+                  extrema: true
+                  name: false
+                  icon: false

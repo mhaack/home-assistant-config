@@ -11,4 +11,4 @@ trigger:
 action:
   service: frontend.set_theme
   data:
-    name: darkblue
+    name: google_light_theme

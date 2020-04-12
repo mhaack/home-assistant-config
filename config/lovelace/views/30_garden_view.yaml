@@ -3,187 +3,266 @@
 #
 title: Garten
 icon: mdi:flower
-panel: true
 path: garden
 
+badges: []
 cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/markus.jpg'
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/jasmina.jpg'
+
   - type: vertical-stack
     cards:
-      - type: custom:layout-card
-        layout: horizontal
-        cards:
-          - type: vertical-stack
-            cards:
-              - type: glance
-                entities:
-                  - entity: light.garden_lights
-                    tap_action:
-                      action: toggle
-                  - entity: light.garden_backyard_tree
-                    tap_action:
-                      action: toggle
-                  - entity: light.garden_frontyard_tree
-                    tap_action:
-                      action: toggle
-                  - entity: light.garden_terrace_spots
-                    tap_action:
-                      action: toggle
-                  - entity: light.garden_terrace_lounge
-                    tap_action:
-                      action: toggle
-                  - entity: light.garden_sundeck_spots
-                    tap_action:
-                      action: toggle
-                  - entity: light.garden_sundeck_positionlight
-                    tap_action:
-                      action: toggle
-                  - entity: light.pool_light
-                    tap_action:
-                      action: toggle
-                  - entity: light.garden_pond_light
-                    tap_action:
-                      action: toggle
-                title: Außenbeleuchtung
-                show_state: false
-              - type: "custom:mini-graph-card"
-                name: Garten (24h)
-                entities:
-                  - sensor.garden_temperature
-                hour24: true
-                show:
-                  fill: fade
-              - type: horizontal-stack
-                cards:
-                  - type: "custom:mini-graph-card"
-                    name: Garten (7d)
-                    entities:
-                      - sensor.garden_temperature
-                    hours_to_show: 168
-                    points_per_hour: 0.25
-                    hour24: true
-                    show:
-                      fill: fade
-                  - type: "custom:mini-graph-card"
-                    name: Luftfeuchtigkeit (7d)
-                    line_color: "#4C9AD7"
-                    entities:
-                      - sensor.garden_humidity
-                    hours_to_show: 168
-                    points_per_hour: 0.25
-                    hour24: true
-                    show:
-                      fill: fade
-          - type: vertical-stack
-            cards:
-              - type: entities
-                entities:
-                  - entity: light.garden_sundeck_spots
-                    name: LED
-                  - entity: light.garden_sundeck_positionlight
-                    name: Schiffslicht
-                  - entity: switch.garden_sundeck_sockets
-                    name: Steckdosen
-                  - sensor.garden_sundeck_sockets_power
-                  - sensor.garden_sundeck_sockets_energy_counter
-                show_header_toggle: false
-                title: Sonnendeck
-              - type: entities
-                entities:
-                  - sensor.garden_luftdaten_air_quality_pm10
-                  - sensor.garden_luftdaten_pm_10
-                  - sensor.garden_luftdaten_air_quality_pm2_5
-                  - sensor.garden_luftdaten_pm_2_5
-                show_header_toggle: false
-                title: Luftqualität
-          - type: vertical-stack
-            cards:
-              - type: conditional
-                conditions:
-                  - entity: switch.garden_carport_siren_3
-                    state_not: "on"
-                card:
-                  type: entities
-                  entities:
-                    - entity: binary_sensor.garden_bench
-                      name: Bewegungserkennung
-                    - entity: input_boolean.garden_bench_notification
-                      name: Benachrichtigen
-                  show_header_toggle: false
-                  title: Gartenbank
-              - type: conditional
-                conditions:
-                  - entity: switch.garden_carport_siren_3
-                    state: "on"
-                card:
-                  type: entities
-                  entities:
-                    - entity: binary_sensor.garden_bench
-                      name: Bewegungserkennung
-                    - entity: input_boolean.garden_bench_notification
-                      name: Benachrichtigen
-                    - switch.garden_carport_siren_3
-                  show_header_toggle: false
-                  title: Gartenbank
-              - type: custom:vertical-stack-in-card
-                cards:
-                  - type: entities
-                    entities:
-                      - switch.garden_watertank_pump
-                      - sensor.garden_watertank_pump_power
-                      - sensor.garden_watertank_pump_daily_energy
-                      - sensor.garden_watertank_pump_energy_counter
-                    show_header_toggle: false
-                    title: Zisterne
-                  - type: horizontal-stack
-                    cards:
-                      - type: "custom:mini-graph-card"
-                        entities:
-                          - sensor.garden_watertank_liter
-                        line_color: "#4C9AD7"
-                        decimals: 0
-                        hour24: true
-                        show:
-                          name: false
-                          icon: false
-                          fill: fade
-                      - type: gauge
-                        entity: sensor.garden_watertank_percent
-              - type: conditional
-                conditions:
-                  - entity: sensor.garden_lawnmover_error
-                    state: "No error"
-                card:
-                  type: entities
-                  title: Rasenmäher Shaun
-                  show_header_toggle: false
-                  entities:
-                    - switch.garden_lawnmower_power
-                    - sensor.garden_lawnmover_status
-                    - binary_sensor.garden_lawnmover_batterycharging
-                    - sensor.garden_lawnmover_batterylevel
-                    - sensor.garden_lawnmover_totaldistance
-                    - sensor.garden_lawnmover_totaltime
-                    - sensor.garden_lawnmover_totalbladetime
-              - type: conditional
-                conditions:
-                  - entity: sensor.garden_lawnmover_error
-                    state_not: "No error"
-                card:
-                  type: entities
-                  title: Rasenmäher Shaun
-                  show_header_toggle: false
-                  entities:
-                    - sensor.garden_lawnmover_error
-                    - sensor.garden_lawnmover_status
-                    - switch.garden_lawnmower_power
-                    - sensor.garden_lawnmover_batterylevel
-                    - sensor.garden_lawnmover_totaldistance
-                    - sensor.garden_lawnmover_totaltime
-                    - sensor.garden_lawnmover_totalbladetime
-              - title: Teich
-                type: entities
-                entities:
-                  - switch.garden_pond_blubber
-                  - switch.garden_pond_waterfall
-                  - input_select.garden_pond_mode
-                show_header_toggle: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Außenbeleuchtung'
+          - icon: mdi:lightbulb
+      - type: glance
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: light.garden_lights
+            tap_action:
+              action: toggle
+          - entity: light.garden_backyard_tree
+            tap_action:
+              action: toggle
+          - entity: light.garden_frontyard_tree
+            tap_action:
+              action: toggle
+          - entity: light.garden_terrace_spots
+            tap_action:
+              action: toggle
+          - entity: light.garden_terrace_lounge
+            tap_action:
+              action: toggle
+          - entity: light.garden_sundeck_spots
+            tap_action:
+              action: toggle
+          - entity: light.garden_sundeck_positionlight
+            tap_action:
+              action: toggle
+          - entity: light.pool_light
+            tap_action:
+              action: toggle
+          - entity: light.garden_pond_light
+            tap_action:
+              action: toggle
+        show_state: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Garten (24h)'
+          - icon: mdi:thermometer
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        decimals: 1
+        hour24: true
+        points_per_hour: 1
+        entities:
+          - entity: sensor.garden_temperature
+          - entity: sensor.garden_humidity
+            show_state: true
+            show_graph: false
+        show:
+          fill: fade
+          extrema: true
+          name: false
+          icon: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Garten (7d)'
+          - icon: mdi:thermometer
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        decimals: 1
+        hour24: true
+        hours_to_show: 168
+        points_per_hour: 0.25
+        entities:
+          - entity: sensor.garden_temperature
+          - entity: sensor.garden_humidity
+            show_state: true
+            show_graph: false
+        show:
+          fill: fade
+          extrema: true
+          name: false
+          icon: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Sonnendeck'
+          - icon: mdi:white-balance-sunny
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: light.garden_sundeck_spots
+            name: LED
+          - entity: light.garden_sundeck_positionlight
+            name: Schiffslicht
+          - entity: switch.garden_sundeck_sockets
+            name: Steckdosen
+        show_header_toggle: false
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Luftqualität'
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - sensor.garden_luftdaten_air_quality_pm10
+          - sensor.garden_luftdaten_pm_10
+          - sensor.garden_luftdaten_air_quality_pm2_5
+          - sensor.garden_luftdaten_pm_2_5
+        show_header_toggle: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Gartenbank'
+      - type: conditional
+        conditions:
+          - entity: switch.garden_carport_siren_3
+            state_not: "on"
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          entities:
+            - entity: binary_sensor.garden_bench
+              name: Bewegungserkennung
+            - entity: input_boolean.garden_bench_notification
+              name: Benachrichtigen
+          show_header_toggle: false
+      - type: conditional
+        conditions:
+          - entity: switch.garden_carport_siren_3
+            state: "on"
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          entities:
+            - entity: binary_sensor.garden_bench
+              name: Bewegungserkennung
+            - entity: input_boolean.garden_bench_notification
+              name: Benachrichtigen
+            - switch.garden_carport_siren_3
+          show_header_toggle: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Rasenmäher Shaun'
+      - type: conditional
+        conditions:
+          - entity: sensor.garden_lawnmover_error
+            state: "No error"
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          show_header_toggle: false
+          entities:
+            - switch.garden_lawnmower_power
+            - sensor.garden_lawnmover_status
+            - binary_sensor.garden_lawnmover_batterycharging
+            - sensor.garden_lawnmover_batterylevel
+            - sensor.garden_lawnmover_totaldistance
+            - sensor.garden_lawnmover_totaltime
+            - sensor.garden_lawnmover_totalbladetime
+      - type: conditional
+        conditions:
+          - entity: sensor.garden_lawnmover_error
+            state_not: "No error"
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          show_header_toggle: false
+          entities:
+            - sensor.garden_lawnmover_error
+            - sensor.garden_lawnmover_status
+            - switch.garden_lawnmower_power
+            - sensor.garden_lawnmover_batterylevel
+            - sensor.garden_lawnmover_totaldistance
+            - sensor.garden_lawnmover_totaltime
+            - sensor.garden_lawnmover_totalbladetime
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Teich'
+          - icon: mdi:waves
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - switch.garden_pond_blubber
+          - switch.garden_pond_waterfall
+          - input_select.garden_pond_mode
+        show_header_toggle: false

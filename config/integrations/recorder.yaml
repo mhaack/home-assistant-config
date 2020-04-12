@@ -78,7 +78,6 @@ recorder:
       - sensor.adguard_safe_browsing_blocked
       - sensor.bedroom_battery_level
       - sensor.date_time
-      - sensor.datentopf_cpu_usage
       - sensor.datentopf_free_space_volume_1
       - sensor.datentopf_memory_available
       - sensor.datentopf_memory_usage

@@ -1,0 +1,63 @@
+---
+# The main JaMa Villa outdoor view
+#
+title: Bewässerung
+icon: mdi:water-pump
+path: watering
+
+badges: []
+cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/markus.jpg'
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/jasmina.jpg'
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Bewässerung'
+          - icon: mdi:water-pump
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.rasen_next_cycle
+          - entity: sensor.beete_next_cycle
+          - entity: sensor.vorgarten_next_cycle
+          - entity: sensor.hecke_next_cycle
+        show_header_toggle: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Zisterne'
+          - icon: mdi:water-pump
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - switch.garden_watertank_pump
+          - sensor.garden_watertank_liter
+          - sensor.garden_watertank_percent
+          - sensor.garden_watertank_pump_power
+          - sensor.garden_watertank_pump_daily_energy
+          - sensor.garden_watertank_pump_energy_counter
+        show_header_toggle: false

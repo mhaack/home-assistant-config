@@ -3,120 +3,273 @@
 #
 title: System Info
 icon: mdi:lan
-panel: true
 path: system-info
 
+badges: []
 cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/markus.jpg'
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/jasmina.jpg'
+
   - type: vertical-stack
     cards:
-      - type: custom:layout-card
-        layout: vertical
-        cards:
-          - type: glance
-            title: Core Network
-            entities:
-              - binary_sensor.system_dsl_modem
-              - binary_sensor.system_unifi_router
-              - binary_sensor.system_unifi_switch
-              - binary_sensor.system_unifi_controller
-              - binary_sensor.livingroom_system_accesspoint
-              - binary_sensor.office_system_accesspoint
-              - binary_sensor.remote_ui
-            show_header_toggle: false
-            show_state: false
-          - type: glance
-            title: Device Network
-            entities:
-              - binary_sensor.system_arlo_hub
-              - binary_sensor.office_system_printer
-              - binary_sensor.system_nas
-              - binary_sensor.system_fritzbox
-              - binary_sensor.garden_lawnmover
-            show_header_toggle: false
-            show_state: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Core Network'
+          - icon: mdi:server-network
+      - type: glance
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - binary_sensor.system_dsl_modem
+          - binary_sensor.system_unifi_router
+          - binary_sensor.system_unifi_switch
+          - binary_sensor.system_unifi_controller
+          - binary_sensor.livingroom_system_accesspoint
+          - binary_sensor.office_system_accesspoint
+          - binary_sensor.remote_ui
+        show_header_toggle: false
+        show_state: false
 
-          - type: horizontal-stack
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Device Network'
+          - icon: mdi:server-network
+      - type: glance
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - binary_sensor.equipmentroom_arlo_hub
+          - binary_sensor.equipmentroom_ccu3
+          - binary_sensor.office_system_printer
+          - binary_sensor.system_nas
+          - binary_sensor.system_fritzbox
+          - binary_sensor.garden_lawnmover
+          - binary_sensor.garden_watertank
+          - binary_sensor.garden_hydrawise
+        show_header_toggle: false
+        show_state: false
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
             cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Internet Speed'
+                  - icon: mdi:wan
               - type: "custom:mini-graph-card"
-                name: Internet Bandbreite
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 2px 5px 14px;
+                  }
                 entities:
                   - sensor.speedtest_download
                   - sensor.speedtest_upload
-                icon: "mdi:wan"
                 hours_to_show: 168
                 points_per_hour: 0.25
                 hour24: true
                 line_width: 2
+                show:
+                  fill: fade
+                  name: false
+                  icon: false
+                  legend: false
+          - type: vertical-stack
+            cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Internet Ping'
+                  - icon: mdi:wan
               - type: "custom:mini-graph-card"
-                name: Internet Ping
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 14px 5px 2px;
+                  }
                 entities:
                   - sensor.speedtest_ping
-                icon: "mdi:wan"
                 hours_to_show: 168
                 points_per_hour: 0.25
                 hour24: true
                 line_width: 2
-          - break
-          - type: entities
-            title: HA Server Resources
-            entities:
-              - sensor.disk_use_percent
-              - sensor.disk_free
-              - sensor.memory_use_percent
-              - sensor.memory_free
-              - sensor.processor_use
-              - sensor.last_boot
-            show_header_toggle: false
-          - type: custom:mini-graph-card
-            entities:
-              - sensor.processor_use
-            name: CPU
-            line_color: '#2980b9'
-            line_width: 2
-            hours_to_show: 24
-          - type: custom:bar-card
-            entity: sensor.disk_use_percent
-            title: SD Card
-            title_position: inside
-            align: split
-            show_icon: true
+                show:
+                  fill: fade
+                  name: false
+                  icon: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'HA Server Resources'
+          - icon: mdi:home-assistant
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - sensor.disk_use_percent
+          - sensor.disk_free
+          - sensor.memory_use_percent
+          - sensor.memory_free
+          - sensor.processor_use
+          - sensor.last_boot
+        show_header_toggle: false
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - sensor.processor_use
+        name: CPU
+        align_header: left
+        align_icon: left
+        line_color: '#2980b9'
+        line_width: 2
+        hours_to_show: 24
+        decimals: 1
+        hour24: true
+        show:
+          fill: fade
+          extrema: true
+        color: '#00ba6a'
+      - type: custom:bar-card
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.disk_use_percent
             color: '#00ba6a'
-          - type: custom:bar-card
-            entity: sensor.memory_use_percent
-            title: RAM
-            title_position: inside
-            align: split
-            show_icon: true
-          - break
-          - type: entities
-            entities:
-              - sensor.datentopf_status
-              - sensor.datentopf_volume_used_volume_1
-              - sensor.datentopf_memory_usage
-              - sensor.datentopf_memory_available
-              - sensor.datentopf_cpu_usage
-              - sensor.datentopf_system_temperature
-              - sensor.datentopf_temperature_drive_1
-              - sensor.datentopf_temperature_drive_2
-            show_header_toggle: false
-            title: QNAP NAS Resources
-          - type: custom:mini-graph-card
-            entities:
-              - sensor.datentopf_cpu_usage
-            name: CPU
-            line_color: '#2980b9'
-            line_width: 2
-            hours_to_show: 24
-          - type: custom:bar-card
-            entity: sensor.datentopf_volume_used_volume_1
-            title: Disk
-            title_position: inside
-            align: split
-            show_icon: true
+          - entity: sensor.memory_use_percent
+        positions:
+          indicator: inside
+          icon: inside
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'QNAP NAS Resources'
+          - icon: mdi:nas
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - sensor.datentopf_status
+          - sensor.datentopf_volume_used_volume_1
+          - sensor.datentopf_memory_usage
+          - sensor.datentopf_memory_available
+          - sensor.datentopf_cpu_usage
+          - sensor.datentopf_system_temperature
+          - sensor.datentopf_temperature_drive_1
+          - sensor.datentopf_temperature_drive_2
+        show_header_toggle: false
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - sensor.datentopf_cpu_usage
+        name: CPU
+        line_color: '#2980b9'
+        line_width: 2
+        hours_to_show: 24
+      - type: custom:bar-card
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.datentopf_volume_used_volume_1
             color: '#00ba6a'
-          - type: custom:bar-card
-            entity: sensor.datentopf_memory_usage
-            title: RAM
-            title_position: inside
-            align: split
-            show_icon: true
+          - entity: sensor.datentopf_memory_usage
+        positions:
+          indicator: inside
+          icon: inside
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'AdGuard'
+          - icon: mdi:home-assistant
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - label: Control
+            type: section
+            style:
+              height: 3px
+          - switch.adguard_filtering
+          - switch.adguard_parental_control
+          - switch.adguard_protection
+          - switch.adguard_query_log
+          - switch.adguard_safe_browsing
+          - switch.adguard_safe_search
+          - label: Statistics
+            type: section
+            style:
+              height: 3px
+          - sensor.adguard_dns_queries
+          - sensor.adguard_dns_queries_blocked_ratio
+          - sensor.adguard_dns_queries_blocked
+          - sensor.adguard_parental_control_blocked
+          - sensor.adguard_safe_browsing_blocked
+          - sensor.adguard_searches_safe_search_enforced
+          - sensor.adguard_average_processing_speed
+          - sensor.adguard_rules_count
+        show_header_toggle: false
+        state_color: true
