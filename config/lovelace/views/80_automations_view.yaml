@@ -5,10 +5,30 @@ title: Automations
 icon: mdi:arrow-decision-auto
 path: automations
 
+badges: []
 cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/markus.jpg'
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/jasmina.jpg'
+
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: Security
     filter:
       include:
@@ -17,6 +37,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: Light Automations
     filter:
       include:
@@ -25,6 +50,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: House Automations
     filter:
       include:
@@ -36,6 +66,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: Garden Automations
     filter:
       include:
@@ -46,6 +81,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: Pool Automations
     filter:
       include:
@@ -54,6 +94,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: Appliances Automations
     filter:
       include:
@@ -62,6 +107,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: System Automations
     filter:
       include:
@@ -70,6 +120,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: Zone Based Automations
     filter:
       include:
@@ -78,6 +133,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: Notifications
     filter:
       include:
@@ -86,6 +146,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: Cats
     filter:
       include:
@@ -94,6 +159,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: XMAS
     filter:
       include:
@@ -102,6 +172,11 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
+      style: |
+        ha-card {
+          box-shadow: var(--card-box-shadow);
+          margin: 0px 14px 15px 14px;
+        }
       title: Other Automations
     filter:
       include:

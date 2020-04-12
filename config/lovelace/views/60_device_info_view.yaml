@@ -1,9 +1,9 @@
 ---
-# The main JaMa Villa outdoor view
+# The main JaMa Villa system info view for all the device info's
 #
-title: Pool
-icon: mdi:pool
-path: pool
+title: Devices
+icon: mdi:devices
+path: devices
 
 badges: []
 cards:
@@ -26,25 +26,8 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Pool'
-          - icon: mdi:coolant-temperature
-      - type: "custom:mini-graph-card"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        entities:
-          - entity: sensor.pool_water_temperature_1
-            name: Wassertemperatur
-        hours_to_show: 168
-        points_per_hour: 0.25
-        hour24: true
-        show:
-          fill: fade
-          icon: false
-          title: false
+          - content: 'Garten'
+          - icon: mdi:flower
       - type: entities
         style: |
           ha-card {
@@ -52,24 +35,38 @@ cards:
             box-shadow: var(--card-box-shadow);
             margin: 0px 14px 5px 14px;
           }
-        show_header_toggle: false
         entities:
-          - sensor.pool_solar_temperature_diff
-          - type: custom:fold-entity-row
-            head: sensor.pool_solar_temperature
-            items:
-              - sensor.pool_solar_temperature_1
-              - sensor.pool_solar_temperature_2
-            group_config:
-              secondary_info: last-changed
+          - sensor.garden_sundeck_sockets_power
+          - sensor.garden_sundeck_sockets_energy_counter
+        show_header_toggle: false
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Büro'
+          - icon: mdi:office-building
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - switch.office_desk
+          - binary_sensor.office_desk
+          - sensor.office_desk_power
+          - sensor.office_desk_daily_energy
+          - sensor.office_desk_energy_counter
+        show_header_toggle: false
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Poolsteuerung'
-          - icon: mdi:coolant-temperature
+          - content: 'Spülmaschine'
+          - icon: mdi:dishwasher
       - type: entities
         style: |
           ha-card {
@@ -77,17 +74,18 @@ cards:
             box-shadow: var(--card-box-shadow);
             margin: 0px 14px 5px 14px;
           }
-        show_header_toggle: false
         entities:
-          - input_select.pool_pump_mode
-          - switch.pool_pump
-          - switch.pool_valve
-          - light.pool_light
+          - switch.kitchen_dishwasher
+          - sensor.kitchen_dishwasher_state
+          - sensor.kitchen_dishwasher_power
+          - sensor.kitchen_dishwasher_daily_energy
+          - sensor.kitchen_dishwasher_energy_counter
+        show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Poolstatistik'
-          - icon: mdi:coolant-temperature
+          - content: 'Gefrierschrank'
+          - icon: mdi:snowflake
       - type: entities
         style: |
           ha-card {
@@ -95,26 +93,17 @@ cards:
             box-shadow: var(--card-box-shadow);
             margin: 0px 14px 5px 14px;
           }
-        show_header_toggle: false
         entities:
-          - entity: sensor.pool_daily_pump_hours
-            name: Betriebsstunden Pumpe
-          - entity: sensor.pool_daily_valve_hours
-            name: Betriebsstunden Solar
-          - entity: sensor.pool_pump_power
-            name: Leistung Pumpe
-          - entity: sensor.pool_pump_daily_energy
-            name: Stromverbrauch Pumpe (heute)
-          - entity: sensor.pool_pump_energy_counter
-            name: Stromverbrauch Pumpe (gesamt)
-
-  - type: vertical-stack
-    cards:
+          - switch.laundryroom_freezer
+          - sensor.laundryroom_freezer_power
+          - sensor.laundryroom_freezer_daily_energy
+          - sensor.laundryroom_freezer_energy_counter
+        show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Sonnendeck'
-          - icon: mdi:white-balance-sunny
+          - content: 'Kühlschrank'
+          - icon: mdi:thermometer
       - type: entities
         style: |
           ha-card {
@@ -123,10 +112,6 @@ cards:
             margin: 0px 14px 5px 14px;
           }
         entities:
-          - entity: light.garden_sundeck_spots
-            name: LED
-          - entity: light.garden_sundeck_positionlight
-            name: Schiffslicht
-          - entity: switch.garden_sundeck_sockets
-            name: Steckdosen
+          - sensor.kitchen_fridge_temperature
+          - sensor.kitchen_fridge_humidity
         show_header_toggle: false

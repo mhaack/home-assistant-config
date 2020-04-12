@@ -7,7 +7,7 @@
 # Views are actually include one by one, this to guarentee the order of
 # the tabs of the view in the UI.
 #
-title: JaMa Villa
+title: JaMa Villa Admin
 
 custom_header:
   compact_mode: true
@@ -23,10 +23,7 @@ decluttering_templates:
   !include lovelace/decluttering_templates/decluttering_templates.yaml
 
 views:
-  - !include lovelace/views/00_home_view.yaml
-  - !include lovelace/views/10_house_view.yaml
-  # - !include lovelace/views/15_xmas_view.yaml
-  - !include lovelace/views/30_garden_view.yaml
-  - !include lovelace/views/12_security_view.yaml
-  - !include lovelace/views/40_pool_view.yaml
-  - !include lovelace/views/50_watering_view.yaml
+  - !include lovelace/views/60_device_info_view.yaml
+  - !include lovelace/views/80_automations_view.yaml
+  - !include lovelace/views/99_settings_view.yaml
+  - !include lovelace/views/70_system_info_view.yaml

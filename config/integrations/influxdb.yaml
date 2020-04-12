@@ -42,6 +42,7 @@ influxdb:
       - sensor.garden_temperature
       - sensor.garden_watertank_liter
       - sensor.garden_watertank_pump_power
+      - sensor.garden_watertank_wifi
       - sensor.kitchen_dishwasher_power
       - sensor.kitchen_fridge_temperature
       - sensor.kitchen_rssi

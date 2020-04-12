@@ -3,252 +3,448 @@
 #
 title: Haus
 icon: mdi:home
-panel: true
 path: house
 
+badges: []
 cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/markus.jpg'
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/jasmina.jpg'
+
   - type: vertical-stack
     cards:
-      - type: custom:layout-card
-        layout: vertical
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Innenbeleuchtung'
+          - icon: mdi:lightbulb
+      - type: glance
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: light.indoor_lights
+            tap_action:
+              action: toggle
+          - entity: light.hall_lights
+            tap_action:
+              action: toggle
+          - entity: light.nursery_lights
+            tap_action:
+              action: toggle
+          - entity: light.nursery_stars
+            tap_action:
+              action: toggle
+          - entity: light.nursery_bed
+            tap_action:
+              action: toggle
+          - entity: light.kitchen_ledstrip
+            tap_action:
+              action: toggle
+          - entity: light.livingroom_tv
+            tap_action:
+              action: toggle
+        show_state: false
+      - type: entity-filter
+        show_empty: false
+        entities:
+          - entity: timer.hall_lights
+        state_filter:
+          - 'active'
+
+      - type: horizontal-stack
         cards:
-          - type: glance
-            entities:
-              - entity: light.indoor_lights
-                tap_action:
-                  action: toggle
-              - entity: light.hall_lights
-                tap_action:
-                  action: toggle
-              - entity: light.nursery_lights
-                tap_action:
-                  action: toggle
-              - entity: light.nursery_stars
-                tap_action:
-                  action: toggle
-              - entity: light.nursery_bed
-                tap_action:
-                  action: toggle
-              - entity: light.kitchen_ledstrip
-                tap_action:
-                  action: toggle
-              - entity: light.livingroom_tv
-                tap_action:
-                  action: toggle
-            title: Innenbeleuchtung
-            show_state: false
-          - type: entity-filter
-            show_empty: false
-            entities:
-              - entity: timer.hall_lights
-            state_filter:
-              - 'active'
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Wohnzimmer'
+                  - icon: mdi:home-thermometer
               - type: 'custom:mini-graph-card'
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 2px 5px 14px;
+                  }
+                align_header: left
+                align_icon: left
                 decimals: 1
                 hour24: true
+                points_per_hour: 1
                 entities:
                   - entity: sensor.livingroom_temperature
-                    name: Wohnzimmer
+                  - entity: sensor.livingroom_humidity
                     show_state: true
+                    show_graph: false
                 show:
                   fill: fade
+                  extrema: true
+                  name: false
+                  icon: false
+          - type: vertical-stack
+            cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Küche'
+                  - icon: mdi:home-thermometer
               - type: 'custom:mini-graph-card'
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 14px 5px 2px;
+                  }
+                align_header: left
+                align_icon: left
                 decimals: 1
                 hour24: true
+                points_per_hour: 1
                 entities:
                   - entity: sensor.kitchen_temperature
-                    name: Küche
+                  - entity: sensor.kitchen_humidity
                     show_state: true
+                    show_graph: false
                 show:
                   fill: fade
+                  extrema: true
+                  name: false
+                  icon: false
+
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Schlafzimmer'
+                  - icon: mdi:home-thermometer
               - type: 'custom:mini-graph-card'
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 2px 5px 14px;
+                  }
+                align_header: left
+                align_icon: left
                 decimals: 1
                 hour24: true
+                points_per_hour: 1
                 entities:
                   - entity: sensor.bedroom_temperature
-                    name: Schlafzimmer
+                  - entity: sensor.bedroom_humidity
                     show_state: true
+                    show_graph: false
                 show:
                   fill: fade
-          - type: horizontal-stack
+                  extrema: true
+                  name: false
+                  icon: false
+          - type: vertical-stack
             cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Kinderzimmer'
+                  - icon: mdi:home-thermometer
               - type: 'custom:mini-graph-card'
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 14px 5px 2px;
+                  }
+                align_header: left
+                align_icon: left
                 decimals: 1
                 hour24: true
+                points_per_hour: 1
                 entities:
                   - entity: sensor.nursery_temperature
-                    name: Kinderzimmer
+                  - entity: sensor.nursery_humidity
                     show_state: true
+                    show_graph: false
                 show:
                   fill: fade
+                  extrema: true
+                  name: false
+                  icon: false
+
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Bad'
+                  - icon: mdi:home-thermometer
               - type: 'custom:mini-graph-card'
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 2px 5px 14px;
+                  }
+                align_header: left
+                align_icon: left
                 decimals: 1
                 hour24: true
+                points_per_hour: 1
                 entities:
                   - entity: sensor.bathroom_temperature
-                    name: Bad
+                  - entity: sensor.bathroom_humidity
                     show_state: true
+                    show_graph: false
                 show:
                   fill: fade
+                  extrema: true
+                  name: false
+                  icon: false
+          - type: vertical-stack
+            cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: 'Büro'
+                  - icon: mdi:home-thermometer
               - type: 'custom:mini-graph-card'
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 14px 5px 2px;
+                  }
+                align_header: left
+                align_icon: left
                 decimals: 1
                 hour24: true
+                points_per_hour: 1
                 entities:
                   - entity: sensor.office_temperature
-                    name: Büro
+                  - entity: sensor.office_humidity
                     show_state: true
+                    show_graph: false
                 show:
                   fill: fade
-          - type: 'custom:mini-graph-card'
-            name: Luftfeuchtigkeit
-            decimals: 1
-            hour24: true
+                  extrema: true
+                  name: false
+                  icon: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Rollläden Untergeschoss'
+          - icon: mdi:window-shutter-open
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - type: custom:fold-entity-row
+            head: cover.livingroom_slidingdoor
             entities:
-              - entity: sensor.livingroom_humidity
-                name: Wohnzimmer
-              - entity: sensor.kitchen_humidity
-                name: Küche
-              - entity: sensor.bedroom_humidity
-                name: Schlafzimmer
-              - entity: sensor.bathroom_humidity
-                name: Bad
-              - entity: sensor.nursery_humidity
-                name: Kinderzimmer
-              - entity: sensor.office_humidity
-                name: Büro
-            unit: '%'
-            show:
-              fill: fade
-          - type: horizontal-stack
-            cards:
-              - type: "custom:mini-graph-card"
-                name: Dachboden
-                entities:
-                  - entity: sensor.attic_temperature
-                    name: Temperatur
-                  - entity: sensor.attic_humidity
-                    name: Luftfeuchtigkeit
-                    show_state: true
-                hour24: true
-                show:
-                  fill: fade
-              - type: "custom:mini-graph-card"
-                name: Technikraum
-                entities:
-                  - entity: sensor.equipmentroom_temperature
-                    name: Temperatur
-                  - entity: sensor.equipmentroom_humidity
-                    name: Luftfeuchtigkeit
-                    show_state: true
-                hour24: true
-                show:
-                  fill: fade
-          - break
-          - type: entities
-            entities:
-              - label: Untergeschoss
-                type: section
-                style:
-                  height: 3px
-              - type: custom:fold-entity-row
-                head: cover.livingroom_slidingdoor
-                entities:
-                  - entity: cover.livingroom_window_4b
-                    icon: 'mdi:format-align-justify'
-                    name: Schiebetür rechts
-                  - entity: cover.livingroom_window_4a
-                    icon: 'mdi:format-align-justify'
-                    name: Schiebetür links
-              - entity: cover.kitchen
+              - entity: cover.livingroom_window_4b
                 icon: 'mdi:format-align-justify'
-              - entity: cover.livingroom_window_3
+                name: Schiebetür rechts
+              - entity: cover.livingroom_window_4a
                 icon: 'mdi:format-align-justify'
-              - entity: cover.livingroom_window_2
-                icon: 'mdi:format-align-justify'
-              - entity: cover.livingroom_window_1
-                icon: 'mdi:format-align-justify'
-              - label: Obergeschoss
-                type: section
-                style:
-                  height: 3px
-              - entity: cover.bedroom
-                icon: 'mdi:format-align-justify'
-              - entity: cover.nursery
-                icon: 'mdi:format-align-justify'
-              - entity: cover.nursery_bed
-                icon: 'mdi:format-align-justify'
-            show_header_toggle: false
-            title: Rollläden
-          - type: 'custom:mini-media-player'
-            icon: mdi:speaker
-            entity: media_player.office
-            artwork: cover
-            hide:
-              volume: true
-              source: true
-              power_state: false
-          - type: 'custom:mini-media-player'
-            icon: mdi:speaker
-            entity: media_player.livingroom
-            artwork: cover
-            hide:
-              volume: true
-              source: true
-              power_state: false
-          - type: 'custom:mini-media-player'
-            icon: mdi:speaker
-            entity: media_player.move
-            artwork: cover
-            hide:
-              volume: true
-              source: true
-              power_state: false
-          - type: entities
-            entities:
-              - vacuum.hall_robbie
-              - switch.hall_robbie_schedule
-              - sensor.hall_robbie_battery
-          - type: picture-entity
-            entity: camera.hall_robbie_cleaning_map
-          - break
-          - type: entities
-            entities:
-              - switch.office_desk
-              - binary_sensor.office_desk
-              - sensor.office_desk_power
-              - sensor.office_desk_daily_energy
-              - sensor.office_desk_energy_counter
-            show_header_toggle: false
-            title: Büro Markus
-          - type: entities
-            entities:
-              - switch.kitchen_dishwasher
-              - sensor.kitchen_dishwasher_state
-              - sensor.kitchen_dishwasher_power
-              - sensor.kitchen_dishwasher_daily_energy
-              - sensor.kitchen_dishwasher_energy_counter
-            show_header_toggle: false
-            title: Spülmaschine
-          - type: entities
-            entities:
-              - switch.laundryroom_freezer
-              - sensor.laundryroom_freezer_power
-              - sensor.laundryroom_freezer_daily_energy
-              - sensor.laundryroom_freezer_energy_counter
-            show_header_toggle: false
-            title: Gefrierschrank
-          - type: entities
-            entities:
-              - sensor.kitchen_fridge_temperature
-              - sensor.kitchen_fridge_humidity
-            show_header_toggle: false
-            title: Kühlschrank
-          - type: entities
-            entities:
-              - light.nursery_bed
-              - light.nursery_stars
-              - switch.nursery_dollhouse
-            title: Kinderzimmer
-            show_header_toggle: false
+                name: Schiebetür links
+          - entity: cover.kitchen
+            icon: 'mdi:format-align-justify'
+            type: "custom:secondaryinfo-entity-row"
+            secondary_info: '[[ cover.kitchen.state ]]'
+          - entity: cover.livingroom_window_3
+            icon: 'mdi:format-align-justify'
+            type: "custom:secondaryinfo-entity-row"
+            secondary_info: '[[ cover.livingroom_window_3.state ]]'
+          - entity: cover.livingroom_window_2
+            icon: 'mdi:format-align-justify'
+            type: "custom:secondaryinfo-entity-row"
+            secondary_info: '[[ cover.livingroom_window_2.state ]]'
+          - entity: cover.livingroom_window_1
+            icon: 'mdi:format-align-justify'
+            type: "custom:secondaryinfo-entity-row"
+            secondary_info: '[[ cover.livingroom_window_1.state ]]'
+        show_header_toggle: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Rollläden Obergeschoss'
+          - icon: mdi:window-shutter-open
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: cover.bedroom
+            icon: 'mdi:format-align-justify'
+            type: "custom:secondaryinfo-entity-row"
+            secondary_info: '[[ cover.bedroom.state ]]'
+          - entity: cover.nursery
+            icon: 'mdi:format-align-justify'
+            type: "custom:secondaryinfo-entity-row"
+            secondary_info: '[[ cover.nursery.state ]]'
+          - entity: cover.nursery_bed
+            icon: 'mdi:format-align-justify'
+            type: "custom:secondaryinfo-entity-row"
+            secondary_info: '[[ cover.nursery_bed.state ]]'
+        show_header_toggle: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Kinderzimmer'
+          - icon: mdi:hotel
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - light.nursery_bed
+          - light.nursery_stars
+          - switch.nursery_dollhouse
+        show_header_toggle: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Sonos'
+      - type: 'custom:mini-media-player'
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        icon: mdi:speaker
+        entity: media_player.office
+        artwork: cover
+        hide:
+          volume: true
+          source: true
+          power_state: false
+      - type: 'custom:mini-media-player'
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        icon: mdi:speaker
+        entity: media_player.livingroom
+        artwork: cover
+        hide:
+          volume: true
+          source: true
+          power_state: false
+      - type: 'custom:mini-media-player'
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        icon: mdi:speaker
+        entity: media_player.move
+        artwork: cover
+        hide:
+          volume: true
+          source: true
+          power_state: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Geräte'
+          - icon: mdi:devices
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - switch.kitchen_dishwasher
+          - switch.laundryroom_freezer
+        show_header_toggle: false
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Katzenklo'
+          - icon: mdi:cat
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.hall_all_litterbox_visits
+        show_header_toggle: false
+        show_state: false
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Robbie'
+          - icon: mdi:robot-vacuum
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - vacuum.hall_robbie
+          - switch.hall_robbie_schedule
+          - sensor.hall_robbie_battery
+      - type: picture-entity
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.hall_robbie_cleaning_map

@@ -3,115 +3,200 @@
 #
 title: Security
 icon: mdi:security
-panel: true
 path: security
 
+badges: []
 cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/markus.jpg'
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/jasmina.jpg'
+
   - type: vertical-stack
     cards:
-      - type: custom:layout-card
-        layout: horizontal
-        max_columns: 2
-        cards:
-          - type: glance
-            title: Bewegungsmelder
-            entities:
-              - binary_sensor.hall_downstairs_motion
-              - binary_sensor.hall_upstairs_motion
-              - binary_sensor.livingroom_motion
-            show_header_toggle: false
-            show_state: false
-          - type: glance
-            title: Fenster & Türen
-            entities:
-              - binary_sensor.hall_frontdoor
-              - binary_sensor.garden_carport_door
-              - binary_sensor.livingroom_window_3
-              - binary_sensor.livingroom_window_4
-              - binary_sensor.kitchen_window
-              - binary_sensor.livingroom_window_1
-              - binary_sensor.livingroom_window_2
-              - binary_sensor.guests_window
-              - binary_sensor.laundryroom_window
-              - binary_sensor.office_window
-            show_header_toggle: false
-            show_state: false
-          - break
-          - type: "custom:aarlo-glance"
-            entity: camera.aarlo_eingang
-            show:
-              - motion
-              - sound
-              - snapshot
-              - battery_level
-              - signal_strength
-              - captured_today
-            top_title: false
-            top_status: false
-          - type: "custom:aarlo-glance"
-            entity: camera.aarlo_carport
-            show:
-              - motion
-              - sound
-              - snapshot
-              - battery_level
-              - signal_strength
-              - captured_today
-            top_title: false
-            top_status: false
-          - type: "custom:aarlo-glance"
-            entity: camera.aarlo_garten
-            show:
-              - motion
-              - sound
-              - snapshot
-              - battery_level
-              - signal_strength
-              - captured_today
-            top_title: false
-            top_status: false
-          - type: "custom:aarlo-glance"
-            entity: camera.aarlo_terrasse
-            show:
-              - motion
-              - sound
-              - snapshot
-              - battery_level
-              - signal_strength
-              - captured_today
-            top_title: false
-            top_status: false
-          - break
-          - type: "custom:aarlo-glance"
-            entity: camera.aarlo_pool
-            show:
-              - motion
-              - sound
-              - snapshot
-              - battery_level
-              - signal_strength
-              - captured_today
-            top_title: false
-            top_status: false
-      - type: custom:layout-card
-        layout: horizontal
-        max_columns: 2
-        cards:
-          - type: entities
-            entities:
-              - entity: alarm_control_panel.alarm_haus
-              - entity: sensor.hall_siren_armstate
-              - entity: switch.hall_siren_1
-              - entity: switch.hall_siren_2
-              - entity: switch.hall_siren_3
-            show_header_toggle: false
-            title: Alarm Haus
-          - type: entities
-            entities:
-              - entity: alarm_control_panel.alarm_carport
-              - entity: sensor.garden_carport_siren_armstate
-              - entity: switch.garden_carport_siren_1
-              - entity: switch.garden_carport_siren_2
-              - entity: switch.garden_carport_siren_3
-            show_header_toggle: false
-            title: Alarm Carport
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Bewegungsmelder'
+          - icon: mdi:motion
+      - type: glance
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - binary_sensor.hall_downstairs_motion
+          - binary_sensor.hall_upstairs_motion
+          - binary_sensor.livingroom_motion
+        show_header_toggle: false
+        show_state: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Fenster & Türen'
+          - icon: mdi:window-closed-variant
+      - type: glance
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - binary_sensor.hall_frontdoor
+          - binary_sensor.garden_carport_door
+          - binary_sensor.livingroom_window_3
+          - binary_sensor.livingroom_window_4
+          - binary_sensor.kitchen_window
+          - binary_sensor.livingroom_window_1
+          - binary_sensor.livingroom_window_2
+          - binary_sensor.guests_window
+          - binary_sensor.laundryroom_window
+          - binary_sensor.office_window
+        show_header_toggle: false
+        show_state: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Kameras'
+          - icon: mdi:cctv
+      - type: "custom:aarlo-glance"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.aarlo_eingang
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_title: false
+        top_status: false
+      - type: "custom:aarlo-glance"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.aarlo_carport
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_title: false
+        top_status: false
+      - type: "custom:aarlo-glance"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.aarlo_garten
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_title: false
+        top_status: false
+      - type: "custom:aarlo-glance"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.aarlo_terrasse
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_title: false
+        top_status: false
+      - type: "custom:aarlo-glance"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.aarlo_pool
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_title: false
+        top_status: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Alarm Haus'
+          - icon: mdi:alarm-light
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: alarm_control_panel.alarm_haus
+          - entity: sensor.hall_siren_armstate
+          - entity: switch.hall_siren_1
+          - entity: switch.hall_siren_2
+          - entity: switch.hall_siren_3
+        show_header_toggle: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Alarm Carport'
+          - icon: mdi:alarm-light
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: alarm_control_panel.alarm_carport
+          - entity: sensor.garden_carport_siren_armstate
+          - entity: switch.garden_carport_siren_1
+          - entity: switch.garden_carport_siren_2
+          - entity: switch.garden_carport_siren_3
+        show_header_toggle: false
