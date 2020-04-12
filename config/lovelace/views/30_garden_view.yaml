@@ -159,7 +159,6 @@ cards:
           - sensor.garden_luftdaten_air_quality_pm2_5
           - sensor.garden_luftdaten_pm_2_5
         show_header_toggle: false
-        title: 
       - type: custom:decluttering-card
         template: card_header
         variables:

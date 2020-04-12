@@ -142,7 +142,6 @@ cards:
               secondary_info: last-changed
         show_header_toggle: false
 
-
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
