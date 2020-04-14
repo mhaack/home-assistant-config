@@ -105,29 +105,28 @@ Most of the sensor got replaced with Xiaomi Aqara devices recently, they are sma
 
 | Device                                                                       | Quantity |                                 Home Assistant                                 | Notes                                                                        |
 | ---------------------------------------------------------------------------- | :------: | :----------------------------------------------------------------------------: | ---------------------------------------------------------------------------- |
-| [Wireless Door/Window Sensor, optical (HM-Sec-SCo)](https://amzn.to/2HxLPim) |    9     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Door sensors to detect if windows & exterior doors have been opened / closed |
-| [Wireless Shutter Contact (HM-Sec-SC-2)](https://amzn.to/2zwj1Cw)            |    1     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Door sensors to detect if windows have been opened / closed |
-| [Wireless Motion Detector (HM-Sec-MDIR-3)](https://amzn.to/2PnuM97)          |    3     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Indoor motion detection |
-| [Wireless Siren (HM-Sec-Sir-WM)](https://amzn.to/2ZtDu5q)                    |    2     |    [Homematic Switch](https://www.home-assistant.io/components/homematic/)     | Indoor alarm siren |
-| [Rademacher DuoFern Motor Actuator 9471-1](https://amzn.to/2NGKnhC)          |    9     |       [pyduofern](https://github.com/gluap/pyduofern) (custom component)       | Flush-mounted actuator for roller shutter motors |
+| [Wireless Door/Window Sensor, optical (HM-Sec-SCo)](https://www.eq-3.com/products/homematic/detail/homematic-wireless-door-window-sensor-optical.html) |    9     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Door sensors to detect if windows & exterior doors have been opened / closed |
+| [Wireless Shutter Contact (HM-Sec-SC-2)](https://www.eq-3.com/products/homematic/detail/homematic-wireless-window-sensor.html)            |    1     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Door sensors to detect if windows have been opened / closed |
+| [Wireless Motion Detector (HM-Sec-MDIR-3)](https://www.eq-3.com/products/homematic/detail/homematic-wireless-motion-detector-indoor.html)          |    3     | [Homematic Binary Sensor](https://www.home-assistant.io/components/homematic/) | Indoor motion detection |
+| [Wireless Siren (HM-Sec-Sir-WM)](https://www.eq-3.com/products/homematic/detail/homematic-wireless-siren-with-signal-light.html)                    |    2     |    [Homematic Switch](https://www.home-assistant.io/components/homematic/)     | Indoor alarm siren |
+| [Rademacher DuoFern Motor Actuator 9471-1](https://www.rademacher.de/en/smart-home/produkte/rohrmotor-aktor-9471-1?productID=35140662) |    9    |       [pyduofern](https://github.com/gluap/pyduofern) (custom component)       | Flush-mounted actuator for roller shutter motors |
 
 #### Media & Voice Assistant
 
 | Device                                     | Quantity |                            Home Assistant                             | Notes                                                     |
 | ------------------------------------------ | :------: | :-------------------------------------------------------------------: | --------------------------------------------------------- |
-| [Sonos Play:3](https://amzn.to/2Lum6Ka)    |    2     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | Our main music system in the house and Home Assistant TTS |
-| [Sonos Play:5](https://amzn.to/30a38ME)    |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | Still the 1st generation one 😞, get the new one          |
-| [Sonos PlayBar](https://amzn.to/2N8Mco3)   |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | TV sound                                                  |
-| [Sonos Sub](https://amzn.to/34NUuau)       |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | TV sound                                                  |
+| [Sonos Play:3](https://www.sonos.com/en-us/home)    |    1    | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | Our main music system in the house and Home Assistant TTS |
+| [Sonos Move](https://www.sonos.com/en-us/shop/move.html)    |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | Still the 1st generation one 😞, get the new one          |
+| [Sonos PlayBar](https://www.sonos.com/en-us/shop/playbar.html)   |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | TV sound                                                  |
+| [Sonos Sub](https://www.sonos.com/en-us/shop/sub.html)       |    1     | [Sonos](https://www.home-assistant.io/components/media_player.sonos/) | TV sound                                                  |
 | [Amazon Echo](https://amzn.to/2HM0XIW)     |    1     |         Via [Nabu Casa](https://www.home-assistant.io/cloud/)         | Voice control                                             |
-| [Amazon Echo Dot](https://amzn.to/2Q4h9vZ) |    2     |         Via [Nabu Casa](https://www.home-assistant.io/cloud/)         | Voice control                                             |
 
 #### Cameras
 
 | Device                                | Quantity |                 Home Assistant                  | Notes                                                 |
 | ------------------------------------- | :------: | :---------------------------------------------: | ----------------------------------------------------- |
-| [Arlo HD](https://amzn.to/2Q4hLBN)    |    3     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Started with these, then added Arlo Pro 2 later       |
-| [Arlo Pro 2](https://amzn.to/2PPtZ0W) |    2     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Definitely much better quality then the 1st generation |
+| [Arlo HD](https://www.arlo.com/)    |    3     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Started with these, then added Arlo Pro 2 later       |
+| [Arlo Pro 2](https://www.arlo.com/) |    2     | [Aarlo](https://github.com/twrecked/hass-aarlo) | Definitely much better quality then the 1st generation |
 
 The main argument for us to choose Arlo cameras were they are powered
 via a battery since we have them placed mainly in places without power supply.
@@ -140,19 +139,19 @@ with USB power supply.
 
 | Device                                       |                          Home Assistant                           | Notes                          |
 | -------------------------------------------- | :---------------------------------------------------------------: | ------------------------------ |
-| [iRobot Roomba 690](https://amzn.to/31lkpUU) | [iRobot Roomba](https://www.home-assistant.io/components/roomba/) | Not much to say, does the job. |
+| [Neato Botvac D7](https://neatorobotics.com/) | [Neato](https://www.home-assistant.io/integrations/neato/) | Not much to say, does the job. |
 
 #### Garden
 
 | Device                                     |                     Home Assistant                     | Notes                                                                                                        |
 | ------------------------------------------ | :----------------------------------------------------: | ------------------------------------------------------------------------------------------------------------ |
-| [Worx Landroid S](https://amzn.to/32GTGSV) | [MQTT](https://www.home-assistant.io/components/mqtt/) | This little guy is integrated via [Landroid Bridge](https://github.com/virtualzone/landroid-bridge) and MQTT |
+| [Worx Landroid S](https://worx-europe.com/) | [MQTT](https://www.home-assistant.io/components/mqtt/) | This little guy is integrated via [Landroid Bridge](https://github.com/virtualzone/landroid-bridge) and MQTT |
 
 There is no direct integration of Landroid lawn mowers with Home Assistant yet, but the [Landroid Bridge](https://github.com/virtualzone/landroid-bridge) does a pretty good job. Landroid Bridge runs on a Raspberry Pi 3 in Docker container. It gets the lawn mover updates from the cloud and pushes them to Home Assistant via MQTT.
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
-[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.105.x-blue
+[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.108.x-blue
 [license-shield]: https://img.shields.io/github/license/mhaack/home-assistant-config.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2019.svg
 [circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg
