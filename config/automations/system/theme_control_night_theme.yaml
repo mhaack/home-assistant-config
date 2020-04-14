@@ -8,4 +8,4 @@ trigger:
 action:
   - service: frontend.set_theme
     data:
-      name: google_dark_theme
+      name: Google Dark Theme
