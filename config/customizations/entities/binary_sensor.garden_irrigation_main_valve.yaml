@@ -1,0 +1,8 @@
+---
+#
+# Customizes virtual irrigation main valve
+#
+# https://www.home-assistant.io/docs/configuration/customizing-devices/
+#
+binary_sensor.garden_irrigation_main_valve:
+  icon: mdi:water-pump

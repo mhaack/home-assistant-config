@@ -40,6 +40,7 @@ cards:
           - entity: sensor.beete_next_cycle
           - entity: sensor.vorgarten_next_cycle
           - entity: sensor.hecke_next_cycle
+          - entity: binary_sensor.garden_irrigation_main_valve
         show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header

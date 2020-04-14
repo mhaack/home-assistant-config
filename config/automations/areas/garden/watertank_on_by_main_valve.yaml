@@ -1,0 +1,19 @@
+---
+# Switch on watertank pump on when irrigation main valve (controlled by
+# Hydrawise zone plans) is on.
+#
+id: 493a7766-2d4f-4f11-a80d-413d02f2498e
+alias: "[Watertank] Pump on by main valve"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_irrigation_main_valve
+    from: "off"
+    to: "on"
+action:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.garden_watertank_pump
+  - service: notify.system_pushover_markus
+    data:
+      title: "JaMa Villa"
+      message: "Bewässerung wurde eingeschaltet."
