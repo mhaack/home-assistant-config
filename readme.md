@@ -49,18 +49,18 @@ My Home Assistant system currently runs on a Raspberry PI 3 with 16GByte SanDisk
 
 | Device                                        |                          Home Assistant                          | Notes                                       |
 | --------------------------------------------- | :--------------------------------------------------------------: | ------------------------------------------- |
-| [Homematic CCU3](https://amzn.to/2HyzEBK)     | [Homematic](https://www.home-assistant.io/components/homematic/) | Used to control all Homematic devices      |
-| [deCONZ Conbee II](https://amzn.to/2A73E3I)   |    [deCONZ](https://www.home-assistant.io/components/deconz/)    | The main ZigBee Hub                         |
-| [Arlo Hub](https://amzn.to/2Qf3D8S)           | [Aarlo](https://github.com/twrecked/hass-aarlo) custom component | Arlo camera system integration              |
+| [Homematic CCU3](https://www.homematic-ip.com/en/products/detail/smart-home-central-control-unit-ccu3.html) | [Homematic](https://www.home-assistant.io/components/homematic/) | Used to control all Homematic devices |
+| [deCONZ Conbee II](https://www.phoscon.de/en/conbee2) | [deCONZ](https://www.home-assistant.io/components/deconz/) | The main ZigBee Hub |
+| [Arlo Hub](https://shop.arlo.com/accessories.arlo/VMB4000-100NAS.html) | [Aarlo](https://github.com/twrecked/hass-aarlo) custom component | Arlo camera system integration |
 
 #### Network
 
 | Device                                                                            | Quantity | Home Assistant                                                    | Notes                                   |
 | --------------------------------------------------------------------------------- | :------: | ----------------------------------------------------------------- | --------------------------------------- |
-| [Ubiquiti Networks UniFi Switch - 16 Ports (US-16-150W)](https://amzn.to/2LqnXPQ) |    1     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Primary network switch                  |
-| [Ubiquiti Networks Unifi AP Lite (UAP-AC-LITE)](https://amzn.to/2Q7fbL5)          |    2     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Wireless Access Point for interior use. |
-| [Ubiquiti Unifi Security Gateway (USG)](https://amzn.to/2AbZc3K)                  |    1     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Main router & firewall device           |
-| [Draytek Vigor 130 ADSL/VDSL modem](https://amzn.to/2NJI4Kv)                      |    1     | n/a                                                               | The connection to the outside world     |
+| [Ubiquiti Networks UniFi Switch - 16 Ports (US-16-150W)](https://www.ui.com/unifi-switching/unifi-switch-16-150w/) |    1     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Primary network switch |
+| [Ubiquiti Networks Unifi AP Lite (UAP-AC-LITE)](https://www.ui.com/unifi/unifi-ap-ac-lite/) |    2     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Wireless Access Point for interior use. |
+| [Ubiquiti Unifi Security Gateway (USG)](https://www.ui.com/unifi-routing/usg/) |    1     | [Ubiquiti Unifi](https://www.home-assistant.io/components/unifi/) | Main router & firewall device |
+| [Draytek Vigor 130 ADSL/VDSL modem](https://www.draytek.com/products/vigor130/) |    1     | n/a | Main DSL device fot the connection to the outside world |
 
 On network gear we are all-in for Unifi devices, they provide a reliable and stable network for our house. The Draytek modem is connected to the DSL line of the internet provider. The Unifi network equipment is also used as one of the primary presence detection methods.
 
@@ -68,23 +68,23 @@ On network gear we are all-in for Unifi devices, they provide a reliable and sta
 
 | Device                                                                     | Quantity |                              Home Assistant                              | Notes                                      |
 | -------------------------------------------------------------------------- | :------: | :----------------------------------------------------------------------: | ------------------------------------------ |
-| [Philips Hue White and Color Ambiance](https://amzn.to/2ZAoV50)            |    3     | [Philips Hue Light](https://www.home-assistant.io/components/light.hue/) | Color-changing smart bulbs                 |
-| [Philips Hue White and Color Ambiance LightStrip](https://amzn.to/2zUd3LJ) |    2     | [Philips Hue Light](https://www.home-assistant.io/components/light.hue/) | Ambiante lights in kitchen and for TV wall |
-| [Paulman RGBW Controller ZigBee](https://amzn.to/2ZP2V1A)                  |    1     |  [deCONZ Light](https://www.home-assistant.io/components/deconz/#light)  | Driver for old reused classic LED strip |
-| [Sonoff S20 Smart Socket](https://amzn.to/2Znqe7f)                         |    9     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | The main Christmas season light driver |
+| [Philips Hue White and Color Ambiance](https://www2.meethue.com/en-gb/p/hue-white-and-colour-ambience-1-pack-e27/8718699673109) |    3     | [Philips Hue Light](https://www.home-assistant.io/components/light.hue/) | Color-changing smart bulbs |
+| [Philips Hue White and Color Ambiance LightStrip](https://www2.meethue.com/en-gb/p/hue-white-and-colour-ambience-lightstrip-plus/7190155PH) |    2     | [Philips Hue Light](https://www.home-assistant.io/components/light.hue/) | Ambiante lights in kitchen and for TV wall |
+| [Paulman RGBW Controller ZigBee](https://de.paulmann.com/innenleuchten/smart-home/zigbee/smarthome-zigbee-maxled-rgbw-controller-max.-72w/50047) |    1     |  [deCONZ Light](https://www.home-assistant.io/components/deconz/#light)  | Driver for old reused classic LED strip |
+| [Sonoff S20 Smart Socket](https://sonoff.tech/product/wifi-smart-plugs/s20) |    9     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/) | The main Christmas season light driver |
 
 #### Outlets & Switches
 
 | Device                                                                                                             | Quantity |                             Home Assistant                              | Notes                                                               |
 | ------------------------------------------------------------------------------------------------------------------ | :------: | :---------------------------------------------------------------------: | ------------------------------------------------------------------- |
-| [Wireless Switch Actuator 1-channel with power metering (HM-ES-PMSw1-Pl-DN-R1)](https://amzn.to/2ZqGkwZ)           |    3     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Indoor outlet for selected devices, mainly for power metering       |
-| [Wireless Switch Actuator 1-channel, flush-mount (HM-LC-Sw1-FM)](https://amzn.to/2L7z2p2)                          |    1     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Hallway light switch                                                |
-| [Wireless Switch Actuator 1-channel, DIN-rail mount (HM-LC-Sw1-DR)](https://amzn.to/2L8Jv3p)                       |    4     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Used to control outdoor                                             |
-| [Wireless Switch Actuator 2-channel with power metering, DIN-rail mount (HM-ES-PMSw1-DR)](https://amzn.to/2NMf2tA) |    4     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Used to control pumps of the pool and water tank                    |
-| [Wireless Switch Actuator 4-channel, DIN-rail mount (HM-LC-Sw4-DR)](https://amzn.to/2ZrPUPZ)                       |    1     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Used to control outdoor and pool lighting                           |
-| [Sonoff S20 Smart Socket](https://amzn.to/2Znqe7f)                                                                 |    11    |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | The main Christmas season light driver                              |
-| [Sonoff 4CH Pro R2](https://amzn.to/2LbEIhT)                                                                       |    1     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Used to control outdoor garden low power lighting                   |
-| [Sonoff TH16](https://amzn.to/2L8EVlF)                                                                             |    1     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Carport light and outdoor temperature & humidity with Si7021 sensor |
+| [Wireless Switch Actuator 1-channel with power metering (HM-ES-PMSw1-Pl-DN-R1)](https://www.eq-3.com/products/homematic/detail/wireless-switch-actuator-1-channel-with-power-metering-plug-adapter-type-f.html) |    3     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Indoor outlet for selected devices, mainly for power metering |
+| [Wireless Switch Actuator 1-channel, flush-mount (HM-LC-Sw1-FM)](https://www.eq-3.com/products/homematic/detail/homematic-wireless-switch-actuator-1-channel-flush-mount.html) |    1     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Hallway light switch |
+| [Wireless Switch Actuator 1-channel, DIN-rail mount (HM-LC-Sw1-DR)](https://www.eq-3.com/products/homematic/detail/wireless-switch-actuator-1-channel-din-rail-mount.html) |    4     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Used to control outdoor |
+| [Wireless Switch Actuator 2-channel with power metering, DIN-rail mount (HM-ES-PMSw1-DR)](https://de.elv.com/elv-homematic-hutschienen-schaltaktor-mit-leistungsmessung-hm-es-pmsw1-dr-150749?fs=648590641) |    4     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Used to control pumps of the pool and water tank |
+| [Wireless Switch Actuator 4-channel, DIN-rail mount (HM-LC-Sw4-DR)](https://www.eq-3.com/products/homematic/detail/homematic-wireless-switch-actuator-4-channel-din-rail-mount.html) |    1     | [Homematic Switch](https://www.home-assistant.io/components/homematic/) | Used to control outdoor and pool lighting |
+| [Sonoff S20 Smart Socket](https://sonoff.tech/product/wifi-smart-plugs/s20) |    11    |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | The main Christmas season light driver |
+| [Sonoff 4CH Pro R2](https://sonoff.tech/product/wifi-diy-smart-switches/4ch-r2-pro-r2) |    1     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Used to control outdoor garden low power lighting |
+| [Sonoff TH16](https://sonoff.tech/product/wifi-diy-smart-switches/th10-th16) |    1     |  [MQTT Switch](https://www.home-assistant.io/components/switch.mqtt/)   | Carport light and outdoor temperature & humidity with Si7021 sensor |
 
 Switches and outlets are used in various capacities, most are for lighting and some are for pool & pump devices. For devices consuming more energy I prefer the Homematic devices, they give a good and secure overall impression. For seasonal Christmas lighting (most are low power LEDs) I mainly use Sonoff outlets.
 
@@ -92,11 +92,10 @@ Switches and outlets are used in various capacities, most are for lighting and s
 
 | Device                                                                                | Quantity |                              Home Assistant                              | Notes                                               |
 | ------------------------------------------------------------------------------------- | :------: | :----------------------------------------------------------------------: | --------------------------------------------------- |
-| [Wireless Differential Temperature Sensor (HM-WDS30-OT2-SM)](https://amzn.to/2PnlppL) |    2     | [Homematic Sensor](https://www.home-assistant.io/components/homematic/)  | Pool & solar temperature sensor for pool automation |
-| [Xiaomi Aqara Smart Temperature Humidity Sensor](https://amzn.to/2ZqKXac)             |    6     | [deCONZ Sensor](https://www.home-assistant.io/components/deconz/#sensor) | Main indoor temperature & humidity sensor           |
-| [Xiaomi Aqara Smart Vibration Sensor](https://amzn.to/2zwhQCX)                        |    2     | [deCONZ Sensor](https://www.home-assistant.io/components/deconz/#sensor) | Moving detection of our garden bench ;-)            |
-| [Sonoff TH16](https://amzn.to/2L8EVlF) with Si7021 sensor                             |    1     |   [MQTT Sensor](https://www.home-assistant.io/integrations/sensor.mqtt/)   | Garden & outdoor temperature & humidity sensor      |
-
+| [Wireless Differential Temperature Sensor (HM-WDS30-OT2-SM)](https://www.eq-3.com/products/homematic/detail/homematic-wireless-temperature-sensor-outdoor.html) |    2     | [Homematic Sensor](https://www.home-assistant.io/components/homematic/)  | Pool & solar temperature sensor for pool automation |
+| [Xiaomi Aqara Smart Temperature Humidity Sensor](https://nis-store.com/sockets-and-sensors/aqara-temperature-and-humidity-sensor/) |    6     | [deCONZ Sensor](https://www.home-assistant.io/components/deconz/#sensor) | Main indoor temperature & humidity sensor           |
+| [Xiaomi Aqara Smart Vibration Sensor](https://www.gearbest.com/smart-home-controls/pp_009661787808.html) |    2     | [deCONZ Sensor](https://www.home-assistant.io/components/deconz/#sensor) | Moving detection of our garden bench ;-)            |
+| [Sonoff TH16](https://sonoff.tech/product/wifi-diy-smart-switches/th10-th16) with Si7021 sensor |    1     |   [MQTT Sensor](https://www.home-assistant.io/integrations/sensor.mqtt/)   | Garden & outdoor temperature & humidity sensor      |
 | [luftdaten.info](https://luftdaten.info/) air quality sensor                         |    1     |   [REST Sensor](https://www.home-assistant.io/integrations/rest/)   | DYI Fine dust & air quality sensor based on SDS011 board with additional BME280 sensor to measure temperature & air pressure and humidity |
 
 Most of the sensor got replaced with Xiaomi Aqara devices recently, they are small and very reliable, connected via ZigBee deCONZ. Unfortunately, they are only for indoor use, so I keep the Homematic HM-WDS30-OT2-SM for outdoor.
