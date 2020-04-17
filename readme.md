@@ -141,6 +141,12 @@ with USB power supply.
 | -------------------------------------------- | :---------------------------------------------------------------: | ------------------------------ |
 | [Neato Botvac D7](https://neatorobotics.com/) | [Neato](https://www.home-assistant.io/integrations/neato/) | Not much to say, does the job. |
 
+#### Mailbox
+
+| Device                                | Quantity |                 Home Assistant                  | Notes                                                 |
+| ------------------------------------- | :------: | :---------------------------------------------: | ----------------------------------------------------- |
+| [Xiaomi Aqara Window Door Sensor](https://xiaomi-mi.com/sockets-and-sensors/xiaomi-aqara-window-door-sensor/)    |    2     | [deCONZ](https://www.home-assistant.io/components/deconz/) | Detect opening of the mailbox flap or door |
+
 #### Garden
 
 | Device                                     |                     Home Assistant                     | Notes                                                                                                        |
