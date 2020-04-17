@@ -15,4 +15,4 @@ sensors:
       {{ is_state("sensor.beete_next_cycle", "Now") or
         is_state("sensor.hecke_next_cycle", "Now") or
         is_state("sensor.rasen_next_cycle", "Now") or
-        is_state("sensor.rasen_next_cycle", "Now") }}
+        is_state("sensor.vorgarten_next_cycle", "Now") }}
