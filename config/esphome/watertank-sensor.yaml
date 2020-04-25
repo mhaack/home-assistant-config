@@ -41,27 +41,25 @@ sensor:
             }
           }
 
+  - platform: template
+    name: garden_watertank_liter
+    id: garden_watertank_liter
+    icon: "mdi:water"
+    unit_of_measurement: "l"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: garden_watertank_percent
+    id: garden_watertank_percent
+    icon: "mdi:water-percent"
+    unit_of_measurement: "%"
+
   - platform: ultrasonic
     trigger_pin: D1
     echo_pin: D2
     name: garden_watertank_distance
-    update_interval: 300s
+    update_interval: 60s
     pulse_time: 50us
-    filters:
-      - filter_out: nan
-      - median:
-          window_size: 7
-          send_every: 4
-          send_first_at: 3
-
-  - platform: ultrasonic
-    trigger_pin: D1
-    echo_pin: D2
-    name: garden_watertank_liter
-    icon: "mdi:water"
-    update_interval: 300s
-    pulse_time: 50us
-    unit_of_measurement: "l"
     filters:
       - filter_out: nan
       - median:
@@ -69,29 +67,14 @@ sensor:
           send_every: 4
           send_first_at: 3
       - calibrate_linear:
-          - 0.55 -> 1.86
+          - 0.45 -> 1.86
           - 2.41 -> 0.0
-      # V = π * r2 * h
-      # V (qm) = π * 1m*1m * x
-      # V (l) = π * 1m*1m * x * 1000
-      - lambda: return x * 3141.592653589793238;
+    on_value:
+      then:
+        - sensor.template.publish:
+            id: garden_watertank_liter
+            state: !lambda 'return x * 3141.592653589793238;'
 
-  - platform: ultrasonic
-    trigger_pin: D1
-    echo_pin: D2
-    name: garden_watertank_percent
-    icon: "mdi:water-percent"
-    update_interval: 300s
-    pulse_time: 50us
-    unit_of_measurement: "%"
-    filters:
-      - filter_out: nan
-      - median:
-          window_size: 7
-          send_every: 4
-          send_first_at: 3
-      - calibrate_linear:
-          - 0.55 -> 1.86
-          - 2.41 -> 0.0
-      # V (l) = π * 1m*1m * x * 1000 / 5820 * 100
-      - lambda: return x * 53.979255216319471;
+        - sensor.template.publish:
+            id: garden_watertank_percent
+            state: !lambda 'return x * 53.979255216319471;'
