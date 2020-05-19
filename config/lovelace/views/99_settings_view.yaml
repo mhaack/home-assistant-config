@@ -147,6 +147,27 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
+          - content: 'Briefkasten'
+          - icon: "mdi:mailbox-open"
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.garden_mailbox_mail
+          - entity: binary_sensor.garden_mailbox_door
+          - entity: binary_sensor.garden_mailbox_flap
+        show_header_toggle: false
+        show_state: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
           - content: 'Katzenklo'
           - icon: mdi:cat
       - type: entities

@@ -12,8 +12,6 @@ title: JaMa Villa Admin
 custom_header:
   compact_mode: true
   hide_config: true
-  footer_mode: true
-  hide_tabs: '{% if is_state("input_boolean.xmas_mode", "off") %}xmas{% endif %}'
   background: var(--app-header-background-color)
   elements_color: var(--app-header-text-color)
   active_tab_color: var(--state-icon-active-color)
