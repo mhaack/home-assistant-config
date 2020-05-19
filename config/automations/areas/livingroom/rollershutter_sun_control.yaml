@@ -21,7 +21,7 @@ condition:
       conditions:
         - condition: numeric_state
           entity_id: sensor.garden_temperature
-          above: 25
+          above: 23
         - condition: numeric_state
           entity_id: weather.dark_sky
           value_template: "{{ state.attributes.temperature }}"
