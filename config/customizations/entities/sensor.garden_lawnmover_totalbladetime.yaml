@@ -1,7 +1,0 @@
----
-#
-# Customizes the Worx Landroid sensors
-#
-sensor.garden_lawnmover_totalbladetime:
-  friendly_name: Mähzeit
-  icon: mdi:scissors-cutting

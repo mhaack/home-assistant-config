@@ -61,4 +61,5 @@ cards:
           - sensor.garden_watertank_pump_power
           - sensor.garden_watertank_pump_daily_energy
           - sensor.garden_watertank_pump_energy_counter
+          - switch.garden_multi_4
         show_header_toggle: false

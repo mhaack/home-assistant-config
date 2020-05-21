@@ -66,7 +66,7 @@ cards:
           - binary_sensor.office_system_printer
           - binary_sensor.system_nas
           - binary_sensor.system_fritzbox
-          - binary_sensor.garden_lawnmover
+          - binary_sensor.garden_landroid
           - binary_sensor.garden_watertank
           - binary_sensor.garden_hydrawise
         show_header_toggle: false

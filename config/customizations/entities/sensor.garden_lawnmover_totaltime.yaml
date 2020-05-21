@@ -1,7 +1,0 @@
----
-#
-# Customizes the Worx Landroid sensors
-#
-sensor.garden_lawnmover_totaltime:
-  friendly_name: Arbeitszeit
-  icon: mdi:progress-clock

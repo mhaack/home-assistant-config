@@ -5,8 +5,6 @@ alias: "[Notify] Pool pump state change notifications"
 trigger:
   - platform: state
     entity_id: switch.pool_pump
-  - platform: state
-    entity_id: switch.pool_valve
 condition:
   - condition: state
     entity_id: input_boolean.pool_notification

@@ -209,7 +209,7 @@ cards:
           - content: 'Rasenmäher Shaun'
       - type: conditional
         conditions:
-          - entity: sensor.garden_lawnmover_error
+          - entity: sensor.landroid_shaun_error
             state: "No error"
         card:
           type: entities
@@ -222,15 +222,14 @@ cards:
           show_header_toggle: false
           entities:
             - switch.garden_lawnmower_power
-            - sensor.garden_lawnmover_status
-            - binary_sensor.garden_lawnmover_batterycharging
-            - sensor.garden_lawnmover_batterylevel
-            - sensor.garden_lawnmover_totaldistance
-            - sensor.garden_lawnmover_totaltime
-            - sensor.garden_lawnmover_totalbladetime
+            - sensor.landroid_shaun_status
+            - entity: sensor.landroid_shaun_battery
+              type: custom:secondaryinfo-entity-row
+              secondary_info: |
+                [[ if(sensor.landroid_shaun_battery.attributes.charging > 0, "Charging", "Not Charging") ]]
       - type: conditional
         conditions:
-          - entity: sensor.garden_lawnmover_error
+          - entity: sensor.landroid_shaun_error
             state_not: "No error"
         card:
           type: entities
@@ -242,13 +241,13 @@ cards:
             }
           show_header_toggle: false
           entities:
-            - sensor.garden_lawnmover_error
-            - sensor.garden_lawnmover_status
-            - switch.garden_lawnmower_power
-            - sensor.garden_lawnmover_batterylevel
-            - sensor.garden_lawnmover_totaldistance
-            - sensor.garden_lawnmover_totaltime
-            - sensor.garden_lawnmover_totalbladetime
+            - entity: switch.garden_lawnmower_power
+            - entity: sensor.landroid_shaun_error
+            - entity: sensor.landroid_shaun_status
+            - entity: sensor.landroid_shaun_battery
+              type: custom:secondaryinfo-entity-row
+              secondary_info: |
+                [[ if(sensor.landroid_shaun_battery.attributes.charging > 0, "Charging", "Not Charging") ]]
       - type: custom:decluttering-card
         template: card_header
         variables:

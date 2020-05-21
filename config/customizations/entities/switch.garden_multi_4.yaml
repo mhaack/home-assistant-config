@@ -4,5 +4,6 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-switch.pool_valve:
+switch.garden_multi_4:
+  friendly_name: Befüllung Zisterne
   icon: mdi:valve
