@@ -6,10 +6,10 @@
 platform: manual
 name: Alarm Haus
 delay_time: 30
-pending_time: 60
+arming_time: 60
 trigger_time: 180
 disarmed:
   trigger_time: 0
 armed_home:
-  pending_time: 0
+  arming_time: 0
   delay_time: 0

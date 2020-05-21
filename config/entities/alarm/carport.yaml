@@ -5,7 +5,7 @@
 #
 platform: manual
 name: Alarm Carport
-pending_time: 0
+arming_time: 0
 delay_time: 0
 trigger_time: 180
 disarmed:
