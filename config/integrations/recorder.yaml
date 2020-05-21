@@ -8,9 +8,6 @@ recorder:
   # The number of days of history to keep in the recorder database
   purge_keep_days: 5
 
-  # How often (in days) the purge task runs
-  purge_interval: 1
-
   # Exclude a few domains and enties as I'm not interested in keeping
   # any of the database records for these items
   exclude:
@@ -28,8 +25,6 @@ recorder:
       - binary_sensor.garden_carport_siren_1_lowbat
       - binary_sensor.garden_carport_siren_2_lowbat
       - binary_sensor.garden_carport_siren_3_lowbat
-      - binary_sensor.garden_lawnmover_batterycharging
-      - binary_sensor.garden_lawnmover_landroid
       - binary_sensor.guests_window_lowbat
       - binary_sensor.hall_downstairs_motion_lowbat
       - binary_sensor.hall_frontdoor_lowbat
@@ -91,12 +86,6 @@ recorder:
       - sensor.equipmentroom_battery_level
       - sensor.garden_bench_1_battery_level
       - sensor.garden_bench_2_battery_level
-      - sensor.garden_lawnmover_batterylevel
-      - sensor.garden_lawnmover_batterylevel
-      - sensor.garden_lawnmover_error
-      - sensor.garden_lawnmover_totalbladetime
-      - sensor.garden_lawnmover_totaldistance
-      - sensor.garden_lawnmover_totaltime
       - sensor.hall_downstairs_brightness
       - sensor.hall_litterbox_1_battery_level
       - sensor.hall_litterbox_2_battery_level
@@ -132,6 +121,9 @@ recorder:
       - sensor.kitchen_battery_level
       - sensor.kitchen_dishwasher_state
       - sensor.kitchen_fridge_battery_level
+      - sensor.landroid_shaun_error
+      - sensor.landroid_shaun_status
+      - sensor.landroid_shaun_battery
       - sensor.last_boot
       - sensor.livingroom_battery_level
       - sensor.livingroom_brightness

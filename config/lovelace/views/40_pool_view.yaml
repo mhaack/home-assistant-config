@@ -27,7 +27,7 @@ cards:
         template: card_header
         variables:
           - content: 'Pool'
-          - icon: mdi:coolant-temperature
+          - icon: mdi:thermometer
       - type: "custom:mini-graph-card"
         style: |
           ha-card {
@@ -35,16 +35,23 @@ cards:
             box-shadow: var(--card-box-shadow);
             margin: 0px 14px 5px 14px;
           }
+        decimals: 1
+        hour24: true
+        hours_to_show: 168
+        points_per_hour: 0.25
         entities:
           - entity: sensor.pool_water_temperature_1
             name: Wassertemperatur
-        hours_to_show: 168
-        points_per_hour: 0.25
-        hour24: true
         show:
           fill: fade
+          extrema: true
+          name: false
           icon: false
-          title: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Poolheizung'
+          - icon: mdi:coolant-temperature
       - type: entities
         style: |
           ha-card {
@@ -87,7 +94,7 @@ cards:
         template: card_header
         variables:
           - content: 'Poolstatistik'
-          - icon: mdi:coolant-temperature
+          - icon: mdi:chart-areaspline
       - type: entities
         style: |
           ha-card {

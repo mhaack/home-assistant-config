@@ -1,6 +1,0 @@
----
-#
-# Customizes the Worx Landroid sensors
-#
-sensor.garden_lawnmover_batterylevel:
-  friendly_name: Batterie

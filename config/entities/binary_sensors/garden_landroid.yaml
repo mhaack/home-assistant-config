@@ -5,7 +5,7 @@
 #
 platform: template
 sensors:
-  garden_lawnmover:
+  garden_landroid:
     friendly_name: Rasenmäher
     device_class: connectivity
     entity_id: device_tracker.landroid_s
