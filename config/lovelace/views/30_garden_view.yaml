@@ -198,7 +198,7 @@ cards:
               name: Bewegungserkennung
             - entity: input_boolean.garden_bench_notification
               name: Benachrichtigen
-            - switch.garden_carport_siren_3
+            - witch.garden_carport_siren_3
           show_header_toggle: false
 
   - type: vertical-stack

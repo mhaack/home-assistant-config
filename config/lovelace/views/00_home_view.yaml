@@ -208,6 +208,23 @@ cards:
         variables:
           - content: 'Sicherheit'
           - icon: "mdi:security"
+      - type: entity-filter
+        show_empty: false
+        entities:
+          - entity: switch.garden_carport_siren_3
+            tap_action:
+              action: toggle
+        state_filter:
+          - "on"
+        card:
+          type: glance
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          show_state: false
       - type: entities
         style: |
           ha-card {

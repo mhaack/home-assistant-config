@@ -1,25 +1,27 @@
 ---
 # Control the pool pump automations based on the mode selection.
 #
-id: 00662d0c-cdd4-45ae-8996-5835fab2dce4
-alias: "[Pool] Pump mode - auto normal"
+id: 65653219-dc63-4b0a-8fc0-55e02b2c73b5
+alias: "[Pool] Pump mode - auto solar"
 trigger:
   - platform: state
     entity_id: input_select.pool_pump_mode
-    to: "Auto - Normal"
+    to: "Auto - Solar"
 action:
+  - service: switch.turn_on
+    entity_id: switch.pool_pump
   - service: homeassistant.turn_on
+    entity_id: automation.pool_daily_solar_pool_pump_schedule_on
+  - service: homeassistant.turn_on
+    entity_id: automation.pool_daily_solar_pool_pump_schedule_off
+  - service: homeassistant.turn_off
     entity_id: automation.pool_daily_normal_pool_pump_schedule_on
-  - service: homeassistant.turn_on
+  - service: homeassistant.turn_off
     entity_id: automation.pool_daily_normal_pool_pump_schedule_off
   - service: homeassistant.turn_off
     entity_id: automation.pool_daily_intense_pool_pump_schedule_on
   - service: homeassistant.turn_off
     entity_id: automation.pool_daily_intense_pool_pump_schedule_off
-  - service: homeassistant.turn_off
-    entity_id: automation.pool_daily_solar_pool_pump_schedule_on
-  - service: homeassistant.turn_off
-    entity_id: automation.pool_daily_solar_pool_pump_schedule_off
   - service: notify.system_pushover_markus
     data_template:
       title: "JaMa Villa Pool"

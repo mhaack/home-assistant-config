@@ -63,6 +63,15 @@ influxdb:
       - sensor.speedtest_download
       - sensor.speedtest_ping
       - sensor.speedtest_upload
+      - sensor.solaredge_current_power
+      - sensor.solaredge_energy_this_month
+      - sensor.solaredge_energy_this_year
+      - sensor.solaredge_energy_today
+      - sensor.solaredge_grid_power
+      - sensor.solaredge_lifetime_energy
+      - sensor.solaredge_power_consumption
+      - sensor.solaredge_solar_power
+      - sensor.solaredge_storage_power
 
   component_config_glob:
     sensor.garden_luftdaten_air_quality*:

@@ -22,6 +22,6 @@ decluttering_templates:
 
 views:
   - !include lovelace/views/60_device_info_view.yaml
+  - !include lovelace/views/70_system_info_view.yaml
   - !include lovelace/views/80_automations_view.yaml
   - !include lovelace/views/99_settings_view.yaml
-  - !include lovelace/views/70_system_info_view.yaml
