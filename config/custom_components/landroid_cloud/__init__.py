@@ -130,7 +130,7 @@ async def async_setup(hass, config):
     async def handle_start(call):
         """Handle start service call."""
         if "id" in call.data:
-            ID = call.data["id"]
+            ID = int(call.data["id"])
 
             for cli in client:
                 attrs = vars(cli)
@@ -144,7 +144,7 @@ async def async_setup(hass, config):
     async def handle_pause(call):
         """Handle pause service call."""
         if "id" in call.data:
-            ID = call.data["id"]
+            ID = int(call.data["id"])
 
             for cli in client:
                 attrs = vars(cli)
@@ -158,7 +158,7 @@ async def async_setup(hass, config):
     async def handle_home(call):
         """Handle pause service call."""
         if "id" in call.data:
-            ID = call.data["id"]
+            ID = int(call.data["id"])
 
             for cli in client:
                 attrs = vars(cli)
@@ -180,19 +180,19 @@ async def async_setup(hass, config):
     
             for cli in client:
                 attrs = vars(cli)
-                if (attrs["id"] == call.data["id"]):
+                if (attrs["id"] == int(call.data["id"])):
                     break
                 else:
                     id += 1
 
         if "raindelay" in call.data:
-            tmpdata["rd"] = call.data["raindelay"]
+            tmpdata["rd"] = int(call.data["raindelay"])
             _LOGGER.debug("Setting rain_delay for %s to %s", client[id].name, call.data["raindelay"])
             sendData = True
 
         if "timeextension" in call.data:
             tmpdata["sc"] = {} 
-            tmpdata["sc"]["p"] = call.data["timeextension"]
+            tmpdata["sc"]["p"] = int(call.data["timeextension"])
             data = json.dumps(tmpdata)
             _LOGGER.debug("Setting time_extension for %s to %s", client[id].name, call.data["timeextension"])
             sendData = True
