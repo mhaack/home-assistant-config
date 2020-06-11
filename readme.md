@@ -33,17 +33,17 @@ anything here, Be sure to 🌟 the GitHub repo.
 
 ### Host System
 
-My Home Assistant system currently runs on a Raspberry PI 3 with 16GByte SanDisk Extrem MicroSD card. All is managed by hass.io and the following add-ons are currently used:
+My Home Assistant system currently runs on a ODROID-N2. All is managed by hass.io and the following add-ons are currently used:
 
 - [AdGuard Home](https://github.com/hassio-addons/addon-adguard-home)
-- [Configurator](https://home-assistant.io/addons/configurator) - would
-  like to use the VSC add-on but that is not available on Raspberry PI
+- [ESPHome](https://esphome.io/)
 - [Grafana](https://github.com/hassio-addons/addon-grafana)
 - [InfluxDB](https://github.com/hassio-addons/addon-influxdb)
 - [Log Viewer](https://github.com/hassio-addons/addon-log-viewer)
 - [Mosquitto MQTT broker](https://home-assistant.io/addons/mosquitto/)
 - [SSH & Web Terminal](https://github.com/hassio-addons/addon-ssh)
 - [Samba share](https://home-assistant.io/addons/samba/)
+- [Visual Studio Code](https://github.com/hassio-addons/addon-vscode)
 
 #### Hubs
 
@@ -141,11 +141,14 @@ with USB power supply.
 | --------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------: | ---------------------------------------------------------------------------------------- |
 | [Neato Botvac D7](https://neatorobotics.com/)                                                                               | [Neato](https://www.home-assistant.io/integrations/neato/) | Robot number 1, not much to say, does the job.                                           |
 | [Worx Landroid S](https://worx-europe.com/)                                                                                 |   [REST](https://www.home-assistant.io/components/rest/)   | Robot number 2, we call it "Shaun". This little guy is integrated via Landroid cloud API |
-| Mailbox via 2 [Xiaomi Aqara Window Door Sensor](https://xiaomi-mi.com/sockets-and-sensors/xiaomi-aqara-window-door-sensor/) | [deCONZ](https://www.home-assistant.io/components/deconz/) | Detect opening of the mailbox flap or door                                               |
+[Hunter Pro-HC](https://www.hunterindustries.com/en-metric/irrigation-product/controllers/pro-hc) | [Hunter Hydrawise](https://www.home-assistant.io/integrations/hydrawise/) | Controls watering of the lawn and plants around the house. |
+| Mailbox via 2 [Xiaomi Aqara Window Door Sensor](https://xiaomi-mi.com/sockets-and-sensors/xiaomi-aqara-window-door-sensor/) | [deCONZ](https://www.home-assistant.io/components/deconz/) | Detect opening of the mailbox flap or door |
+| ESPHome Watertank Sensor | [ESPHome](https://www.home-assistant.io/integrations/esphome/) | To measure the water level of our garden cistern to ensure that our plants always get enough water.
+
 
 [home-assistant]: https://home-assistant.io
 [issue]: https://github.com/mhaack/home-assistant-config/issues
-[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.108.x-blue
+[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-0.111.x-blue
 [license-shield]: https://img.shields.io/github/license/mhaack/home-assistant-config.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2020.svg
 [circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg
