@@ -1,0 +1,52 @@
+---
+# Controll the refill mechanism for the watertank.
+#
+# If the watertank is below 30% and no rain in todays forcast it
+# will be refilled via the mains water supply.
+#
+id: 86e7306b-00ae-4773-9af8-595a1a748858
+alias: "[Watertank] Automatic Refill"
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.garden_watertank_liter
+    value_template: '{{ state.state | float }}'
+    below: 2500
+condition:
+  - condition: template
+    value_template: '{{ state_attr("weather.dark_sky", "forecast")[0].precipitation < 1 }}'
+  - condition: time
+    after: '09:00:00'
+    before: '22:00:00'
+
+action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa
+      message: 'Wasserstand Zisterne niedrig ({{ states("sensor.garden_watertank_percent") }}%), Befüllung gestartet'
+  # first run
+  - service: switch.turn_on
+    entity_id: switch.garden_watertank_refill
+  - delay: 20:00
+  - service: switch.turn_off
+    entity_id: switch.garden_watertank_refill
+
+  # second run
+  - delay: 1:00
+  - service: switch.turn_on
+    entity_id: switch.garden_watertank_refill
+  - delay: 20:00
+  - service: switch.turn_off
+    entity_id: switch.garden_watertank_refill
+
+  # third run
+  - delay: 1:00
+  - service: switch.turn_on
+    entity_id: switch.garden_watertank_refill
+  - delay: 20:00
+  - service: switch.turn_off
+    entity_id: switch.garden_watertank_refill
+
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa
+      message: 'Befüllung Zisterne beended, Wasserstand: {{ states("sensor.garden_watertank_percent") }}%'

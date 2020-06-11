@@ -4,6 +4,6 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-switch.garden_multi_4:
+switch.garden_watertank_refill:
   friendly_name: Befüllung Zisterne
   icon: mdi:valve

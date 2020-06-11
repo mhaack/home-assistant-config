@@ -39,9 +39,11 @@ cards:
           - binary_sensor.system_dsl_modem
           - binary_sensor.system_unifi_router
           - binary_sensor.system_unifi_switch
+          - binary_sensor.system_unifi_switch_office
           - binary_sensor.system_unifi_controller
           - binary_sensor.livingroom_system_accesspoint
           - binary_sensor.office_system_accesspoint
+          - binary_sensor.equipmentroom_ccu3
           - binary_sensor.remote_ui
         show_header_toggle: false
         show_state: false
@@ -62,13 +64,14 @@ cards:
           }
         entities:
           - binary_sensor.equipmentroom_arlo_hub
-          - binary_sensor.equipmentroom_ccu3
           - binary_sensor.office_system_printer
           - binary_sensor.system_nas
           - binary_sensor.system_fritzbox
           - binary_sensor.garden_landroid
           - binary_sensor.garden_watertank
           - binary_sensor.garden_hydrawise
+          - binary_sensor.equipmentroom_solar_inverter
+          - binary_sensor.equipmentroom_solar_battery
         show_header_toggle: false
         show_state: false
       - type: horizontal-stack
@@ -131,21 +134,6 @@ cards:
         variables:
           - content: 'HA Server Resources'
           - icon: mdi:home-assistant
-      - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        entities:
-          - sensor.disk_use_percent
-          - sensor.disk_free
-          - sensor.memory_use_percent
-          - sensor.memory_free
-          - sensor.processor_use
-          - sensor.last_boot
-        show_header_toggle: false
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -181,14 +169,6 @@ cards:
         positions:
           indicator: inside
           icon: inside
-
-  - type: vertical-stack
-    cards:
-      - type: custom:decluttering-card
-        template: card_header
-        variables:
-          - content: 'QNAP NAS Resources'
-          - icon: mdi:nas
       - type: entities
         style: |
           ha-card {
@@ -197,15 +177,18 @@ cards:
             margin: 0px 14px 5px 14px;
           }
         entities:
-          - sensor.datentopf_status
-          - sensor.datentopf_volume_used_volume_1
-          - sensor.datentopf_memory_usage
-          - sensor.datentopf_memory_available
-          - sensor.datentopf_cpu_usage
-          - sensor.datentopf_system_temperature
-          - sensor.datentopf_temperature_drive_1
-          - sensor.datentopf_temperature_drive_2
+          - sensor.disk_free
+          - sensor.memory_free
+          - sensor.last_boot
         show_header_toggle: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'QNAP NAS Resources'
+          - icon: mdi:nas
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -216,6 +199,8 @@ cards:
         entities:
           - sensor.datentopf_cpu_usage
         name: CPU
+        align_header: left
+        align_icon: left
         line_color: '#2980b9'
         line_width: 2
         hours_to_show: 24
@@ -233,14 +218,6 @@ cards:
         positions:
           indicator: inside
           icon: inside
-
-  - type: vertical-stack
-    cards:
-      - type: custom:decluttering-card
-        template: card_header
-        variables:
-          - content: 'AdGuard'
-          - icon: mdi:home-assistant
       - type: entities
         style: |
           ha-card {
@@ -249,27 +226,8 @@ cards:
             margin: 0px 14px 5px 14px;
           }
         entities:
-          - label: Control
-            type: section
-            style:
-              height: 3px
-          - switch.adguard_filtering
-          - switch.adguard_parental_control
-          - switch.adguard_protection
-          - switch.adguard_query_log
-          - switch.adguard_safe_browsing
-          - switch.adguard_safe_search
-          - label: Statistics
-            type: section
-            style:
-              height: 3px
-          - sensor.adguard_dns_queries
-          - sensor.adguard_dns_queries_blocked_ratio
-          - sensor.adguard_dns_queries_blocked
-          - sensor.adguard_parental_control_blocked
-          - sensor.adguard_safe_browsing_blocked
-          - sensor.adguard_searches_safe_search_enforced
-          - sensor.adguard_average_processing_speed
-          - sensor.adguard_rules_count
+          - sensor.datentopf_status
+          - sensor.datentopf_system_temperature
+          - sensor.datentopf_temperature_drive_1
+          - sensor.datentopf_temperature_drive_2
         show_header_toggle: false
-        state_color: true

@@ -9,5 +9,6 @@ pool_pump_mode:
   options:
     - "Auto - Normal"
     - "Auto - Intensiv"
+    - "Auto - Solar"
     - "Dauerbetrieb"
     - "Aus"

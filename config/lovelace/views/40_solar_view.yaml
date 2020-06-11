@@ -1,0 +1,138 @@
+---
+# The main JaMa Villa outdoor view
+#
+title: Solar
+icon: mdi:solar-power
+path: solar
+
+badges: []
+cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/markus.jpg'
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: '/local/assets/jasmina.jpg'
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Solarproduktion'
+          - icon: mdi:solar-power
+      - type: horizontal-stack
+        cards:
+          - type: entity
+            style: |
+              ha-card {
+                --paper-card-background-color: var(--sidebar-background-color);
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 2px 5px 14px;
+              }
+            entity: sensor.solaredge_energy_today
+            name: Energie heute
+          - type: entity
+            style: |
+              ha-card {
+                --paper-card-background-color: var(--sidebar-background-color);
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 14px 5px 2px;
+              }
+            entity: sensor.solaredge_energy_this_month
+            name: Energie Monat
+      - type: horizontal-stack
+        cards:
+          - type: entity
+            style: |
+              ha-card {
+                --paper-card-background-color: var(--sidebar-background-color);
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 2px 5px 14px;
+              }
+            entity: sensor.solaredge_energy_this_year
+            name: Energie Jahr
+          - type: entity
+            style: |
+              ha-card {
+                --paper-card-background-color: var(--sidebar-background-color);
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 14px 5px 2px;
+              }
+            entity: sensor.solaredge_lifetime_energy
+            name: Gesamtenergie
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Stromerzeugung'
+          - icon: mdi:solar-power
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        decimals: 1
+        hour24: true
+        points_per_hour: 1
+        entities:
+          - entity: sensor.solaredge_solar_power
+            color: rgb(64, 180, 99)
+        show:
+          fill: fade
+          extrema: true
+          name: false
+          icon: false
+          graph: bar
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Stromverbrauch'
+          - icon: mdi:solar-power
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        decimals: 1
+        hour24: true
+        points_per_hour: 1
+        entities:
+          - entity: sensor.solaredge_power_consumption
+            color: rgb(241, 92, 92)
+        show:
+          fill: fade
+          extrema: true
+          name: false
+          icon: false
+          graph: bar
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.solaredge_grid_power
+            name: Netzleistung
+            type: custom:secondaryinfo-entity-row
+            secondary_info: "Flow: [[ sensor.solaredge_grid_power.attributes.flow ]]"
+          - entity: sensor.solaredge_storage_power
+            name: Batterieleistung
+            type: custom:secondaryinfo-entity-row
+            secondary_info: "Flow: [[ sensor.solaredge_storage_power.attributes.flow ]]"
+        show_header_toggle: false

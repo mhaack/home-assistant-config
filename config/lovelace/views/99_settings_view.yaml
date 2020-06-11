@@ -187,3 +187,43 @@ cards:
           - binary_sensor.hall_litterbox_1_lid
           - binary_sensor.hall_litterbox_2_lid
           - input_boolean.hall_litterbox_notification
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'AdGuard'
+          - icon: mdi:home-assistant
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - label: Control
+            type: section
+            style:
+              height: 3px
+          - switch.adguard_filtering
+          - switch.adguard_parental_control
+          - switch.adguard_protection
+          - switch.adguard_query_log
+          - switch.adguard_safe_browsing
+          - switch.adguard_safe_search
+          - label: Statistics
+            type: section
+            style:
+              height: 3px
+          - sensor.adguard_dns_queries
+          - sensor.adguard_dns_queries_blocked_ratio
+          - sensor.adguard_dns_queries_blocked
+          - sensor.adguard_parental_control_blocked
+          - sensor.adguard_safe_browsing_blocked
+          - sensor.adguard_searches_safe_search_enforced
+          - sensor.adguard_average_processing_speed
+          - sensor.adguard_rules_count
+        show_header_toggle: false
+        state_color: true

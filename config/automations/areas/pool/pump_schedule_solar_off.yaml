@@ -1,0 +1,19 @@
+---
+# Automation to run the daily default pool pump schedule.
+#
+# This schedule is based on the solar power we generate to optimize the
+# pool pump operation hourse to consum our own energy instead of buying
+# energy from the grid.
+#
+id: 3a494554-8445-4498-a1ca-88d6bb8cf14b
+alias: "[Pool] Daily Solar pool pump schedule - off"
+trigger:
+  - platform: time
+    at: "19:00:00"
+  - platform: time
+    at: "23:00:00"
+  - platform: time
+    at: "03:00:00"
+action:
+  - service: switch.turn_off
+    entity_id: switch.pool_pump
