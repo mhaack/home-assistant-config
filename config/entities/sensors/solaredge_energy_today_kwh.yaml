@@ -1,0 +1,13 @@
+---
+# Converted SolarEdge Energy sensor
+#
+platform: template
+sensors:
+  solaredge_energy_today_kwh:
+    friendly_name: solaredge (Energy today)
+    icon_template: 'mdi:solar-power'
+    entity_id:
+      - sensor.solaredge_energy_today
+    value_template: >-
+      {{ states("sensor.solaredge_energy_today") | float / 1000 }}
+    unit_of_measurement: kWh
