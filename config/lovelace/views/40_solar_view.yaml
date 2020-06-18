@@ -37,7 +37,7 @@ cards:
                 box-shadow: var(--card-box-shadow);
                 margin: 0px 2px 5px 14px;
               }
-            entity: sensor.solaredge_energy_today
+            entity: sensor.solaredge_energy_today_kwh
             name: Energie heute
           - type: entity
             style: |
@@ -46,7 +46,7 @@ cards:
                 box-shadow: var(--card-box-shadow);
                 margin: 0px 14px 5px 2px;
               }
-            entity: sensor.solaredge_energy_this_month
+            entity: sensor.solaredge_energy_this_month_kwh
             name: Energie Monat
       - type: horizontal-stack
         cards:
@@ -57,7 +57,7 @@ cards:
                 box-shadow: var(--card-box-shadow);
                 margin: 0px 2px 5px 14px;
               }
-            entity: sensor.solaredge_energy_this_year
+            entity: sensor.solaredge_energy_this_year_kwh
             name: Energie Jahr
           - type: entity
             style: |
@@ -66,7 +66,7 @@ cards:
                 box-shadow: var(--card-box-shadow);
                 margin: 0px 14px 5px 2px;
               }
-            entity: sensor.solaredge_lifetime_energy
+            entity: sensor.solaredge_lifetime_energy_kwh
             name: Gesamtenergie
       - type: custom:decluttering-card
         template: card_header

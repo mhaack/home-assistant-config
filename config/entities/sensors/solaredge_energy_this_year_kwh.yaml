@@ -1,0 +1,13 @@
+---
+  # Converted SolarEdge Energy sensor
+  #
+  platform: template
+  sensors:
+    solaredge_energy_this_year_kwh:
+      friendly_name: solaredge (Energy this year)
+      icon_template: 'mdi:solar-power'
+      entity_id:
+        - sensor.solaredge_energy_this_year
+      value_template: >-
+        {{ (states("sensor.solaredge_energy_this_year") | float / 1000) | round(1) }}
+      unit_of_measurement: kWh

@@ -1,0 +1,11 @@
+---
+  # Send solar energy updates to Apple Watch complications
+  #
+  id: 6ff21e03-0362-4ecd-a2ba-b241856bb244
+  alias: "[Solar] Update Apple Watch complications"
+  trigger:
+    platform: time_pattern
+    minutes: "/5"
+  action:
+    - service: rest_command.watch_complication_graphic_rectangular
+    - service: rest_command.watch_complication_graphic_corner

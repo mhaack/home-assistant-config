@@ -1,0 +1,10 @@
+---
+# The group notification platform allows you to combine multiple notify
+# platforms into a single service.
+#
+# https://www.home-assistant.io/integrations/rest_command/
+# https://mikelyons.org/2019/03/08/complicated-documentation
+#
+
+watch_complication_graphic_rectangular:
+  url: !secret complication_graphic_rectangular
