@@ -1,0 +1,224 @@
+substitutions:
+  gpio_spi_clk_pin: GPIO25
+  gpio_spi_mosi_pin: GPIO26
+  gpio_cs_pin: GPIO32
+  gpio_busy_pin: GPIO33
+  gpio_reset_pin: GPIO27
+  gpio_dc_pin: GPIO0
+
+esphome:
+  name: home_display
+  platform: ESP32
+  board: lolin_d32_pro
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+  ap:
+    ssid: esp01
+
+captive_portal:
+
+logger:
+
+api:
+  password: !secret esphome_api_password
+
+ota:
+  password: !secret esphome_ota_password
+
+spi:
+  clk_pin: $gpio_spi_clk_pin
+  mosi_pin: $gpio_spi_mosi_pin
+  id: epaper_display
+
+time:
+  - platform: sntp
+    timezone: Europe/Berlin
+    id: sntp_time
+    on_time:
+      # Every 1 minutes
+      - seconds: 0
+        then:
+          - component.update: epaper
+
+interval:
+  - interval: 5min
+    then:
+      - display.page.show_next: epaper
+      - component.update: epaper
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+
+  - platform: homeassistant
+    entity_id: sensor.garden_temperature
+    id: garden_temp
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_solar_power
+    id: solar_power
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_power_consumption
+    id: power_consumption
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_storage_power
+    id: storage_power
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_grid_power
+    id: grid_power
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_energy_today_kwh
+    id: energy_today
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_energy_this_month_kwh
+    id: energy_this_month
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_energy_this_year_kwh
+    id: energy_this_year
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_cosumption_power_kwh
+    id: today_cosumption_power
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_selfconsumption_power_kwh
+    id: today_selfconsumption_power
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_imported_power_kwh
+    id: today_imported_power
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.solaredge_exported_power_kwh
+    id: today_exported_power
+    internal: true
+
+display:
+  - platform: waveshare_epaper
+    id: epaper
+    cs_pin: $gpio_cs_pin
+    busy_pin: $gpio_busy_pin
+    reset_pin: $gpio_reset_pin
+    dc_pin: $gpio_dc_pin
+    model: 2.90in
+    rotation: 90°
+    # 296x128 pixels
+    update_interval: 3600s
+    pages:
+      - id: page1
+        lambda: |-
+          ESP_LOGI("display", "Updating...");
+
+          // Time & Temp box
+          it.strftime(245, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+          it.strftime(245, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+          if (id(garden_temp).has_state()) {
+            it.printf(245, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
+          }
+          it.line(192, 2, 192, 126);
+
+          // Power block
+          it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Power");
+          it.line(53, 18, 189, 18);
+
+          if (id(solar_power).has_state()) {
+              it.printf(2, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "PV: %.1fkW", id(solar_power).state);
+          }
+          if (id(power_consumption).has_state()) {
+              it.printf(90, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "U: %.1fkW", id(power_consumption).state);
+          }
+          if (id(storage_power).has_state()) {
+              it.printf(2, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "B: %.1fkW", id(storage_power).state);
+          }
+          if (id(grid_power).has_state()) {
+              it.printf(90, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "G: %.1fkW", id(grid_power).state);
+          }
+
+      - id: page2
+        lambda: |-
+          ESP_LOGI("display", "Updating...");
+
+          // Time & Temp box
+          it.strftime(245, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+          it.strftime(245, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+          if (id(garden_temp).has_state()) {
+            it.printf(245, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
+          }
+          it.line(192, 2, 192, 126);
+
+          // Energy block
+          it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Energy");
+          it.line(56, 18, 189, 18);
+
+          if (id(energy_today).has_state()) {
+              it.printf(2, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "D: %.1fkWh", id(energy_today).state);
+          }
+          if (id(energy_this_month).has_state()) {
+              it.printf(90, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "M: %.1fkWh", id(energy_this_month).state);
+          }
+          if (id(today_cosumption_power).has_state()) {
+              it.printf(2, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "C: %.1fkWh", id(today_cosumption_power).state);
+          }
+          if (id(today_selfconsumption_power).has_state()) {
+              it.printf(95, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "S: %.1fkWh", id(today_selfconsumption_power).state);
+          }
+          if (id(today_imported_power).has_state()) {
+              it.printf(2, 110, id(font_regular_16), TextAlign::BASELINE_LEFT, "I: %.1fkWh", id(today_imported_power).state);
+          }
+          if (id(today_exported_power).has_state()) {
+              it.printf(95, 110, id(font_regular_16), TextAlign::BASELINE_LEFT, "E: %.1fkWh", id(today_exported_power).state);
+          }
+
+font:
+  - file: 'fonts/GoogleSans-Bold.ttf'
+    id: clock_font
+    size: 40
+    glyphs: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ':']
+  - file: 'fonts/GoogleSans-Bold.ttf'
+    id: font_regular_16
+    size: 16
+    glyphs:
+      ['&', '@', '!', ',', '.', '"', '%', '+', '-', '_', ':', '°', '0',
+       '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
+       'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+       'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+       'u', 'v', 'w', 'x', 'y', 'z', '/']
+  - file: 'fonts/GoogleSans-Bold.ttf'
+    id: font_regular_20
+    size: 20
+    glyphs:
+      ['&', '@', '!', ',', '.', '"', '%', '+', '-', '_', ':', '°', '0',
+       '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
+       'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+       'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+       'u', 'v', 'w', 'x', 'y', 'z', '/']
+
+  - file: 'fonts/GoogleSans-Medium.ttf'
+    id: font_regular_40
+    size: 40
+    glyphs:
+      ['!', ',', '.', '"', '%', '-', '_', ':', '°', '/',
+       '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ']
