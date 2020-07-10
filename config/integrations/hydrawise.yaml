@@ -2,16 +2,11 @@
 # The Hunter Hydrawise integration to controll our garden watering in HA.
 # https://www.home-assistant.io/integrations/hydrawise/
 #
-hydrawise-custom:
+hydrawise:
   access_token: !secret hydrawise_token
 
-# binary_sensor:
-#   - platform: hydrawise-custom
-#     monitored_conditions:
-#     - is_watering
-#     - rain_sensor
-sensor:
-  - platform: hydrawise-custom
+binary_sensor:
+  - platform: hydrawise
 
-# switch:
-#   - platform: hydrawise-custom
+sensor:
+  - platform: hydrawise

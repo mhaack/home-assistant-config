@@ -4,5 +4,5 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-switch.garden_multi_2:
+switch.pool_valve_solar_off:
   friendly_name: Ventilstellung Pool

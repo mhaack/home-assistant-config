@@ -36,6 +36,7 @@ influxdb:
       - sensor.garden_luftdaten_pm_10
       - sensor.garden_luftdaten_pm_2_5
       - sensor.garden_luftdaten_rssi
+      - sensor.garden_multi_rssi
       - sensor.garden_pond_light_rssi
       - sensor.garden_sundeck_sockets_power
       - sensor.garden_sundeck_spots_power
