@@ -49,7 +49,6 @@ interval:
       - display.page.show_next: epaper
       - component.update: epaper
 
-
 sensor:
   - platform: wifi_signal
     name: "WiFi Signal"
@@ -64,7 +63,7 @@ sensor:
     entity_id: sensor.solaredge_solar_power
     id: solar_power
     internal: true
-    
+
   - platform: homeassistant
     entity_id: sensor.solaredge_power_consumption
     id: power_consumption
@@ -130,7 +129,7 @@ display:
       - id: page1
         lambda: |-
           ESP_LOGI("display", "Updating...");
-          
+
           // Time & Temp box
           it.strftime(245, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
           it.strftime(245, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
@@ -138,11 +137,11 @@ display:
             it.printf(245, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
           }
           it.line(192, 2, 192, 126);
-        
+
           // Power block
           it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Power");
           it.line(53, 18, 189, 18);
-    
+
           if (id(solar_power).has_state()) {
               it.printf(2, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "PV: %.1fkW", id(solar_power).state);
           }
@@ -155,11 +154,11 @@ display:
           if (id(grid_power).has_state()) {
               it.printf(90, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "G: %.1fkW", id(grid_power).state);
           }
-          
+
       - id: page2
         lambda: |-
           ESP_LOGI("display", "Updating...");
-          
+
           // Time & Temp box
           it.strftime(245, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
           it.strftime(245, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
@@ -167,11 +166,11 @@ display:
             it.printf(245, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
           }
           it.line(192, 2, 192, 126);
-          
+
           // Energy block
           it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Energy");
           it.line(56, 18, 189, 18);
-    
+
           if (id(energy_today).has_state()) {
               it.printf(2, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "D: %.1fkWh", id(energy_today).state);
           }
@@ -190,13 +189,12 @@ display:
           if (id(today_exported_power).has_state()) {
               it.printf(95, 110, id(font_regular_16), TextAlign::BASELINE_LEFT, "E: %.1fkWh", id(today_exported_power).state);
           }
-    
 
 font:
   - file: 'fonts/GoogleSans-Bold.ttf'
     id: clock_font
     size: 40
-    glyphs: [0, 1, 2, 3, 4, 5, 6, 7 ,8, 9, ':']
+    glyphs: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ':']
   - file: 'fonts/GoogleSans-Bold.ttf'
     id: font_regular_16
     size: 16
