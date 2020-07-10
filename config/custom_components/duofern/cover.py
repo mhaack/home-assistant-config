@@ -4,7 +4,7 @@ import logging
 # found advice in the homeassistant creating components manual
 # https://home-assistant.io/developers/creating_components/
 # Import the device class from the component that you want to support
-from homeassistant.components.cover import ATTR_POSITION, CoverDevice
+from homeassistant.components.cover import ATTR_POSITION, CoverEntity
 
 from .const import DOMAIN
 
@@ -19,12 +19,11 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     stick = hass.data[DOMAIN]['stick']
 
     # Add devices
-    to_add = [DuofernShutter(device['id'], device['name'], stick, hass) for device in stick.config['devices'] if
-              not device['id'].startswith('46') and not device['id'] in hass.data[DOMAIN]['devices'].keys()]
+    to_add = [DuofernShutter(device['id'], device['name'], stick, hass) for device in stick.config['devices'] if (device['id'].startswith('40') or device['id'].startswith('41') or device['id'].startswith('42') or device['id'].startswith('47') or device['id'].startswith('49') or device['id'].startswith('61')) and not device['id'] in hass.data[DOMAIN]['devices'].keys()]
     add_devices(to_add)
 
 
-class DuofernShutter(CoverDevice):
+class DuofernShutter(CoverEntity):
     """Representation of Duofern cover type device."""
 
     def __init__(self, id, desc, stick, hass):
@@ -55,6 +54,10 @@ class DuofernShutter(CoverDevice):
             return self._stick.duofern_parser.modules['by_code'][self._id]['position'] == 100
         except KeyError:
             return False
+
+    @property
+    def unique_id(self):
+        return self._id
 
     def open_cover(self):
         """roll up cover"""
