@@ -8,10 +8,10 @@ sensors:
   equipmentroom_arlo_hub:
     friendly_name: Arlo Hub
     device_class: connectivity
-    entity_id: device_tracker.equipmentroom_vmb3010
-    value_template: "{{ is_state('device_tracker.equipmentroom_vmb3010', 'home') }}"
+    entity_id: device_tracker.equipmentroom_vmb4540
+    value_template: "{{ is_state('device_tracker.equipmentroom_vmb4540', 'home') }}"
     icon_template: >-
-      {% if is_state('device_tracker.equipmentroom_vmb3010', 'home') %}
+      {% if is_state('device_tracker.equipmentroom_vmb4540', 'home') %}
         mdi:cctv
       {% else %}
         mdi:alert

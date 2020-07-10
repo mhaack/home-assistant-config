@@ -1,22 +1,24 @@
 ---
 # Controll the refill mechanism for the watertank.
 #
-# If the watertank is below 30% and no rain in todays forcast it
-# will be refilled via the mains water supply.
+# If the watertank is below 2500 liter it will be refilled
+# via the mains water supply for one hour. This should add ~ 1.400 liter.
+# To not irritate the leak detection the refill is paused every 20 min.
 #
 id: 86e7306b-00ae-4773-9af8-595a1a748858
 alias: "[Watertank] Automatic Refill"
 trigger:
+  # - platform: template
+  #   value_template: "{{ states('sensor.garden_watertank_liter') | int < 2500}}"
+  #   for:
+  #     minutes: 1
   - platform: numeric_state
     entity_id: sensor.garden_watertank_liter
-    value_template: '{{ state.state | float }}'
     below: 2500
 condition:
-  - condition: template
-    value_template: '{{ state_attr("weather.dark_sky", "forecast")[0].precipitation < 1 }}'
   - condition: time
-    after: '09:00:00'
-    before: '22:00:00'
+    after: "09:00:00"
+    before: "22:00:00"
 
 action:
   - service: notify.mobile_app_iphone_von_markus

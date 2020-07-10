@@ -41,7 +41,33 @@ cards:
         points_per_hour: 0.25
         entities:
           - entity: sensor.attic_temperature
-          - entity: sensor.attic_pressure
+          - entity: sensor.attic_humidity
+            show_state: true
+            show_graph: false
+        show:
+          fill: fade
+          extrema: true
+          name: false
+          icon: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: 'Technikraum'
+          - icon: mdi:home-thermometer
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        decimals: 1
+        hour24: true
+        hours_to_show: 168
+        points_per_hour: 0.25
+        entities:
+          - entity: sensor.equipmentroom_temperature
+          - entity: sensor.equipmentroom_humidity
             show_state: true
             show_graph: false
         show:

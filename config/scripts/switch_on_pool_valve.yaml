@@ -9,10 +9,10 @@ switch_on_pool_valve:
   sequence:
     - service: switch.turn_off
       data:
-        entity_id: switch.garden_multi_1
+        entity_id: switch.pool_valve_solar_on
     - service: switch.turn_off
       data:
-        entity_id: switch.garden_multi_2
+        entity_id: switch.pool_valve_solar_off
     - service: input_select.select_option
       data:
         entity_id: input_select.pool_valve_mode
@@ -20,11 +20,11 @@ switch_on_pool_valve:
     - delay: "00:00:01"
     - service: switch.turn_on
       data:
-        entity_id: switch.garden_multi_1
+        entity_id: switch.pool_valve_solar_on
     - delay: "00:00:30"
     - service: switch.turn_off
       data:
-        entity_id: switch.garden_multi_1
+        entity_id: switch.pool_valve_solar_on
     - service: input_select.select_option
       data:
         entity_id: input_select.pool_valve_mode
