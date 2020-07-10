@@ -1,12 +1,12 @@
 ---
-  # Sun deck ship position lights
-  #
-  # https://www.home-assistant.io/integrations/light.mqtt/
-  #
-  platform: mqtt
-  name: garden_sundeck_positionlight
-  command_topic: cmnd/sonoff-garden-multi/POWER3
-  state_topic: stat/sonoff-garden-multi/POWER3
-  availability_topic: tele/sonoff-garden-multi/LWT
-  payload_available: Online
-  payload_not_available: Offline
+# Sun deck ship position lights
+#
+# https://www.home-assistant.io/integrations/light.mqtt/
+#
+platform: mqtt
+name: garden_sundeck_positionlight
+command_topic: cmnd/sonoff-garden-multi/POWER3
+state_topic: stat/sonoff-garden-multi/POWER3
+availability_topic: tele/sonoff-garden-multi/LWT
+payload_available: Online
+payload_not_available: Offline

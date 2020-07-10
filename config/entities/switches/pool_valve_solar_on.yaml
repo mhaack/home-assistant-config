@@ -1,12 +1,12 @@
 ---
-  # Pool valve controller on switch
-  #
-  # https://www.home-assistant.io/integrations/light.mqtt/
-  #
-  platform: mqtt
-  name: pool_valve_solar_on
-  command_topic: cmnd/sonoff-garden-multi/POWER1
-  state_topic: stat/sonoff-garden-multi/POWER1
-  availability_topic: tele/sonoff-garden-multi/LWT
-  payload_available: Online
-  payload_not_available: Offline
+# Pool valve controller on switch
+#
+# https://www.home-assistant.io/integrations/light.mqtt/
+#
+platform: mqtt
+name: pool_valve_solar_on
+command_topic: cmnd/sonoff-garden-multi/POWER1
+state_topic: stat/sonoff-garden-multi/POWER1
+availability_topic: tele/sonoff-garden-multi/LWT
+payload_available: Online
+payload_not_available: Offline

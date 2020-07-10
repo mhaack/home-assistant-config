@@ -1,12 +1,12 @@
 ---
-  # Watertank refill switch
-  #
-  # https://www.home-assistant.io/integrations/light.mqtt/
-  #
-  platform: mqtt
-  name: garden_watertank_refill
-  command_topic: cmnd/sonoff-garden-multi/POWER4
-  state_topic: stat/sonoff-garden-multi/POWER4
-  availability_topic: tele/sonoff-garden-multi/LWT
-  payload_available: Online
-  payload_not_available: Offline
+# Watertank refill switch
+#
+# https://www.home-assistant.io/integrations/light.mqtt/
+#
+platform: mqtt
+name: garden_watertank_refill
+command_topic: cmnd/sonoff-garden-multi/POWER4
+state_topic: stat/sonoff-garden-multi/POWER4
+availability_topic: tele/sonoff-garden-multi/LWT
+payload_available: Online
+payload_not_available: Offline

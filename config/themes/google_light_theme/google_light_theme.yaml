@@ -42,7 +42,7 @@ Google Light Theme:
   label-badge-text-color: "#4D5575"
   label-badge-red: "#C7484C"
   label-badge-green: "#6DC071"
-  label-badge-blue: "#5F9BEA" #"#51AAD1"
+  label-badge-blue: "#5F9BEA"
   label-badge-yellow: "#D9B757"
   label-badge-gray: "#5F6267"
   # Cards
