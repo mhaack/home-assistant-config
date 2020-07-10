@@ -1,0 +1,13 @@
+---
+# Converted SolarEdge Energy sensor
+#
+platform: template
+sensors:
+  solaredge_imported_power_kwh:
+    friendly_name: solaredge (Imported Power)
+    icon_template: 'mdi:flash'
+    entity_id:
+      - sensor.solaredge_imported_power
+    value_template: >-
+      {{ (states("sensor.solaredge_imported_power") | float / 1000) | round(1) }}
+    unit_of_measurement: kWh

@@ -1,0 +1,13 @@
+---
+# Converted SolarEdge Energy sensor
+#
+platform: template
+sensors:
+  solaredge_selfconsumption_power_kwh:
+    friendly_name: solaredge (SelfConsumption Power)
+    icon_template: 'mdi:solar-power'
+    entity_id:
+      - sensor.solaredge_selfconsumption_power
+    value_template: >-
+      {{ (states("sensor.solaredge_selfconsumption_power") | float / 1000) | round(1) }}
+    unit_of_measurement: kWh
