@@ -13,7 +13,7 @@ trigger:
   - platform: time
     at: "22:00:00"
   - platform: time
-    at: "02:00:00"
+    at: "03:00:00"
 action:
   - service: switch.turn_on
     entity_id: switch.pool_pump
