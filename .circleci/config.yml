@@ -58,18 +58,13 @@ jobs:
 
   markdownlint:
     docker:
-      - image: ruby:alpine
+      - image: pipelinecomponents/remark-lint:latest
     steps:
       - checkout
       - run:
-          name: Install Dependencies
-          command: |
-            gem install mdl
-            mdl --version
-      - run:
           name: Check Markdown
           command: |
-            mdl --style all --warnings .
+            remark --no-stdout --color --frail --use preset-lint-recommended .
 
   esphome:
     docker:
