@@ -1,0 +1,13 @@
+---
+# Open the roller shutter at 16:00 to get the plants some light
+#
+id: 5631a29f-0585-4396-b6c5-65fea10001fe
+alias: "[Livingroom] Open the roller shutter after 17:00"
+initial_state: true
+trigger:
+  - platform: time
+    at: "17:00:00"
+action:
+  - service: cover.open_cover
+    data:
+      entity_id: cover.livingroom_window_3

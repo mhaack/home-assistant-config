@@ -15,10 +15,6 @@ trigger:
   - platform: numeric_state
     entity_id: sensor.garden_watertank_liter
     below: 2500
-condition:
-  - condition: time
-    after: "09:00:00"
-    before: "22:00:00"
 
 action:
   - service: notify.mobile_app_iphone_von_markus
