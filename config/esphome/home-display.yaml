@@ -131,16 +131,16 @@ display:
           ESP_LOGI("display", "Updating...");
 
           // Time & Temp box
-          it.strftime(245, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
-          it.strftime(245, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+          it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+          it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
           if (id(garden_temp).has_state()) {
-            it.printf(245, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
+            it.printf(242, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
           }
-          it.line(192, 2, 192, 126);
+          it.line(188, 2, 188, 126);
 
           // Power block
           it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Power");
-          it.line(53, 18, 189, 18);
+          it.line(53, 18, 185, 18);
 
           if (id(solar_power).has_state()) {
               it.printf(2, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "PV: %.1fkW", id(solar_power).state);
@@ -160,22 +160,22 @@ display:
           ESP_LOGI("display", "Updating...");
 
           // Time & Temp box
-          it.strftime(245, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
-          it.strftime(245, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+          it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+          it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
           if (id(garden_temp).has_state()) {
-            it.printf(245, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
+            it.printf(242, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
           }
-          it.line(192, 2, 192, 126);
+          it.line(188, 2, 188, 126);
 
           // Energy block
           it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Energy");
-          it.line(56, 18, 189, 18);
+          it.line(56, 18, 185, 18);
 
           if (id(energy_today).has_state()) {
               it.printf(2, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "D: %.1fkWh", id(energy_today).state);
           }
           if (id(energy_this_month).has_state()) {
-              it.printf(90, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "M: %.1fkWh", id(energy_this_month).state);
+              it.printf(85, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "M: %.1fkWh", id(energy_this_month).state);
           }
           if (id(today_cosumption_power).has_state()) {
               it.printf(2, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "C: %.1fkWh", id(today_cosumption_power).state);
