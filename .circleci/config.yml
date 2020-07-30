@@ -64,7 +64,7 @@ jobs:
       - run:
           name: Check Markdown
           command: |
-            remark --no-stdout --color --frail --use preset-lint-recommended .
+            remark --no-stdout --color --frail --use preset-lint-recommended --rc-path .remarkrc .
 
   esphome:
     docker:
