@@ -16,63 +16,30 @@ influxdb:
   max_retries: 3
 
   include:
+    entity_globs:
+      - sensor.*_humidity
+      - sensor.*_temperature
+      - sensor.*_rssi
+      - sensor.*_power
     entities:
       - binary_sensor.pool_pump_state
       - binary_sensor.pool_valve_state
-      - sensor.attic_humidity
-      - sensor.attic_temperature
-      - sensor.bathroom_humidity
-      - sensor.bathroom_temperature
-      - sensor.bedroom_humidity
-      - sensor.bedroom_temperature
-      - sensor.equipmentroom_humidity
-      - sensor.equipmentroom_temperature
-      - sensor.garden_backyard_lights_rssi
-      - sensor.garden_carport_volvo_rssi
-      - sensor.garden_frontyard_treelight_rssi
-      - sensor.garden_humidity
       - sensor.garden_luftdaten_air_quality_pm10
       - sensor.garden_luftdaten_air_quality_pm2_5
       - sensor.garden_luftdaten_pm_10
       - sensor.garden_luftdaten_pm_2_5
-      - sensor.garden_luftdaten_rssi
-      - sensor.garden_multi_rssi
-      - sensor.garden_pond_light_rssi
-      - sensor.garden_sundeck_sockets_power
-      - sensor.garden_sundeck_spots_power
-      - sensor.garden_temperature
       - sensor.garden_watertank_liter
-      - sensor.garden_watertank_pump_power
       - sensor.garden_watertank_wifi
-      - sensor.kitchen_dishwasher_power
-      - sensor.kitchen_fridge_temperature
-      - sensor.kitchen_rssi
-      - sensor.kitchen_temperature
-      - sensor.laundryroom_freezer_power
-      - sensor.livingroom_humidity
-      - sensor.livingroom_temperature
-      - sensor.nursery_humidity
-      - sensor.nursery_stars_rssi
-      - sensor.nursery_temperature
-      - sensor.office_desk_power
-      - sensor.office_humidity
-      - sensor.office_temperature
-      - sensor.pool_pump_power
-      - sensor.pool_solar_temperature
       - sensor.pool_water_temperature_1
       - sensor.pool_water_temperature_2
       - sensor.speedtest_download
       - sensor.speedtest_ping
       - sensor.speedtest_upload
-      - sensor.solaredge_current_power
       - sensor.solaredge_energy_this_month
       - sensor.solaredge_energy_this_year
       - sensor.solaredge_energy_today
-      - sensor.solaredge_grid_power
       - sensor.solaredge_lifetime_energy
       - sensor.solaredge_power_consumption
-      - sensor.solaredge_solar_power
-      - sensor.solaredge_storage_power
 
   component_config_glob:
     sensor.garden_luftdaten_air_quality*:

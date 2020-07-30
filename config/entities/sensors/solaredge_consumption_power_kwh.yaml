@@ -1,0 +1,13 @@
+---
+# Converted SolarEdge Energy sensor
+#
+platform: template
+sensors:
+  solaredge_consumption_power_kwh:
+    friendly_name: solaredge (Consumption Power)
+    icon_template: 'mdi:flash'
+    entity_id:
+      - sensor.solaredge_consumption_power
+    value_template: >-
+      {{ (states("sensor.solaredge_consumption_power") | float / 1000) | round(1) }}
+    unit_of_measurement: kWh

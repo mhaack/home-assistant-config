@@ -71,6 +71,51 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
+          - content: 'Heute'
+          - icon: mdi:solar-power
+      - type: horizontal-stack
+        cards:
+          - type: entity
+            style: |
+              ha-card {
+                --paper-card-background-color: var(--sidebar-background-color);
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 2px 5px 14px;
+              }
+            entity: sensor.solaredge_consumption_power_kwh
+            name: Gesamtverbrauch
+          - type: entity
+            style: |
+              ha-card {
+                --paper-card-background-color: var(--sidebar-background-color);
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 14px 5px 2px;
+              }
+            entity: sensor.solaredge_selfconsumption_power_kwh
+            name: Eigenverbrauch
+      - type: horizontal-stack
+        cards:
+          - type: entity
+            style: |
+              ha-card {
+                --paper-card-background-color: var(--sidebar-background-color);
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 2px 5px 14px;
+              }
+            entity: sensor.solaredge_imported_power_kwh
+            name: Import
+          - type: entity
+            style: |
+              ha-card {
+                --paper-card-background-color: var(--sidebar-background-color);
+                box-shadow: var(--card-box-shadow);
+                margin: 0px 14px 5px 2px;
+              }
+            entity: sensor.solaredge_exported_power_kwh
+            name: Export
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
           - content: 'Stromerzeugung'
           - icon: mdi:solar-power
       - type: "custom:mini-graph-card"
