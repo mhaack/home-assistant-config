@@ -1,0 +1,13 @@
+---
+# Open the roller shutter at 16:00 to get the plants some light
+#
+id: 7133023a-6e85-405d-b339-7ce28435fe3d
+alias: "[Bedroom] Open the roller shutter after 17:00"
+initial_state: true
+trigger:
+  - platform: time
+    at: "17:00:00"
+action:
+  - service: cover.open_cover
+    data:
+      entity_id: cover.bedroom
