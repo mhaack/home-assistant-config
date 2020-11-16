@@ -14,19 +14,19 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Außenbeleuchtung'
+          - content: "Außenbeleuchtung"
           - icon: mdi:lightbulb
       - type: glance
         style: |
@@ -51,6 +51,9 @@ cards:
           - entity: light.garden_terrace_lounge
             tap_action:
               action: toggle
+          - entity: light.garden_grass
+            tap_action:
+              action: toggle
           - entity: light.garden_sundeck_spots
             tap_action:
               action: toggle
@@ -58,9 +61,13 @@ cards:
             tap_action:
               action: toggle
           - entity: light.pool_light
+            icon: mdi:pool
             tap_action:
               action: toggle
           - entity: light.garden_pond_light
+            tap_action:
+              action: toggle
+          - entity: light.garden_carport_wled
             tap_action:
               action: toggle
         show_state: false
@@ -70,7 +77,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Garten (24h)'
+          - content: "Garten (24h)"
           - icon: mdi:thermometer
       - type: "custom:mini-graph-card"
         style: |
@@ -95,7 +102,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Garten (7d)'
+          - content: "Garten (7d)"
           - icon: mdi:thermometer
       - type: "custom:mini-graph-card"
         style: |
@@ -124,7 +131,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Sonnendeck'
+          - content: "Sonnendeck"
           - icon: mdi:white-balance-sunny
       - type: entities
         style: |
@@ -145,7 +152,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Luftqualität'
+          - content: "Luftqualität"
       - type: entities
         style: |
           ha-card {
@@ -162,7 +169,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Gartenbank'
+          - content: "Gartenbank"
       - type: conditional
         conditions:
           - entity: switch.garden_carport_siren_3
@@ -206,7 +213,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Rasenmäher Shaun'
+          - content: "Rasenmäher Shaun"
       - type: conditional
         conditions:
           - entity: sensor.landroid_shaun_error
@@ -251,7 +258,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Teich'
+          - content: "Teich"
           - icon: mdi:waves
       - type: entities
         style: |

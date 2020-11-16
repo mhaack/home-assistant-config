@@ -37,6 +37,7 @@ cards:
         entities:
           - entity: input_boolean.xmas_mode
             name: Weihnachtsmodus
+          - entity: input_boolean.cleaning_mode
         show_header_toggle: false
         state_color: true
 

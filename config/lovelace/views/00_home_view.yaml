@@ -40,12 +40,12 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: vertical-stack
     cards:
@@ -106,9 +106,9 @@ cards:
               action: more-info
               cards:
             backdrop:
-              day: 'rgba(249, 233, 181)'
+              day: "rgba(249, 233, 181)"
               text: var(--app-header-text-color)
-              night: 'rgba(76, 87, 110)'
+              night: "rgba(76, 87, 110)"
               fade: true
           default:
             type: custom:simple-weather-card
@@ -124,9 +124,9 @@ cards:
               action: more-info
               cards:
             backdrop:
-              day: 'rgba(159, 193, 249)'
+              day: "rgba(159, 193, 249)"
               text: var(--app-header-text-color)
-              night: 'rgba(76, 87, 110)'
+              night: "rgba(76, 87, 110)"
               fade: true
 
       - type: vertical-stack
@@ -134,7 +134,7 @@ cards:
           - type: custom:decluttering-card
             template: card_header
             variables:
-              - content: 'Die Drei'
+              - content: "Die Drei"
           - type: glance
             style: |
               ha-card {
@@ -189,6 +189,9 @@ cards:
               - entity: light.garden_pond_light
                 tap_action:
                   action: toggle
+              - entity: light.garden_carport_wled
+                tap_action:
+                  action: toggle
             state_filter:
               - "on"
             card:
@@ -206,7 +209,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Sicherheit'
+          - content: "Sicherheit"
           - icon: "mdi:security"
       - type: entity-filter
         show_empty: false
@@ -250,7 +253,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Alarm'
+          - content: "Alarm"
           - icon: "mdi:alarm-light"
       - type: alarm-panel
         style: |
@@ -281,7 +284,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Briefkasten'
+          - content: "Briefkasten"
           - icon: "mdi:mailbox-open"
       - type: entities
         style: |
@@ -298,9 +301,9 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Garten'
+          - content: "Garten"
           - icon: mdi:flower
-      - type: 'custom:mini-graph-card'
+      - type: "custom:mini-graph-card"
         style: |
           ha-card {
             --paper-card-background-color: var(--sidebar-background-color);
@@ -329,9 +332,9 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Wohnzimmer'
+                  - content: "Wohnzimmer"
                   - icon: mdi:home-thermometer
-              - type: 'custom:mini-graph-card'
+              - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
                 style: |
                   ha-card {
@@ -359,9 +362,9 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Schlafzimmer'
+                  - content: "Schlafzimmer"
                   - icon: mdi:home-thermometer
-              - type: 'custom:mini-graph-card'
+              - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
                 style: |
                   ha-card {
