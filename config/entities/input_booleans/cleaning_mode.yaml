@@ -1,0 +1,8 @@
+---
+# Control the cleaning mode and block the roller shutters.
+#
+# https://www.home-assistant.io/integrations/input_boolean/
+#
+cleaning_mode:
+  name: Reinigungsmodus
+  icon: mdi:window-closed-variant

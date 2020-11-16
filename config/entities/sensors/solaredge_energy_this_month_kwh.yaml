@@ -5,9 +5,7 @@ platform: template
 sensors:
   solaredge_energy_this_month_kwh:
     friendly_name: solaredge (Energy this month)
-    icon_template: 'mdi:solar-power'
-    entity_id:
-      - sensor.solaredge_energy_this_month
+    icon_template: "mdi:solar-power"
     value_template: >-
       {{ (states("sensor.solaredge_energy_this_month") | float / 1000) | round(1) }}
     unit_of_measurement: kWh

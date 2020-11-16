@@ -8,9 +8,6 @@ sensors:
   garden_bench:
     friendly_name: Gartenbank
     device_class: motion
-    entity_id:
-      - binary_sensor.garden_bench_1
-      - binary_sensor.garden_bench_2
     value_template: >-
       {{ is_state('binary_sensor.garden_bench_1', 'on') or
          is_state('binary_sensor.garden_bench_2', 'on') }}

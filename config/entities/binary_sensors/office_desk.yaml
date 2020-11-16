@@ -1,11 +1,11 @@
 ---
 # Office status sensor
 #
-# https://www.home-assistant.io/integrations/sensor.template/
+# https://www.home-assistant.io/integrations/template/
 #
 platform: template
 sensors:
   office_desk:
-    entity_id: sensor.office_desk_power
-    value_template: "{{ states.sensor.office_desk_power.state | int > 0 }}"
+    value_template: >-
+      {{ states.sensor.office_desk_power.state | int > 0 }}
     friendly_name: Büro Markus Status
