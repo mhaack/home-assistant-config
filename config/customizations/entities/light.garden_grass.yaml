@@ -1,0 +1,7 @@
+---
+#
+# Customizes terrace grass spot light
+#
+light.garden_grass:
+  friendly_name: Gras
+  icon: mdi:grass

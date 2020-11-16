@@ -5,6 +5,7 @@
 #
 platform: mqtt
 name: garden_terrace_spots
+unique_id: a1ea6ff3-f19a-464c-b747-a8c4d0fb7100
 command_topic: cmnd/sonoff-garten/POWER1
 state_topic: stat/sonoff-garten/POWER1
 availability_topic: tele/sonoff-garten/LWT

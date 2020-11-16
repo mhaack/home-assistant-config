@@ -5,6 +5,7 @@
 #
 platform: mqtt
 name: garden_pond_light
+unique_id: 410c69ee-5bec-41c3-9e29-5f4693a5e93c
 command_topic: cmnd/sonoff-garten-teichlicht/POWER
 state_topic: stat/sonoff-garten-teichlicht/POWER1
 availability_topic: tele/sonoff-garten-teichlicht/LWT

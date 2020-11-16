@@ -1,12 +1,13 @@
 ---
-# Terrace lounge SonOff light
+# Terrace lounge pergola SonOff light
 #
 # https://www.home-assistant.io/integrations/light.mqtt/
 #
 platform: mqtt
 name: garden_terrace_lounge
-command_topic: cmnd/sonoff-garten/POWER3
-state_topic: stat/sonoff-garten/POWER3
+unique_id: d6655488-e3e3-41ad-8c54-43baa21c0db9
+command_topic: cmnd/sonoff-garten/POWER4
+state_topic: stat/sonoff-garten/POWER4
 availability_topic: tele/sonoff-garten/LWT
 payload_available: Online
 payload_not_available: Offline

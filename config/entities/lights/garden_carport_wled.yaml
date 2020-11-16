@@ -1,0 +1,13 @@
+---
+# SonOff Switch for WLED light stripe
+#
+# https://www.home-assistant.io/integrations/light.mqtt/
+#
+platform: mqtt
+name: garden_carport_wled
+unique_id: 3351dd4a-6167-46eb-93ca-9b7b815dce02
+command_topic: cmnd/sonoff-carport-wled/POWER
+state_topic: stat/sonoff-carport-wled/POWER
+availability_topic: tele/sonoff-carport-wled/LWT
+payload_available: Online
+payload_not_available: Offline
