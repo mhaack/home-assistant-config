@@ -33,7 +33,9 @@ homekit:
       - cover.nursery
       - cover.nursery_bed
       - light.garden_backyard_tree
+      - light.garden_carport_wled
       - light.garden_frontyard_tree
+      - light.garden_grass
       - light.garden_pond_light
       - light.garden_sundeck_positionlight
       - light.garden_sundeck_spots

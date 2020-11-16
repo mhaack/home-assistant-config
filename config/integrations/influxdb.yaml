@@ -40,6 +40,7 @@ influxdb:
       - sensor.solaredge_energy_today
       - sensor.solaredge_lifetime_energy
       - sensor.solaredge_power_consumption
+      - sensor.solaredge_storage_level
 
   component_config_glob:
     sensor.garden_luftdaten_air_quality*:
