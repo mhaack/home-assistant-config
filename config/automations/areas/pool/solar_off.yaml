@@ -7,7 +7,7 @@ alias: "[Pool] Solar heating - off"
 trigger:
   - platform: numeric_state
     entity_id: sensor.pool_solar_temperature_diff
-    below: 5
+    below: 7
 condition:
   - condition: state
     entity_id: switch.pool_valve

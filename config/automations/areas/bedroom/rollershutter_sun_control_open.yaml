@@ -1,5 +1,5 @@
 ---
-# Open the roller shutter at 16:00 to get the plants some light
+# Open the roller shutter in the evening to get the plants some light
 #
 id: 7133023a-6e85-405d-b339-7ce28435fe3d
 alias: "[Bedroom] Open the roller shutter after 17:00"
@@ -7,7 +7,18 @@ initial_state: true
 trigger:
   - platform: time
     at: "17:00:00"
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: input_boolean.cleaning_mode
+      state: "off"
+    - condition: numeric_state
+      entity_id: cover.bedroom
+      value_template: "{{ state.attributes.current_position }}"
+      below: 75
 action:
-  - service: cover.open_cover
+  - service: cover.set_cover_position
     data:
       entity_id: cover.bedroom
+      position: 75

@@ -5,9 +5,9 @@
 alias: "[Appliances] Low battery alert"
 trigger:
   - platform: time
-    at: "10:00:00"
-  - platform: time
-    at: "18:00:00"
+    at:
+      - "10:00:00"
+      - "18:00:00"
 condition:
   - condition: template
     value_template: >

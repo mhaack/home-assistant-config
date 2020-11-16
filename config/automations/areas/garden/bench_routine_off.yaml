@@ -1,0 +1,34 @@
+---
+# Switch off garden bench movement notification, only if we are at home
+#
+id: c72ae259-914d-43ff-9dcb-6911e112895d
+alias: "[Garden] Bench alarm and notification off"
+trigger:
+  - platform: time
+    at:
+      - "09:00:00"
+      - "14:00:00"
+condition:
+  - condition: state
+    entity_id: group.family
+    state: home
+  - condition: or
+    conditions:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: "binary_sensor.workday_sensor"
+            state: "off"
+          - condition: time
+            after: "09:00:00"
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: "binary_sensor.workday_sensor"
+            state: "on"
+          - condition: time
+            after: "14:00:00"
+action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.garden_bench_notification

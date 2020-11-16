@@ -5,7 +5,7 @@ id: 5a7aa7cc-afba-45bb-b67f-eb377e69a671
 alias: "[System] HA Backup"
 trigger:
   - platform: time
-    at: '20:00:00'
+    at: "20:00:00"
 condition:
   - condition: time
     weekday:
@@ -13,7 +13,7 @@ condition:
 action:
   - service: notify.mobile_app_iphone_von_markus
     data:
-      message: Creating weekly backup {{"\uD83D\uDCBE"}} snapshot!
+      message: Creating weekly backup 💾 snapshot!
       title: JaMa Villa - Backup
       data:
         push:

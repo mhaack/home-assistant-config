@@ -7,13 +7,11 @@ id: 58498c94-3c62-4368-9aa0-1ca75ba5c796
 alias: "[Pool] Daily intense pool pump schedule - off"
 trigger:
   - platform: time
-    at: "00:00:00"
-  - platform: time
-    at: "06:00:00"
-  - platform: time
-    at: "12:00:00"
-  - platform: time
-    at: "18:00:00"
+    at:
+      - "00:00:00"
+      - "06:00:00"
+      - "12:00:00"
+      - "18:00:00"
 action:
   - service: switch.turn_off
     entity_id: switch.pool_pump
