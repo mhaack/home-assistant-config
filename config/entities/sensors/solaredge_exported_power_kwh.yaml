@@ -5,9 +5,7 @@ platform: template
 sensors:
   solaredge_exported_power_kwh:
     friendly_name: solaredge (Exported Power)
-    icon_template: 'mdi:flash'
-    entity_id:
-      - sensor.solaredge_exported_power
+    icon_template: "mdi:flash"
     value_template: >-
       {{ (states("sensor.solaredge_exported_power") | float / 1000) | round(1) }}
     unit_of_measurement: kWh

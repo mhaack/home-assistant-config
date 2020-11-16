@@ -5,10 +5,10 @@
 #
 platform: mqtt
 name: garden_temperature
-state_topic: "tele/sonoff-volvolicht/SENSOR"
+state_topic: "tele/sonoff-carport-volvolightlicht/SENSOR"
 unit_of_measurement: "°C"
 value_template: "{{ value_json['SI7021'].Temperature }}"
 device_class: temperature
-availability_topic: tele/sonoff-volvolicht/LWT
+availability_topic: tele/sonoff-carport-volvolightlicht/LWT
 payload_available: Online
 payload_not_available: Offline

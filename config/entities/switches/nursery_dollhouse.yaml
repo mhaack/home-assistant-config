@@ -5,6 +5,7 @@
 #
 platform: mqtt
 name: nursery_dollhouse
+unique_id: 6cb88ee1-fbd3-4b32-bbef-8729d684f63b
 command_topic: cmnd/sonoff-mia-puppenhaus/POWER
 state_topic: stat/sonoff-mia-puppenhaus/POWER
 availability_topic: tele/sonoff-mia-puppenhaus/LWT

@@ -5,6 +5,6 @@
 #
 platform: mqtt
 name: garden_carport_volvo_rssi
-state_topic: tele/sonoff-volvolicht/STATE
+state_topic: tele/sonoff-carport-volvolightlicht/STATE
 value_template: "{{ value_json.Wifi.RSSI }}"
 unit_of_measurement: "%"

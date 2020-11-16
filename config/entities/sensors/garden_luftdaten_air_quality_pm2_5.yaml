@@ -14,4 +14,3 @@ sensors:
       {% elif ((states.sensor.garden_luftdaten_stats_pm_2_5.state | float) * 0.25) <= 200 | float > 149 %}Very Poor
       {% elif ((states.sensor.garden_luftdaten_stats_pm_2_5.state | float) * 0.25) > 200 %}Hazardous
       {%- endif %}
-    entity_id: sensor.garden_luftdaten_stats_pm_2_5

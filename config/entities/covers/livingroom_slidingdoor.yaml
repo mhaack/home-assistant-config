@@ -26,6 +26,3 @@ covers:
         position: "{{position}}"
     position_template: >-
       {{ [states.cover.livingroom_window_4b.attributes['current_position'], states.cover.livingroom_window_4a.attributes['current_position']] | max }}
-    entity_id:
-      - cover.livingroom_window_4a
-      - cover.livingroom_window_4b

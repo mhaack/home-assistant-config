@@ -4,9 +4,6 @@
 platform: template
 sensors:
   pool_solar_temperature:
-    entity_id:
-      - sensor.pool_solar_temperature_1
-      - sensor.pool_solar_temperature_2
     value_template: >-
       {{((states.sensor.pool_solar_temperature_1.state |float +
          states.sensor.pool_solar_temperature_2.state |float) / 2) | round(1)}}

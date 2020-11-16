@@ -5,8 +5,9 @@
 #
 platform: mqtt
 name: garden_carport_volvo
-command_topic: cmnd/sonoff-volvolicht/POWER
-state_topic: stat/sonoff-volvolicht/POWER
-availability_topic: tele/sonoff-volvolicht/LWT
+unique_id: 17803376-eaa4-4bb2-972d-1ff0c93181f6
+command_topic: cmnd/sonoff-carport-volvolightlicht/POWER
+state_topic: stat/sonoff-carport-volvolightlicht/POWER
+availability_topic: tele/sonoff-carport-volvolightlicht/LWT
 payload_available: Online
 payload_not_available: Offline

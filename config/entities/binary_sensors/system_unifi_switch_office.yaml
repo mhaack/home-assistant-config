@@ -1,13 +1,13 @@
 ---
 # Shadow binary sensors for JaMa Villa devices
 #
-# https://www.home-assistant.io/integrations/sensor.template/
+# https://www.home-assistant.io/integrations/template/
 #
 platform: template
 sensors:
   system_unifi_switch_office:
     friendly_name: UniFi Switch Office
     device_class: connectivity
-    entity_id: device_tracker.office_switch
-    value_template: "{{ is_state('device_tracker.office_switch', 'home') }}"
+    value_template: >-
+      {{ is_state('device_tracker.office_switch', 'home') }}
     icon_template: mdi:switch

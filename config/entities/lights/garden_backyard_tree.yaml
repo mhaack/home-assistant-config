@@ -5,6 +5,7 @@
 #
 platform: mqtt
 name: garden_backyard_tree
+unique_id: d3467fa4-ef3c-4a47-b49c-47d4225f2776
 command_topic: cmnd/sonoff-garten/POWER2
 state_topic: stat/sonoff-garten/POWER2
 availability_topic: tele/sonoff-garten/LWT
