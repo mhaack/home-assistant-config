@@ -37,3 +37,4 @@ config/notebooks
 
 # Specific keeps
 !.gitkeep
+*.csv
