@@ -14,12 +14,12 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: custom:auto-entities
     card:
@@ -62,6 +62,7 @@ cards:
         - entity_id: "automation.livingroom*"
         - entity_id: "automation.bedroom*"
         - entity_id: "automation.childsroom*"
+        - entity_id: "automation.office*"
 
   - type: custom:auto-entities
     card:
@@ -154,7 +155,7 @@ cards:
       title: Cats
     filter:
       include:
-        - entity_id: "automation.cat*"
+        - entity_id: "automation.litterbox*"
 
   - type: custom:auto-entities
     card:
@@ -184,13 +185,14 @@ cards:
       exclude:
         - entity_id: "automation.appliances*"
         - entity_id: "automation.bedroom*"
-        - entity_id: "automation.cat*"
         - entity_id: "automation.childsroom*"
         - entity_id: "automation.garden*"
         - entity_id: "automation.house*"
         - entity_id: "automation.light*"
+        - entity_id: "automation.litterbox*"
         - entity_id: "automation.livingroom*"
         - entity_id: "automation.notify*"
+        - entity_id: "automation.office*"
         - entity_id: "automation.pond*"
         - entity_id: "automation.pool*"
         - entity_id: "automation.security*"

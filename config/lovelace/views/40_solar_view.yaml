@@ -180,4 +180,6 @@ cards:
             name: Batterieleistung
             type: custom:secondaryinfo-entity-row
             secondary_info: "Flow: [[ sensor.solaredge_storage_power.attributes.flow ]]"
+          - entity: sensor.solaredge_storage_level
+            name: Batterieladung
         show_header_toggle: false
