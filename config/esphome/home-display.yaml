@@ -68,7 +68,7 @@ sensor:
     entity_id: sensor.solaredge_storage_power
     id: storage_power
     internal: true
-    
+
   - platform: homeassistant
     entity_id: sensor.solaredge_storage_level
     id: storage_level
@@ -229,7 +229,6 @@ display:
           // Energy block
           it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Pool");
           it.line(40, 18, 185, 18);
-
 
           if (id(pool_pump_state).has_state()) {
               it.printf(2, 40, id(font_regular_16), TextAlign::BASELINE_LEFT, "Pumpe: %s", id(pool_pump_state).state ? "An" : "Aus");
