@@ -2,10 +2,12 @@
 # Reset visit litterbox 1 counter if litterbox was opened to be cleaned.
 #
 id: 83e761fe-0993-40f2-8f27-90fb78c5bddc
-alias: "[Litterbox] reset visits 1"
+alias: "[Litterbox] reset visits"
 trigger:
   - platform: state
-    entity_id: binary_sensor.hall_litterbox_1_lid
+    entity_id:
+      - binary_sensor.hall_litterbox_1_lid
+      - binary_sensor.hall_litterbox_2_lid
     to: "on"
 action:
   - service: counter.reset

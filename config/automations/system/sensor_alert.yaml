@@ -6,9 +6,9 @@ id: 9794fbc2-d309-4686-a463-497960410060
 alias: "[System] Sensor Error Detection"
 trigger:
   - platform: time
-    at: "10:05:00"
-  - platform: time
-    at: "18:05:00"
+    at:
+      - "10:05:00"
+      - "18:05:00"
   - platform: state
     entity_id: binary_sensor.system_device_error
     to: "on"

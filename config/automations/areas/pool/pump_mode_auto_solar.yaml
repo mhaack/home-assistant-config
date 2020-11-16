@@ -10,17 +10,17 @@ trigger:
 action:
   - service: switch.turn_on
     entity_id: switch.pool_pump
-  - service: homeassistant.turn_on
+  - service: automation.turn_on
     entity_id: automation.pool_daily_solar_pool_pump_schedule_on
-  - service: homeassistant.turn_on
+  - service: automation.turn_on
     entity_id: automation.pool_daily_solar_pool_pump_schedule_off
-  - service: homeassistant.turn_off
+  - service: automation.turn_off
     entity_id: automation.pool_daily_normal_pool_pump_schedule_on
-  - service: homeassistant.turn_off
+  - service: automation.turn_off
     entity_id: automation.pool_daily_normal_pool_pump_schedule_off
-  - service: homeassistant.turn_off
+  - service: automation.turn_off
     entity_id: automation.pool_daily_intense_pool_pump_schedule_on
-  - service: homeassistant.turn_off
+  - service: automation.turn_off
     entity_id: automation.pool_daily_intense_pool_pump_schedule_off
   - service: notify.system_pushover_markus
     data_template:

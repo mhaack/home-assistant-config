@@ -1,0 +1,35 @@
+---
+# Switch on/of watertank pump on when Hydrawise irrigation
+# programs trigger.
+#
+id: 493a7766-2d4f-4f11-a80d-413d02f2498e
+alias: "[Watertank] Pump operation controller"
+trigger:
+  - platform: state
+    entity_id:
+      - binary_sensor.rasen_watering
+      - binary_sensor.vorgarten_watering
+      - binary_sensor.beete_watering
+      - binary_sensor.hecke_watering
+mode: parallel
+action:
+  - choose:
+    - conditions:
+        - condition: template
+          value_template: "{{ trigger.to_state.state == 'on' }}"
+      sequence:
+        - service: switch.turn_on
+          data:
+            entity_id: switch.garden_watertank_pump
+        - service: notify.system_pushover_markus
+          data:
+            title: "JaMa Villa"
+            message: "Bewässerung wurde eingeschaltet."
+    default:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.garden_watertank_pump
+      - service: notify.system_pushover_markus
+        data:
+          title: "JaMa Villa"
+          message: "Bewässerung wurde ausgeschaltet."

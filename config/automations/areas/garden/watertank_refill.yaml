@@ -8,10 +8,6 @@
 id: 86e7306b-00ae-4773-9af8-595a1a748858
 alias: "[Watertank] Automatic Refill"
 trigger:
-  # - platform: template
-  #   value_template: "{{ states('sensor.garden_watertank_liter') | int < 2500}}"
-  #   for:
-  #     minutes: 1
   - platform: numeric_state
     entity_id: sensor.garden_watertank_liter
     below: 2500

@@ -5,9 +5,9 @@ id: 49713e37-f761-4049-a4d9-76bf5c704c53
 alias: "[Mailbox] Notification"
 trigger:
   - platform: time
-    at: "18:00:00"
-  - platform: time
-    at: "20:00:00"
+    at:
+      - "18:00:00"
+      - "20:00:00"
 condition:
   - condition: state
     entity_id: input_boolean.garden_mailbox_notification
@@ -18,7 +18,7 @@ condition:
 action:
   - service: notify.mobile_app_iphone_von_markus
     data:
-      title: JaMa Villa - {{"\uD83D\uDCEC"}}
+      title: JaMa Villa - 📬
       message: Der Briefkasten wurde noch nicht geleert, da ist noch ✉️ drin.
       data:
         push:

@@ -8,13 +8,11 @@ id: 392ed7a3-ea1e-46b7-b5a3-9b61f6c4f7c7
 alias: "[Pool] Daily normal pool pump schedule - on"
 trigger:
   - platform: time
-    at: "8:00:00"
-  - platform: time
-    at: "13:00:00"
-  - platform: time
-    at: "18:00:00"
-  - platform: time
-    at: "01:00:00"
+    at:
+      - "01:00:00"
+      - "08:00:00"
+      - "13:00:00"
+      - "18:00:00"
 action:
   - service: switch.turn_on
     entity_id: switch.pool_pump
