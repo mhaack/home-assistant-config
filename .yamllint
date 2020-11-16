@@ -1,8 +1,7 @@
 ---
 ignore: |
   config/custom_components/
-  config/ip_bans.yaml
-  config/notebooks/
+  config/themes/
   .circleci/config.yml
 rules:
   braces:
