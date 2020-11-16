@@ -41,13 +41,8 @@ time:
       # Every 1 minutes
       - seconds: 0
         then:
+          - display.page.show_next: epaper
           - component.update: epaper
-
-interval:
-  - interval: 5min
-    then:
-      - display.page.show_next: epaper
-      - component.update: epaper
 
 sensor:
   - platform: wifi_signal
@@ -73,6 +68,11 @@ sensor:
     entity_id: sensor.solaredge_storage_power
     id: storage_power
     internal: true
+    
+  - platform: homeassistant
+    entity_id: sensor.solaredge_storage_level
+    id: storage_level
+    internal: true
 
   - platform: homeassistant
     entity_id: sensor.solaredge_grid_power
@@ -95,8 +95,8 @@ sensor:
     internal: true
 
   - platform: homeassistant
-    entity_id: sensor.solaredge_cosumption_power_kwh
-    id: today_cosumption_power
+    entity_id: sensor.solaredge_consumption_power_kwh
+    id: today_consumption_power
     internal: true
 
   - platform: homeassistant
@@ -114,6 +114,27 @@ sensor:
     id: today_exported_power
     internal: true
 
+  - platform: homeassistant
+    entity_id: sensor.pool_solar_temperature
+    id: pool_solar_temperature
+    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.pool_water_temperature_1
+    id: pool_water_temperature
+    internal: true
+
+binary_sensor:
+  - platform: homeassistant
+    entity_id: binary_sensor.pool_pump_state
+    id: pool_pump_state
+    internal: true
+
+  - platform: homeassistant
+    entity_id: binary_sensor.pool_valve_state
+    id: pool_valve_state
+    internal: true
+
 display:
   - platform: waveshare_epaper
     id: epaper
@@ -128,7 +149,7 @@ display:
     pages:
       - id: page1
         lambda: |-
-          ESP_LOGI("display", "Updating...");
+          ESP_LOGI("display", "Updating Page 1...");
 
           // Time & Temp box
           it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
@@ -154,10 +175,13 @@ display:
           if (id(grid_power).has_state()) {
               it.printf(90, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "G: %.1fkW", id(grid_power).state);
           }
+          if (id(storage_level).has_state()) {
+              it.printf(1, 110, id(font_regular_16), TextAlign::BASELINE_LEFT, "Bat: %.0f%%", id(storage_level).state);
+          }
 
       - id: page2
         lambda: |-
-          ESP_LOGI("display", "Updating...");
+          ESP_LOGI("display", "Updating Page 2...");
 
           // Time & Temp box
           it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
@@ -177,8 +201,8 @@ display:
           if (id(energy_this_month).has_state()) {
               it.printf(85, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "M: %.1fkWh", id(energy_this_month).state);
           }
-          if (id(today_cosumption_power).has_state()) {
-              it.printf(2, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "C: %.1fkWh", id(today_cosumption_power).state);
+          if (id(today_consumption_power).has_state()) {
+              it.printf(2, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "C: %.1fkWh", id(today_consumption_power).state);
           }
           if (id(today_selfconsumption_power).has_state()) {
               it.printf(95, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "S: %.1fkWh", id(today_selfconsumption_power).state);
@@ -188,6 +212,37 @@ display:
           }
           if (id(today_exported_power).has_state()) {
               it.printf(95, 110, id(font_regular_16), TextAlign::BASELINE_LEFT, "E: %.1fkWh", id(today_exported_power).state);
+          }
+
+      - id: page3
+        lambda: |-
+          ESP_LOGI("display", "Updating Page 3...");
+
+          // Time & Temp box
+          it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+          it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+          if (id(garden_temp).has_state()) {
+            it.printf(242, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
+          }
+          it.line(188, 2, 188, 126);
+
+          // Energy block
+          it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Pool");
+          it.line(40, 18, 185, 18);
+
+
+          if (id(pool_pump_state).has_state()) {
+              it.printf(2, 40, id(font_regular_16), TextAlign::BASELINE_LEFT, "Pumpe: %s", id(pool_pump_state).state ? "An" : "Aus");
+          }
+          if (id(pool_valve_state).has_state()) {
+              it.printf(2, 65, id(font_regular_16), TextAlign::BASELINE_LEFT, "Solar: %s", id(pool_valve_state).state ? "An" : "Aus");
+          }
+
+          if (id(pool_water_temperature).has_state()) {
+              it.printf(2, 90, id(font_regular_16), TextAlign::BASELINE_LEFT, "Wasser: %.1f°C", id(pool_water_temperature).state);
+          }
+          if (id(pool_solar_temperature).has_state()) {
+              it.printf(2, 115, id(font_regular_16), TextAlign::BASELINE_LEFT, "Heizung: %.1f°C", id(pool_solar_temperature).state);
           }
 
 font:
