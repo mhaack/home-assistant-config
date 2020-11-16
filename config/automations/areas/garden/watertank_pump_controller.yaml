@@ -14,17 +14,17 @@ trigger:
 mode: parallel
 action:
   - choose:
-    - conditions:
-        - condition: template
-          value_template: "{{ trigger.to_state.state == 'on' }}"
-      sequence:
-        - service: switch.turn_on
-          data:
-            entity_id: switch.garden_watertank_pump
-        - service: notify.system_pushover_markus
-          data:
-            title: "JaMa Villa"
-            message: "Bewässerung wurde eingeschaltet."
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state == 'on' }}"
+        sequence:
+          - service: switch.turn_on
+            data:
+              entity_id: switch.garden_watertank_pump
+          - service: notify.system_pushover_markus
+            data:
+              title: "JaMa Villa"
+              message: "Bewässerung wurde eingeschaltet."
     default:
       - service: switch.turn_off
         data:
