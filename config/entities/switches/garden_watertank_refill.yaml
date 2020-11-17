@@ -6,8 +6,8 @@
 platform: mqtt
 name: garden_watertank_refill
 unique_id: eadb908a-86ef-44b2-b69b-a63f3e4a901e
-command_topic: cmnd/sonoff-garden-multi/POWER4
-state_topic: stat/sonoff-garden-multi/POWER4
-availability_topic: tele/sonoff-garden-multi/LWT
+command_topic: cmnd/sonoff-garden-multi-2/POWER4
+state_topic: stat/sonoff-garden-multi-2/POWER4
+availability_topic: tele/sonoff-garden-multi-2/LWT
 payload_available: Online
 payload_not_available: Offline

@@ -5,6 +5,6 @@
 #
 platform: mqtt
 name: garden_frontyard_treelight_rssi
-state_topic: tele/sonoff-vorgarten-baum/STATE
+state_topic: tele/sonoff-garden-frontyard-tree/STATE
 value_template: "{{ value_json.Wifi.RSSI }}"
 unit_of_measurement: "%"

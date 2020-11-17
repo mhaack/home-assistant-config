@@ -5,6 +5,6 @@
 #
 platform: mqtt
 name: garden_multi_rssi
-state_topic: tele/sonoff-garden-multi/STATE
+state_topic: tele/sonoff-garden-multi-2/STATE
 value_template: "{{ value_json.Wifi.RSSI }}"
 unit_of_measurement: "%"

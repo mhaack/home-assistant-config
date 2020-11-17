@@ -6,8 +6,8 @@
 platform: mqtt
 name: pool_valve_solar_off
 unique_id: 799c253f-4cd5-4d08-b189-f8207dac5184
-command_topic: cmnd/sonoff-garden-multi/POWER2
-state_topic: stat/sonoff-garden-multi/POWER2
-availability_topic: tele/sonoff-garden-multi/LWT
+command_topic: cmnd/sonoff-garden-multi-2/POWER2
+state_topic: stat/sonoff-garden-multi-2/POWER2
+availability_topic: tele/sonoff-garden-multi-2/LWT
 payload_available: Online
 payload_not_available: Offline
