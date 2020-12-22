@@ -1,13 +1,8 @@
 ---
-# Sun deck ship position lights
+# Use switch light wrapper for Tasmota switches.
 #
-# https://www.home-assistant.io/integrations/light.mqtt/
+# https://www.home-assistant.io/integrations/light.switch/
 #
-platform: mqtt
+platform: switch
 name: garden_sundeck_positionlight
-unique_id: 9707a911-e53f-443a-b2a1-ca5328da96f6
-command_topic: cmnd/sonoff-garden-multi-2/POWER3
-state_topic: stat/sonoff-garden-multi-2/POWER3
-availability_topic: tele/sonoff-garden-multi-2/LWT
-payload_available: Online
-payload_not_available: Offline
+entity_id: switch.garden_sundeck_positionlight

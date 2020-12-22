@@ -1,7 +1,0 @@
----
-#
-# Customizes terrace LED spot lights
-#
-light.garden_terrace_spots:
-  friendly_name: Terrasse Spots
-  icon: mdi:spotlight-beam

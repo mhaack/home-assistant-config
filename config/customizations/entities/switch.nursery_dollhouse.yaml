@@ -1,9 +1,0 @@
----
-#
-# Customizes Mia's dollhouse with a nice icon
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-switch.nursery_dollhouse:
-  icon: mdi:home-outline
-  friendly_name: Puppenhaus

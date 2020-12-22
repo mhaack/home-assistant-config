@@ -6,10 +6,9 @@
 platform: group
 name: xmas_indoor_lights
 entities:
-  - light.xmas_tree
+  - light.xmas_christmastree
+  - light.xmas_eatingroom
   - light.xmas_hall
-  - light.xmas_livingroom_1
-  - light.xmas_livingroom_2
-  - light.xmas_livingroom_3
+  - light.xmas_livingroom
+  - light.xmas_livingroom_star
   - light.xmas_office
-  - light.xmas_stairs

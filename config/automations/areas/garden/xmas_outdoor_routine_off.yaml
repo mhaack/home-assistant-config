@@ -16,4 +16,4 @@ condition:
 action:
   - service: light.turn_off
     data:
-      entity_id: light.xmas_garden_lights
+      entity_id: light.xmas_outdoor_lights

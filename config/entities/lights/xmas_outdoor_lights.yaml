@@ -4,11 +4,14 @@
 # https://www.home-assistant.io/integrations/light.group/
 #
 platform: group
-name: xmas_garden_lights
+name: xmas_outdoor_lights
 entities:
-  - light.xmas_carport
   - light.garden_backyard_tree
+  - light.garden_carport_wled
   - light.garden_frontyard_tree
-  # - light.garden_sundeck_spots
   - light.garden_terrace_lounge
-  # - light.xmas_candles
+  - light.xmas_candles
+  - light.xmas_carport_fairylights
+  - light.xmas_carport_stars
+  - light.xmas_fence_fairylights
+  - light.xmas_garden_star

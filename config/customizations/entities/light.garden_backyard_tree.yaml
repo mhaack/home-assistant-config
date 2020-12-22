@@ -1,7 +1,0 @@
----
-#
-# Customizes outdoor tree lights
-#
-light.garden_backyard_tree:
-  icon: mdi:tree
-  friendly_name: Baum Garten

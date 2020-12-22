@@ -1,7 +1,0 @@
----
-#
-# Customizes old carport Volvo light
-#
-light.garden_carport_wled:
-  icon: mdi:led-strip-variant
-  friendly_name: Halloween Deko
