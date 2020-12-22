@@ -1,29 +1,32 @@
 """Provide functionality to interact with vlc devices on the network."""
 import logging
+from abc import ABC
 
-import voluptuous as vol
-
-from homeassistant.components.media_player import DEVICE_CLASS_SPEAKER, PLATFORM_SCHEMA, MediaPlayerDevice
+from homeassistant.components.media_player import (
+    DEVICE_CLASS_SPEAKER,
+    MediaPlayerEntity,
+)
 from homeassistant.components.media_player.const import (
     MEDIA_TYPE_MUSIC,
+    SUPPORT_NEXT_TRACK,
     SUPPORT_PAUSE,
     SUPPORT_PLAY,
     SUPPORT_PLAY_MEDIA,
     SUPPORT_PREVIOUS_TRACK,
-    SUPPORT_NEXT_TRACK,
     SUPPORT_SHUFFLE_SET,
     SUPPORT_VOLUME_MUTE,
     SUPPORT_VOLUME_SET,
 )
-from homeassistant.core import callback
 from homeassistant.const import (
     ATTR_ATTRIBUTION,
     STATE_IDLE,
     STATE_PAUSED,
-    STATE_PLAYING
+    STATE_PLAYING,
 )
-import homeassistant.helpers.config_validation as cv
-from . import COMPONENT_ATTRIBUTION, COMPONENT_DATA, COMPONENT_BRAND
+from homeassistant.core import callback
+
+from . import COMPONENT_ATTRIBUTION, COMPONENT_BRAND, COMPONENT_DATA
+from .pyaarlo.constant import MEDIA_PLAYER_KEY
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -36,7 +39,6 @@ SUPPORT_ARLO = (
     | SUPPORT_SHUFFLE_SET
     | SUPPORT_VOLUME_MUTE
     | SUPPORT_VOLUME_SET
-    
 )
 
 """ Unsupported features:
@@ -52,7 +54,7 @@ SUPPORT_ARLO = (
 """
 
 
-async def async_setup_platform(hass, config, async_add_entities, _discovery_info=None):
+async def async_setup_platform(hass, _config, async_add_entities, _discovery_info=None):
     """Set up an Arlo media player."""
     arlo = hass.data.get(COMPONENT_DATA)
     if not arlo:
@@ -60,19 +62,20 @@ async def async_setup_platform(hass, config, async_add_entities, _discovery_info
 
     players = []
     for camera in arlo.cameras:
-        if camera.has_capability('mediaPlayer'):
-            name = '{0}'.format(camera.name)
-            players.append(ArloMediaPlayerDevice(name, camera))
+        if camera.has_capability(MEDIA_PLAYER_KEY):
+            name = "{0}".format(camera.name)
+            players.append(ArloMediaPlayer(name, camera))
 
     async_add_entities(players, True)
 
-class ArloMediaPlayerDevice(MediaPlayerDevice):
+
+class ArloMediaPlayer(MediaPlayerEntity, ABC):
     """Representation of an arlo media player."""
 
     def __init__(self, name, device):
         """Initialize an Arlo media player."""
         self._name = name
-        self._unique_id = self._name.lower().replace(' ', '_')
+        self._unique_id = device.entity_id
 
         self._device = device
         self._name = name
@@ -84,33 +87,33 @@ class ArloMediaPlayerDevice(MediaPlayerDevice):
         self._track_id = None
         self._playlist = []
 
-        _LOGGER.info('ArloMediaPlayerDevice: %s created', self._name)
+        _LOGGER.info("ArloMediaPlayer: %s created", self._name)
 
     async def async_added_to_hass(self):
         """Register callbacks."""
 
         @callback
         def update_state(_device, attr, props):
-            _LOGGER.info('callback:' + self._name + ':' + attr + ':' + str(props)[:80])
+            _LOGGER.info("callback:" + self._name + ":" + attr + ":" + str(props)[:80])
             if attr == "status":
-                status = props.get('status')
-                if status == 'playing':
+                status = props.get("status")
+                if status == "playing":
                     self._state = STATE_PLAYING
-                elif status == 'paused':
+                elif status == "paused":
                     self._state = STATE_PAUSED
                 else:
-                    _LOGGER.debug('Unknown status:' + status)
+                    _LOGGER.debug("Unknown status:" + status)
                     self._state = STATE_IDLE
-                self._position = props.get('position', 0)
-                self._track_id = props.get('trackId', None)
+                self._position = props.get("position", 0)
+                self._track_id = props.get("trackId", None)
             elif attr == "speaker":
-                vol = props.get('volume')
+                vol = props.get("volume")
                 if vol is not None:
                     self._volume = vol / 100
-                self._muted = props.get('mute', self._muted)
+                self._muted = props.get("mute", self._muted)
             elif attr == "config":
-                config = props.get('config', {})
-                self._shuffle = config.get('shuffleActive', self._shuffle)
+                config = props.get("config", {})
+                self._shuffle = config.get("shuffleActive", self._shuffle)
             elif attr == "playlist":
                 self._playlist = props
 
@@ -179,13 +182,11 @@ class ArloMediaPlayerDevice(MediaPlayerDevice):
     @property
     def device_state_attributes(self):
         """Return the device state attributes."""
-        attrs = {}
-
-        attrs[ATTR_ATTRIBUTION] = COMPONENT_ATTRIBUTION
-        attrs['brand'] = COMPONENT_BRAND
-        attrs['friendly_name'] = self._name
-
-        return attrs
+        return {
+            ATTR_ATTRIBUTION: COMPONENT_ATTRIBUTION,
+            "brand": COMPONENT_BRAND,
+            "friendly_name": self._name,
+        }
 
     @property
     def shuffle(self):
