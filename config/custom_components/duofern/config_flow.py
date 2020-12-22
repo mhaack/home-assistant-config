@@ -34,8 +34,7 @@ class DomainConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             step_id='user',
             data_schema=vol.Schema({
                 vol.Required('code'): str,
-                vol.Optional('serial_port',
-                             default="/dev/serial/by-id/usb-Rademacher_DuoFern_USB-Stick_WR04ZFP4-if00-port0"): vol.In(serialdevs),
+                vol.Optional('serial_port', default="/dev/serial/by-id/usb-Rademacher_DuoFern_USB-Stick_WR04ZFP4-if00-port0"): str,
                 vol.Optional('config_file', default=os.path.join(os.path.dirname(__file__), "../../duofern.json")): str
             }),
             errors=errors

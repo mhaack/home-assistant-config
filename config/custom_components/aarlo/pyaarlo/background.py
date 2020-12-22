@@ -1,9 +1,9 @@
 import threading
 import time
+import traceback
 
 
 class ArloBackgroundWorker(threading.Thread):
-
     def __init__(self, arlo):
         super().__init__()
         self._arlo = arlo
@@ -13,11 +13,11 @@ class ArloBackgroundWorker(threading.Thread):
 
     def _next_id(self):
         self._id += 1
-        return str(self._id) + ':' + str(time.monotonic())
+        return str(self._id) + ":" + str(time.monotonic())
 
     def _run_next(self):
 
-        # timout in the future
+        # timeout in the future
         timeout = int(time.monotonic() + 60)
 
         # go by priority...
@@ -31,13 +31,17 @@ class ArloBackgroundWorker(threading.Thread):
 
                     # run it
                     try:
-                        job['callback'](**job['args'])
+                        job["callback"](**job["args"])
                     except Exception as e:
-                        self._arlo.debug('job-error={}'.format(type(e).__name__))
+                        self._arlo.error(
+                            "job-error={}\n{}".format(
+                                type(e).__name__, traceback.format_exc()
+                            )
+                        )
 
                     # reschedule?
                     self._lock.acquire()
-                    run_every = job.get('run_every', None)
+                    run_every = job.get("run_every", None)
                     if run_every:
                         run_at += run_every
                         self._queue[prio][(run_at, job_id)] = job
@@ -47,6 +51,7 @@ class ArloBackgroundWorker(threading.Thread):
                 else:
                     if run_at < timeout:
                         timeout = run_at
+                    break
 
         return timeout
 
@@ -87,16 +92,15 @@ class ArloBackgroundWorker(threading.Thread):
 
 
 class ArloBackground:
-
     def __init__(self, arlo):
         self._worker = ArloBackgroundWorker(arlo)
-        self._worker.name = 'ArloBackgroundWorker'
+        self._worker.name = "ArloBackgroundWorker"
         self._worker.daemon = True
         self._worker.start()
-        arlo.debug('starting')
+        arlo.debug("starting")
 
     def _run(self, bg_cb, prio, **kwargs):
-        job = {'callback': bg_cb, 'args': kwargs}
+        job = {"callback": bg_cb, "args": kwargs}
         return self._worker.queue_job(time.monotonic(), prio, job)
 
     def run_high(self, bg_cb, **kwargs):
@@ -109,7 +113,7 @@ class ArloBackground:
         return self._run(bg_cb, 99, **kwargs)
 
     def _run_in(self, bg_cb, prio, seconds, **kwargs):
-        job = {'callback': bg_cb, 'args': kwargs}
+        job = {"callback": bg_cb, "args": kwargs}
         return self._worker.queue_job(time.monotonic() + seconds, prio, job)
 
     def run_high_in(self, bg_cb, seconds, **kwargs):
@@ -122,7 +126,7 @@ class ArloBackground:
         return self._run_in(bg_cb, 99, seconds, **kwargs)
 
     def _run_every(self, bg_cb, prio, seconds, **kwargs):
-        job = {'run_every': seconds, 'callback': bg_cb, 'args': kwargs}
+        job = {"run_every": seconds, "callback": bg_cb, "args": kwargs}
         return self._worker.queue_job(time.monotonic() + seconds, prio, job)
 
     def run_high_every(self, bg_cb, seconds, **kwargs):
