@@ -15,10 +15,13 @@ sonos_say:
       data_template:
         entity_id: "{{ sonos_entity }}"
         volume_level: "{{ volume }}"
-    - service: tts.google_translate_say
-      data_template:
+    - service: tts.cloud_say
+      data:
         entity_id: "{{ sonos_entity }}"
         message: "{{ message }}"
+        language: de-DE
+        options:
+          gender: female
     - delay: "{{ delay }}"
     - service: sonos.restore
       data_template:

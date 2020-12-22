@@ -58,10 +58,11 @@ cards:
       title: House Automations
     filter:
       include:
-        - entity_id: "automation.house*"
-        - entity_id: "automation.livingroom*"
         - entity_id: "automation.bedroom*"
         - entity_id: "automation.childsroom*"
+        - entity_id: "automation.house*"
+        - entity_id: "automation.laundry*"
+        - entity_id: "automation.livingroom*"
         - entity_id: "automation.office*"
 
   - type: custom:auto-entities
@@ -188,6 +189,7 @@ cards:
         - entity_id: "automation.childsroom*"
         - entity_id: "automation.garden*"
         - entity_id: "automation.house*"
+        - entity_id: "automation.laundry*"
         - entity_id: "automation.light*"
         - entity_id: "automation.litterbox*"
         - entity_id: "automation.livingroom*"

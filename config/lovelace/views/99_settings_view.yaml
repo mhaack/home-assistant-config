@@ -14,19 +14,19 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Modi'
+          - content: "Modi"
       - type: entities
         style: |
           ha-card {
@@ -46,7 +46,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Benachrichtigungen'
+          - content: "Benachrichtigungen"
           - icon: mdi:bell
       - type: entities
         style: |
@@ -70,7 +70,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Sensor Error'
+          - content: "Sensor Error"
       - type: entities
         style: |
           ha-card {
@@ -89,7 +89,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Sun'
+          - content: "Sun"
       - type: entities
         style: |
           ha-card {
@@ -107,7 +107,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Anwesenheit'
+          - content: "Anwesenheit"
       - type: entities
         style: |
           ha-card {
@@ -148,7 +148,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Briefkasten'
+          - content: "Briefkasten"
           - icon: "mdi:mailbox-open"
       - type: entities
         style: |
@@ -169,7 +169,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Katzenklo'
+          - content: "Katzenklo"
           - icon: mdi:cat
       - type: entities
         style: |
@@ -183,7 +183,6 @@ cards:
           - binary_sensor.hall_litterbox_motion
           - binary_sensor.hall_litterbox_1
           - binary_sensor.hall_litterbox_2
-          - counter.hall_litterbox_visits
           - sensor.hall_all_litterbox_visits
           - binary_sensor.hall_litterbox_1_lid
           - binary_sensor.hall_litterbox_2_lid
@@ -194,7 +193,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'AdGuard'
+          - content: "AdGuard"
           - icon: mdi:home-assistant
       - type: entities
         style: |

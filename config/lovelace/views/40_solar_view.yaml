@@ -14,19 +14,19 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Solarproduktion'
+          - content: "Solarproduktion"
           - icon: mdi:solar-power
       - type: horizontal-stack
         cards:
@@ -71,7 +71,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Heute'
+          - content: "Heute"
           - icon: mdi:solar-power
       - type: horizontal-stack
         cards:
@@ -116,7 +116,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Stromerzeugung'
+          - content: "Stromerzeugung"
           - icon: mdi:solar-power
       - type: "custom:mini-graph-card"
         style: |
@@ -125,25 +125,36 @@ cards:
             box-shadow: var(--card-box-shadow);
             margin: 0px 14px 5px 14px;
           }
-        decimals: 1
-        hour24: true
-        points_per_hour: 1
+        color_thresholds:
+          - color: "#039BE5"
+            value: 0
+          - color: "#0da035"
+            value: 3.5
+          - color: "#e0b400"
+            value: 2.0
+          - color: "#e45e65"
+            value: 0.6
+        color_thresholds_transition: hard
         entities:
-          - entity: sensor.solaredge_solar_power
-            color: rgb(64, 180, 99)
+          - sensor.solaredge_solar_power
+        hour24: true
+        line_width: 4
+        points_per_hour: 10
         show:
-          fill: fade
           extrema: true
+          fill: fade
           name: false
           icon: false
-          graph: bar
+          labels: false
+          state: true
+          legend: false
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Stromverbrauch'
+          - content: "Stromverbrauch"
           - icon: mdi:solar-power
       - type: "custom:mini-graph-card"
         style: |
@@ -152,18 +163,40 @@ cards:
             box-shadow: var(--card-box-shadow);
             margin: 0px 14px 5px 14px;
           }
-        decimals: 1
-        hour24: true
-        points_per_hour: 1
+        color_thresholds:
+          - color: "#039BE5"
+            value: 0
+          - color: "#0da035"
+            value: 0.6
+          - color: "#e0b400"
+            value: 1.2
+          - color: "#e45e65"
+            value: 2.4
+        color_thresholds_transition: hard
         entities:
-          - entity: sensor.solaredge_power_consumption
-            color: rgb(241, 92, 92)
+          - sensor.solaredge_power_consumption
+          - entity: binary_sensor.dark_outside
+            color: "rgba(0,0,255,1)"
+            show_line: false
+            show_points: false
+            y_axis: secondary
+        hour24: true
+        line_width: 4
+        points_per_hour: 10
         show:
-          fill: fade
           extrema: true
+          fill: fade
           name: false
           icon: false
-          graph: bar
+          labels: false
+          labels_secondary: false
+          state: true
+          legend: false
+        state_map:
+          - label: Day
+            value: "off"
+          - label: Night
+            value: "on"
       - type: entities
         style: |
           ha-card {

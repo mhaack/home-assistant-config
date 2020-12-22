@@ -14,19 +14,19 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Core Network'
+          - content: "Core Network"
           - icon: mdi:server-network
       - type: glance
         style: |
@@ -53,7 +53,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Device Network'
+          - content: "Device Network"
           - icon: mdi:server-network
       - type: glance
         style: |
@@ -72,6 +72,9 @@ cards:
           - binary_sensor.garden_hydrawise
           - binary_sensor.equipmentroom_solar_inverter
           - binary_sensor.equipmentroom_solar_battery
+          - binary_sensor.laundryroom_washing_machine
+          - binary_sensor.laundryroom_tumble_dryer
+          - binary_sensor.kitchen_oven
         show_header_toggle: false
         show_state: false
       - type: horizontal-stack
@@ -81,7 +84,7 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Internet Speed'
+                  - content: "Internet Speed"
                   - icon: mdi:wan
               - type: "custom:mini-graph-card"
                 style: |
@@ -107,7 +110,7 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Internet Ping'
+                  - content: "Internet Ping"
                   - icon: mdi:wan
               - type: "custom:mini-graph-card"
                 style: |
@@ -132,7 +135,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'HA Server Resources'
+          - content: "HA Server Resources"
           - icon: mdi:home-assistant
       - type: custom:mini-graph-card
         style: |
@@ -146,7 +149,7 @@ cards:
         name: CPU
         align_header: left
         align_icon: left
-        line_color: '#2980b9'
+        line_color: "#2980b9"
         line_width: 2
         hours_to_show: 24
         decimals: 1
@@ -154,7 +157,7 @@ cards:
         show:
           fill: fade
           extrema: true
-        color: '#00ba6a'
+        color: "#00ba6a"
       - type: custom:bar-card
         style: |
           ha-card {
@@ -164,7 +167,7 @@ cards:
           }
         entities:
           - entity: sensor.disk_use_percent
-            color: '#00ba6a'
+            color: "#00ba6a"
           - entity: sensor.memory_use_percent
         positions:
           indicator: inside
@@ -187,7 +190,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'QNAP NAS Resources'
+          - content: "QNAP NAS Resources"
           - icon: mdi:nas
       - type: custom:mini-graph-card
         style: |
@@ -201,7 +204,7 @@ cards:
         name: CPU
         align_header: left
         align_icon: left
-        line_color: '#2980b9'
+        line_color: "#2980b9"
         line_width: 2
         hours_to_show: 24
       - type: custom:bar-card
@@ -213,7 +216,7 @@ cards:
           }
         entities:
           - entity: sensor.datentopf_volume_used_volume_1
-            color: '#00ba6a'
+            color: "#00ba6a"
           - entity: sensor.datentopf_memory_usage
         positions:
           indicator: inside

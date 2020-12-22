@@ -14,6 +14,9 @@ card:
           ## [[content]]
         {% endif %}
       style: |
+        ha-markdown {
+          padding: 16px 0px !important;
+        }
         ha-card {
           margin: 0px 14px -5px 14px;
           box-shadow: none;
