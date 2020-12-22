@@ -1,0 +1,10 @@
+---
+#
+# Configure Miele@Home via custom component
+#
+# https://github.com/HomeAssistant-Mods/home-assistant-miele
+#
+miele:
+  client_id: !secret miele_client_id
+  client_secret: !secret miele_client_secret
+  lang: de

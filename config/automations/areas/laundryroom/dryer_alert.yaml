@@ -1,0 +1,19 @@
+---
+# Play text message if dryer is done.
+#
+id: 7fa8bee8-af19-4160-914e-9a7caee7aa14
+alias: "[Laundry] Dryer alert"
+trigger:
+  - platform: state
+    entity_id: sensor.laundryroom_dryer_status
+    from: "In Betrieb"
+    to: "Ende"
+action:
+  - service: script.sonos_say
+    data:
+      sonos_entity: media_player.move
+      volume: 0.4
+      message: >-
+        Hallo hier spricht das trockene Handtuch, ich möchte endlich aus dem
+        Trockner befreit werden.
+      delay: 00:00:10
