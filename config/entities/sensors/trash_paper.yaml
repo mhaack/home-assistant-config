@@ -1,0 +1,17 @@
+---
+# Template sensor for the paper trash schedule
+#
+platform: template
+sensors:
+  trash_paper:
+    friendly_name: "Papiertonne"
+    icon_template: mdi:trash-can-outline
+    device_class: timestamp
+    value_template: >-
+      {% if state_attr('sensor.trash_raw', 'p') != None %}
+        {% if as_timestamp(now()) - state_attr('sensor.trash_raw', 'p')[1] < 0 %}
+          {{ state_attr('sensor.trash_raw', 'p')[1] | timestamp_local | replace(' ', 'T') }}Z
+        {% else %}
+          {{ state_attr('sensor.trash_raw', 'p')[2] | timestamp_local | replace(' ', 'T') }}Z
+        {% endif %}
+      {% endif %}
