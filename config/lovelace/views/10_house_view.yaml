@@ -14,19 +14,19 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Innenbeleuchtung'
+          - content: "Innenbeleuchtung"
           - icon: mdi:lightbulb
       - type: glance
         style: |
@@ -63,7 +63,7 @@ cards:
         entities:
           - entity: timer.hall_lights
         state_filter:
-          - 'active'
+          - "active"
 
       - type: horizontal-stack
         cards:
@@ -72,9 +72,9 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Wohnzimmer'
+                  - content: "Wohnzimmer"
                   - icon: mdi:home-thermometer
-              - type: 'custom:mini-graph-card'
+              - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
                 style: |
                   ha-card {
@@ -102,9 +102,9 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Küche'
+                  - content: "Küche"
                   - icon: mdi:home-thermometer
-              - type: 'custom:mini-graph-card'
+              - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
                 style: |
                   ha-card {
@@ -135,9 +135,9 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Schlafzimmer'
+                  - content: "Schlafzimmer"
                   - icon: mdi:home-thermometer
-              - type: 'custom:mini-graph-card'
+              - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
                 style: |
                   ha-card {
@@ -165,9 +165,9 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Kinderzimmer'
+                  - content: "Kinderzimmer"
                   - icon: mdi:home-thermometer
-              - type: 'custom:mini-graph-card'
+              - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
                 style: |
                   ha-card {
@@ -198,9 +198,9 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Bad'
+                  - content: "Bad"
                   - icon: mdi:home-thermometer
-              - type: 'custom:mini-graph-card'
+              - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
                 style: |
                   ha-card {
@@ -228,9 +228,9 @@ cards:
               - type: custom:decluttering-card
                 template: card_header
                 variables:
-                  - content: 'Büro'
+                  - content: "Büro"
                   - icon: mdi:home-thermometer
-              - type: 'custom:mini-graph-card'
+              - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
                 style: |
                   ha-card {
@@ -259,7 +259,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Rollläden Untergeschoss'
+          - content: "Rollläden Untergeschoss"
           - icon: mdi:window-shutter-open
       - type: entities
         style: |
@@ -273,32 +273,32 @@ cards:
             head: cover.livingroom_slidingdoor
             entities:
               - entity: cover.livingroom_window_4b
-                icon: 'mdi:format-align-justify'
+                icon: "mdi:format-align-justify"
                 name: Schiebetür rechts
               - entity: cover.livingroom_window_4a
-                icon: 'mdi:format-align-justify'
+                icon: "mdi:format-align-justify"
                 name: Schiebetür links
           - entity: cover.kitchen
-            icon: 'mdi:format-align-justify'
+            icon: "mdi:format-align-justify"
             type: "custom:secondaryinfo-entity-row"
-            secondary_info: '[[ cover.kitchen.state ]]'
+            secondary_info: "[[ cover.kitchen.state ]]"
           - entity: cover.livingroom_window_3
-            icon: 'mdi:format-align-justify'
+            icon: "mdi:format-align-justify"
             type: "custom:secondaryinfo-entity-row"
-            secondary_info: '[[ cover.livingroom_window_3.state ]]'
+            secondary_info: "[[ cover.livingroom_window_3.state ]]"
           - entity: cover.livingroom_window_2
-            icon: 'mdi:format-align-justify'
+            icon: "mdi:format-align-justify"
             type: "custom:secondaryinfo-entity-row"
-            secondary_info: '[[ cover.livingroom_window_2.state ]]'
+            secondary_info: "[[ cover.livingroom_window_2.state ]]"
           - entity: cover.livingroom_window_1
-            icon: 'mdi:format-align-justify'
+            icon: "mdi:format-align-justify"
             type: "custom:secondaryinfo-entity-row"
-            secondary_info: '[[ cover.livingroom_window_1.state ]]'
+            secondary_info: "[[ cover.livingroom_window_1.state ]]"
         show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Rollläden Obergeschoss'
+          - content: "Rollläden Obergeschoss"
           - icon: mdi:window-shutter-open
       - type: entities
         style: |
@@ -309,23 +309,23 @@ cards:
           }
         entities:
           - entity: cover.bedroom
-            icon: 'mdi:format-align-justify'
+            icon: "mdi:format-align-justify"
             type: "custom:secondaryinfo-entity-row"
-            secondary_info: '[[ cover.bedroom.state ]]'
+            secondary_info: "[[ cover.bedroom.state ]]"
           - entity: cover.nursery
-            icon: 'mdi:format-align-justify'
+            icon: "mdi:format-align-justify"
             type: "custom:secondaryinfo-entity-row"
-            secondary_info: '[[ cover.nursery.state ]]'
+            secondary_info: "[[ cover.nursery.state ]]"
           - entity: cover.nursery_bed
-            icon: 'mdi:format-align-justify'
+            icon: "mdi:format-align-justify"
             type: "custom:secondaryinfo-entity-row"
-            secondary_info: '[[ cover.nursery_bed.state ]]'
+            secondary_info: "[[ cover.nursery_bed.state ]]"
         show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Kinderzimmer'
-          - icon: mdi:hotel
+          - content: "Kinderzimmer"
+          - icon: mdi:bed-outline
       - type: entities
         style: |
           ha-card {
@@ -344,56 +344,150 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Sonos'
-      - type: 'custom:mini-media-player'
+          - content: "Backofen"
+          - icon: mdi:stove
+      - type: entities
         style: |
           ha-card {
             --paper-card-background-color: var(--sidebar-background-color);
             box-shadow: var(--card-box-shadow);
             margin: 0px 14px 5px 14px;
           }
-        icon: mdi:speaker
-        entity: media_player.office
-        artwork: cover
-        hide:
-          volume: true
-          source: true
-          power_state: false
-      - type: 'custom:mini-media-player'
+        entities:
+          - entity: sensor.kitchen_oven_status
+            name: Status
+        show_header_toggle: false
+      - type: conditional
+        conditions:
+          - entity: sensor.kitchen_oven_status
+            state_not: Aus
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          entities:
+            - type: attribute
+              entity: sensor.kitchen_oven_status
+              name: Programmfortschritt
+              attribute: programPhase
+            - entity: binary_sensor.kitchen_oven_door
+              name: Klappe
+            - entity: sensor.kitchen_oven_target_temperature_0
+              name: Eingestellte Temperatur
+            - entity: sensor.kitchen_oven_temperature_0
+              name: Aktuelle Temperatur
+            - type: attribute
+              entity: sensor.kitchen_oven_status
+              name: Startzeit
+              attribute: kickoffTime
+              icon: mdi:clock-start
+            - entity: sensor.kitchen_oven_remaining_time
+              name: Restlaufzeit
+            - entity: sensor.kitchen_oven_elapsed_time
+              name: Laufzeit
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Waschmaschine"
+          - icon: mdi:washing-machine
+      - type: entities
         style: |
           ha-card {
             --paper-card-background-color: var(--sidebar-background-color);
             box-shadow: var(--card-box-shadow);
             margin: 0px 14px 5px 14px;
           }
-        icon: mdi:speaker
-        entity: media_player.livingroom
-        artwork: cover
-        hide:
-          volume: true
-          source: true
-          power_state: false
-      - type: 'custom:mini-media-player'
+        entities:
+          - entity: sensor.laundryroom_washing_machine_status
+            name: Status
+        show_header_toggle: false
+      - type: conditional
+        conditions:
+          - entity: sensor.laundryroom_washing_machine_status
+            state_not: Aus
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          entities:
+            - type: attribute
+              entity: sensor.laundryroom_washing_machine_status
+              name: Programmfortschritt
+              attribute: programPhase
+            - entity: binary_sensor.laundryroom_washing_machine_door
+              name: Tür
+            - entity: sensor.laundryroom_washing_machine_target_temperature_0
+              name: Eingestellte Temperatur
+            - type: attribute
+              entity: sensor.laundryroom_washing_machine_status
+              name: Schleuderdrehzahl
+              attribute: spinningSpeed
+              icon: mdi:rotate-right
+            - entity: sensor.laundryroom_washing_machine_remaining_time
+              name: Restlaufzeit
+            - entity: sensor.laundryroom_washing_machine_elapsed_time
+              name: Laufzeit
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Trockner"
+          - icon: mdi:tumble-dryer
+      - type: entities
         style: |
           ha-card {
             --paper-card-background-color: var(--sidebar-background-color);
             box-shadow: var(--card-box-shadow);
             margin: 0px 14px 5px 14px;
           }
-        icon: mdi:speaker
-        entity: media_player.move
-        artwork: cover
-        hide:
-          volume: true
-          source: true
-          power_state: false
-
+        entities:
+          - entity: sensor.laundryroom_dryer_status
+            name: Status
+        show_header_toggle: false
+      - type: conditional
+        conditions:
+          - entity: sensor.laundryroom_dryer_status
+            state_not: Aus
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          entities:
+            - type: attribute
+              entity: sensor.laundryroom_dryer_status
+              name: Programmfortschritt
+              attribute: programPhase
+            - type: attribute
+              entity: sensor.laundryroom_dryer_status
+              name: Programmfortschritt
+              attribute: dryingStep
+            - entity: binary_sensor.laundryroom_dryer_door
+              name: Tür
+            - entity: sensor.laundryroom_dryer_remaining_time
+              name: Restlaufzeit
+            - entity: sensor.laundryroom_dryer_elapsed_time
+              name: Laufzeit
+            - type: attribute
+              entity: sensor.laundryroom_dryer_status
+              name: Energieverbrauch
+              attribute: currentEnergyConsumption
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Geräte'
+          - content: "Geräte"
           - icon: mdi:devices
       - type: entities
         style: |
@@ -410,7 +504,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Katzenklo'
+          - content: "Katzenklo"
           - icon: mdi:cat
       - type: entities
         style: |
@@ -422,12 +516,11 @@ cards:
         entities:
           - entity: sensor.hall_all_litterbox_visits
         show_header_toggle: false
-        show_state: false
 
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Robbie'
+          - content: "Robbie"
           - icon: mdi:robot-vacuum
       - type: entities
         style: |
@@ -448,3 +541,30 @@ cards:
             margin: 0px 14px 5px 14px;
           }
         entity: camera.hall_robbie_cleaning_map
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Müll"
+          - icon: mdi:trash-can
+      - type: "custom:auto-entities"
+        show_empty: true
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          show_header_toggle: false
+        filter:
+          include:
+            - entity_id: sensor.trash_*
+              not:
+                state: "0"
+          exclude:
+            - entity_id: /raw/
+        sort:
+          method: state
+          numeric: false
