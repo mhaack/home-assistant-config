@@ -8,8 +8,25 @@ path: xmas
 cards:
   - type: vertical-stack
     cards:
+      - type: custom:state-switch
+        entity: user
+        states:
+          Markus:
+            type: custom:decluttering-card
+            template: welcome_header
+            variables:
+              - image: "/local/assets/markus.jpg"
+          Jasmina:
+            type: custom:decluttering-card
+            template: welcome_header
+            variables:
+              - image: "/local/assets/jasmina.jpg"
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Weihnachtsbeleuchtung"
+          - icon: mdi:star-outline
       - type: horizontal-stack
-        title: Weihnachtsbeleuchtung
         cards:
           - type: custom:button-card
             entity: light.xmas_lights
@@ -18,57 +35,63 @@ cards:
             entity: light.xmas_indoor_lights
             name: Innen
           - type: custom:button-card
-            entity: light.xmas_garden_lights
+            entity: light.xmas_outdoor_lights
             name: Außen
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Weihnachtsbeleuchtung innen"
+          - icon: mdi:star-outline
       - type: horizontal-stack
-        title: Weihnachtsbeleuchtung Innen
         cards:
           - type: custom:button-card
-            entity: light.xmas_tree
+            entity: light.xmas_christmastree
             name: Weihnachtsbaum
             icon: mdi:pine-tree
           - type: custom:button-card
-            entity: light.xmas_livingroom_1
+            entity: light.xmas_livingroom
             name: Stern Sofa
-            icon: mdi:star
           - type: custom:button-card
-            entity: light.xmas_livingroom_2
-            name: Hernhuter Stern
-            icon: mdi:star
+            entity: light.xmas_livingroom_star
+            name: Hetrnhuter Stern
       - type: horizontal-stack
         cards:
           - type: custom:button-card
-            entity: light.xmas_livingroom_3
-            name: Stehlampe
-            icon: mdi:star
+            entity: light.xmas_eatingroom
+            name: Sterne Stehlampe
           - type: custom:button-card
             entity: light.xmas_hall
             name: Sterne Flur
             icon: mdi:star
           - type: custom:button-card
-            entity: light.xmas_stairs
-            name: Treppe Flur
-            icon: mdi:star
-          - type: custom:button-card
             entity: light.xmas_office
             name: Arbeitszimmer
             icon: mdi:star
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Weihnachtsbeleuchtung außen"
+          - icon: mdi:star-outline
       - type: horizontal-stack
-        title: Weihnachtsbeleuchtung Außen
         cards:
           - type: custom:button-card
-            entity: light.xmas_carport
-            name: Carport
+            entity: light.xmas_carport_fairylights
+            name: Carport Lichterkette
           - type: custom:button-card
             entity: light.garden_backyard_tree
             icon: mdi:pine-tree
           - type: custom:button-card
             entity: light.garden_frontyard_tree
             icon: mdi:pine-tree
+          - type: custom:button-card
+            entity: light.garden_carport_wled
       - type: horizontal-stack
         cards:
           - type: custom:button-card
-            entity: light.garden_sundeck_spots
+            entity: light.xmas_carport_stars
+            name: Carport Sterne
+          - type: custom:button-card
+            entity: light.xmas_garden_star
           - type: custom:button-card
             entity: light.garden_terrace_lounge
             icon: mdi:pine-tree
@@ -76,3 +99,6 @@ cards:
             entity: light.xmas_candles
             icon: mdi:candle
             name: Kerzen
+          - type: custom:button-card
+            entity: light.xmas_fence_fairylights
+            name: Zaun

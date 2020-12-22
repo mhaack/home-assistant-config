@@ -2,6 +2,6 @@
 #
 # Customizes XMAS lights outdoor group
 #
-light.xmas_garden_lights:
+light.xmas_outdoor_lights:
   friendly_name: Weihnachtsbeleuchtung außen
   icon: mdi:pine-tree

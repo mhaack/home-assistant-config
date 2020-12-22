@@ -1,7 +1,0 @@
----
-#
-# Customizes XMAS lights of the office window
-#
-light.xmas_office:
-  friendly_name: Weihnachtsbeleuchtung Büro
-  icon: mdi:pine-tree

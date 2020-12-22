@@ -1,7 +1,0 @@
----
-#
-# Customizes terrace lounge lights
-#
-light.garden_terrace_lounge:
-  friendly_name: Terrassenlounge
-  icon: mdi:string-lights

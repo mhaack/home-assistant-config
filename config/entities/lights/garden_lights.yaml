@@ -10,6 +10,7 @@ entities:
   - light.garden_carport_volvo
   - light.garden_carport_wled
   - light.garden_frontyard_tree
+  - light.garden_grass
   - light.garden_pond_light
   - light.garden_sundeck_spots
   - light.garden_terrace_lounge

@@ -1,7 +1,0 @@
----
-#
-# Customizes XMAS tree lights
-#
-light.xmas_tree:
-  friendly_name: Weihnachtsbaum
-  icon: mdi:pine-tree

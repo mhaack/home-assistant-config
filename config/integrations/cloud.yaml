@@ -41,7 +41,7 @@ cloud:
         - light.nursery_lights
         - light.nursery_stars
         - light.pool_light
-        - light.xmas_garden_lights
+        - light.xmas_outdoor_lights
         - light.xmas_indoor_lights
         - light.xmas_lights
         - sensor.bathroom_humidity

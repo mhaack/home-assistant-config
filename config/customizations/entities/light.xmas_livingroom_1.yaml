@@ -1,7 +1,0 @@
----
-#
-# Customizes livingroom XMAS lights
-#
-light.xmas_livingroom_1:
-  friendly_name: Weihnachtsbeleuchtung Wohnzimmer Stern
-  icon: mdi:star

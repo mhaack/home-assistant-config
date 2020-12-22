@@ -9,9 +9,6 @@ condition:
   - condition: state
     entity_id: input_boolean.xmas_mode
     state: "on"
-  - condition: state
-    entity_id: "binary_sensor.workday_sensor"
-    state: "on"
 action:
   - service: light.turn_on
     data:

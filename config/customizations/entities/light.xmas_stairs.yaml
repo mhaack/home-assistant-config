@@ -1,7 +1,0 @@
----
-#
-# Customizes stairs XMAS lights
-#
-light.xmas_stairs:
-  friendly_name: Weihnachtsbeleuchtung Treppe
-  icon: mdi:star
