@@ -18,7 +18,7 @@ DATA_CHANNEL = 3
 DATA_PARAM = 'SUBMIT'
 
 # Homematic display dictionaries
-DATA_SPECIAL_CHARS = { "d6": "23", "dc": "24", "3d": "27", "c4": "5b", "df": "5f", "e4": "7b", "f6": "7c", "fc": "7d" }
+DATA_SPECIAL_CHARS = { "d6": "23", "dc": "24", "3d": "27", "c4": "5b", "df": "5f", "e4": "7b", "f6": "7c", "fc": "7d", "b0": "5e" }
 DATA_ICONS = { "off": "0x80", "on": "0x81", "open": "0x82", "closed": "0x83" , "error": "0x84", "ok": "0x85", "info": "0x86", "message": "0x87", "service": "0x88" }
 DATA_LEDS = { "off": "0xf0", "red": "0xf1", "green": "0xf2", "orange": "0xf3" }
 DATA_BEEPS = { "off": "0xc0", "long_long": "0xc1", "long_short": "0xc2", "long_short_short": "0xc3", "short": "0xc4", "short_short": "0xc5", "long": "0xc6" }
