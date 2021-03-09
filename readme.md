@@ -146,7 +146,7 @@ with USB power supply.
 | ESPHome Watertank Sensor | [ESPHome](https://www.home-assistant.io/integrations/esphome/) | To measure the water level of our garden cistern to ensure that our plants always get enough water.
 
 [home-assistant]: https://home-assistant.io
-[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-2021.2.x-blue
+[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-2021.2.3-blue
 [license-shield]: https://img.shields.io/github/license/mhaack/home-assistant-config.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
 [circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg
