@@ -1,0 +1,215 @@
+---
+# The security dashboard
+#
+title: Cleaning
+icon: mdi:robot-vacuum
+path: cleaning
+
+badges: []
+cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: "/local/assets/markus.jpg"
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: "/local/assets/jasmina.jpg"
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Robbie Flur"
+          - icon: mdi:robot-vacuum
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - vacuum.hall_robbie_3
+          - switch.hall_robbie_3_schedule
+          - sensor.hall_robbie_3_battery
+      - type: picture-entity
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.hall_robbie_3_cleaning_map
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Robbie Schlafzimmer"
+          - icon: mdi:robot-vacuum
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - vacuum.bedroom_robbie_4
+          - switch.bedroom_robbie_4_schedule
+          - sensor.bedroom_robbie_4_battery
+      - type: picture-entity
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.bedroom_robbie_4_cleaning_map
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Waschmaschine"
+          - icon: mdi:washing-machine
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.laundryroom_washing_machine_status
+            name: Status
+        show_header_toggle: false
+      - type: conditional
+        conditions:
+          - entity: sensor.laundryroom_washing_machine_status
+            state_not: Aus
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          entities:
+            - type: attribute
+              entity: sensor.laundryroom_washing_machine_status
+              name: Programmfortschritt
+              attribute: programPhase
+            - entity: binary_sensor.laundryroom_washing_machine_door
+              name: Tür
+            - entity: sensor.laundryroom_washing_machine_target_temperature_0
+              name: Eingestellte Temperatur
+            - type: attribute
+              entity: sensor.laundryroom_washing_machine_status
+              name: Schleuderdrehzahl
+              attribute: spinningSpeed
+              icon: mdi:rotate-right
+            - entity: sensor.laundryroom_washing_machine_remaining_time
+              name: Restlaufzeit
+            - entity: sensor.laundryroom_washing_machine_elapsed_time
+              name: Laufzeit
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Trockner"
+          - icon: mdi:tumble-dryer
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.laundryroom_dryer_status
+            name: Status
+        show_header_toggle: false
+      - type: conditional
+        conditions:
+          - entity: sensor.laundryroom_dryer_status
+            state_not: Aus
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          entities:
+            - type: attribute
+              entity: sensor.laundryroom_dryer_status
+              name: Programmfortschritt
+              attribute: programPhase
+            - type: attribute
+              entity: sensor.laundryroom_dryer_status
+              name: Programmfortschritt
+              attribute: dryingStep
+            - entity: binary_sensor.laundryroom_dryer_door
+              name: Tür
+            - entity: sensor.laundryroom_dryer_remaining_time
+              name: Restlaufzeit
+            - entity: sensor.laundryroom_dryer_elapsed_time
+              name: Laufzeit
+            - type: attribute
+              entity: sensor.laundryroom_dryer_status
+              name: Energieverbrauch
+              attribute: currentEnergyConsumption
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Katzenklo"
+          - icon: mdi:cat
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.hall_all_litterbox_visits
+        show_header_toggle: false
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Müll"
+          - icon: mdi:trash-can
+      - type: "custom:auto-entities"
+        show_empty: true
+        card:
+          type: entities
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+          show_header_toggle: false
+        filter:
+          include:
+            - entity_id: sensor.trash_*
+              not:
+                state: "0"
+          exclude:
+            - entity_id: /raw/
+        sort:
+          method: state
+          numeric: false
