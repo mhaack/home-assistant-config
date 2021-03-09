@@ -1,9 +1,11 @@
 {
   "domain": "miele",
   "name": "Miele@home",
-  "documentation": "https://github.com/docbobo/home-assistant-miele",
+  "documentation": "https://github.com/HomeAssistant-Mods/home-assistant-miele",
+  "issue_tracker": "https://github.com/HomeAssistant-Mods/home-assistant-miele/issues",
+  "version": "v2021.2.12",
   "requirements": [
-    "requests_oauthlib"
+    "requests_oauthlib>=1.3.0"
   ],
   "dependencies": [
     "http","configurator"
