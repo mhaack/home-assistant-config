@@ -596,18 +596,8 @@ class ArloBackEnd(object):
 
     def _login(self):
 
-        # set agent before starting
-        if self._arlo.cfg.user_agent == "apple":
-            self._user_agent = (
-                "Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac OS X) "
-                "AppleWebKit/604.3.5 (KHTML, like Gecko) Mobile/15B202 NETGEAR/v1 "
-                "(iOS Vuezone)"
-            )
-        else:
-            self._user_agent = (
-                "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/72.0.3626.81 Safari/537.36"
-            )
+        # pickup user configured user agent
+        self._user_agent = self.user_agent(self._arlo.cfg.user_agent)
 
         # set up session
         self._session = requests.Session()
@@ -634,10 +624,14 @@ class ArloBackEnd(object):
         # update sessions headers
         headers = {
             "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en-GB,en;q=0.9,en-US;q=0.8",
             "Auth-Version": "2",
-            "schemaVersion": "1",
+            "Cache-Control": "no-cache",
+            "SchemaVersion": "1",
             "Host": re.sub("https?://", "", self._arlo.cfg.host),
             "Content-Type": "application/json; charset=utf-8;",
+            "Origin": self._arlo.cfg.host,
+            "Pragma": "no-cache",
             "Referer": self._arlo.cfg.host,
             "User-Agent": self._user_agent,
             "Authorization": self._token,
@@ -686,7 +680,7 @@ class ArloBackEnd(object):
                     self._lock.wait(mend - mnow)
                     mnow = time.monotonic()
                 response = self._requests.pop(tid)
-            except KeyError as e:
+            except KeyError as _e:
                 self._arlo.debug("got a key error")
                 response = None
         self._arlo.vdebug("finished transaction-->{}".format(tid))
@@ -860,6 +854,45 @@ class ArloBackEnd(object):
 
     def devices(self):
         return self.get(DEVICES_PATH + "?t={}".format(time_to_arlotime()))
+
+    def user_agent(self, agent):
+        """Map `agent` to a real user agent.
+
+        User provides a default user agent they want for most interactions but it can be overridden
+        for stream operations.
+        """
+        self._arlo.debug(f"looking for user_agent {agent}")
+        if agent.lower() == "arlo":
+            return (
+                "Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_2 like Mac OS X) "
+                "AppleWebKit/604.3.5 (KHTML, like Gecko) Mobile/15B202 NETGEAR/v1 "
+                "(iOS Vuezone)"
+            )
+        elif agent.lower() == "iphone":
+            return (
+                "Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_3 like Mac OS X) "
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1"
+            )
+        elif agent.lower() == "ipad":
+            return (
+                "Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) "
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Mobile/15E148 Safari/604.1"
+            )
+        elif agent.lower() == "mac":
+            return (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) "
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15"
+            )
+        elif agent.lower() == "firefox":
+            return (
+                "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:85.0) "
+                "Gecko/20100101 Firefox/85.0"
+            )
+        else:
+            return (
+                "Mozilla/5.0 (X11; Linux x86_64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+            )
 
     def ev_inject(self, response):
         self._ev_dispatcher(response)
