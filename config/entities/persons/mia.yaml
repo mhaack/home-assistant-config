@@ -8,4 +8,4 @@
 name: Mia
 id: ac63602ce6d84985a0482d1be9d4cfb7
 device_trackers:
-  - device_tracker.iphone_mia_wifi
+  - device_tracker.iphone_von_mia

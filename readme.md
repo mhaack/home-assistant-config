@@ -152,7 +152,7 @@ with USB power supply.
 [circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg
 [circleci]: https://circleci.com/gh/mhaack/workflows/home-assistant-config
 [commits]: https://github.com/mhaack/home-assistant-config/commits/master
-[commits-shield]: https://img.shields.io/github/commit-activity/m/mhaack/home-assistant-config.svg
+[commits-shield]: https://img.shields.io/github/commit-activity/m/mhaack/home-assistant-config
 [last-commit-shield]: https://img.shields.io/github/last-commit/mhaack/home-assistant-config.svg
 [twitter]: http://twitter.com/mhaack
 [twitter-badge]: https://img.shields.io/twitter/follow/mhaack.svg?style=social
