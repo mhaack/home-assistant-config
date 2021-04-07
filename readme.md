@@ -135,15 +135,16 @@ The original Arlo HD requires special batteries and last ~6 months on one set.
 The Arlo Pro 2 comes with a rechargeable battery pack or can be operated
 with USB power supply.
 
-#### Devices
+#### Other devices and virtual sensors
 
-| Device                                                                                                                      |                       Home Assistant                       | Notes                                                                                    |
+| Device / Sensor | Home Assistant | Notes |
 | --------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------: | ---------------------------------------------------------------------------------------- |
-| [Neato Botvac D7](https://neatorobotics.com/)                                                                               | [Neato](https://www.home-assistant.io/integrations/neato/) | Robot number 1, not much to say, does the job.                                           |
-| [Worx Landroid S](https://worx-europe.com/)                                                                                 |   [REST](https://www.home-assistant.io/components/rest/)   | Robot number 2, we call it "Shaun". This little guy is integrated via Landroid cloud API |
+| [Neato Botvac D7](https://neatorobotics.com/) | [Neato](https://www.home-assistant.io/integrations/neato/) | Robot number 1, not much to say, does the job. Actually so good, we now have two of them ;-) |
+| [Worx Landroid S](https://worx-europe.com/) | [REST](https://www.home-assistant.io/components/rest/)   | Robot number 2, we call it "Shaun". This little guy is integrated via Landroid cloud API |
 [Hunter Pro-HC](https://www.hunterindustries.com/en-metric/irrigation-product/controllers/pro-hc) | [Hunter Hydrawise](https://www.home-assistant.io/integrations/hydrawise/) | Controls watering of the lawn and plants around the house. |
 | Mailbox via 2 [Xiaomi Aqara Window Door Sensor](https://xiaomi-mi.com/sockets-and-sensors/xiaomi-aqara-window-door-sensor/) | [deCONZ](https://www.home-assistant.io/components/deconz/) | Detect opening of the mailbox flap or door |
-| ESPHome Watertank Sensor | [ESPHome](https://www.home-assistant.io/integrations/esphome/) | To measure the water level of our garden cistern to ensure that our plants always get enough water.
+| ESPHome Watertank Sensor | [ESPHome](https://www.home-assistant.io/integrations/esphome/) | To measure the water level of our garden cistern to ensure that our plants always get enough water. |
+| Waste Collection Sensor | [Waste Collection Schedule](https://github.com/mampfes/hacs_waste_collection_schedule) | Waste collection integration reminds us not to forget the garbage cans. Works well with the iCal Calender provided by our local garbage disposal company. |
 
 [home-assistant]: https://home-assistant.io
 [home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-2021.2.3-blue
