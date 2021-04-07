@@ -372,8 +372,13 @@ cards:
           entities:
             - type: attribute
               entity: sensor.kitchen_oven_status
+              name: Programm
+              attribute: ProgramID
+            - type: attribute
+              entity: sensor.kitchen_oven_status
               name: Programmfortschritt
               attribute: programPhase
+              icon: mdi:progress-check
             - entity: binary_sensor.kitchen_oven_door
               name: Klappe
             - entity: sensor.kitchen_oven_target_temperature_0
