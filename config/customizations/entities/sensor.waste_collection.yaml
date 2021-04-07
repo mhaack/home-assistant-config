@@ -1,0 +1,6 @@
+---
+#
+# Customizes waste collection sensor
+#
+sensor.waste_collection:
+  friendly_name: Mülltonne

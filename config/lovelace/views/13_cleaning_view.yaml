@@ -192,24 +192,12 @@ cards:
         variables:
           - content: "Müll"
           - icon: mdi:trash-can
-      - type: "custom:auto-entities"
-        show_empty: true
-        card:
-          type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
-          show_header_toggle: false
-        filter:
-          include:
-            - entity_id: sensor.trash_*
-              not:
-                state: "0"
-          exclude:
-            - entity_id: /raw/
-        sort:
-          method: state
-          numeric: false
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.waste_collection
