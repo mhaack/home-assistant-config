@@ -1,0 +1,10 @@
+---
+#
+# Configures the waste collection calenders
+#
+# https://github.com/mampfes/hacs_waste_collection_schedule
+#
+platform: waste_collection_schedule
+name: waste_collection
+details_format: upcoming
+count: 8
