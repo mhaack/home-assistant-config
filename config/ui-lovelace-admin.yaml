@@ -13,6 +13,7 @@ decluttering_templates: !include lovelace/decluttering_templates/decluttering_te
 
 views:
   - !include lovelace/views/60_device_info_view.yaml
+  - !include lovelace/views/61_batteries_view.yaml
   - !include lovelace/views/70_system_info_view.yaml
   - !include lovelace/views/80_automations_view.yaml
   - !include lovelace/views/99_settings_view.yaml

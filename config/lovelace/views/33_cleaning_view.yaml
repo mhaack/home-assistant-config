@@ -26,8 +26,8 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: "Robbie Flur"
-          - icon: mdi:robot-vacuum
+          - content: "Müll"
+          - icon: mdi:trash-can
       - type: entities
         style: |
           ha-card {
@@ -36,42 +36,7 @@ cards:
             margin: 0px 14px 5px 14px;
           }
         entities:
-          - vacuum.hall_robbie_3
-          - switch.hall_robbie_3_schedule
-          - sensor.hall_robbie_3_battery
-      - type: picture-entity
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        entity: camera.hall_robbie_3_cleaning_map
-
-      - type: custom:decluttering-card
-        template: card_header
-        variables:
-          - content: "Robbie Schlafzimmer"
-          - icon: mdi:robot-vacuum
-      - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        entities:
-          - vacuum.bedroom_robbie_4
-          - switch.bedroom_robbie_4_schedule
-          - sensor.bedroom_robbie_4_battery
-      - type: picture-entity
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        entity: camera.bedroom_robbie_4_cleaning_map
+          - entity: sensor.waste_collection
 
   - type: vertical-stack
     cards:
@@ -184,6 +149,58 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
+          - content: "Robbie Flur"
+          - icon: mdi:robot-vacuum
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - vacuum.hall_robbie_3
+          - switch.hall_robbie_3_schedule
+          - sensor.hall_robbie_3_battery
+      - type: picture-entity
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.hall_robbie_3_cleaning_map
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Robbie Schlafzimmer"
+          - icon: mdi:robot-vacuum
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - vacuum.bedroom_robbie_4
+          - switch.bedroom_robbie_4_schedule
+          - sensor.bedroom_robbie_4_battery
+      - type: picture-entity
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entity: camera.bedroom_robbie_4_cleaning_map
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
           - content: "Katzenklo"
           - icon: mdi:cat
       - type: entities
@@ -196,18 +213,3 @@ cards:
         entities:
           - entity: sensor.hall_all_litterbox_visits
         show_header_toggle: false
-
-      - type: custom:decluttering-card
-        template: card_header
-        variables:
-          - content: "Müll"
-          - icon: mdi:trash-can
-      - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        entities:
-          - entity: sensor.waste_collection
