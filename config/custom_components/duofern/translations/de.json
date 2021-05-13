@@ -3,15 +3,17 @@
     "title": "duofern",
     "step": {
       "user": {
-        "title": "Connect to the device",
-        "description": "# yay",
+        "title": "Einstellungen für die pyduofern integration",
+        "description": "**Code**: Um pyduofern einzurichten muss ein vierstelliger hexadezimaler code ausgewählt werden. Der code ist ein sicherheitsfeature, es macht also sinn, einen zufälligen code zu verwenden. Wenn der Code verloren geht, müssen alle Geräte neu gepaart werden, deshalb macht es Sinn, den Code zu notieren.\n\n**Serieller Port:** Serieller Port des Rademacher-USB-Sticks, typischerweise taucht Rademacher hier im Gerätenamen auf. Es werden alle Geräte aus ``/dev/serial/by-id/`` zur Auswahl angeboten\n\n**Config file:** Falls bereits aus der Vergangenheit ein duofern.json configfile verwendet wird, wird hier der Pfad zur Konfigurationsdatei eingetragen.",
         "data": {
-          "code": "code"
+          "code": "Code",
+          "serial_port": "Serieller Port",
+          "config_file": "Konfigurationsdatei"
         }
       }
     },
     "error": {
-      "not_hex": "Code must be a 4 digit hex code of your choice"
+      "not_hex": "Der code muss aus vier hexadezimalen ziffern bestehen."
     }
   }
 }

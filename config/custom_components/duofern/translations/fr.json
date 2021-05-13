@@ -3,15 +3,17 @@
     "title": "duofern",
     "step": {
       "user": {
-        "title": "Connect to the device",
-        "description": "# yay",
+        "title": "configuration pour pyduofern integration",
+        "description": "**Code**: Le code du resau duofern. Sie c'est la premiere utilisation de duofern, choisissez quatre nombres hexadecimales par hazard .\n\n**Serial port:** Le port série de votre Stick USB. Tous les ports série dans ``/dev/serial/by-id/`` sont offri pour choix\n\n**Config file:** Si vous avez und fichier de configuration d'une vieille version the pyduofern, entrez son dossier ici.",
         "data": {
-          "code": "code"
+          "code": "Code",
+          "serial_port": "Serial port",
+          "config_file": "Config file"
         }
       }
     },
     "error": {
-      "not_hex": "Code must be a 4 digit hex code of your choice"
+      "not_hex": "Il faut choisier quatres nombres hexadecimales comme code."
     }
   }
 }

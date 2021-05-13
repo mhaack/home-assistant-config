@@ -1,11 +1,12 @@
 import os
+import glob
 
 import voluptuous as vol
 from homeassistant import config_entries
 
 from .const import DOMAIN
 
-
+@config_entries.HANDLERS.register(DOMAIN)
 class DomainConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for duofern."""
 
@@ -26,15 +27,24 @@ class DomainConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 return self.async_create_entry(
                     title='duofern', data=user_input
                 )
+
+        serialdevs = set()
         if os.path.isdir("/dev/serial/by-id"):
-            serialdevs = set(os.listdir("/dev/serial/by-id/"))
-        else:
-            serialdevs=["could not find /dev/serial/by-id/, did you plug in your dufoern stick correctly?"]
+            serialdevs.update(set(f"/dev/serial/by-id/{d}" for d in set(os.listdir("/dev/serial/by-id/"))))
+
+        if os.path.isdir("/dev/"):
+            serialdevs.update(set(glob.glob("/dev/ttyU*")))
+            serialdevs.update(set(glob.glob("/dev/ttyA*")))
+
+        if len(serialdevs) == 0:
+            serialdevs = ["could not find /dev/serial/by-id/ or /dev/tty{U,A}*, did you plug in your duofern stick correctly?"]
+
         return self.async_show_form(
             step_id='user',
             data_schema=vol.Schema({
                 vol.Required('code'): str,
-                vol.Optional('serial_port', default="/dev/serial/by-id/usb-Rademacher_DuoFern_USB-Stick_WR04ZFP4-if00-port0"): str,
+                vol.Optional('serial_port',
+                             default="/dev/serial/by-id/usb-Rademacher_DuoFern_USB-Stick_WR04ZFP4-if00-port0"): vol.In(serialdevs),
                 vol.Optional('config_file', default=os.path.join(os.path.dirname(__file__), "../../duofern.json")): str
             }),
             errors=errors
