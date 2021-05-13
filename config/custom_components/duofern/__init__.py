@@ -116,3 +116,7 @@ def setup(hass, config):
     stick.start() # Start the stick after 5 seconds
 
     return True
+
+
+async def async_setup_entry(hass, entry):
+    return True

@@ -3,15 +3,17 @@
     "title": "duofern",
     "step": {
       "user": {
-        "title": "Connect to the device",
-        "description": "# yay",
+        "title": "Settings for the pyduofern integration",
+        "description": "**Code**: This code must be chosen on first setup. It is a security feature - only someone knowing the code for your installation can talk to your devices. Chose a random string of four hex digits.\n\n**Serial port:** Serial port of the Rademacher USB stick. All devices from ``/dev/serial/by-id/`` are offered for choice\n\n**Config file:** If preexisting from older versions this allows to specify where an older config file may be found..",
         "data": {
-          "code": "code"
+          "code": "Code",
+          "serial_port": "Serial port",
+          "config_file": "Config file"
         }
       }
     },
     "error": {
-      "not_hex": "Code must be a 4 digit hex code of your choice"
+      "not_hex": "The code must be four hexadecimal digits."
     }
   }
 }
