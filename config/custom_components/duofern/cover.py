@@ -12,14 +12,19 @@ from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
+SHUTTER_IDS = {"40", "41", "42", "47", "49", "4b", "4c", "4e", "70", "61"}
+
+
+def is_shutter(id):
+    return any([id.startswith(i) for i in SHUTTER_IDS])
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
     """Setup the Awesome Light platform."""
 
     stick = hass.data[DOMAIN]['stick']
 
-    # Add devices
-    to_add = [DuofernShutter(device['id'], device['name'], stick, hass) for device in stick.config['devices'] if (device['id'].startswith('40') or device['id'].startswith('41') or device['id'].startswith('42') or device['id'].startswith('47') or device['id'].startswith('49') or device['id'].startswith('61')) and not device['id'] in hass.data[DOMAIN]['devices'].keys()]
+    to_add = [DuofernShutter(device['id'], device['name'], stick, hass) for device in stick.config['devices'] if
+             is_shutter(device['id']) and not device['id'] in hass.data[DOMAIN]['devices'].keys()]
     add_devices(to_add)
 
 
