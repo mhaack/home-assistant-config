@@ -31,7 +31,7 @@ class ArloCfg(object):
 
     @property
     def storage_dir(self):
-        return self._kw.get("storage_dir", "/config/.aarlo")
+        return self._kw.get("storage_dir", "/tmp/.aarlo")
 
     @property
     def name(self):
@@ -169,7 +169,16 @@ class ArloCfg(object):
 
     @property
     def tfa_host(self):
-        return self._kw.get("tfa_host", TFA_DEFAULT_HOST)
+        h = self._kw.get("tfa_host", TFA_DEFAULT_HOST).split(":")
+        return h[0]
+
+    @property
+    def tfa_port(self):
+        h = self._kw.get("tfa_host", TFA_DEFAULT_HOST).split(":")
+        if len(h) == 1:
+            return 993
+        else:
+            return h[1]
 
     @property
     def tfa_username(self):
@@ -198,6 +207,15 @@ class ArloCfg(object):
         if self.save_state:
             return self.storage_dir + "/" + self.name + ".pickle"
         return None
+
+    @property
+    def session_file(self):
+        return self.storage_dir + "/session.pickle"
+        return None
+
+    @property
+    def save_session(self):
+        return self._kw.get("save_session", True)
 
     @property
     def dump_file(self):

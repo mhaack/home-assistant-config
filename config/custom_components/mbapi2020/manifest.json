@@ -1,0 +1,14 @@
+{
+  "domain": "mbapi2020",
+  "name": "MercedesME 2020",
+  "config_flow": true,
+  "documentation": "https://github.com/ReneNulschDE/mbapi2020",
+  "issue_tracker": "https://github.com/ReneNulschDE/mbapi2020/issues",
+  "requirements": ["protobuf==3.14.0"],
+  "dependencies": [],
+  "codeowners": [
+    "@ReneNulschDE"
+  ],
+  "version": "0.5.14",
+  "iot_class": "cloud_push"
+}

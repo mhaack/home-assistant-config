@@ -38,11 +38,13 @@ from .constant import (
     MODEL_BABY,
     MODEL_ESSENTIAL,
     MODEL_ESSENTIAL_INDOOR,
+    MODEL_GO,
     MODEL_PRO_2,
     MODEL_PRO_3,
     MODEL_PRO_3_FLOODLIGHT,
     MODEL_PRO_4,
     MODEL_ULTRA,
+    MODEL_WIRED_VIDEO_DOORBELL,
     MODEL_WIREFREE_VIDEO_DOORBELL,
     MOTION_DETECTED_KEY,
     MOTION_SENS_KEY,
@@ -1334,6 +1336,7 @@ class ArloCamera(ArloChildDevice):
                     MODEL_PRO_3_FLOODLIGHT,
                     MODEL_PRO_4,
                     MODEL_ULTRA,
+                    MODEL_GO,
                     MODEL_BABY,
                 )
             ):
@@ -1375,8 +1378,10 @@ class ArloCamera(ArloChildDevice):
                     MODEL_PRO_3_FLOODLIGHT,
                     MODEL_PRO_4,
                     MODEL_ESSENTIAL,
+                    MODEL_WIRED_VIDEO_DOORBELL,
                     MODEL_WIREFREE_VIDEO_DOORBELL,
                     MODEL_ESSENTIAL_INDOOR,
+                    MODEL_GO,
                 )
             ):
                 return False

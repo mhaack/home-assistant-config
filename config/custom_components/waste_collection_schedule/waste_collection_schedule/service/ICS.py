@@ -1,26 +1,27 @@
 import datetime
+import logging
 import re
 
 import icalendar
 import recurring_ical_events
-import logging
 
 _LOGGER = logging.getLogger(__name__)
 
 
 class ICS:
-    def __init__(self, offset=None, regex=None):
+    def __init__(self, offset=None, regex=None, split_at=None):
         self._offset = offset
         self._regex = None
         if regex is not None:
             self._regex = re.compile(regex)
+        self._split_at = split_at
 
     def convert(self, ics_data):
         # parse ics file
         try:
             calendar = icalendar.Calendar.from_ical(ics_data)
-        except:
-            # there s an error, simply show the data string
+        except Exception as err:
+            _LOGGER.error(f"Parsing ics data failed:{str(err)}")
             _LOGGER.debug(ics_data)
             return []
 
@@ -53,5 +54,11 @@ class ICS:
                     if match:
                         summary = match.group(1)
 
-                entries.append((dtstart, summary))
+                if self._split_at is not None:
+                    summary = re.split(self._split_at, summary)
+                    for t in summary:
+                        entries.append((dtstart, t.strip().title()))
+                else:
+                    entries.append((dtstart, summary))
+
         return entries

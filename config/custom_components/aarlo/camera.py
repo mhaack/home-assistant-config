@@ -4,6 +4,8 @@ Support for Netgear Arlo IP cameras.
 For more details about this platform, please refer to the documentation at
 https://home-assistant.io/components/camera.arlo/
 """
+from __future__ import annotations
+
 import base64
 import logging
 
@@ -83,6 +85,8 @@ ATTR_VOLUME = "volume"
 ATTR_LAST_THUMBNAIL = "last_thumbnail"
 ATTR_DURATION = "duration"
 ATTR_TIME_ZONE = "time_zone"
+ATTR_WIFI = "wifi"
+ATTR_CORDED = "corded"
 
 CONF_FFMPEG_ARGUMENTS = "ffmpeg_arguments"
 
@@ -94,15 +98,9 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     }
 )
 
-CAMERA_SERVICE_SCHEMA = vol.Schema(
-    {
-        vol.Required(ATTR_ENTITY_ID): cv.comp_entity_ids
-    }
-)
+CAMERA_SERVICE_SCHEMA = vol.Schema({vol.Required(ATTR_ENTITY_ID): cv.comp_entity_ids})
 CAMERA_SERVICE_SNAPSHOT = CAMERA_SERVICE_SCHEMA.extend(
-    {
-        vol.Required(ATTR_FILENAME): cv.template
-    }
+    {vol.Required(ATTR_FILENAME): cv.template}
 )
 
 SERVICE_REQUEST_SNAPSHOT = "camera_request_snapshot"
@@ -525,6 +523,8 @@ class ArloCam(Camera):
                 (ATTR_LAST_THUMBNAIL, self.last_thumbnail_url),
                 (ATTR_LAST_VIDEO, self.last_video_url),
                 (ATTR_TIME_ZONE, self._camera.timezone),
+                (ATTR_WIFI, self._camera.using_wifi),
+                (ATTR_CORDED, self._camera.is_corded),
             )
             if value is not None
         }
@@ -568,7 +568,9 @@ class ArloCam(Camera):
             self._camera.get_stream, user_agent
         )
 
-    def camera_image(self):
+    def camera_image(
+        self, width: int | None = None, height: int | None = None
+    ) -> bytes | None:
         """Return a still image response from the camera."""
         return self._camera.last_image_from_cache
 

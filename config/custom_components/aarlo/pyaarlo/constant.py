@@ -1,4 +1,7 @@
-DEFAULT_HOST = "https://my.arlo.com"
+DEFAULT_HOST = "https://myapi.arlo.com"
+
+ORIGIN_HOST = "https://my.arlo.com"
+REFERER_HOST = "https://my.arlo.com/"
 
 DEVICES_PATH = "/hmsweb/users/devices"
 DEFINITIONS_PATH = "/hmsweb/users/automation/definitions"
@@ -49,7 +52,7 @@ CAMERA_MEDIA_DELAY = MEDIA_LIBRARY_DELAY + 10
 FAST_REFRESH_INTERVAL = 60
 SLOW_REFRESH_INTERVAL = 10 * 60
 EVENT_STREAM_TIMEOUT = (FAST_REFRESH_INTERVAL * 2) + 5
-MODE_UPDATE_INTERVAL = 5
+MODE_UPDATE_INTERVAL = 2
 
 # update keys
 ACTIVITY_STATE_KEY = "activityState"
@@ -73,6 +76,7 @@ MOTION_DETECTED_KEY = "motionDetected"
 MOTION_ENABLED_KEY = "motionSetupModeEnabled"
 MOTION_SENS_KEY = "motionSetupModeSensitivity"
 PING_CAPABILITY = "pingCapability"
+RESOURCE_CAPABILITY = "resourceCapability"
 POWER_SAVE_KEY = "powerSaveMode"
 PRIVACY_KEY = "privacyActive"
 LIGHT_BRIGHTNESS_KEY = "lightBrightness"
@@ -237,3 +241,5 @@ MODEL_ESSENTIAL_INDOOR = "VMC2040"
 
 MODEL_WIRED_VIDEO_DOORBELL = "AVD1001"
 MODEL_WIREFREE_VIDEO_DOORBELL = "AVD2001"
+
+MODEL_GO = "VML4030"

@@ -1,0 +1,283 @@
+refresh_access_token:
+  description: Refresh the API access token
+
+
+auxheat_configure:
+  description: "Command for configuring the auxiliary heating. It is possible to define three daytimes and select one active time."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+    time_selection:
+      description: "The activated auxiliary heating preset time (0=no_selection, 1=time_1, 2=time_2, 3=time_3"
+      example: "0"
+      default: 0
+      selector:
+        select:
+          options:
+            - "0"
+            - "1"
+            - "2"
+            - "3"
+    time_1:
+      description: "Daytime in minutes after midnight. E.g. valid value for 8 am would be 480. Value range is 0 to 1439."
+      example: "480"
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 1439
+          step: 1
+          mode: slider
+    time_2:
+      description: "Daytime in minutes after midnight. E.g. valid value for 8 am would be 480. Value range is 0 to 1439."
+      example: "480"
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 1439
+          step: 1
+          mode: slider
+    time_3:
+      description: "Daytime in minutes after midnight. E.g. valid value for 8 am would be 480. Value range is 0 to 1439."
+      example: "480"
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 1439
+          step: 1
+          mode: slider
+
+auxheat_start:
+  description: "Start the auxiliary heating of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+auxheat_stop:
+  description: "Stop the auxiliary heating of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+battery_max_soc_configure:
+  description: "Configure the maximum value for the state of charge of the HV battery of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+    max_soc:
+      description: "The maximum value for the state of charge of the HV battery (Values need to be between 50 and 100 and divisible by ten)"
+      example: "100"
+      default: 100
+      selector:
+        select:
+          options:
+            - "50"
+            - "60"
+            - "70"
+            - "80"
+            - "90"
+            - "100"
+
+doors_unlock:
+  description: "Unlock a car defined by a vin. PIN setup required. See options dialog of the integration."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+doors_lock:
+  description: "Lock a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+engine_start:
+  description: "Start the engine of a car defined by a vin. PIN setup required. See options dialog of the integration."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+engine_stop:
+  description: "Stop the engine of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+
+preheat_start:
+  description: "Start the pre-heating of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+    type:
+      description: "Method that is used to initiate the start process. 0=Now (Default), 1=Immediate - Use Immediate in case your does not support now."
+      default: 0
+      example: 0
+      selector:
+        select:
+          options:
+            - "0"
+            - "1"
+
+preheat_start_departure_time:
+  description: "Start the pre-heating of a car defined by a vin and a given departure time."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+    time:
+      description: "Departure time in minutes after midnight. E.g. valid value for 8 am would be 480. Value range is 0 to 1439"
+      example: "480"
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 1439
+          step: 1
+          mode: slider      
+
+preheat_stop:
+  description: "Stop the pre-heating of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+sigpos_start:
+  description: "Start light signaling of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+sunroof_open:
+  description: "Open the sunroof of a car defined by a vin. PIN setup required. See options dialog of the integration."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+sunroof_close:
+  description: "Close the sunroof of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+windows_open:
+  description: "Open the windows of a car defined by a vin. PIN setup required. See options dialog of the integration."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+windows_close:
+  description: "Close the windows of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+send_route:
+  description: "Sends a route to the car. (Single location only)"
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+    title:
+      description: "title of the route"
+      example: "Brandenburger Tor"
+      required: True
+      selector:
+        text:
+    latitude:
+      description: "Latitude of the location"
+      example: "52.5162746"
+      required: True
+      selector:
+        text:
+    longitude:
+      description: "Longitude of the location"
+      example: "13.3755154"
+      required: True
+      selector:
+        text:
+    city:
+      description: "City name of the location"
+      example: "Berlin"
+      required: True
+      selector:
+        text:
+    postcode:
+      description: "Postcode of the location"
+      example: "10117"
+      required: True
+      selector:
+        text:
+    street:
+      description: "Streetname of the location"
+      example: "Pariser Platz"
+      required: True
+      selector:
+        text:
