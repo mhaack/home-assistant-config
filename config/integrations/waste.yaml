@@ -8,8 +8,16 @@ waste_collection_schedule:
   sources:
     - name: ics
       args:
-        url: https://stadtreinigung-leipzig.de/leistungen/abfallentsorgung/abfallkalender-entsorgungstermine.html
+        url: https://stadtreinigung-leipzig.de/wir-kommen-zu-ihnen/abfallkalender/ical.ics
         params:
-          ical: true
-          loc: !secret trash_street
-          lid: !secret trash_location
+          position_nos: !secret trash_location
+      calendar_title: Müll
+      customize:
+        - type: Restabfalltonne,
+          alias: Restabfalltonne
+        - type: Gelbe Tonne,
+          alias: Gelbe Tonne
+        - type: Biotonne,
+          alias: Biotonne
+        - type: Blaue Tonne,
+          alias: Blaue Tonne
