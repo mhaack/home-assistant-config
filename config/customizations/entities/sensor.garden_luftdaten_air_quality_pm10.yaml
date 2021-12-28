@@ -1,6 +1,0 @@
----
-#
-# Customizes luftdaten.info air quality sensors
-#
-sensor.garden_luftdaten_air_quality_pm10:
-  icon: mdi:cloud-outline

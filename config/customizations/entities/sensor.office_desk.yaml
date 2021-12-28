@@ -1,9 +1,0 @@
----
-#
-# Customizes sensors & switches in the office
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-switch.office_desk:
-  friendly_name: Büro Markus
-  icon: mdi:office-building

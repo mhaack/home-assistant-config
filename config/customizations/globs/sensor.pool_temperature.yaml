@@ -1,8 +1,0 @@
----
-#
-# Customizes all pool temp sensors
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-sensor.pool_*temperature_*:
-  icon: mdi:coolant-temperature

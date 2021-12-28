@@ -4,6 +4,6 @@
 #
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
-switch.garden_lawnmower_power:
+switch.garden_lawnmower:
   friendly_name: Rasenmäher
   icon: mdi:power-plug

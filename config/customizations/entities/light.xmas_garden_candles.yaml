@@ -2,6 +2,6 @@
 #
 # Customizes XMAS outdoor candles
 #
-light.xmas_candles:
+light.xmas_garden_candles:
   friendly_name: Kerzen
   icon: mdi:candle
