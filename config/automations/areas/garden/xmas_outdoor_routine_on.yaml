@@ -6,6 +6,7 @@ alias: "[XMAS] Turn on XMAS outdoor lights daily routine"
 trigger:
   - platform: sun
     event: sunset
+    offset: "-00:30:30"
   - platform: time
     at: "06:30:00"
 condition:

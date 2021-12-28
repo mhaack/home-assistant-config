@@ -14,7 +14,9 @@ action:
   - service: switch.turn_off
     data:
       entity_id: switch.garden_watertank_pump
-  - service: notify.system_pushover_markus
+  - service: notify.mobile_app_iphone_von_markus
     data:
-      title: "JaMa Villa"
-      message: "Wasser sparen - die Zisternenpumpe war über 1 Stunde an und wurde jetzt ausgeschaltet!"
+      title: JaMa Villa - 🚰
+      message: Wasser sparen - die Zisternenpumpe war über 1 Stunde an und wurde jetzt ausgeschaltet!
+      data:
+        group: notification-irrigation

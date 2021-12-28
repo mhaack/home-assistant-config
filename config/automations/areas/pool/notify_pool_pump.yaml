@@ -1,7 +1,7 @@
 ---
 # Pool pump state change notification
 #
-alias: "[Notify] Pool pump state change notifications"
+alias: "[Pool] Pump state change notifications"
 trigger:
   - platform: state
     entity_id: switch.pool_pump
@@ -16,13 +16,15 @@ condition:
     value_template: >
       {{ trigger.from_state.state != trigger.to_state.state }}
 action:
-  - service: notify.system_pushover_markus
+  - delay:
+      seconds: 15
+  - service: notify.mobile_app_iphone_von_markus
     data_template:
-      title: "JaMa Villa Pool"
+      title: JaMa Villa - Pool
       message: >
-        Pump Mode: {{states.input_select.pool_pump_mode.state}},
-        Pump State: {{states.switch.pool_pump.state}},
-        Solar State: {{states.switch.pool_valve.state}},
-        Water Temp: {{states.sensor.pool_water_temperature_1.state}},
-        Solar Temp: {{states.sensor.pool_solar_temperature.state}},
-        Temp Diff: {{states.sensor.pool_solar_temperature_diff.state}}
+        💧 Temp: {{states.sensor.pool_water_temperature_1.state}}°C /
+        ☀️ Temp: {{states.sensor.pool_solar_temperature.state}}°C /
+        ⚙️ Pumpe: {{states.switch.pool_pump.state}}
+      data:
+        group: notification-pool
+        tag: pool-operation

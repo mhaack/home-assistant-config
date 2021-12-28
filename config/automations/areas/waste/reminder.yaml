@@ -1,0 +1,72 @@
+---
+# Waste collection reminder
+#
+id: 788a0d80-feb3-4139-b569-f7e9692a1595
+alias: "[Waste] Notification Reminder"
+mode: restart
+trigger:
+  - platform: time
+    at: "18:00:00"
+condition:
+  - "{{0 < ((as_timestamp(state_attr('sensor.waste_collection_next', 'upcoming')[0].date) - as_timestamp(now())) / 86400) < 1}}"
+action:
+  - alias: "Set up variables for the actions"
+    variables:
+      action_done: "{{ 'DONE_' ~ context.id }}"
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.waste_collection
+  - alias: "Repeat until done or after"
+    repeat:
+      sequence:
+        - alias: "Send the notification"
+          service: notify.mobile_app_iphone_von_markus
+          data:
+            title: JaMa Villa - ♻️
+            message: Es ist Zeit die {{ state_attr('sensor.waste_collection_next', 'upcoming')[0].type }} vor zu stellen.
+            data:
+              subtitle: "{{ repeat.index }}. Mülltonnenerinnerung"
+              actions:
+                - action: "{{ action_done }}"
+                  title: "Erledigt!"
+              group: notification-waste
+              tag: waste-reminder
+        - alias: "Wait for a response"
+          wait_for_trigger:
+            - platform: event
+              event_type: mobile_app_notification_action
+              event_data:
+                action: "{{ action_done }}"
+          timeout:
+            hours: 1
+        - alias: "Perform the action"
+          choose:
+            - conditions:
+                - "{{ wait.trigger == none }}"
+              sequence:
+                - choose:
+                    - conditions:
+                        - "{{ repeat.index == 3 }}"
+                      sequence:
+                        - alias: "Send the notification"
+                          service: notify.mobile_app_iphone_von_markus
+                          data:
+                            title: JaMa Villa - ♻️
+                            message: Tonne bereits vor gestellt? Für heute gibt es keine Erinnerungen mehr.
+                            data:
+                              subtitle: Mülltonnenerinnerung
+                              group: notification-waste
+                              tag: waste-reminder
+                        - service: input_boolean.turn_off
+                          target:
+                            entity_id: input_boolean.waste_collection
+            - conditions:
+                - "{{ wait.trigger.event.data.action == action_done }}"
+              sequence:
+                - service: input_boolean.turn_off
+                  target:
+                    entity_id: input_boolean.waste_collection
+      until:
+        - condition: state
+          entity_id: input_boolean.waste_collection
+          state: "off"

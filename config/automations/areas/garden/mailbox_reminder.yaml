@@ -2,7 +2,7 @@
 # Reset mailbox state to empty when the mailbox back door has been opened.
 #
 id: 49713e37-f761-4049-a4d9-76bf5c704c53
-alias: "[Mailbox] Notification"
+alias: "[Mailbox] Reminder"
 trigger:
   - platform: time
     at:
@@ -21,5 +21,5 @@ action:
       title: JaMa Villa - 📬
       message: Der Briefkasten wurde noch nicht geleert, da ist noch ✉️ drin.
       data:
-        push:
-          thread-id: "ha-mailbox-notification-group"
+        group: notification-mailbox
+        tag: mailbox-reminder

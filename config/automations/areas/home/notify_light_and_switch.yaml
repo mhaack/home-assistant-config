@@ -26,10 +26,6 @@ condition:
   - condition: template
     value_template: >
       {{ trigger.event.data.new_state.state != trigger.event.data.old_state.state }}
-  # filter entities created by the browser_mod component
-  - condition: template
-    value_template: >
-      {{ trigger.event.data.new_state.attributes.type != 'browser_mod' }}
 action:
   service: notify.system_pushover_markus
   data_template:

@@ -1,0 +1,100 @@
+---
+# Control the pool pump automations based on the mode selection.
+#
+id: 53dd9245-b376-4e1d-9167-e15838900d58
+alias: "[Pool] Pump mode selection"
+trigger:
+  - platform: state
+    entity_id: input_select.pool_pump_mode
+action:
+  - alias: "Set variables"
+    variables:
+      pool_mode_intense:
+        - automation.pool_daily_intense_pool_pump_schedule_on
+        - automation.pool_daily_intense_pool_pump_schedule_off
+      pool_mode_normal:
+        - automation.pool_daily_normal_pool_pump_schedule_off
+        - automation.pool_daily_normal_pool_pump_schedule_on
+      pool_mode_solar:
+        - automation.pool_daily_solar_pool_pump_schedule_on
+        - automation.pool_daily_solar_pool_pump_schedule_off
+      pool_mode_all:
+        - automation.pool_daily_intense_pool_pump_schedule_on
+        - automation.pool_daily_intense_pool_pump_schedule_off
+        - automation.pool_daily_normal_pool_pump_schedule_off
+        - automation.pool_daily_normal_pool_pump_schedule_on
+        - automation.pool_daily_solar_pool_pump_schedule_on
+        - automation.pool_daily_solar_pool_pump_schedule_off
+  - alias: "Pool Mode Selection"
+    choose:
+      - alias: "Mode = Auto - Intensiv"
+        conditions: >
+          {{ trigger.to_state.state == 'Auto - Intensiv' }}
+        sequence:
+          - service: switch.turn_on
+            entity_id: switch.pool_pump
+          - service: automation.turn_on
+            target:
+              entity_id: "{{ pool_mode_intense }}"
+          - service: automation.turn_off
+            target:
+              entity_id: "{{ pool_mode_normal }}"
+          - service: automation.turn_off
+            target:
+              entity_id: "{{ pool_mode_solar }}"
+      - alias: "Mode = Auto - Normal"
+        conditions: >
+          {{ trigger.to_state.state == 'Auto - Normal' }}
+        sequence:
+          - service: switch.turn_on
+            entity_id: switch.pool_pump
+          - service: automation.turn_on
+            target:
+              entity_id: "{{ pool_mode_normal }}"
+          - service: automation.turn_off
+            target:
+              entity_id: "{{ pool_mode_intense }}"
+          - service: automation.turn_off
+            target:
+              entity_id: "{{ pool_mode_solar }}"
+      - alias: "Mode = Auto - Solar"
+        conditions: >
+          {{ trigger.to_state.state == 'Auto - Solar' }}
+        sequence:
+          - service: switch.turn_on
+            entity_id: switch.pool_pump
+          - service: automation.turn_on
+            target:
+              entity_id: "{{ pool_mode_solar }}"
+          - service: automation.turn_off
+            target:
+              entity_id: "{{ pool_mode_intense }}"
+          - service: automation.turn_off
+            target:
+              entity_id: "{{ pool_mode_normal }}"
+      - alias: "Mode = On"
+        conditions: >
+          {{ trigger.to_state.state == 'Dauerbetrieb' }}
+        sequence:
+          - service: switch.turn_on
+            entity_id: switch.pool_pump
+          - service: automation.turn_off
+            target:
+              entity_id: "{{ pool_mode_all }}"
+      - alias: "Mode = Off"
+        conditions: >
+          {{ trigger.to_state.state == 'Aus' }}
+        sequence:
+          - service: switch.turn_off
+            entity_id: switch.pool_pump
+          - service: automation.turn_off
+            target:
+              entity_id: "{{ pool_mode_all }}"
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa - Pool
+      message: >
+        Pool Modus geändert in: {{states.input_select.pool_pump_mode.state}}
+      data:
+        group: notification-pool
+        tag: pool-mode

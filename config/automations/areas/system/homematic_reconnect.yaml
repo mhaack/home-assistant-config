@@ -13,5 +13,7 @@ action:
   - service: homematic.reconnect
   - service: notify.mobile_app_iphone_von_markus
     data:
-      title: "JaMa Villa Fehler"
-      message: "Homematic CCU disconnect, try reconnect"
+      title: JaMa Villa - 🚨
+      message: Homematic CCU disconnect, try reconnect
+      data:
+        group: alarm-system

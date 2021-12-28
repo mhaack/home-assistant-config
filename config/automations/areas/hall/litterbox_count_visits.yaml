@@ -26,8 +26,8 @@ action:
     state: "on"
   - service: notify.mobile_app_iphone_von_markus
     data:
-      title: JaMa Villa - Katzenklo
-      message: Miau Miau, eine Katze hat {{"\uD83D\uDCA9"}} gemacht. {{ states.sensor.hall_all_litterbox_visits.state_with_unit }} seit der letzen Leerung."
+      title: JaMa Villa - 🐈 & 🐈‍⬛
+      message: Miau Miau, eine Katze hat 💩 gemacht. {{ states.sensor.hall_all_litterbox_visits.state_with_unit }} seit der letzen Leerung.
       data:
-        push:
-          thread-id: "ha-litterbox-notification-group"
+        group: notification-litterbox
+        tag: litterbox

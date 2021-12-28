@@ -5,6 +5,7 @@ alias: "[XMAS] Turn on XMAS indoor lights daily evening routine"
 trigger:
   - platform: sun
     event: sunset
+    offset: "-00:30:00"
 condition:
   - condition: state
     entity_id: input_boolean.xmas_mode

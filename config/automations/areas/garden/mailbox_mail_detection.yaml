@@ -15,10 +15,10 @@ action:
   - condition: state
     entity_id: input_boolean.garden_mailbox_notification
     state: "on"
-  - service: notify.mobile_app_iphone_von_markus
+  - service: notify.system_group_jama
     data:
-      title: JaMa Villa - {{"\uD83D\uDCEC"}}
+      title: JaMa Villa - 📬
       message: Trari, trara, die Post ✉️ ist da!
       data:
-        push:
-          thread-id: "ha-mailbox-notification-group"
+        group: notification-mailbox
+        tag: mailbox-mail

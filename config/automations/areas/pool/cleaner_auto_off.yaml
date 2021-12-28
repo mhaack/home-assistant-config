@@ -22,5 +22,8 @@ action:
     state: "on"
   - service: notify.mobile_app_iphone_von_markus
     data:
-      title: "JaMa Villa"
-      message: "Achtung! Schlürfi war noch an, nicht vergessen ihn rein zu räumen."
+      title: JaMa Villa
+      message: Achtung! Schlürfi war noch an, nicht vergessen ihn rein zu räumen.
+      data:
+        group: notification-pool
+        tag: pool-cleaner

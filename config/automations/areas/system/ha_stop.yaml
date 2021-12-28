@@ -8,8 +8,7 @@ trigger:
 action:
   - service: notify.mobile_app_iphone_von_markus
     data:
-      title: "JaMa Villa"
+      title: JaMa Villa
       message: "HA Status: Offline"
       data:
-        push:
-          thread-id: "ha-status-notification-group"
+        group: notification-system

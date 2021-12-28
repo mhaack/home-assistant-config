@@ -8,9 +8,9 @@ trigger:
   above: 85
 action:
   - service: notify.mobile_app_iphone_von_markus
-    data_template:
-      title: "JaMa Villa Warnung"
+    data:
+      title: JaMa Villa - 🚨
       message: "Warning - HA Server Disk Use is over {{states.sensor.disk_use_percent.state}}%"
       data:
-        push:
-          thread-id: "ha-status-notification-group"
+        group: notification-system
+        tag: ha-status-disk

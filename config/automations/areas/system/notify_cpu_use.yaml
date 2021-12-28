@@ -2,16 +2,15 @@
 # Send notifictaion alarm on high cpu usage
 #
 alias: "[System] CPU Use Alarm"
-initial_state: "on"
 trigger:
   platform: numeric_state
   entity_id: sensor.processor_use
   above: 85
 action:
   - service: notify.mobile_app_iphone_von_markus
-    data_template:
-      title: "JaMa Villa Warnung"
+    data:
+      title: JaMa Villa - 🚨
       message: "Warning - HA Server Processor {{states.sensor.processor_use.state}}%"
       data:
-        push:
-          thread-id: "ha-status-notification-group"
+        group: notification-system
+        tag: ha-status-cpu

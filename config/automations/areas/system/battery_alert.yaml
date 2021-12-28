@@ -24,7 +24,7 @@ condition:
 action:
   - service: persistent_notification.create
     data_template:
-      title: "Low Battery levels"
+      title: Low Battery levels
       notification_id: low-battery-alert
       message: >
         {% macro battery_level() %}
@@ -43,9 +43,9 @@ action:
         {%- endfor -%}
         {% endmacro %}
         Gerät(e) mit schwacher Batterie: {{ battery_level() }}
-  - service: notify.system_pushover_markus
+  - service: notify.mobile_app_iphone_von_markus
     data_template:
-      title: "JaMa Villa Warnung"
+      title: JaMa Villa - 🚨
       message: >
         {% macro battery_level() %}
         {%- set threshold = 15 -%}
@@ -60,3 +60,5 @@ action:
         {%- endfor -%}
         {% endmacro %}
         Gerät(e) mit schwacher Batterie: {{ battery_level() }}
+      data:
+        group: alarm-system

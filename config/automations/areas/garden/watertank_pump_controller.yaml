@@ -21,15 +21,19 @@ action:
           - service: switch.turn_on
             data:
               entity_id: switch.garden_watertank_pump
-          - service: notify.system_pushover_markus
+          - service: notify.mobile_app_iphone_von_markus
             data:
-              title: "JaMa Villa"
-              message: "Bewässerung wurde eingeschaltet."
+              title: JaMa Villa - 🚰
+              message: Bewässerung wurde eingeschaltet.
+              data:
+                group: notification-irrigation
     default:
       - service: switch.turn_off
         data:
           entity_id: switch.garden_watertank_pump
-      - service: notify.system_pushover_markus
+      - service: notify.mobile_app_iphone_von_markus
         data:
-          title: "JaMa Villa"
-          message: "Bewässerung wurde ausgeschaltet."
+          title: JaMa Villa - 🚰
+          message: Bewässerung wurde ausgeschaltet.
+          data:
+            group: notification-irrigation

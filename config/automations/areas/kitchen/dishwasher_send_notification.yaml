@@ -43,7 +43,9 @@ condition:
         false
         {% endif %}
 action:
-  - service: notify.system_pushover_markus
+  - service: notify.mobile_app_iphone_von_markus
     data:
-      title: "JaMa Villa"
-      message: "Der Geschirrspüler ist fertig und kann jetzt ausgeräumt werden."
+      title: JaMa Villa
+      message: Der Geschirrspüler ist fertig und kann jetzt ausgeräumt werden.
+      data:
+        group: notification-dishwasher

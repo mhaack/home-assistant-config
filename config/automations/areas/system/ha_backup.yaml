@@ -16,9 +16,8 @@ action:
       message: Creating weekly backup 💾 snapshot!
       title: JaMa Villa - Backup
       data:
-        push:
-          thread-id: "ha-status-notification-group"
-  - service: hassio.snapshot_full
+        group: notification-system
+  - service: hassio.backup_full
     data_template:
       name: >
         Backup_{{ now().strftime('%d-%m-%Y') }}

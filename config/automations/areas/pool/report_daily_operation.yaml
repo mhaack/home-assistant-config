@@ -7,11 +7,13 @@ trigger:
   platform: time
   at: "23:59:00"
 action:
-  - service: notify.system_pushover_markus
-    data_template:
-      title: "JaMa Villa Pool"
-      message: "Die Poolfilterpumpe lief heute ingesamt {{states.sensor.pool_daily_pump_hours.state}} Stunden."
-  - service: notify.system_pushover_markus
-    data_template:
-      title: "JaMa Villa Pool"
-      message: "Die Solaranlage war heute ingesamt {{states.sensor.pool_daily_valve_hours.state}} Stunden in Betrieb."
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa - Pool
+      message: >
+        Poolfilterpumpe 💧 {{states.sensor.pool_daily_pump_hours.state}}h
+
+        Solaranlage ☀️ {{states.sensor.pool_daily_valve_hours.state}}h
+      data:
+        group: notification-pool
+        tag: pool-status

@@ -11,9 +11,11 @@ condition:
     entity_id: input_select.garden_pond_mode
     state: "Automatik"
 action:
-  - service: switch.turn_on
-    data:
-      entity_id: switch.garden_pond_blubber
   - service: switch.turn_off
     data:
       entity_id: switch.garden_pond_waterfall
+  - delay:
+      minutes: 1
+  - service: switch.turn_on
+    data:
+      entity_id: switch.garden_pond_blubber

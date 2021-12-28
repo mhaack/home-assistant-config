@@ -1,7 +1,8 @@
 ---
 # Pool valve state change notification
 #
-alias: "[Notify] Pool valve state change notifications"
+alias: "[Pool] Valve state change notifications"
+id: b5e829ae-9d0f-40b4-ad05-c383bbd05662
 trigger:
   - platform: state
     entity_id:
@@ -13,12 +14,15 @@ condition:
     entity_id: input_boolean.pool_notification
     state: "on"
 action:
-  - service: notify.system_pushover_markus
+  - delay:
+      seconds: 15
+  - service: notify.mobile_app_iphone_von_markus
     data_template:
-      title: "JaMa Villa Pool"
+      title: JaMa Villa - Pool
       message: >
-        Ventil:  {{ trigger.to_state.attributes.friendly_name }}:
-        Pooltemp: {{states.sensor.pool_water_temperature_1.state}},
-        Solartemp: {{states.sensor.pool_solar_temperature.state}},
-        Tempdiff: {{states.sensor.pool_solar_temperature_diff.state}},
-        Poolpumpe: {{states.switch.pool_pump.state}}
+        💧 Temp: {{states.sensor.pool_water_temperature_1.state}}°C /
+        ☀️ Temp: {{states.sensor.pool_solar_temperature.state}}°C /
+        Ventil: {{ states('binary_sensor.pool_valve_state')}}
+      data:
+        group: notification-pool
+        tag: pool-operation

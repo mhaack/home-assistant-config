@@ -19,5 +19,8 @@ action:
     state: "on"
   - service: notify.mobile_app_iphone_von_markus
     data:
-      title: "JaMa Villa Pool"
-      message: "Achtung! Poollicht war noch an."
+      title: JaMa Villa - Pool
+      message: Achtung! Poollicht war noch an.
+      data:
+        group: notification-pool
+        tag: pool-light
