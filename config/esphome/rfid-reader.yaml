@@ -1,0 +1,42 @@
+esphome:
+  name: rfid-reader
+  platform: ESP8266
+  board: d1_mini_lite
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+  ap:
+    ssid: esp04
+
+captive_portal:
+
+logger:
+
+api:
+  password: !secret esphome_api_password
+
+ota:
+  password: !secret esphome_ota_password
+
+#substitutions:
+#  gpio_spi_clk_pin: GPIO25
+#  gpio_spi_mosi_pin: GPIO26
+#  gpio_cs_pin: GPIO32
+#  gpio_busy_pin: GPIO33
+#  gpio_reset_pin: GPIO27
+#  gpio_dc_pin: GPIO0
+
+#spi:
+#  clk_pin: $gpio_spi_clk_pin
+#  mosi_pin: $gpio_spi_mosi_pin
+#  id: epaper_display
+
+spi:
+  clk_pin: GPIO14
+  mosi_pin: GPIO13
+  miso_pin: GPIO12
+
+rc522_spi:
+  cs_pin: GPIO15

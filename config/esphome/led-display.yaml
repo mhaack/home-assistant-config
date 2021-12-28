@@ -1,0 +1,64 @@
+esphome:
+  name: led-display
+  platform: ESP8266
+  board: d1_mini_pro
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: esp03
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: !secret esphome_api_password
+
+ota:
+  password: !secret esphome_ota_password
+
+spi:
+  clk_pin: D0
+  mosi_pin: D1
+
+display:
+  - platform: max7219digit
+    cs_pin: D2
+    num_chips: 8
+    intensity: 15
+    id: led_display
+    scroll_speed: 100ms
+    lambda: |-
+      if (id(display_text).has_state()) {
+         it.printf(0, 0, id(digit_font_8), "%s", id(display_text).state.c_str());
+      } else {
+         it.printf(0, 0, id(digit_font_8), "Nothing to show");
+      }
+
+#it.strftime(0, 0, id(digit_font_8), "Hallo Schatz, willkommen zu Hause. Es ist: %H:%M", id(ha_time).now());
+#it.print(30, 0, id(digit_font_7), "Hallo Schatz, willkommen zu Hause.");
+#it.print(30, 0, id(digit_font), " Hallo Mia! ");
+
+time:
+  - platform: homeassistant
+    id: ha_time
+
+text_sensor:
+  - platform: homeassistant
+    id: display_text
+    entity_id: input_text.led_display_text
+
+font:
+  - file: "fonts/pixelmix.ttf"
+    id: digit_font_6
+    size: 6
+  - file: "fonts/pixelmix.ttf"
+    id: digit_font_8
+    size: 8
+    glyphs: '!%"()+,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz@&#''´’?üöäé'

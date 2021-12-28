@@ -74,7 +74,7 @@ jobs:
       - run:
           name: ESPHome Version
           command: |
-            esphome dummy.yaml version
+            esphome version
       - run:
           name: Prepare secrets.yaml
           command: |

@@ -1,0 +1,71 @@
+esphome:
+  name: halloween-fire
+  platform: ESP8266
+  board: d1_mini
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+  ap:
+    ssid: esp05
+
+captive_portal:
+
+logger:
+
+api:
+  password: !secret esphome_api_password
+
+ota:
+  password: !secret esphome_ota_password
+
+light:
+  - platform: status_led
+    name: "Motion State LED"
+    id: motion_state_led
+    pin:
+      number: D4
+      inverted: true
+
+switch:
+  - platform: gpio
+    name: "Fire Relay"
+    id: fire_relay
+    pin: D1
+    on_turn_on:
+    - delay: 1s
+    - switch.turn_off: fire_relay
+    - delay: 15s
+
+binary_sensor:
+  - platform: gpio
+    pin: D2
+    name: "PIR Sensor 1"
+    id: pir_sensor_1
+    device_class: motion
+    filters:
+      - delayed_off: 10s
+    on_press:
+      then:
+        - light.turn_on: motion_state_led
+        - switch.turn_on: fire_relay
+    on_release:
+      then:
+        - light.turn_off: motion_state_led
+        - switch.turn_off: fire_relay
+  - platform: gpio
+    pin: D5
+    name: "PIR Sensor 2"
+    id: pir_sensor_2
+    device_class: motion
+    filters:
+      - delayed_off: 10s
+    on_press:
+      then:
+        - light.turn_on: motion_state_led
+        - switch.turn_on: fire_relay
+    on_release:
+      then:
+        - light.turn_off: motion_state_led
+        - switch.turn_off: fire_relay

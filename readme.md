@@ -2,6 +2,8 @@
 
 ![Project Maintenance][maintenance-shield]
 [![Home Assistant][home-assistant-shield]](home-assistant)
+![esphome.io][esphome-shield]
+
 [![License][license-shield]](LICENSE)
 
 [![Circle CI][circleci-shield]][circleci]
@@ -147,7 +149,8 @@ with USB power supply.
 | Waste Collection Sensor | [Waste Collection Schedule](https://github.com/mampfes/hacs_waste_collection_schedule) | Waste collection integration reminds us not to forget the garbage cans. Works well with the iCal Calender provided by our local garbage disposal company. |
 
 [home-assistant]: https://home-assistant.io
-[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-2021.2.3-blue
+[home-assistant-shield]: https://img.shields.io/badge/Home%20Assistant-2021.12.6-blue
+[esphome-shield]: https://img.shields.io/badge/esphome.io-2021.12.0-green
 [license-shield]: https://img.shields.io/github/license/mhaack/home-assistant-config.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
 [circleci-shield]: https://img.shields.io/circleci/project/github/mhaack/home-assistant-config/master.svg

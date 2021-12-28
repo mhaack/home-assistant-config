@@ -58,7 +58,7 @@ sensor:
     trigger_pin: D1
     echo_pin: D2
     name: garden_watertank_distance
-    update_interval: 60s
+    update_interval: 30s
     pulse_time: 50us
     filters:
       - filter_out: nan
@@ -67,7 +67,7 @@ sensor:
           send_every: 4
           send_first_at: 3
       - calibrate_linear:
-          - 0.45 -> 1.86
+          - 0.23 -> 1.86
           - 2.41 -> 0.0
     on_value:
       then:

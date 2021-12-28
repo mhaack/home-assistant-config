@@ -53,21 +53,35 @@ sensor:
     entity_id: sensor.garden_temperature
     id: garden_temp
     internal: true
-
+    
   - platform: homeassistant
-    entity_id: sensor.solaredge_solar_power
-    id: solar_power
+    entity_id: sensor.garden_humidity
+    id: garden_humidity
+    internal: true
+    
+  - platform: homeassistant
+    entity_id: sensor.livingroom_temperature
+    id: indoor_temp
+    internal: true
+    
+  - platform: homeassistant
+    entity_id: sensor.livingroom_humidity
+    id: indoor_humidity
     internal: true
 
   - platform: homeassistant
-    entity_id: sensor.solaredge_power_consumption
-    id: power_consumption
+    entity_id: sensor.solaredge_imported_energy
+    id: imported_energy
     internal: true
+    filters:
+      - multiply: 0.001
 
   - platform: homeassistant
-    entity_id: sensor.solaredge_storage_power
-    id: storage_power
+    entity_id: sensor.solaredge_exported_energy
+    id: exported_energy
     internal: true
+    filters:
+      - multiply: 0.001
 
   - platform: homeassistant
     entity_id: sensor.solaredge_storage_level
@@ -75,44 +89,11 @@ sensor:
     internal: true
 
   - platform: homeassistant
-    entity_id: sensor.solaredge_grid_power
-    id: grid_power
-    internal: true
-
-  - platform: homeassistant
-    entity_id: sensor.solaredge_energy_today_kwh
+    entity_id: sensor.solaredge_energy_today
     id: energy_today
     internal: true
-
-  - platform: homeassistant
-    entity_id: sensor.solaredge_energy_this_month_kwh
-    id: energy_this_month
-    internal: true
-
-  - platform: homeassistant
-    entity_id: sensor.solaredge_energy_this_year_kwh
-    id: energy_this_year
-    internal: true
-
-  - platform: homeassistant
-    entity_id: sensor.solaredge_consumption_power_kwh
-    id: today_consumption_power
-    internal: true
-
-  - platform: homeassistant
-    entity_id: sensor.solaredge_selfconsumption_power_kwh
-    id: today_selfconsumption_power
-    internal: true
-
-  - platform: homeassistant
-    entity_id: sensor.solaredge_imported_power_kwh
-    id: today_imported_power
-    internal: true
-
-  - platform: homeassistant
-    entity_id: sensor.solaredge_exported_power_kwh
-    id: today_exported_power
-    internal: true
+    filters:
+      - multiply: 0.001
 
   - platform: homeassistant
     entity_id: sensor.pool_solar_temperature
@@ -151,98 +132,141 @@ display:
         lambda: |-
           ESP_LOGI("display", "Updating Page 1...");
 
-          // Time & Temp box
-          it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
-          it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
-          if (id(garden_temp).has_state()) {
-            it.printf(242, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
-          }
-          it.line(188, 2, 188, 126);
-
-          // Power block
-          it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Power");
-          it.line(53, 18, 185, 18);
-
-          if (id(solar_power).has_state()) {
-              it.printf(2, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "PV: %.1fkW", id(solar_power).state);
-          }
-          if (id(power_consumption).has_state()) {
-              it.printf(90, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "U: %.1fkW", id(power_consumption).state);
-          }
-          if (id(storage_power).has_state()) {
-              it.printf(2, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "B: %.1fkW", id(storage_power).state);
-          }
-          if (id(grid_power).has_state()) {
-              it.printf(90, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "G: %.1fkW", id(grid_power).state);
-          }
-          if (id(storage_level).has_state()) {
-              it.printf(1, 110, id(font_regular_16), TextAlign::BASELINE_LEFT, "Bat: %.0f%%", id(storage_level).state);
-          }
-
-      - id: page2
-        lambda: |-
-          ESP_LOGI("display", "Updating Page 2...");
+          // block headline
+          it.print(2, 22, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0241");
+          it.print(22, 22, id(font_regular_20), TextAlign::BASELINE_LEFT, "Energie");
+          it.line(92, 22, 185, 22);
 
           // Time & Temp box
           it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
           it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
           if (id(garden_temp).has_state()) {
-            it.printf(242, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
+            it.print(200, 110, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
+            it.printf(220, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
           }
           it.line(188, 2, 188, 126);
-
-          // Energy block
-          it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Energy");
-          it.line(56, 18, 185, 18);
 
           if (id(energy_today).has_state()) {
-              it.printf(2, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "D: %.1fkWh", id(energy_today).state);
+            it.print(40, 45, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0A72");
+            it.printf(43, 44, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1fkWh", id(energy_today).state);
           }
-          if (id(energy_this_month).has_state()) {
-              it.printf(85, 50, id(font_regular_16), TextAlign::BASELINE_LEFT, "M: %.1fkWh", id(energy_this_month).state);
+          if (id(exported_energy).has_state()) {
+            it.print(2, 85, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0D3E");
+            it.printf(25, 84, id(font_regular_16), TextAlign::BASELINE_LEFT, "- %.1fkWh", id(exported_energy).state);
           }
-          if (id(today_consumption_power).has_state()) {
-              it.printf(2, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "C: %.1fkWh", id(today_consumption_power).state);
-          }
-          if (id(today_selfconsumption_power).has_state()) {
-              it.printf(95, 80, id(font_regular_16), TextAlign::BASELINE_LEFT, "S: %.1fkWh", id(today_selfconsumption_power).state);
-          }
-          if (id(today_imported_power).has_state()) {
-              it.printf(2, 110, id(font_regular_16), TextAlign::BASELINE_LEFT, "I: %.1fkWh", id(today_imported_power).state);
-          }
-          if (id(today_exported_power).has_state()) {
-              it.printf(95, 110, id(font_regular_16), TextAlign::BASELINE_LEFT, "E: %.1fkWh", id(today_exported_power).state);
+          if (id(imported_energy).has_state()) {
+            it.print(2, 105, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0D3E");
+            it.printf(25, 104, id(font_regular_16), TextAlign::BASELINE_LEFT, "- %.1fkWh", id(imported_energy).state);
           }
 
-      - id: page3
-        lambda: |-
-          ESP_LOGI("display", "Updating Page 3...");
+      #     if (id(solar_power).has_state()) {
+      #       it.printf(2, 64, id(font_regular_16), TextAlign::BASELINE_LEFT, "Solar: %.1fkW", id(solar_power).state);
+      #     }
+      #     if (id(power_consumption).has_state()) {
+      #         it.printf(2, 84, id(font_regular_16), TextAlign::BASELINE_LEFT, "Consum: %.1fkW", id(power_consumption).state);
+      #     }
+      #     if (id(grid_power).has_state()) {
+      #         it.printf(2, 104, id(font_regular_16), TextAlign::BASELINE_LEFT, "Grid: %.1fkW", id(grid_power).state);
+      #     }
+      #     if (id(storage_level).has_state()) {
+      #         it.printf(2, 124, id(font_regular_16), TextAlign::BASELINE_LEFT, "Bat: %.0%%", id(storage_level).state);
+      #     }
 
-          // Time & Temp box
-          it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
-          it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
-          if (id(garden_temp).has_state()) {
-            it.printf(242, 110, id(font_regular_20), TextAlign::BASELINE_CENTER, "%.1f°", id(garden_temp).state);
-          }
-          it.line(188, 2, 188, 126);
+      # - id: page2
+      #   lambda: |-
+      #     ESP_LOGI("display", "Updating Page 2...");
 
-          // Energy block
-          it.print(2, 18, id(font_regular_16), TextAlign::BASELINE_LEFT, "Pool");
-          it.line(40, 18, 185, 18);
+      #     // block headline
+      #     it.print(2, 22, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0606");
+      #     it.print(22, 22, id(font_regular_20), TextAlign::BASELINE_LEFT, "Pool");
+      #     it.line(70, 22, 185, 22);
 
-          if (id(pool_pump_state).has_state()) {
-              it.printf(2, 40, id(font_regular_16), TextAlign::BASELINE_LEFT, "Pumpe: %s", id(pool_pump_state).state ? "An" : "Aus");
-          }
-          if (id(pool_valve_state).has_state()) {
-              it.printf(2, 65, id(font_regular_16), TextAlign::BASELINE_LEFT, "Solar: %s", id(pool_valve_state).state ? "An" : "Aus");
-          }
+      #     // Time & Temp box
+      #     it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+      #     it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+      #     if (id(garden_temp).has_state()) {
+      #       it.print(200, 110, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
+      #       it.printf(220, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
+      #     }
+      #     it.line(188, 2, 188, 126);
 
-          if (id(pool_water_temperature).has_state()) {
-              it.printf(2, 90, id(font_regular_16), TextAlign::BASELINE_LEFT, "Wasser: %.1f°C", id(pool_water_temperature).state);
-          }
-          if (id(pool_solar_temperature).has_state()) {
-              it.printf(2, 115, id(font_regular_16), TextAlign::BASELINE_LEFT, "Heizung: %.1f°C", id(pool_solar_temperature).state);
-          }
+      #     if (id(pool_pump_state).has_state()) {
+      #       it.print(2, 45, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F1402");
+      #       it.printf(25, 44, id(font_regular_16), TextAlign::BASELINE_LEFT, "Pumpe: %s", id(pool_pump_state).state ? "An" : "Aus");
+      #     }
+      #     if (id(pool_valve_state).has_state()) {
+      #       it.print(2, 70, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F17FF");
+      #       it.printf(25, 69, id(font_regular_16), TextAlign::BASELINE_LEFT, "Solarheizung: %s", id(pool_valve_state).state ? "An" : "Aus");
+      #     }
+      #     if (id(pool_water_temperature).has_state()) {
+      #         it.print(2, 95, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F03C8");
+      #         it.printf(25, 94, id(font_regular_16), TextAlign::BASELINE_LEFT, "Wasser: %.1f°C", id(pool_water_temperature).state);
+      #     }
+      #     if (id(pool_solar_temperature).has_state()) {
+      #         it.print(2, 120, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0599");
+      #         it.printf(25, 119, id(font_regular_16), TextAlign::BASELINE_LEFT, "Heizung: %.1f°C", id(pool_solar_temperature).state);
+      #     }
+
+      # - id: page3
+      #   lambda: |-
+      #     ESP_LOGI("display", "Updating Page 3...");
+
+      #     // block headline
+      #     it.print(2, 22, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
+      #     it.print(22, 22, id(font_regular_20), TextAlign::BASELINE_LEFT, "Temperatur");
+      #     it.line(138, 22, 185, 22);
+
+      #     // Time & Temp box
+      #     it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+      #     it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+      #     if (id(garden_temp).has_state()) {
+      #       it.print(200, 110, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
+      #       it.printf(220, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
+      #     }
+      #     it.line(188, 2, 188, 126);
+          
+      #     it.print(94, 44, id(font_regular_16), TextAlign::BASELINE_CENTER, "Außen");
+      #     it.print(94, 94, id(font_regular_16), TextAlign::BASELINE_CENTER, "Innen");
+          
+      #     if (id(garden_temp).has_state()) {
+      #       it.print(25, 70, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
+      #       it.printf(45, 69, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
+      #     }
+      #     if (id(garden_humidity).has_state()) {
+      #       it.print(108, 70, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F058E");
+      #       it.printf(130, 69, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.0f%%", id(garden_humidity).state);
+      #     }
+      #     if (id(indoor_temp).has_state()) {
+      #       it.print(25, 120, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
+      #       it.printf(45, 119, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1f°C", id(indoor_temp).state);
+      #     }
+      #     if (id(indoor_humidity).has_state()) {
+      #       it.print(108, 120, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F058E");
+      #       it.printf(130, 119, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.0f%%", id(indoor_humidity).state);
+      #     }
+
+
+
+          
+      # - id: page4
+      #   lambda: |-
+      #     ESP_LOGI("display", "Updating Page 4...");
+
+      #     // block headline
+      #     it.print(2, 22, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F010B");
+      #     it.print(22, 22, id(font_regular_20), TextAlign::BASELINE_LEFT, "Car");
+      #     it.line(58, 22, 185, 22);
+  
+      #     // Time & Temp box
+      #     it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+      #     it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+      #     if (id(garden_temp).has_state()) {
+      #       it.print(200, 110, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
+      #       it.printf(220, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
+      #     }
+      #     it.line(188, 2, 188, 126);
+
+
 
 font:
   - file: 'fonts/GoogleSans-Bold.ttf'
@@ -258,7 +282,7 @@ font:
        'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
        'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
        'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-       'u', 'v', 'w', 'x', 'y', 'z', '/']
+       'u', 'v', 'w', 'x', 'y', 'z', '/', 'ß']
   - file: 'fonts/GoogleSans-Bold.ttf'
     id: font_regular_20
     size: 20
@@ -268,11 +292,36 @@ font:
        'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
        'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
        'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-       'u', 'v', 'w', 'x', 'y', 'z', '/']
-
+       'u', 'v', 'w', 'x', 'y', 'z', '/', 'ß']
   - file: 'fonts/GoogleSans-Medium.ttf'
     id: font_regular_40
     size: 40
     glyphs:
       ['!', ',', '.', '"', '%', '-', '_', ':', '°', '/',
        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ']
+  - file: 'fonts/materialdesignicons-webfont.ttf'
+    id: icon_font_18
+    size: 18
+    glyphs: [
+      '󰉁', #mdi-flash
+      '󰘆', #mid-pool
+    ]
+  - file: 'fonts/materialdesignicons-webfont.ttf'
+    id: icon_font_20
+    size: 20
+    glyphs:
+      - "\U000F010B" #mdi-car
+      - "\U000F0F54" #mdi-home-thermometer
+      - "\U000F0241" #mdi-flash
+      - "\U000F0606" #mdi-pool
+      - "\U000F1402" #mdi-pump
+      - "\U000F03C8" #mdi-coolant-temperature
+      - "\U000F17FF" #mdi-sun-wireless-outline
+      - "\U000F0599" #mdi-weather-sunny
+      - "\U000F12A1" #mdi-battery-low
+      - "\U000F12A2" #mdi-battery-medium
+      - "\U000F12A3" #mdi-battery-high
+      - "\U000F058E" #mdi-water-percent
+      - "\U000F050F" #mdi-thermometer
+      - "\U000F0A72" #mdi-solar-power
+      - "\U000F0D3E" #mdi-transmission-tower
