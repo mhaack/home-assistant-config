@@ -1,0 +1,30 @@
+---
+# When we arive home turned off the house alarm
+#
+alias: "[Security] We arrived home - to turn off house alarm"
+id: 1feb9c91-58d1-457f-b11f-008d236c1d1a
+trigger:
+  - platform: state
+    entity_id: group.family
+    from: not_home
+    to: home
+condition:
+  condition: or
+  conditions:
+    - condition: state
+      entity_id: alarm_control_panel.alarm_haus
+      state: armed_away
+    - condition: state
+      entity_id: alarm_control_panel.alarm_haus
+      state: armed_home
+action:
+  - alias: "Disable house alarm"
+    service: aalarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm_haus
+  - alias: "Send the notification"
+    service: notify.system_group_jama
+    data:
+      title: JaMa Villa - 🚨 Haus
+      message: Jemand ist nach 🏠 Hause gekommen, der Alarm wurde deaktiviert.
+      data:
+        group: alarm-house

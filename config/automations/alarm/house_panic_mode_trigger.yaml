@@ -1,0 +1,26 @@
+---
+# Send notification if house siren panic mode was activated
+#
+alias: "[Security] Send notification panic mode triggerd"
+id: d9afaa4c-5af5-4d69-936d-5b8ab45a4fd3
+trigger:
+  - platform: state
+    entity_id: switch.hall_siren_3
+    to: "on"
+action:
+  - alias: "Send the notification"
+    service: notify.system_group_jama
+    data:
+      title: JaMa Villa - 🚨 Haus
+      message: "Alarm ausgelöst: Panikmodus wurde aktiviert!"
+      data:
+        actions:
+          - action: "DECTIVATE-HOUSE-ALARM"
+            title: "Alarm deaktivieren!"
+        group: alarm-house
+        tag: alarm-house-panic
+        push:
+          sound:
+            name: "default"
+            critical: 1
+            volume: 1.0

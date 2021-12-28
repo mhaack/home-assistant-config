@@ -2,6 +2,7 @@
 # When the carport alarm gets turned off
 #
 alias: "[Security] Turn off carport alarm - disarmed"
+id: 715a5340-9a71-471c-947e-df0ed104530a
 trigger:
   - platform: state
     entity_id: alarm_control_panel.alarm_carport
@@ -18,5 +19,5 @@ action:
       - switch.garden_carport_siren_1
       - switch.garden_carport_siren_2
       - switch.garden_carport_siren_3
-  - delay: '00:00:01'
+  - delay: "00:00:01"
   - service: python_script.jamavilla_display

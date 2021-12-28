@@ -2,8 +2,8 @@
 # Garden bench movement notification. The bench should not be moved,
 # especially not in the night or if we are not at home.
 #
-id: 7d61c8a2-c685-488a-9559-85f0748041fe
 alias: "[Security] Bench movement alarm"
+id: 7d61c8a2-c685-488a-9559-85f0748041fe
 trigger:
   - platform: state
     entity_id: binary_sensor.garden_bench
@@ -18,22 +18,48 @@ condition:
         entity_id: input_boolean.garden_bench_notification
         state: "on"
 action:
-  - service: notify.system_group_jama
+  - alias: "Set up variables for the actions"
+    variables:
+      action_deactivate: "{{ 'DEACTIVATE_' ~ context.id }}"
+  - alias: "Turn on siren"
+    service: switch.turn_on
     data:
-      title: "JaMa Villa"
-      message: "Bank hat sich bewegt - was ist hier los?"
-      data:
-        push:
-          thread-id: "ha-carport-alarm-notification-group"
-          category: "bench_alarm"
-  - service: camera.aarlo_start_recording
+      entity_id: switch.garden_carport_siren_3
+  - alias: "Activate camera"
+    service: aarlo.camera_start_recording
     data:
       entity_id: camera.aarlo_carport
       duration: 30
-  - service: switch.turn_on
-    data:
-      entity_id: switch.garden_carport_siren_3
-  - delay: '00:03:00'
-  - service: switch.turn_off
-    data:
-      entity_id: switch.garden_carport_siren_3
+  - alias: "Repeat until alarm off"
+    repeat:
+      while:
+        - condition: state
+          entity_id: switch.garden_carport_siren_3
+          state: "on"
+      sequence:
+        - alias: "Send the notification"
+          service: notify.system_group_jama
+          data:
+            title: "JaMa Villa - 🚨"
+            message: "Bank hat sich bewegt - was ist hier los?"
+            data:
+              actions:
+                - action: "{{ action_deactivate }}"
+                  title: "Alarm deaktivieren!"
+              group: alarm-bench
+              push:
+                sound:
+                  name: "default"
+                  critical: 1
+                  volume: 1.0
+        - alias: "Wait for a response"
+          wait_for_trigger:
+            - platform: event
+              event_type: mobile_app_notification_action
+              event_data:
+                action: "{{ action_deactivate }}"
+          timeout:
+            minutes: 3
+        - service: switch.turn_off
+          data:
+            entity_id: switch.garden_carport_siren_3

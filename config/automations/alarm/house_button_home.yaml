@@ -2,6 +2,7 @@
 # When the house alarm is turned on to armed home using the display button or remote control
 #
 alias: "[Security] Button to turn on house alarm - home"
+id: e1f2e155-9d02-41de-a119-2546f286b4ff
 trigger:
   - platform: event
     event_type: homematic.keypress

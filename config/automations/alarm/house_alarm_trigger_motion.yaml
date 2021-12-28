@@ -1,0 +1,33 @@
+---
+# Trigger house alarm if motion was detected
+#
+alias: "[Security] Trigger house alarm if motion was detected"
+id: e22a7af0-1cca-4e32-9b27-da4c2bd4d17f
+trigger:
+  - platform: state
+    entity_id: group.system_motion_sensors
+    to: "on"
+condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_haus
+    state: armed_away
+action:
+  - alias: "Activate house alarm"
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm_haus
+  - alias: "Send the notification"
+    service: notify.system_group_jama
+    data:
+      title: JaMa Villa - 🚨 Haus
+      message: "Alarm ausgelöst: Jemand ist im Haus - Bewegung erkannt, Sirene aktiv in 30s"
+      data:
+        actions:
+          - action: "DECTIVATE-HOUSE-ALARM"
+            title: "Alarm deaktivieren!"
+        group: alarm-house
+        tag: alarm-house
+        push:
+          sound:
+            name: "default"
+            critical: 1
+            volume: 1.0

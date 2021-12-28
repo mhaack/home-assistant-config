@@ -1,0 +1,18 @@
+---
+# Disable house alarm based on mobile action trigger.
+#
+alias: "[Security] Turn on house alarm by mobile trigger"
+id: 52639512-5408-422e-b288-452615fd3fce
+trigger:
+  platform: event
+  event_type: mobile_app_notification_action
+  event_data:
+    action: "DECTIVATE-HOUSE-ALARM"
+condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_haus
+    state: triggered
+action:
+  - alias: "Disable house alarm"
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm_haus

@@ -1,0 +1,89 @@
+---
+# Reminder to turn on carport alarm if nobody is at home
+#
+alias: "[Security] Carport alarm away reminder"
+id: ea096bfc-e212-455b-9704-17502891e7be
+mode: restart
+trigger:
+  - platform: state
+    entity_id: group.family
+    from: home
+    to: not_home
+    for:
+      minutes: 1
+      seconds: 15
+condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_carport
+    state: disarmed
+action:
+  - alias: "Set up variables for the actions"
+    variables:
+      action_activate: "{{ 'DONE_' ~ context.id }}"
+      action_later: "{{ 'LATER_' ~ context.id }}"
+  - alias: "Repeat while carport alarm is deactivated"
+    repeat:
+      while:
+        - condition: state
+          entity_id: alarm_control_panel.alarm_carport
+          state: disarmed
+      sequence:
+        - alias: "Send the notification"
+          service: notify.system_group_jama
+          data:
+            title: JaMa Villa - 🚨 Carport
+            message: Alle haben das Haus verlassen, aber der Carport Alarm ist noch nicht aktiviert?
+            data:
+              actions:
+                - action: "{{ action_activate }}"
+                  title: "Alarm aktivieren"
+                  activationMode: "background"
+                  authenticationRequired: true
+                  destructive: true
+                - action: "{{ action_later }}"
+                  title: "Erinnere mich später."
+                  activationMode: "background"
+                  authenticationRequired: true
+                  destructive: false
+              group: notification-alarm-carport
+              tag: alarm-carport-reminder
+        - alias: "Wait for a response"
+          wait_for_trigger:
+            - platform: event
+              event_type: mobile_app_notification_action
+              event_data:
+                action: "{{ action_activate }}"
+            - platform: event
+              event_type: mobile_app_notification_action
+              event_data:
+                action: "{{ action_later }}"
+          timeout:
+            hours: 1
+        - alias: "Perform the action"
+          choose:
+            - conditions:
+                - "{{ wait.trigger == none }}"
+                - condition: state
+                  entity_id: alarm_control_panel.alarm_carport
+                  state: disarmed
+              sequence:
+                - service: alarm_control_panel.alarm_arm_home
+                  entity_id: alarm_control_panel.alarm_carport
+            - conditions:
+                - "{{ wait.trigger.event.data.action == action_activate }}"
+              sequence:
+                - service: alarm_control_panel.alarm_arm_home
+                  entity_id: alarm_control_panel.alarm_carport
+            - conditions:
+                - "{{ wait.trigger.event.data.action == action_later }}"
+              sequence:
+                - alias: "Send the notification"
+                  service: notify.system_group_jama
+                  data:
+                    title: JaMa Villa - 🚨 Carport
+                    message: Ok, nächste Erinnerung in 30 Minuten.
+                    data:
+                      group: notification-alarm-carport
+                      tag: alarm-carport-reminder
+                - delay:
+                    minutes: 30

@@ -1,0 +1,68 @@
+---
+# Trigger carport alarm if the carport door was opened
+#
+alias: "[Security] Trigger carport alarm if door was opened"
+id: d1e478f5-18ed-446e-8850-a13d315f4e13
+trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_carport_door
+    to: "on"
+condition:
+  condition: or
+  conditions:
+    - condition: state
+      entity_id: alarm_control_panel.alarm_carport
+      state: armed_away
+    - condition: state
+      entity_id: alarm_control_panel.alarm_carport
+      state: armed_home
+action:
+  - alias: "Set up variables for the actions"
+    variables:
+      action_deactivate: "{{ 'DEACTIVATE_' ~ context.id }}"
+  - alias: "Trigger carport alarm"
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm_carport
+  - alias: "Activate carpot siren"
+    service: switch.turn_on
+    entity_id: switch.garden_carport_siren_1
+  - alias: "Activate camera"
+    service: aarlo.camera_start_recording
+    data:
+      entity_id: camera.aarlo_garten
+      duration: 30
+  - alias: "Update hall display"
+    service: python_script.jamavilla_display
+  - alias: "Repeat until alarm off"
+    repeat:
+      while:
+        - condition: state
+          entity_id: alarm_control_panel.alarm_carport
+          state: triggered
+      sequence:
+        - alias: "Send the notification"
+          service: notify.system_group_jama
+          data:
+            title: JaMa Villa - 🚨 Carport
+            message: "Alarm ausgelöst: Jemand ist im Carport, Tür wurde geöffnet - Sirene aktiviert!"
+            data:
+              actions:
+                - action: "{{ action_deactivate }}"
+                  title: "Alarm deaktivieren!"
+              group: alarm-carport
+              push:
+                sound:
+                  name: "default"
+                  critical: 1
+                  volume: 1.0
+        - alias: "Wait for a response"
+          wait_for_trigger:
+            - platform: event
+              event_type: mobile_app_notification_action
+              event_data:
+                action: "{{ action_deactivate }}"
+          timeout:
+            minutes: 3
+        - alias: "Decativate alarm"
+          service: alarm_control_panel.alarm_disarm
+          entity_id: alarm_control_panel.alarm_carport

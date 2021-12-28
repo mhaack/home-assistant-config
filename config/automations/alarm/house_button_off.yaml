@@ -2,6 +2,7 @@
 # When the house alarm is turned off using the display button or remote control
 #
 alias: "[Security] Button to turn off house alarm"
+id: 8471db70-a6e2-4a45-a170-a2afe01925d4
 trigger:
   - platform: event
     event_type: homematic.keypress

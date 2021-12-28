@@ -1,0 +1,92 @@
+---
+# Reminder to turn on carport alarm at 10pm.
+#
+alias: "[Security] Carport alarm evening reminder"
+id: d4894d0a-2b86-4c9e-b6a5-ed1fafd6f387
+mode: restart
+trigger:
+  platform: time
+  at: "22:00:00"
+condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_carport
+    state: disarmed
+action:
+  - alias: "Set up variables for the actions"
+    variables:
+      action_activate: "{{ 'DONE_' ~ context.id }}"
+      action_later: "{{ 'LATER_' ~ context.id }}"
+  - alias: "Repeat while carport alarm is deactivated"
+    repeat:
+      while:
+        - condition: state
+          entity_id: alarm_control_panel.alarm_carport
+          state: disarmed
+      sequence:
+        - alias: "Send the notification"
+          service: notify.system_group_jama
+          data:
+            title: JaMa Villa - 🚨 Carport
+            message: Es ist 22 Uhr und der Carport Alarm ist noch nicht aktiviert?
+            data:
+              actions:
+                - action: "{{ action_activate }}"
+                  title: "Alarm aktivieren"
+                  activationMode: "background"
+                  authenticationRequired: true
+                  destructive: true
+                - action: "{{ action_later }}"
+                  title: "Erinnere mich später."
+                  activationMode: "background"
+                  authenticationRequired: true
+                  destructive: false
+              group: notification-alarm-carport
+              tag: alarm-carport-reminder
+        - alias: "Wait for a response"
+          wait_for_trigger:
+            - platform: event
+              event_type: mobile_app_notification_action
+              event_data:
+                action: "{{ action_activate }}"
+            - platform: event
+              event_type: mobile_app_notification_action
+              event_data:
+                action: "{{ action_later }}"
+          timeout:
+            hours: 2
+        - alias: "Perform the action"
+          choose:
+            - conditions:
+                - "{{ wait.trigger == none }}"
+                - condition: state
+                  entity_id: alarm_control_panel.alarm_carport
+                  state: disarmed
+              sequence:
+                - alias: "Send the notification"
+                  service: notify.mobile_app_iphone_von_markus
+                  data:
+                    title: JaMa Villa - 🚨 Carport
+                    message: Es ist {{ now().timestamp() | timestamp_custom ('%H:%M %d.%m.%Y') }}, Carport Alarm wird jetzt automatisch aktiviert.
+                    data:
+                      group: notification-alarm-carport
+                      tag: alarm-carport-reminder
+                - service: alarm_control_panel.alarm_arm_home
+                  entity_id: alarm_control_panel.alarm_carport
+            - conditions:
+                - "{{ wait.trigger.event.data.action == action_activate }}"
+              sequence:
+                - service: alarm_control_panel.alarm_arm_home
+                  entity_id: alarm_control_panel.alarm_carport
+            - conditions:
+                - "{{ wait.trigger.event.data.action == action_later }}"
+              sequence:
+                - alias: "Send the notification"
+                  service: notify.system_group_jama
+                  data:
+                    title: JaMa Villa - 🚨 Carport
+                    message: Ok, nächste Erinnerung in 30 Minuten.
+                    data:
+                      group: notification-alarm-carport
+                      tag: alarm-carport-reminder
+                - delay:
+                    minutes: 30

@@ -1,0 +1,29 @@
+---
+# When the house alarm is triggered we turn on the siren
+#
+alias: "[Security] Trigger house siren if house alarm was triggered"
+id: 14fec854-1bf6-4f17-8768-af0200eb6726
+trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_haus
+    to: triggered
+action:
+  - alias: "Activate house siren"
+    service: switch.turn_on
+    entity_id: switch.hall_siren_1
+  - alias: "Send the notification"
+    service: notify.system_group_jama
+    data:
+      title: JaMa Villa - 🚨 Haus
+      message: "Alarm ausgelöst: Jemand ist im Haus - Sirene aktiviert!"
+      data:
+        actions:
+          - action: "DECTIVATE-HOUSE-ALARM"
+            title: "Alarm deaktivieren!"
+        group: alarm-house
+        push:
+          sound:
+            name: "default"
+            critical: 1
+            volume: 1.0
+  - service: python_script.jamavilla_display

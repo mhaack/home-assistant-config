@@ -1,0 +1,17 @@
+---
+# House siren status change notification
+#
+alias: "[Notify] Send house siren status notifications"
+id: 6137145a-38a3-42fa-a293-6e9cc4776ea6
+trigger:
+  - platform: state
+    entity_id: sensor.hall_siren_armstate
+action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa - 🚨 Haus
+      message: >
+        {{ trigger.to_state.attributes.friendly_name }} geändert auf {{ trigger.to_state.state | replace("disarmed", "'deaktiviert'") | replace("extsens_armed", "'aktiviert anwesend'") | replace("allsens_armed", "'aktiviert abwesend'")}} ({{ now().timestamp() | timestamp_custom ('%H:%M %d.%m.%Y') }})
+      data:
+        group: alarm-house
+        tag: alarm-house-notification

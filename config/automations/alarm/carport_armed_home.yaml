@@ -2,6 +2,7 @@
 # When the carport alarm gets turned on into armed home state
 #
 alias: "[Security] Turn on carport alarm - armed_home"
+id: 50ec8179-ac8a-4239-b591-b50f83df4aa8
 trigger:
   - platform: state
     entity_id: alarm_control_panel.alarm_carport
@@ -13,5 +14,5 @@ action:
       channel: 4
       param: ARMSTATE
       value: 1
-  - delay: '00:00:01'
+  - delay: "00:00:01"
   - service: python_script.jamavilla_display

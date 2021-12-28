@@ -1,0 +1,90 @@
+---
+# Reminder to turn on house alarm if nobody is at home
+#
+alias: "[Security] House alarm away reminder"
+id: 8864dfb7-c9e9-430e-a3d5-6621ab327c95
+mode: restart
+trigger:
+  - platform: state
+    entity_id: group.family
+    from: home
+    to: not_home
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_haus
+    state: disarmed
+action:
+  - alias: "Set up variables for the actions"
+    variables:
+      action_activate: "{{ 'DONE_' ~ context.id }}"
+      action_later: "{{ 'LATER_' ~ context.id }}"
+  - alias: "Repeat while carport alarm is deactivated"
+    repeat:
+      while:
+        - condition: state
+          entity_id: alarm_control_panel.alarm_haus
+          state: disarmed
+      sequence:
+        - alias: "Send the notification"
+          service: notify.system_group_jama
+          data:
+            title: JaMa Villa - 🚨 Haus
+            message: Alle haben das 🏠 Haus verlassen, aber der Alarm ist noch nicht aktiviert?
+            data:
+              actions:
+                - action: "{{ action_activate }}"
+                  title: "Alarm aktivieren"
+                  activationMode: "background"
+                  authenticationRequired: true
+                  destructive: true
+                - action: "{{ action_later }}"
+                  title: "Erinnere mich später."
+                  activationMode: "background"
+                  authenticationRequired: true
+                  destructive: false
+              group: notification-alarm-house
+              tag: alarm-house-reminder
+        - alias: "Wait for a response"
+          wait_for_trigger:
+            - platform: event
+              event_type: mobile_app_notification_action
+              event_data:
+                action: "{{ action_activate }}"
+            - platform: event
+              event_type: mobile_app_notification_action
+              event_data:
+                action: "{{ action_later }}"
+          timeout:
+            hours: 1
+        - alias: "Perform the action"
+          choose:
+            - conditions:
+                - "{{ wait.trigger == none }}"
+                - condition: state
+                  entity_id: alarm_control_panel.alarm_haus
+                  state: disarmed
+              sequence:
+                - service: alarm_control_panel.alarm_arm_home
+                  entity_id: alarm_control_panel.alarm_haus
+            - conditions:
+                - "{{ wait.trigger.event.data.action == action_activate }}"
+              sequence:
+                - service: alarm_control_panel.alarm_arm_home
+                  entity_id: alarm_control_panel.alarm_haus
+            - conditions:
+                - "{{ wait.trigger.event.data.action == action_later }}"
+              sequence:
+                - alias: "Send the notification"
+                  service: notify.system_group_jama
+                  data:
+                    title: JaMa Villa - 🚨 Haus
+                    message: Ok, nächste Erinnerung in 30 Minuten.
+                    data:
+                      group: notification-alarm-house
+                      tag: alarm-house-reminder
+                - delay:
+                    minutes: 30

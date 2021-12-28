@@ -2,6 +2,7 @@
 # Trigger house alarm if a door or windows was opened
 #
 alias: "[Security] Trigger house alarm if door or window was opened"
+id: 7bb26b9f-7a33-4fab-a9e8-9d2873b9e27a
 trigger:
   - platform: state
     entity_id: group.system_contact_sensors
@@ -16,13 +17,22 @@ condition:
       entity_id: alarm_control_panel.alarm_haus
       state: armed_home
 action:
-  - service: notify.system_pushover_markus
+  - alias: "Activate house alarm"
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm_haus
+  - alias: "Send the notification"
+    service: notify.system_group_jama
     data:
-      title: "JaMa Villa Alarm"
+      title: JaMa Villa - 🚨 Haus
       message: "Alarm ausgelöst: Jemand ist im Haus - Fenster und Türen wurden geöffnet, Sirene aktiv in 30s"
       data:
-        priority: 1
-        sound: alien
-  - service: alarm_control_panel.alarm_trigger
-    entity_id: alarm_control_panel.alarm_haus
-  - service: python_script.jamavilla_display
+        actions:
+          - action: "DECTIVATE-HOUSE-ALARM"
+            title: "Alarm deaktivieren!"
+        group: alarm-house
+        tag: alarm-house
+        push:
+          sound:
+            name: "default"
+            critical: 1
+            volume: 1.0

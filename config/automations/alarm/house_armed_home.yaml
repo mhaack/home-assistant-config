@@ -2,6 +2,7 @@
 # When the house alarm gets turned on into armed home state
 #
 alias: "[Security] Turn on house alarm - armed_home"
+id: ebaef6bd-605a-479a-921e-844a0cb10c2b
 trigger:
   - platform: state
     entity_id: alarm_control_panel.alarm_haus
