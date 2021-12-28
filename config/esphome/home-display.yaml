@@ -298,24 +298,24 @@ font:
     id: icon_font_18
     size: 18
     glyphs:
-      - "󰉁" #mdi-flash
-      - "󰘆" #mid-pool
+      - "󰉁" # mdi-flash
+      - "󰘆" # mid-pool
   - file: "fonts/materialdesignicons-webfont.ttf"
     id: icon_font_20
     size: 20
     glyphs:
-      - "\U000F010B" #mdi-car
-      - "\U000F0F54" #mdi-home-thermometer
-      - "\U000F0241" #mdi-flash
-      - "\U000F0606" #mdi-pool
-      - "\U000F1402" #mdi-pump
-      - "\U000F03C8" #mdi-coolant-temperature
-      - "\U000F17FF" #mdi-sun-wireless-outline
-      - "\U000F0599" #mdi-weather-sunny
-      - "\U000F12A1" #mdi-battery-low
-      - "\U000F12A2" #mdi-battery-medium
-      - "\U000F12A3" #mdi-battery-high
-      - "\U000F058E" #mdi-water-percent
-      - "\U000F050F" #mdi-thermometer
-      - "\U000F0A72" #mdi-solar-power
-      - "\U000F0D3E" #mdi-transmission-tower
+      - "\U000F010B" # mdi-car
+      - "\U000F0F54" # mdi-home-thermometer
+      - "\U000F0241" # mdi-flash
+      - "\U000F0606" # mdi-pool
+      - "\U000F1402" # mdi-pump
+      - "\U000F03C8" # mdi-coolant-temperature
+      - "\U000F17FF" # mdi-sun-wireless-outline
+      - "\U000F0599" # mdi-weather-sunny
+      - "\U000F12A1" # mdi-battery-low
+      - "\U000F12A2" # mdi-battery-medium
+      - "\U000F12A3" # mdi-battery-high
+      - "\U000F058E" # mdi-water-percent
+      - "\U000F050F" # mdi-thermometer
+      - "\U000F0A72" # mdi-solar-power
+      - "\U000F0D3E" # mdi-transmission-tower
