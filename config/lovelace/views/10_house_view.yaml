@@ -58,10 +58,12 @@ cards:
             tap_action:
               action: toggle
         show_state: false
+
       - type: entity-filter
         show_empty: false
         entities:
           - entity: timer.hall_lights
+            type: custom:timer-bar-card
         state_filter:
           - "active"
 
@@ -246,6 +248,69 @@ cards:
                 entities:
                   - entity: sensor.office_temperature
                   - entity: sensor.office_humidity
+                    show_state: true
+                    show_graph: false
+                show:
+                  fill: fade
+                  extrema: true
+                  name: false
+                  icon: false
+
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: "Flur"
+                  - icon: mdi:home-thermometer
+              - type: "custom:mini-graph-card"
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 2px 5px 14px;
+                  }
+                align_header: left
+                align_icon: left
+                decimals: 1
+                hour24: true
+                points_per_hour: 1
+                entities:
+                  - entity: sensor.hall_temperature
+                  - entity: sensor.hall_humidity
+                    show_state: true
+                    show_graph: false
+                show:
+                  fill: fade
+                  extrema: true
+                  name: false
+                  icon: false
+          - type: vertical-stack
+            cards:
+              - type: custom:decluttering-card
+                template: card_header
+                variables:
+                  - content: "Technikraum"
+                  - icon: mdi:home-thermometer
+              - type: "custom:mini-graph-card"
+                icon: mdi:television-clean
+                style: |
+                  ha-card {
+                    --paper-card-background-color: var(--sidebar-background-color);
+                    box-shadow: var(--card-box-shadow);
+                    margin: 0px 14px 5px 2px;
+                  }
+                align_header: left
+                align_icon: left
+                decimals: 1
+                hour24: true
+                points_per_hour: 1
+                entities:
+                  - entity: sensor.equipmentroom_temperature
+                  - entity: sensor.equipmentroom_humidity
                     show_state: true
                     show_graph: false
                 show:

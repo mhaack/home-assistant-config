@@ -14,19 +14,19 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Dachboden'
+          - content: "Dachboden"
           - icon: mdi:home-thermometer
       - type: "custom:mini-graph-card"
         style: |
@@ -52,7 +52,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Technikraum'
+          - content: "Technikraum"
           - icon: mdi:home-thermometer
       - type: "custom:mini-graph-card"
         style: |
@@ -81,7 +81,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Garten'
+          - content: "Garten"
           - icon: mdi:flower
       - type: entities
         style: |
@@ -98,7 +98,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Büro'
+          - content: "Büro"
           - icon: mdi:office-building
       - type: entities
         style: |
@@ -111,7 +111,6 @@ cards:
           - switch.office_desk
           - binary_sensor.office_desk
           - sensor.office_desk_power
-          - sensor.office_desk_daily_energy
           - sensor.office_desk_energy_counter
         show_header_toggle: false
 
@@ -120,7 +119,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Spülmaschine'
+          - content: "Spülmaschine"
           - icon: mdi:dishwasher
       - type: entities
         style: |
@@ -133,13 +132,12 @@ cards:
           - switch.kitchen_dishwasher
           - sensor.kitchen_dishwasher_state
           - sensor.kitchen_dishwasher_power
-          - sensor.kitchen_dishwasher_daily_energy
           - sensor.kitchen_dishwasher_energy_counter
         show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Gefrierschrank'
+          - content: "Gefrierschrank"
           - icon: mdi:snowflake
       - type: entities
         style: |
@@ -151,13 +149,12 @@ cards:
         entities:
           - switch.laundryroom_freezer
           - sensor.laundryroom_freezer_power
-          - sensor.laundryroom_freezer_daily_energy
           - sensor.laundryroom_freezer_energy_counter
         show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Kühlschrank'
+          - content: "Kühlschrank"
           - icon: mdi:thermometer
       - type: entities
         style: |

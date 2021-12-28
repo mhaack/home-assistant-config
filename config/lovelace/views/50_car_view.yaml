@@ -1,0 +1,154 @@
+---
+# The main JaMa Villa outdoor view
+#
+title: Car
+icon: mdi:car
+path: car
+
+badges: []
+cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: "/local/assets/markus.jpg"
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: "/local/assets/jasmina.jpg"
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Mercedes L-JM227E"
+          - icon: mdi:car
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.car_mercedes_l_jm227e_ignition_state
+            name: Zündung
+          - entity: sensor.car_mercedes_l_jm227e_lock
+            name: Türen
+          - entity: binary_sensor.car_mercedes_l_jm227e_windows_closed
+            name: Fenster
+        show_header_toggle: false
+
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.car_mercedes_l_jm227e_odometer
+            name: Kilometerstand
+        show_header_toggle: false
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: sensor.car_mercedes_l_jm227e_fuel_level
+            name: Kraftstoffstand
+          - entity: sensor.car_mercedes_l_jm227e_range_electric
+            name: Batteriereichweite
+          - entity: sensor.car_mercedes_l_jm227e_state_of_charge
+            name: Batterieladung
+        show_empty: false
+
+      - type: entity-filter
+        card:
+          type: entities
+          show_header_toggle: false
+          style: |
+            ha-card {
+              --paper-card-background-color: var(--sidebar-background-color);
+              box-shadow: var(--card-box-shadow);
+              margin: 0px 14px 5px 14px;
+            }
+        state_filter:
+          - operator: "=="
+            value: true
+            attribute: chargingactive
+        entities:
+          - entity: sensor.car_mercedes_l_jm227e_range_electric
+            type: attribute
+            attribute: chargingactive
+            name: Fahrzeug lädt
+            icon: mdi:ev-plug-type2
+          - entity: sensor.car_mercedes_l_jm227e_range_electric
+            type: attribute
+            attribute: endofchargetime
+            name: Ende des Ladevorgangs
+            icon: mdi:battery-charging
+        show_empty: false
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Mercedes L-JM227E Warnungen"
+          - icon: mdi:car
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: binary_sensor.car_mercedes_l_jm227e_tire_warning
+            name: Reifendruck
+          - entity: binary_sensor.car_mercedes_l_jm227e_low_wash_water_warning
+            name: Wischwasser
+          - entity: sensor.car_mercedes_l_jm227e_oil_level
+            name: Ölstand
+          - entity: binary_sensor.car_mercedes_l_jm227e_low_coolant_level_warning
+            name: Kühlmittel
+          - entity: binary_sensor.car_mercedes_l_jm227e_low_brake_fluid_warning
+            name: Bremsflüssigkeit
+          - entity: sensor.car_mercedes_l_jm227e_starter_battery_state
+            name: Starterbatterie
+        show_header_toggle: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Keba Wallbox"
+          - icon: mdi:ev-station
+      - type: entities
+        style: |
+          ha-card {
+            --paper-card-background-color: var(--sidebar-background-color);
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 5px 14px;
+          }
+        entities:
+          - entity: lock.keba_p30_authentication
+          - entity: binary_sensor.keba_p30_plug
+            name: Stecker
+          - entity: binary_sensor.keba_p30_charging_state
+          - entity: sensor.keba_p30_charging_power
+            name: Ladeleistung
+          - entity: sensor.keba_p30_session_energy
+            name: Energie (aktuelle Ladung)
+          - entity: sensor.keba_p30_total_energy
+            name: Engergie (gesamt)
+          - entity: binary_sensor.keba_p30_status
+        show_header_toggle: false

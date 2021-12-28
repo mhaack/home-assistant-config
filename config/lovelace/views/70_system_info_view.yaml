@@ -28,7 +28,7 @@ cards:
         variables:
           - content: "Core Network"
           - icon: mdi:server-network
-      - type: glance
+      - type: entities
         style: |
           ha-card {
             --paper-card-background-color: var(--sidebar-background-color);
@@ -41,12 +41,13 @@ cards:
           - binary_sensor.system_unifi_switch
           - binary_sensor.system_unifi_switch_office
           - binary_sensor.system_unifi_controller
-          - binary_sensor.livingroom_system_accesspoint
-          - binary_sensor.office_system_accesspoint
-          - binary_sensor.equipmentroom_ccu3
+          - binary_sensor.system_unifi_ap_livingroom
+          - binary_sensor.system_unifi_ap_office
+          - binary_sensor.system_unifi_ap_garden
+          - binary_sensor.system_homematic_hub
           - binary_sensor.remote_ui
         show_header_toggle: false
-        show_state: false
+        state_color: true
 
   - type: vertical-stack
     cards:
@@ -55,7 +56,7 @@ cards:
         variables:
           - content: "Device Network"
           - icon: mdi:server-network
-      - type: glance
+      - type: entities
         style: |
           ha-card {
             --paper-card-background-color: var(--sidebar-background-color);
@@ -63,7 +64,7 @@ cards:
             margin: 0px 14px 5px 14px;
           }
         entities:
-          - binary_sensor.equipmentroom_arlo_hub
+          - binary_sensor.system_arlo_hub
           - binary_sensor.office_system_printer
           - binary_sensor.system_nas
           - binary_sensor.system_fritzbox
@@ -76,7 +77,7 @@ cards:
           - binary_sensor.laundryroom_tumble_dryer
           - binary_sensor.kitchen_oven
         show_header_toggle: false
-        show_state: false
+        state_color: true
       - type: horizontal-stack
         cards:
           - type: vertical-stack

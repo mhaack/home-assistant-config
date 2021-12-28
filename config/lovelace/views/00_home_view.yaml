@@ -5,32 +5,6 @@ title: Home
 icon: mdi:information-outline
 path: home
 
-popup_cards:
-  person.markus:
-    title: Markus
-    card:
-      type: entities
-      entities:
-        - device_tracker.iphone_von_markus
-        - entity: sensor.iphone_von_markus_geocoded_location
-          name: Standort
-        - device_tracker.iphone_markus_wifi_private
-        - sensor.iphone_von_markus_battery_level
-        - sensor.iphone_von_markus_battery_state
-        - sensor.iphone_von_markus_connection_type
-  person.jasmina:
-    title: Jasmina
-    card:
-      type: entities
-      entities:
-        - device_tracker.iphone_von_jasmina
-        - entity: sensor.iphone_von_jasmina_geocoded_location
-          name: Standort
-        - device_tracker.iphone_jasmina_wifi
-        - sensor.iphone_von_jasmina_battery_state
-        - sensor.iphone_von_jasmina_battery_level
-        - sensor.iphone_von_jasmina_connection_type
-
 badges: []
 cards:
   - type: custom:state-switch
@@ -88,46 +62,22 @@ cards:
             padding-left: 10px;
             border-left: 3px solid rgba(68, 153, 0);
           }
-      - type: custom:state-switch
+
+      - type: custom:simple-weather-card
+        style: |
+          ha-card {
+            box-shadow: var(--card-box-shadow);
+            margin: 0px 14px 15px 14px;
+          }
         entity: weather.dark_sky
-        default: default
-        states:
-          sunny:
-            type: custom:simple-weather-card
-            style: |
-              ha-card {
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 14px 15px 14px;
-              }
-            entity: weather.dark_sky
-            name: "zu Hause"
-            secondary_info: precipitation
-            tap_action:
-              action: more-info
-              cards:
-            backdrop:
-              day: "rgba(249, 233, 181)"
-              text: var(--app-header-text-color)
-              night: "rgba(76, 87, 110)"
-              fade: true
-          default:
-            type: custom:simple-weather-card
-            style: |
-              ha-card {
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 14px 15px 14px;
-              }
-            entity: weather.dark_sky
-            name: "zu Hause"
-            secondary_info: precipitation
-            tap_action:
-              action: more-info
-              cards:
-            backdrop:
-              day: "rgba(159, 193, 249)"
-              text: var(--app-header-text-color)
-              night: "rgba(76, 87, 110)"
-              fade: true
+        name: "zu Hause"
+        secondary_info: precipitation
+        tap_action:
+          action: more-info
+          cards:
+        backdrop:
+          text: var(--app-header-text-color)
+          fade: true
 
       - type: vertical-stack
         cards:
@@ -166,6 +116,9 @@ cards:
                 tap_action:
                   action: toggle
               - entity: light.garden_backyard_tree
+                tap_action:
+                  action: toggle
+              - entity: light.garden_rockpear
                 tap_action:
                   action: toggle
               - entity: light.garden_frontyard_tree

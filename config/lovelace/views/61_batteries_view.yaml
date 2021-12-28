@@ -28,87 +28,71 @@ cards:
         variables:
           - content: "iPhones"
           - icon: mdi:battery-medium
-      - type: horizontal-stack
-        cards:
-          - type: entities
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 14px 5px 14px;
-              }
-            entities:
-              - entity: sensor.iphone_von_markus_battery_level
-                type: custom:secondaryinfo-entity-row
-                secondary_info: "[[ sensor.iphone_von_markus_battery_state ]]"
-              - entity: sensor.iphone_von_jasmina_battery_level
-                type: custom:secondaryinfo-entity-row
-                secondary_info: "[[ sensor.iphone_von_jasmina_battery_state ]]"
-            show_header_toggle: false
+      - type: custom:battery-state-card
+        tap_action: more-info
+        entities:
+          - entity: sensor.iphone_von_markus_battery_level
+            charging_state:
+              entity_id: sensor.iphone_von_markus_battery_state
+              state: "Charging"
+
+          - entity: sensor.iphone_von_jasmina_battery_level
+            charging_state:
+              entity_id: sensor.iphone_von_jasmina_battery_state
+              state: "Charging"
+
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Kameras"
           - icon: mdi:battery-medium
-      - type: custom:auto-entities
-        card:
-          type: entities
-          style: |
-            ha-card {
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 15px 14px;
-            }
+      - type: custom:battery-state-card
+        tap_action: more-info
         filter:
           include:
-            - entity_id: "sensor.aarlo_battery_level*"
+            - name: entity_id
+              value: "sensor.aarlo_battery_level_*"
+
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "ZigBee Sensors"
           - icon: mdi:battery-medium
-      - type: custom:auto-entities
-        card:
-          type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
+      - type: custom:battery-state-card
+        tap_action: more-info
         filter:
           include:
-            - entity_id: "sensor.*_battery_level"
+            - name: entity_id
+              value: "sensor.*_battery_level"
+          exclude:
+            - name: entity_id
+              value: "sensor.iphone_*"
+
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Neato"
           - icon: mdi:battery-medium
-      - type: custom:auto-entities
-        card:
-          type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
+      - type: custom:battery-state-card
+        tap_action: more-info
         filter:
           include:
-            - entity_id: "sensor.*_robbie_*_battery"
+            - name: entity_id
+              value: "sensor.*_robbie_*_battery"
+
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Homematic"
           - icon: mdi:battery-medium
-      - type: custom:auto-entities
-        card:
-          type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
+      - type: custom:battery-state-card
+        tap_action: more-info
         filter:
           include:
-            - entity_id: "binary_sensor.*_lowbat"
+            - name: entity_id
+              value: "binary_sensor.*_lowbat"
+        state_map:
+          - from: "Low"
+            to: 25
+          - from: "High"
+            to: 100

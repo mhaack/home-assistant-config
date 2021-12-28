@@ -1,5 +1,5 @@
 ---
-# The security dashboard
+# The main JaMa Villa cleaning device view
 #
 title: Cleaning
 icon: mdi:robot-vacuum
@@ -71,13 +71,11 @@ cards:
           entities:
             - type: attribute
               entity: sensor.laundryroom_washing_machine_status
-              name: Programm
-              attribute: ProgramID
-            - type: attribute
-              entity: sensor.laundryroom_washing_machine_status
               name: Programmfortschritt
               attribute: programPhase
               icon: mdi:progress-check
+            - entity: sensor.laundryroom_washing_machine_program_id
+              name: Programm
             - entity: binary_sensor.laundryroom_washing_machine_door
               name: Tür
             - entity: sensor.laundryroom_washing_machine_target_temperature_0
@@ -91,6 +89,11 @@ cards:
               name: Restlaufzeit
             - entity: sensor.laundryroom_washing_machine_elapsed_time
               name: Laufzeit
+            - entity: sensor.laundryroom_washing_machine_energy
+              name: Stromverbrauch
+            - entity: sensor.laundryroom_washing_machine_water_consumption
+              name: Wasserverbrauch
+
       - type: custom:decluttering-card
         template: card_header
         variables:
@@ -120,10 +123,8 @@ cards:
               margin: 0px 14px 5px 14px;
             }
           entities:
-            - type: attribute
-              entity: sensor.laundryroom_dryer_status
+            - entity: sensor.laundryroom_dryer_program_id
               name: Programm
-              attribute: ProgramID
             - type: attribute
               entity: sensor.laundryroom_dryer_status
               name: Programmfortschritt
@@ -139,10 +140,10 @@ cards:
               name: Restlaufzeit
             - entity: sensor.laundryroom_dryer_elapsed_time
               name: Laufzeit
-            - type: attribute
-              entity: sensor.laundryroom_dryer_status
-              name: Energieverbrauch
-              attribute: currentEnergyConsumption
+            - entity: sensor.laundryroom_dryer_energy
+              name: Stromverbrauch
+            - entity: sensor.laundryroom_dryer_water_consumption
+              name: Wasserverbrauch
 
   - type: vertical-stack
     cards:

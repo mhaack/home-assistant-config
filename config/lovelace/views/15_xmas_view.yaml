@@ -53,7 +53,7 @@ cards:
             name: Stern Sofa
           - type: custom:button-card
             entity: light.xmas_livingroom_star
-            name: Hetrnhuter Stern
+            name: Hernhuter Stern
       - type: horizontal-stack
         cards:
           - type: custom:button-card
@@ -75,30 +75,36 @@ cards:
       - type: horizontal-stack
         cards:
           - type: custom:button-card
-            entity: light.xmas_carport_fairylights
-            name: Carport Lichterkette
-          - type: custom:button-card
-            entity: light.garden_backyard_tree
-            icon: mdi:pine-tree
+            entity: light.xmas_garden_frontdoor
+            name: Vordach Haustür
           - type: custom:button-card
             entity: light.garden_frontyard_tree
             icon: mdi:pine-tree
           - type: custom:button-card
-            entity: light.garden_carport_wled
+            entity: light.xmas_garden_fence
+            name: Zaun
       - type: horizontal-stack
         cards:
           - type: custom:button-card
+            entity: light.garden_backyard_tree
+            icon: mdi:pine-tree
+          - type: custom:button-card
+            entity: light.garden_carport_wled
+            name: LED Kette Carport
+          - type: custom:button-card
             entity: light.xmas_carport_stars
             name: Carport Sterne
+      - type: horizontal-stack
+        cards:
           - type: custom:button-card
             entity: light.xmas_garden_star
+            name: Hernhuter Stern
           - type: custom:button-card
             entity: light.garden_terrace_lounge
             icon: mdi:pine-tree
           - type: custom:button-card
-            entity: light.xmas_candles
+            entity: light.xmas_garden_candles
             icon: mdi:candle
             name: Kerzen
           - type: custom:button-card
-            entity: light.xmas_fence_fairylights
-            name: Zaun
+            entity: light.garden_rockpear

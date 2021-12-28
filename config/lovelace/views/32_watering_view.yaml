@@ -1,5 +1,5 @@
 ---
-# The main JaMa Villa outdoor view
+# The main JaMa Villa garden watering view
 #
 title: Bewässerung
 icon: mdi:water-pump
@@ -14,19 +14,19 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Bewässerung'
+          - content: "Bewässerung"
           - icon: mdi:water-pump
       - type: entity-filter
         show_empty: false
@@ -74,7 +74,7 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Zisterne'
+          - content: "Zisterne"
           - icon: mdi:water-pump
       - type: entities
         style: |
@@ -88,7 +88,6 @@ cards:
           - sensor.garden_watertank_liter
           - sensor.garden_watertank_percent
           - sensor.garden_watertank_pump_power
-          - sensor.garden_watertank_pump_daily_energy
           - sensor.garden_watertank_pump_energy_counter
           - switch.garden_watertank_refill
         show_header_toggle: false

@@ -1,5 +1,5 @@
 ---
-# The main JaMa Villa outdoor view
+# The main JaMa Villa solar & power view
 #
 title: Solar
 icon: mdi:solar-power
@@ -82,7 +82,7 @@ cards:
                 box-shadow: var(--card-box-shadow);
                 margin: 0px 2px 5px 14px;
               }
-            entity: sensor.solaredge_consumption_power_kwh
+            entity: sensor.solaredge_consumption_energy_kwh
             name: Gesamtverbrauch
           - type: entity
             style: |
@@ -91,7 +91,7 @@ cards:
                 box-shadow: var(--card-box-shadow);
                 margin: 0px 14px 5px 2px;
               }
-            entity: sensor.solaredge_selfconsumption_power_kwh
+            entity: sensor.solaredge_selfconsumption_energy_kwh
             name: Eigenverbrauch
       - type: horizontal-stack
         cards:
@@ -102,7 +102,7 @@ cards:
                 box-shadow: var(--card-box-shadow);
                 margin: 0px 2px 5px 14px;
               }
-            entity: sensor.solaredge_imported_power_kwh
+            entity: sensor.solaredge_imported_energy_kwh
             name: Import
           - type: entity
             style: |
@@ -111,7 +111,7 @@ cards:
                 box-shadow: var(--card-box-shadow);
                 margin: 0px 14px 5px 2px;
               }
-            entity: sensor.solaredge_exported_power_kwh
+            entity: sensor.solaredge_exported_energy_kwh
             name: Export
       - type: custom:decluttering-card
         template: card_header
@@ -216,3 +216,20 @@ cards:
           - entity: sensor.solaredge_storage_level
             name: Batterieladung
         show_header_toggle: false
+
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Vorhersage"
+          - icon: mdi:solar-power
+      - type: entities
+        entities:
+          - sensor.energy_next_hour
+          - sensor.energy_current_hour
+          - sensor.energy_production_today
+          - sensor.energy_production_tomorrow
+          - sensor.power_production_now
+          - sensor.power_highest_peak_time_today
+          - sensor.power_highest_peak_time_tomorrow

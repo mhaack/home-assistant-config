@@ -9,9 +9,9 @@ homeassistant:
 
   latitude: !secret lat_coord
   longitude: !secret long_coord
-  time_zone: Europe/Berlin
   elevation: !secret home_elevation
-
+  time_zone: Europe/Berlin
   unit_system: metric
-
+  allowlist_external_dirs:
+    - "/tmp"
   packages: !include_dir_named integrations

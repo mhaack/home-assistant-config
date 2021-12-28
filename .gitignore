@@ -38,3 +38,4 @@ config/notebooks
 # Specific keeps
 !.gitkeep
 *.csv
+config/tts

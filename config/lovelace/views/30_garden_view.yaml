@@ -45,6 +45,9 @@ cards:
           - entity: light.garden_frontyard_tree
             tap_action:
               action: toggle
+          - entity: light.garden_rockpear
+            tap_action:
+              action: toggle
           - entity: light.garden_terrace_spots
             tap_action:
               action: toggle
@@ -228,7 +231,7 @@ cards:
             }
           show_header_toggle: false
           entities:
-            - switch.garden_lawnmower_power
+            - switch.garden_lawnmower
             - sensor.landroid_shaun_status
             - entity: sensor.landroid_shaun_battery
               type: custom:secondaryinfo-entity-row
@@ -248,7 +251,7 @@ cards:
             }
           show_header_toggle: false
           entities:
-            - entity: switch.garden_lawnmower_power
+            - entity: switch.garden_lawnmower
             - entity: sensor.landroid_shaun_error
             - entity: sensor.landroid_shaun_status
             - entity: sensor.landroid_shaun_battery
