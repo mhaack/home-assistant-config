@@ -5,7 +5,7 @@ sensor:
   - name: pool_solar_temperature
     unique_id: 2b625dff-c1e1-48b3-ae87-39fd9bc2aa59
     state: >-
-      {{((states.sensor.pool_solar_temperature_1.state |float + 
+      {{((states.sensor.pool_solar_temperature_1.state |float +
       states.sensor.pool_solar_temperature_2.state |float) / 2) | round(1)}}
     icon: mdi:thermometer
     unit_of_measurement: "°C"
