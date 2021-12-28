@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for network devices
+#
+binary_sensor:
+  - name: system_unifi_controller
+    unique_id: d27f8c39-a039-4882-a5c9-80fec17e9e5b
+    state: '{{ is_state("device_tracker.unifi_controller", "home") }}'
+    device_class: connectivity
+    icon: mdi:console-network

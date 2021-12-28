@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: garden_hydrawise
+    unique_id: 2fa14a1a-d24d-4280-af99-79dcea19150d
+    state: '{{ is_state("device_tracker.garden_hydrawise", "home") }}'
+    device_class: connectivity
+    icon: mdi:water-pump

@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for network devices
+#
+binary_sensor:
+  - name: system_unifi_switch
+    unique_id: 6b28d3d1-1959-4af8-b795-87d3b6fa5be3
+    state: '{{ is_state("device_tracker.main_switch", "home") }}'
+    device_class: connectivity
+    icon: mdi:switch

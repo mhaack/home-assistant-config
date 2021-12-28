@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: equipmentroom_solar_battery
+    unique_id: 9bbc4c7f-9dfc-43cd-93b3-e6135e9f0799
+    state: '{{ is_state("device_tracker.equipmentroom_solar_battery", "home") }}'
+    device_class: connectivity
+    icon: mdi:battery-medium

@@ -1,0 +1,15 @@
+---
+# Calculate the air quality indey from the luftdaten.info sensor
+#
+sensor:
+  - name: garden_luftdaten_air_quality_pm10
+    unique_id: a6b3ac39-f59d-4c24-b2e0-f5dcf2067cc5
+    state: >-
+      {%if ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 33 %}Very Good
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 66 | float > 33 %}Good
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 99 | float > 66 %}Fair
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 149 | float > 99 %}Poor
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) <= 200 | float > 149 %}Very Poor
+      {% elif ((states.sensor.garden_luftdaten_stats_pm_10.state | float) * 0.5) > 200 %}Hazardous
+      {%- endif %}
+    icon: mdi:cloud-outline

@@ -1,0 +1,6 @@
+---
+# This loads up my template based sensor configurations
+#
+# https://www.home-assistant.io/integrations/template
+#
+template: !include_dir_list ../entities/templates

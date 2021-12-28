@@ -1,8 +1,0 @@
----
-# Use switch light wrapper for Homematic switches.
-#
-# https://www.home-assistant.io/integrations/light.switch/
-#
-platform: switch
-name: pool_light
-entity_id: switch.pool_light

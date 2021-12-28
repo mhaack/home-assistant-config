@@ -9,9 +9,10 @@ entities:
   - light.garden_backyard_tree
   - light.garden_carport_wled
   - light.garden_frontyard_tree
+  - light.garden_rockpear
   - light.garden_terrace_lounge
-  - light.xmas_candles
-  - light.xmas_carport_fairylights
   - light.xmas_carport_stars
-  - light.xmas_fence_fairylights
+  - light.xmas_garden_candles
+  - light.xmas_garden_fence
+  - light.xmas_garden_frontdoor
   - light.xmas_garden_star

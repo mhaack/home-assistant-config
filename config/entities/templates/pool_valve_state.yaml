@@ -1,0 +1,7 @@
+---
+# Pool pump sensor representing current state of the pool pump (on/off).
+#
+binary_sensor:
+  - name: pool_valve_state
+    unique_id: f5ef173c-c48f-4aa2-a612-5475ef08da6a
+    state: '{{is_state("switch.pool_valve", "on") }}'

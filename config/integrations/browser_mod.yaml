@@ -1,6 +1,0 @@
----
-# Enable the browser_mod component, to control the browser and customize popups
-#
-# https://github.com/thomasloven/hass-browser_mod
-#
-browser_mod:

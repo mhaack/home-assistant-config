@@ -1,0 +1,11 @@
+---
+# Combined sensor for the garden bench movement
+#
+binary_sensor:
+  - name: garden_bench
+    unique_id: 588609ab-a399-438e-a43d-9b4765df6265
+    state: >-
+      {{ is_state('binary_sensor.garden_bench_1', 'on') or
+        is_state('binary_sensor.garden_bench_2', 'on') }}
+    device_class: motion
+    icon: mdi:vibrate

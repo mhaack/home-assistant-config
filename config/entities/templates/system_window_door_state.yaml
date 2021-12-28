@@ -1,0 +1,23 @@
+---
+# Aggregated sensor holding the combined window & door state
+#
+sensor:
+  - name: system_window_door_state
+    unique_id: 22e912d5-6e91-4fc1-9d86-fab7562015be
+    state: >-
+      {% macro contact_status() %}
+      {% set open_windows = (states.binary_sensor|selectattr('entity_id','in',state_attr('group.system_window_sensors','entity_id'))|selectattr('state','eq','on')|list)|length %}
+      {% set open_doors = (states.binary_sensor|selectattr('entity_id','in',state_attr('group.system_door_sensors','entity_id'))|selectattr('state','eq','on')|list)|length %}
+      {% if open_windows == 0 and open_doors == 0 -%}
+        Alles geschlossen
+      {%- else -%}
+        {% if open_doors > 0 -%}
+          {% if open_doors == 1 -%}{{ open_doors}} Tür {% else -%}{{ open_doors}} Türen {% endif %}
+        {%- endif %}
+        {% if open_windows != 0 and open_doors != 0 -%}und {% endif %}
+        {% if open_windows > 0 -%}{{ open_windows }} Fenster {% endif -%}
+        offen
+      {% endif %}
+      {% endmacro %}
+      {{ contact_status()}}
+    icon: mdi:window-closed-variant

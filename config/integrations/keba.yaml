@@ -1,0 +1,8 @@
+---
+# Integration for Keba wallbox
+#
+# https://www.home-assistant.io/integrations/keba/
+#
+keba:
+  host: !secret keba_wallbox
+  rfid: !secret keba_rfid

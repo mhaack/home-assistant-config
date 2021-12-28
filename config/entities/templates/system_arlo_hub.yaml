@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: system_arlo_hub
+    unique_id: 60ff40c8-3129-429f-a38a-6adb92cc23d8
+    state: '{{ is_state("device_tracker.equipmentroom_vmb4540", "home") }}'
+    device_class: connectivity
+    icon: mdi:cctv

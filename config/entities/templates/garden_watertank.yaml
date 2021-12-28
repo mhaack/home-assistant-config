@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: garden_watertank
+    unique_id: ab105c40-2a2c-4eb4-8a97-528e0ca90b5d
+    state: '{{ is_state("device_tracker.garden_watertank", "home") }}'
+    device_class: connectivity
+    icon: mdi:water-pump

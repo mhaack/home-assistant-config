@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: kitchen_oven
+    unique_id: 089251c0-0ca7-4431-8fb8-e84d37b6c392
+    state: '{{ is_state("device_tracker.kitchen_oven", "home") }}'
+    device_class: connectivity
+    icon: mdi:stove

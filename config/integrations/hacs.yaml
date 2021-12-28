@@ -1,7 +1,0 @@
----
-# HACS (Home Assistant Community Store) integration
-#
-# https://hacs.netlify.com
-#
-hacs:
-  token: !secret github_token

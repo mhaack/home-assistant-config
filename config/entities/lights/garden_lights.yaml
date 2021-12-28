@@ -12,6 +12,7 @@ entities:
   - light.garden_frontyard_tree
   - light.garden_grass
   - light.garden_pond_light
+  - light.garden_rockpear
   - light.garden_sundeck_spots
   - light.garden_terrace_lounge
   - light.garden_terrace_spots

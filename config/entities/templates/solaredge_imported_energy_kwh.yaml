@@ -1,0 +1,11 @@
+---
+# Converted SolarEdge energy sensor
+#
+sensor:
+  - name: solaredge - Imported Energy (kWh)
+    unique_id: e67aa39e-9411-4673-a1a0-b677eaa9fcd5
+    state: '{{(states("sensor.solaredge_imported_energy") | float / 1000) | round(3)}}'
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    icon: mdi:solar-power

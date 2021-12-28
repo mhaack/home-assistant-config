@@ -7,6 +7,7 @@ platform: template
 switches:
   pool_valve:
     friendly_name: "Solarventil"
+    unique_id: 7a9fb5de-2460-4727-9c96-7d016e75e475
     value_template: "{{ is_state('input_select.pool_valve_mode', 'Solar') }}"
     turn_on:
       service: script.turn_on
@@ -16,3 +17,4 @@ switches:
       service: script.turn_on
       data:
         entity_id: script.switch_off_pool_valve
+    icon_template: mdi:valve

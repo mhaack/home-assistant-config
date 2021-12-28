@@ -1,0 +1,10 @@
+---
+# Converted SolarEdge energy sensor
+#
+sensor:
+  - name: solaredge - Consumption Energy (kWh)
+    unique_id: a86b77a2-7100-40ea-8bfa-689fa5697a7d
+    state: '{{(states("sensor.solaredge_consumption_energy") | float / 1000) | round(3)}}'
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: mdi:solar-power

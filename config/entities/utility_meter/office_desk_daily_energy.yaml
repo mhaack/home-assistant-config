@@ -1,8 +1,0 @@
----
-# Utility meter for the daily office work desk consumption
-#
-# https://www.home-assistant.io/integrations/utility_meter/
-#
-office_desk_daily_energy:
-  source: sensor.office_desk_power
-  cycle: daily

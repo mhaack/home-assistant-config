@@ -1,8 +1,0 @@
----
-# Hall lights timer
-#
-# https://www.home-assistant.io/integrations/timer/
-#
-hall_lights:
-  name: "Flurlicht Timer"
-  duration: "00:05:00"

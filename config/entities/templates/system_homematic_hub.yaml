@@ -1,0 +1,14 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: system_homematic_hub
+    unique_id: 66a39b8f-048c-4061-83b0-5991be0e951c
+    state: '{{ is_state("device_tracker.equipmentroom_ccu3", "home") }}'
+    device_class: connectivity
+    icon: >-
+      {% if is_state('device_tracker.equipmentroom_ccu3', 'home') %}
+        mdi:devices
+      {% else %}
+        mdi:alert
+      {% endif %}

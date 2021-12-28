@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for network devices
+#
+binary_sensor:
+  - name: system_dsl_modem
+    unique_id: c748045b-0e54-40b4-9124-81bcc3777b07
+    state: '{{ is_state("device_tracker.core_modem", "home") }}'
+    device_class: connectivity
+    icon: mdi:wan

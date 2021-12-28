@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: equipmentroom_solar_inverter
+    unique_id: 43456ec0-9839-42b3-9df8-4e2ec8892fed
+    state: '{{ is_state("device_tracker.equipmentroom_solar_inverter", "home") }}'
+    device_class: connectivity
+    icon: mdi:solar-power

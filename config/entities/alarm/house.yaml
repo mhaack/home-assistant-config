@@ -12,4 +12,3 @@ disarmed:
   trigger_time: 0
 armed_home:
   arming_time: 0
-  delay_time: 0

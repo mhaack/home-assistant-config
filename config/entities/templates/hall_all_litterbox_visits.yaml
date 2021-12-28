@@ -1,0 +1,15 @@
+---
+# Proxy sensor for litter box counter
+#
+sensor:
+  - name: hall_all_litterbox_visits
+    unique_id: b1a74a80-c383-4e16-8036-462c045e5997
+    unit_of_measurement: Besuch(e)
+    state: >-
+      {{ states('counter.hall_litterbox_visits') | int }}
+    icon: >-
+      {% if states("sensor.hall_all_litterbox_visits") | int > 0 %}
+        mdi:emoticon-poop
+      {% else %}
+        mdi:emoticon-poop-outline
+      {% endif %}

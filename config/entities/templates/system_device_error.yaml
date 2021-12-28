@@ -1,0 +1,17 @@
+---
+# Aggregated sensor holding the share error state
+#
+binary_sensor:
+  - name: system_device_error
+    unique_id: 9bc7f919-0316-4365-b45d-d4b51d1992c0
+    state: >
+      {% macro sensor_error() %}
+      {%- set domains = ['sensor', 'binary_sensor'] -%}
+      {%- for domain in domains -%}
+        {%- for item in states[domain] if ((item.attributes.error is defined and item.attributes['error'] | lower != "no") or (item.attributes.sabotage is defined and item.attributes['sabotage'] | lower != "no")) -%}
+          {{ item.attributes.friendly_name }}
+        {%- endfor -%}
+      {%- endfor -%}
+      {% endmacro %}
+      {{ sensor_error() | trim != ""}}
+    icon: mdi:alert-circle-outline

@@ -1,8 +1,0 @@
----
-# Use switch light wrapper for xmas candles connected to the outdoor power outlet.
-#
-# https://www.home-assistant.io/integrations/light.switch/
-#
-platform: switch
-name: xmas_candles
-entity_id: switch.garden_lawnmower_power

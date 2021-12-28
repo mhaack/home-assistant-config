@@ -1,0 +1,14 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: laundryroom_tumble_dryer
+    unique_id: 6ff22e31-f0a2-4582-a924-aefbcd830695
+    state: '{{ is_state("device_tracker.laundryroom_tumble_dryer", "home") }}'
+    device_class: connectivity
+    icon: >-
+      {% if is_state('device_tracker.laundryroom_tumble_dryer', 'home') %}
+        mdi:tumble-dryer
+      {% else %}
+        mdi:tumble-dryer-alert
+      {% endif %}

@@ -1,0 +1,14 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: laundryroom_washing_machine
+    unique_id: d65f59f6-2122-4f94-af92-ee69955054b9
+    state: '{{ is_state("device_tracker.laundryroom_washing_machine", "home") }}'
+    device_class: connectivity
+    icon: >-
+      {% if is_state('device_tracker.laundryroom_washing_machine', 'home') %}
+        mdi:washing-machine
+      {% else %}
+        mdi:washing-machine-alert
+      {% endif %}

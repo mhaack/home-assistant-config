@@ -8,3 +8,4 @@ platform: waste_collection_schedule
 name: waste_collection
 details_format: upcoming
 count: 8
+value_template: "{{ value.types|join(', ') }} {%  if value.daysTo == 0 %}Heute{% elif value.daysTo == 1 %}Morgen{% else %}in {{value.daysTo}} Tagen{% endif %}"

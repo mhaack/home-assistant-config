@@ -1,0 +1,12 @@
+---
+# Litter box lid sensor detection if box is open/closed
+#
+binary_sensor:
+  - name: hall_litterbox_2_lid
+    unique_id: facad698-4e99-47a0-9d21-52eeb0930566
+    state: >-
+      {% if state_attr('binary_sensor.hall_litterbox_2', 'orientation') != None %}
+        {{ state_attr('binary_sensor.hall_litterbox_2', 'orientation')[2] > -50 }}
+      {% endif %}
+    device_class: opening
+    icon: mdi:cat

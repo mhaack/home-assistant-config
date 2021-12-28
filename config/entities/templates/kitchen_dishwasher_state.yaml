@@ -1,0 +1,9 @@
+---
+# Dishwasher sensor representing current dishwasher state.
+#
+sensor:
+  - name: kitchen_dishwasher_state
+    unique_id: 25ef8ec4-cca4-4dd3-814b-b90d1216d50e
+    state: >-
+      {{ states.input_select.kitchen_dishwasher_state.state}}
+    icon: mdi:dishwasher

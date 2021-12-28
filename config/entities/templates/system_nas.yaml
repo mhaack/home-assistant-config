@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: system_nas
+    unique_id: e02462bb-2875-4c57-bae6-27ff51a172c7
+    state: '{{ is_state("device_tracker.system_datentopf", "home") }}'
+    device_class: connectivity
+    icon: mdi:nas

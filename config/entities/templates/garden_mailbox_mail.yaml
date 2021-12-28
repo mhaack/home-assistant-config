@@ -1,0 +1,18 @@
+---
+# Proxy sensor for mailbox boolean switch
+#
+sensor:
+  - name: garden_mailbox_mail
+    unique_id: d3c2a198-5d63-4dd4-a3d9-cd563a60f256
+    state: >-
+      {% if is_state('input_boolean.garden_mailbox', 'on') -%}
+        Post ist da
+      {%- else -%}
+        leer
+      {%- endif %}
+    icon: >-
+      {% if is_state('input_boolean.garden_mailbox', 'on') %}
+        mdi:email-multiple-outline
+      {% else %}
+        mdi:mailbox-outline
+      {% endif %}

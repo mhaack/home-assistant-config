@@ -1,0 +1,11 @@
+---
+# Converted SolarEdge Energy sensor
+#
+sensor:
+  - name: solaredge - energy today (kWh)
+    unique_id: d45363d3-bd26-4922-bab1-0d36da591cc0
+    state: '{{(states("sensor.solaredge_energy_today") | float / 1000) | round(3)}}'
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    icon: mdi:solar-power

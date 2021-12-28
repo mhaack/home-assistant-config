@@ -1,9 +1,0 @@
----
-# Control the litter box visits notifications for
-# two litter box counters.
-#
-# https://www.home-assistant.io/integrations/input_boolean/
-#
-hall_litterbox_notification:
-  name: Benachrichtigen Katzenklo
-  icon: mdi:cat

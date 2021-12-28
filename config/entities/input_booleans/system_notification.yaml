@@ -1,7 +1,0 @@
----
-# Main notifications control
-#
-# https://www.home-assistant.io/integrations/input_boolean/
-#
-system_notification:
-  name: Benachrichtigen

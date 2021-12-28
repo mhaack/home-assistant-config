@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: office_system_printer
+    unique_id: aa75b03c-3a44-401f-8365-153b7c1a1f31
+    state: '{{ is_state("device_tracker.jama_printer", "home") }}'
+    device_class: connectivity
+    icon: mdi:printer

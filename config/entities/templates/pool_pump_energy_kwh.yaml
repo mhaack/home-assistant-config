@@ -1,0 +1,11 @@
+---
+# Converted pool pump energy sensor
+#
+sensor:
+  - name: pool_pump_energy_kwh
+    unique_id: ca81196c-2fdd-4f55-810c-72bef1aee3fd
+    state: '{{(states("sensor.pool_pump_energy_counter") | float / 1000) | round(3)}}'
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    icon: mdi:lightning-bolt

@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for network devices
+#
+binary_sensor:
+  - name: system_unifi_ap_garden
+    unique_id: 8bbf59d2-94f3-43e0-98c5-27d2e620a234
+    state: '{{ is_state("device_tracker.ap_garten", "home") }}'
+    device_class: connectivity
+    icon: mdi:access-point-network

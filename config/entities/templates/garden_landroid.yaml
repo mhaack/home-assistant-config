@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for JaMa Villa devices
+#
+binary_sensor:
+  - name: garden_landroid
+    unique_id: b7227085-3aa2-4c93-bdff-542a727fcbc5
+    state: '{{ is_state("device_tracker.landroid_s", "home") }}'
+    device_class: connectivity
+    icon: mdi:sheep

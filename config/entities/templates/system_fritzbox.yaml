@@ -1,0 +1,9 @@
+---
+# Shadow binary sensors for network devices
+#
+binary_sensor:
+  - name: system_fritzbox
+    unique_id: 990fc828-0443-41fe-9d91-d94ab061cb73
+    state: '{{ is_state("device_tracker.fritz_box", "home") }}'
+    device_class: connectivity
+    icon: mdi:phone-classic

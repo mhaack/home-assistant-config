@@ -1,0 +1,10 @@
+---
+# Converted SolarEdge Energy sensor
+#
+sensor:
+  - name: solaredge - lifetime energy (kWh)
+    unique_id: e6a0051e-9a6e-4437-bffb-e465b5b34c82
+    state: '{{(states("sensor.solaredge_lifetime_energy") | float / 1000) | round(3)}}'
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: mdi:solar-power
