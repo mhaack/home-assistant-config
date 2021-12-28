@@ -41,9 +41,9 @@ display:
          it.printf(0, 0, id(digit_font_8), "Nothing to show");
       }
 
-#it.strftime(0, 0, id(digit_font_8), "Hallo Schatz, willkommen zu Hause. Es ist: %H:%M", id(ha_time).now());
-#it.print(30, 0, id(digit_font_7), "Hallo Schatz, willkommen zu Hause.");
-#it.print(30, 0, id(digit_font), " Hallo Mia! ");
+# it.strftime(0, 0, id(digit_font_8), "Hallo Schatz, willkommen zu Hause. Es ist: %H:%M", id(ha_time).now());
+# it.print(30, 0, id(digit_font_7), "Hallo Schatz, willkommen zu Hause.");
+# it.print(30, 0, id(digit_font), " Hallo Mia! ");
 
 time:
   - platform: homeassistant

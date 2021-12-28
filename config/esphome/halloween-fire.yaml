@@ -34,9 +34,9 @@ switch:
     id: fire_relay
     pin: D1
     on_turn_on:
-    - delay: 1s
-    - switch.turn_off: fire_relay
-    - delay: 15s
+      - delay: 1s
+      - switch.turn_off: fire_relay
+      - delay: 15s
 
 binary_sensor:
   - platform: gpio
