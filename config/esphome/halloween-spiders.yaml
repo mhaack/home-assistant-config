@@ -28,11 +28,11 @@ ota:
 globals:
   - id: motor_1_duration
     type: int
-    restore_value: no
+    restore_value: false
     initial_value: "0"
   - id: motor_2_duration
     type: int
-    restore_value: no
+    restore_value: false
     initial_value: "0"
 
 output:
