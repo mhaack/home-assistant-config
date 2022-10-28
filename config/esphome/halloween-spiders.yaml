@@ -26,14 +26,14 @@ ota:
   password: !secret esphome_ota_password
 
 globals:
-   - id: motor_1_duration
-     type: int
-     restore_value: no
-     initial_value: '0'
-   - id: motor_2_duration
-     type: int
-     restore_value: no
-     initial_value: '0'
+  - id: motor_1_duration
+    type: int
+    restore_value: no
+    initial_value: "0"
+  - id: motor_2_duration
+    type: int
+    restore_value: no
+    initial_value: "0"
 
 output:
   - platform: esp8266_pwm
@@ -60,7 +60,7 @@ fan:
     on_turn_on:
       - logger.log:
           format: "Motor 1: on - duration = %d ms, direction = %d"
-          args: [ 'id(motor_1_duration)', id(motor_1).direction ]
+          args: ["id(motor_1_duration)", id(motor_1).direction]
     on_turn_off:
       - logger.log: "Motor 1: off"
 
@@ -74,7 +74,7 @@ fan:
     on_turn_on:
       - logger.log:
           format: "Motor 2: on - duration = %d ms, direction = %d"
-          args: [ 'id(motor_2_duration)', id(motor_2).direction ]
+          args: ["id(motor_2_duration)", id(motor_2).direction]
     on_turn_off:
       - logger.log: "Motor 2: off"
 

@@ -85,7 +85,7 @@ sensor:
     internal: true
     filters:
       - multiply: 0.001
-      
+
   - platform: homeassistant
     entity_id: sensor.solaredge_consumption_energy
     id: consumption_energy
