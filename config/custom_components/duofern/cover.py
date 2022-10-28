@@ -4,7 +4,14 @@ import logging
 # found advice in the homeassistant creating components manual
 # https://home-assistant.io/developers/creating_components/
 # Import the device class from the component that you want to support
-from homeassistant.components.cover import ATTR_POSITION, CoverEntity
+from homeassistant.components.cover import (
+    ATTR_POSITION,
+    CoverEntity,
+    SUPPORT_OPEN,
+    SUPPORT_CLOSE,
+    SUPPORT_SET_POSITION,
+    SUPPORT_STOP
+)
 
 from .const import DOMAIN
 
@@ -61,6 +68,10 @@ class DuofernShutter(CoverEntity):
     @property
     def unique_id(self):
         return self._id
+    
+    @property
+    def supported_features(self):
+        return SUPPORT_OPEN | SUPPORT_CLOSE | SUPPORT_SET_POSITION | SUPPORT_STOP
 
     def open_cover(self):
         """roll up cover"""

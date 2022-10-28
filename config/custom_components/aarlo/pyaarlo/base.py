@@ -25,6 +25,7 @@ from .constant import (
     SCHEDULE_KEY,
     SIREN_STATE_KEY,
     TEMPERATURE_KEY,
+    TIMEZONE_KEY,
 )
 from .device import ArloDevice
 from .util import time_to_arlotime
@@ -372,6 +373,7 @@ class ArloBase(ArloDevice):
                 modes = modes.get(self.unique_id, {})
                 self._parse_modes(modes.get("modes", []))
                 self._parse_schedules(modes.get("schedules", []))
+                self._save(TIMEZONE_KEY, modes.get("olsonTimeZone", None))
             else:
                 self._arlo.error("failed to read modes (v2)")
 
@@ -482,18 +484,14 @@ class ArloBase(ArloDevice):
                 return True
             if self.is_own_parent and self.using_wifi and not self.is_corded:
                 return False
-            # Wire free video doorbell acting as base station
-            if (
-                self.is_own_parent
-                and self.model_id.startswith(
-                    (
-                        MODEL_WIREFREE_VIDEO_DOORBELL,
-                        MODEL_ESSENTIAL,
-                        MODEL_PRO_3_FLOODLIGHT,
-                        MODEL_PRO_4,
-                    )
+            # Don't ping these devices ever.
+            if self.model_id.startswith(
+                (
+                    MODEL_WIREFREE_VIDEO_DOORBELL,
+                    MODEL_ESSENTIAL,
+                    MODEL_PRO_3_FLOODLIGHT,
+                    MODEL_PRO_4,
                 )
-                and not self.is_corded
             ):
                 return False
             return True

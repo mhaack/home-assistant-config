@@ -1,20 +1,20 @@
+"""
+Switch support for Mercedes cars with Mercedes ME.
+
+For more details about this component, please refer to the documentation at
+https://github.com/ReneNulschDE/mbapi2020/
+"""
 import logging
 
 from homeassistant.components.switch import SwitchEntity
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.entity_registry import async_get_registry
 from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import MercedesMeEntity
 
 from .const import (
     CONF_FT_DISABLE_CAPABILITY_CHECK,
-    CONF_PIN,
     DOMAIN,
-    SWITCHES,
-    Sensor_Config_Fields as scf
+    SWITCHES
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -32,8 +32,8 @@ async def async_setup_entry(hass, entry, async_add_entities):
     for car in data.client.cars:
 
         for key, value in sorted(SWITCHES.items()):
-            if (value[5] is None or 
-                    entry.options.get(CONF_FT_DISABLE_CAPABILITY_CHECK, False) is False or
+            if (value[5] is None or
+                    entry.options.get(CONF_FT_DISABLE_CAPABILITY_CHECK, False) is True or
                     getattr(car.features, value[5], False) is True):
                 device = MercedesMESwitch(
                     hass=hass,
@@ -42,6 +42,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
                     sensor_config = value,
                     vin = car.finorvin
                     )
+                LOGGER.info("Created Switch for car %s - feature %s check: %s", car.finorvin, value[5] ,getattr(car.features, value[5]))
                 sensor_list.append(device)
 
     async_add_entities(sensor_list, True)
@@ -63,6 +64,4 @@ class MercedesMESwitch(MercedesMeEntity, SwitchEntity, RestoreEntity):
     @property
     def is_on(self):
         """Return true if device is locked."""
-        
         return self._get_car_value(self._feature_name, self._object_name, self._attrib_name, False)
-

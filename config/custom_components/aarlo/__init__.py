@@ -28,7 +28,7 @@ from requests.exceptions import ConnectTimeout, HTTPError
 
 from .pyaarlo.constant import DEFAULT_AUTH_HOST, DEFAULT_HOST, SIREN_STATE_KEY
 
-__version__ = "0.7.1.7"
+__version__ = "0.7.2b11"
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -80,6 +80,8 @@ CONF_USER_STREAM_DELAY = "user_stream_delay"
 CONF_SAVE_MEDIA_TO = "save_media_to"
 CONF_NO_UNICODE_SQUASH = "no_unicode_squash"
 CONF_SAVE_SESSION = "save_session"
+CONF_BACKEND = "backend"
+CONF_DEFAULT_CIPHERS = "default_ciphers"
 
 SCAN_INTERVAL = timedelta(seconds=60)
 PACKET_DUMP = False
@@ -119,6 +121,8 @@ USER_STREAM_DELAY = 1
 SAVE_MEDIA_TO = ""
 NO_UNICODE_SQUASH = True
 SAVE_SESSION = True
+DEFAULT_BACKEND = "auto"
+DEFAULT_DEFAULT_CIPHERS = False
 
 CONFIG_SCHEMA = vol.Schema(
     {
@@ -198,6 +202,10 @@ CONFIG_SCHEMA = vol.Schema(
                     CONF_NO_UNICODE_SQUASH, default=NO_UNICODE_SQUASH
                 ): cv.boolean,
                 vol.Optional(CONF_SAVE_SESSION, default=SAVE_SESSION): cv.boolean,
+                vol.Optional(CONF_BACKEND, default=DEFAULT_BACKEND): cv.string,
+                vol.Optional(
+                    CONF_DEFAULT_CIPHERS, default=DEFAULT_DEFAULT_CIPHERS
+                ): cv.boolean,
             }
         ),
     },
@@ -375,6 +383,8 @@ def login(hass, conf):
     user_stream_delay = conf.get(CONF_USER_STREAM_DELAY)
     no_unicode_squash = conf.get(CONF_NO_UNICODE_SQUASH)
     save_session = conf.get(CONF_SAVE_SESSION)
+    backend = conf.get(CONF_BACKEND)
+    default_ciphers = conf.get(CONF_DEFAULT_CIPHERS)
 
     # Fix up config
     if conf_dir == "":
@@ -430,6 +440,8 @@ def login(hass, conf):
                 no_unicode_squash=no_unicode_squash,
                 save_media_to=save_media_to,
                 save_session=save_session,
+                backend=backend,
+                default_ciphers=default_ciphers,
                 wait_for_initial_setup=False,
                 verbose_debug=verbose_debug,
             )
@@ -437,6 +449,7 @@ def login(hass, conf):
             if arlo.is_connected:
                 _LOGGER.debug(f"login succeeded, attempt={attempt}")
                 return arlo
+            arlo.stop()
 
             if attempt == 1:
                 hass.components.persistent_notification.create(

@@ -85,6 +85,7 @@ def request_configuration(hass, config, oauth):
 
         await async_setup(hass, config)
 
+    _LOGGER.info("Requesting authorization...")
     configurator = hass.components.configurator
     _CONFIGURING[DOMAIN] = configurator.async_request_config(
         DEFAULT_NAME,
@@ -127,6 +128,7 @@ async def async_setup(hass, config):
             CONF_CACHE_PATH, hass.config.path(STORAGE_DIR, f".miele-token-cache")
         )
         hass.data[DOMAIN][DATA_OAUTH] = MieleOAuth(
+            hass,
             config[DOMAIN].get(CONF_CLIENT_ID),
             config[DOMAIN].get(CONF_CLIENT_SECRET),
             redirect_uri=callback_url,
@@ -317,7 +319,7 @@ class MieleDevice(Entity):
         return result
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         """Attributes."""
 
         result = {}

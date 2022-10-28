@@ -4,6 +4,7 @@ import datetime
 import importlib
 import itertools
 import logging
+import traceback
 from typing import Dict, List, Optional
 
 from .collection import Collection, CollectionGroup
@@ -14,12 +15,23 @@ _LOGGER = logging.getLogger(__name__)
 class Customize:
     """Customize one waste collection type."""
 
-    def __init__(self, waste_type, alias=None, show=True, icon=None, picture=None):
+    def __init__(
+        self,
+        waste_type,
+        alias=None,
+        show=True,
+        icon=None,
+        picture=None,
+        use_dedicated_calendar=False,
+        dedicated_calendar_title=None,
+    ):
         self._waste_type = waste_type
         self._alias = alias
         self._show = show
         self._icon = icon
         self._picture = picture
+        self._use_dedicated_calendar = use_dedicated_calendar
+        self._dedicated_calendar_title = dedicated_calendar_title
 
     @property
     def waste_type(self):
@@ -40,6 +52,14 @@ class Customize:
     @property
     def picture(self):
         return self._picture
+
+    @property
+    def use_dedicated_calendar(self):
+        return self._use_dedicated_calendar
+
+    @property
+    def dedicated_calendar_title(self):
+        return self._dedicated_calendar_title
 
     def __repr__(self):
         return f"Customize{{waste_type={self._waste_type}, alias={self._alias}, show={self._show}, icon={self._icon}, picture={self._picture}}}"
@@ -74,6 +94,7 @@ class Scraper:
         description: str,
         url: Optional[str],
         calendar_title: Optional[str],
+        unique_id: str,
     ):
         self._source = source
         self._customize = customize
@@ -81,6 +102,7 @@ class Scraper:
         self._description = description
         self._url = url
         self._calendar_title = calendar_title
+        self._unique_id = unique_id
         self._refreshtime = None
         self._entries: List[Collection] = []
 
@@ -108,26 +130,33 @@ class Scraper:
     def calendar_title(self):
         return self._calendar_title or self._title
 
+    @property
+    def unique_id(self):
+        return self._unique_id
+
     def fetch(self):
         """Fetch data from source."""
         try:
             # fetch returns a list of Collection's
             entries = self._source.fetch()
-            self._refreshtime = datetime.datetime.now()
+        except Exception:
+            _LOGGER.error(
+                f"fetch failed for source {self._title}:\n{traceback.format_exc()}"
+            )
+            return
+        self._refreshtime = datetime.datetime.now()
 
-            # strip whitespaces
-            for e in entries:
-                e.set_type(e.type.strip())
+        # strip whitespaces
+        for e in entries:
+            e.set_type(e.type.strip())
 
-            # filter hidden entries
-            entries = filter(lambda x: filter_function(x, self._customize), entries)
+        # filter hidden entries
+        entries = filter(lambda x: filter_function(x, self._customize), entries)
 
-            # customize fetched entries
-            entries = map(lambda x: customize_function(x, self._customize), entries)
+        # customize fetched entries
+        entries = map(lambda x: customize_function(x, self._customize), entries)
 
-            self._entries = list(entries)
-        except Exception as error:
-            _LOGGER.error(f"fetch failed for source {self._source}: {error}")
+        self._entries = list(entries)
 
     def get_types(self):
         """Return set() of all collection types."""
@@ -135,6 +164,24 @@ class Scraper:
         for e in self._entries:
             types.add(e.type)
         return types
+
+    def get_dedicated_calendar_types(self):
+        types = set()
+
+        for key, customize in self._customize.items():
+            if customize.show and customize.use_dedicated_calendar:
+                types.add(key)
+
+        return types or None
+
+    def get_global_calendar_types(self):
+        types = set()
+
+        for key, customize in self._customize.items():
+            if customize.show and not customize.use_dedicated_calendar:
+                types.add(key)
+
+        return types or None
 
     def get_upcoming(self, count=None, leadtime=None, types=None, include_today=False):
         """Return list of all entries, limited by count and/or leadtime.
@@ -173,6 +220,20 @@ class Scraper:
             entries = entries[:count]
 
         return entries
+
+    def get_calendar_title_for_type(self, type):
+        c = self._customize.get(type)
+        if c is not None and c.dedicated_calendar_title:
+            return c.dedicated_calendar_title
+
+        return self.calendar_title
+
+    def get_collection_type(self, type):
+        c = self._customize.get(type)
+        if c is not None and c.alias:
+            return c.alias
+
+        return type
 
     def _filter(
         self, entries, count=None, leadtime=None, types=None, include_today=False
@@ -234,6 +295,11 @@ class Scraper:
             description=source_module.DESCRIPTION,  # type: ignore[attr-defined]
             url=source_module.URL,  # type: ignore[attr-defined]
             calendar_title=calendar_title,
+            unique_id=calc_unique_scraper_id(source_name, source_args),
         )
 
         return g
+
+
+def calc_unique_scraper_id(source_name, source_args):
+    return source_name + str(sorted(source_args.items()))
