@@ -29,12 +29,6 @@ cards:
           - content: "Mercedes L-JM227E"
           - icon: mdi:car
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.car_mercedes_l_jm227e_ignition_state
             name: Zündung
@@ -43,25 +37,12 @@ cards:
           - entity: binary_sensor.car_mercedes_l_jm227e_windows_closed
             name: Fenster
         show_header_toggle: false
-
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.car_mercedes_l_jm227e_odometer
             name: Kilometerstand
         show_header_toggle: false
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.car_mercedes_l_jm227e_fuel_level
             name: Kraftstoffstand
@@ -75,12 +56,6 @@ cards:
         card:
           type: entities
           show_header_toggle: false
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
         state_filter:
           - operator: "=="
             value: true
@@ -104,12 +79,6 @@ cards:
           - content: "Mercedes L-JM227E Warnungen"
           - icon: mdi:car
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: binary_sensor.car_mercedes_l_jm227e_tire_warning
             name: Reifendruck
@@ -133,12 +102,6 @@ cards:
           - content: "Keba Wallbox"
           - icon: mdi:ev-station
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: lock.keba_p30_authentication
           - entity: binary_sensor.keba_p30_plug

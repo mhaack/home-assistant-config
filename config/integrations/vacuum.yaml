@@ -1,8 +1,0 @@
----
-# Vacuum cleaner integration to control our Neato Botvac robot.
-#
-# https://www.home-assistant.io/integrations/neato
-#
-neato:
-  client_id: !secret neato_client_id
-  client_secret: !secret neato_client_secret

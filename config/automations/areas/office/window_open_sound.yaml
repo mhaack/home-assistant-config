@@ -11,7 +11,7 @@ trigger:
 action:
   - service: script.sonos_play
     data:
-      sonos_entity: media_player.office
+      sonos_entity: media_player.roam
       volume: 0.5
       delay: "00:00:05"
       media_url: http://192.168.1.3:8123/local/assets/winxp.mp3

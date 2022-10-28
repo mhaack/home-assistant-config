@@ -1,9 +1,0 @@
----
-# Integration for Worx Landroid mowers via custom component.
-#
-# https://github.com/MTrab/landroid_cloud
-#
-
-landroid_cloud:
-  - email: !secret worx_cloud_user
-    password: !secret worx_cloud_password

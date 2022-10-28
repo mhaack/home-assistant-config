@@ -7,9 +7,4 @@ sensor:
     unit_of_measurement: Besuch(e)
     state: >-
       {{ states('counter.hall_litterbox_visits') | int }}
-    icon: >-
-      {% if states("sensor.hall_all_litterbox_visits") | int > 0 %}
-        mdi:emoticon-poop
-      {% else %}
-        mdi:emoticon-poop-outline
-      {% endif %}
+    icon: mdi:emoticon-poop-outline

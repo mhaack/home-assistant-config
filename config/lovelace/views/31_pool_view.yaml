@@ -29,12 +29,6 @@ cards:
           - content: "Pool"
           - icon: mdi:thermometer
       - type: "custom:mini-graph-card"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         decimals: 1
         hour24: true
         hours_to_show: 168
@@ -54,11 +48,6 @@ cards:
           - icon: mdi:coolant-temperature
       - type: entities
         style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         show_header_toggle: false
         entities:
           - sensor.pool_solar_temperature_diff
@@ -78,12 +67,6 @@ cards:
           - content: "Poolsteuerung"
           - icon: mdi:coolant-temperature
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         show_header_toggle: false
         entities:
           - input_select.pool_pump_mode
@@ -96,12 +79,6 @@ cards:
           - content: "Poolstatistik"
           - icon: mdi:chart-areaspline
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         show_header_toggle: false
         entities:
           - entity: sensor.pool_daily_pump_hours
@@ -120,12 +97,6 @@ cards:
           - content: "Sonnendeck"
           - icon: mdi:white-balance-sunny
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: light.garden_sundeck_spots
             name: LED

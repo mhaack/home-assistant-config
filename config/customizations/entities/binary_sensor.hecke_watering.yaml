@@ -1,0 +1,6 @@
+---
+#
+# Customize Hydrawise sensor naming
+#
+binary_sensor.hecke_watering:
+  friendly_name: Hecke

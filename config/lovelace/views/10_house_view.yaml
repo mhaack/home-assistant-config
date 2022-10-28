@@ -29,12 +29,6 @@ cards:
           - content: "Innenbeleuchtung"
           - icon: mdi:lightbulb
       - type: glance
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: light.indoor_lights
             tap_action:
@@ -57,8 +51,10 @@ cards:
           - entity: light.livingroom_tv
             tap_action:
               action: toggle
+          - entity: light.livingroom_lamp
+            tap_action:
+              action: toggle
         show_state: false
-
       - type: entity-filter
         show_empty: false
         entities:
@@ -77,13 +73,6 @@ cards:
                   - content: "Wohnzimmer"
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
-                icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 2px 5px 14px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1
@@ -107,13 +96,6 @@ cards:
                   - content: "Küche"
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
-                icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 14px 5px 2px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1
@@ -140,13 +122,6 @@ cards:
                   - content: "Schlafzimmer"
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
-                icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 2px 5px 14px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1
@@ -170,13 +145,6 @@ cards:
                   - content: "Kinderzimmer"
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
-                icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 14px 5px 2px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1
@@ -203,13 +171,6 @@ cards:
                   - content: "Bad"
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
-                icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 2px 5px 14px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1
@@ -233,13 +194,6 @@ cards:
                   - content: "Büro"
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
-                icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 14px 5px 2px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1
@@ -266,13 +220,6 @@ cards:
                   - content: "Flur"
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
-                icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 2px 5px 14px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1
@@ -296,13 +243,6 @@ cards:
                   - content: "Technikraum"
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
-                icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 14px 5px 2px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1
@@ -327,12 +267,6 @@ cards:
           - content: "Rollläden Untergeschoss"
           - icon: mdi:window-shutter-open
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - type: custom:fold-entity-row
             head: cover.livingroom_slidingdoor
@@ -366,12 +300,6 @@ cards:
           - content: "Rollläden Obergeschoss"
           - icon: mdi:window-shutter-open
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: cover.bedroom
             icon: "mdi:format-align-justify"
@@ -392,16 +320,22 @@ cards:
           - content: "Kinderzimmer"
           - icon: mdi:bed-outline
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - light.nursery_bed
           - light.nursery_stars
           - switch.nursery_dollhouse
+        show_header_toggle: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Arbeitszimmer"
+          - icon: mdi:desk
+      - type: entities
+        entities:
+          - entity: switch.office_desk
+            name: Schreibtisch
+          - switch.office_desk_jasmina
+          - switch.office_iron
         show_header_toggle: false
 
   - type: vertical-stack
@@ -412,12 +346,6 @@ cards:
           - content: "Backofen"
           - icon: mdi:stove
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.kitchen_oven_status
             name: Status
@@ -428,12 +356,6 @@ cards:
             state_not: Aus
         card:
           type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
           entities:
             - type: attribute
               entity: sensor.kitchen_oven_status
@@ -466,13 +388,19 @@ cards:
           - content: "Geräte"
           - icon: mdi:devices
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - switch.kitchen_dishwasher
           - switch.laundryroom_freezer
         show_header_toggle: false
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Aquarium"
+          - icon: mdi:fishbowl
+      - type: entities
+        entities:
+          - entity: switch.livingroom_aquarium_oberflachenabsauger
+            name: Oberflächenabsauger
+          - entity: switch.livingroom_aquarium_co2_gas
+            name: CO2 Gas

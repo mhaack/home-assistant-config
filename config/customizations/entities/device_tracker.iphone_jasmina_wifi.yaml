@@ -1,9 +1,0 @@
----
-#
-# Customizes Jasmina iPhone device trackers
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-device_tracker.iphone_jasmina_wifi:
-  icon: mdi:cellphone-wireless
-  friendly_name: Jasmina iPhone (Wifi)

@@ -121,9 +121,6 @@ recorder:
       - sensor.kitchen_battery_level
       - sensor.kitchen_dishwasher_state
       - sensor.kitchen_fridge_battery_level
-      - sensor.landroid_shaun_error
-      - sensor.landroid_shaun_status
-      - sensor.landroid_shaun_battery
       - sensor.last_boot
       - sensor.livingroom_battery_level
       - sensor.livingroom_brightness

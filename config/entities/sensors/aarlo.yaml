@@ -4,6 +4,7 @@
 platform: aarlo
 monitored_conditions:
   - last_capture
+  - recent_activity
   - total_cameras
   - battery_level
   - captured_today

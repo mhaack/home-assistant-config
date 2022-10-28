@@ -31,41 +31,17 @@ cards:
       - type: horizontal-stack
         cards:
           - type: entity
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 2px 5px 14px;
-              }
             entity: sensor.solaredge_energy_today_kwh
             name: Energie heute
           - type: entity
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 14px 5px 2px;
-              }
             entity: sensor.solaredge_energy_this_month_kwh
             name: Energie Monat
       - type: horizontal-stack
         cards:
           - type: entity
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 2px 5px 14px;
-              }
             entity: sensor.solaredge_energy_this_year_kwh
             name: Energie Jahr
           - type: entity
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 14px 5px 2px;
-              }
             entity: sensor.solaredge_lifetime_energy_kwh
             name: Gesamtenergie
       - type: custom:decluttering-card
@@ -76,41 +52,17 @@ cards:
       - type: horizontal-stack
         cards:
           - type: entity
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 2px 5px 14px;
-              }
             entity: sensor.solaredge_consumption_energy_kwh
             name: Gesamtverbrauch
           - type: entity
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 14px 5px 2px;
-              }
             entity: sensor.solaredge_selfconsumption_energy_kwh
             name: Eigenverbrauch
       - type: horizontal-stack
         cards:
           - type: entity
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 2px 5px 14px;
-              }
             entity: sensor.solaredge_imported_energy_kwh
             name: Import
           - type: entity
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 14px 5px 2px;
-              }
             entity: sensor.solaredge_exported_energy_kwh
             name: Export
       - type: custom:decluttering-card
@@ -118,36 +70,7 @@ cards:
         variables:
           - content: "Stromerzeugung"
           - icon: mdi:solar-power
-      - type: "custom:mini-graph-card"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        color_thresholds:
-          - color: "#039BE5"
-            value: 0
-          - color: "#0da035"
-            value: 3.5
-          - color: "#e0b400"
-            value: 2.0
-          - color: "#e45e65"
-            value: 0.6
-        color_thresholds_transition: hard
-        entities:
-          - sensor.solaredge_solar_power
-        hour24: true
-        line_width: 4
-        points_per_hour: 10
-        show:
-          extrema: true
-          fill: fade
-          name: false
-          icon: false
-          labels: false
-          state: true
-          legend: false
+      - type: energy-solar-graph
 
   - type: vertical-stack
     cards:
@@ -156,66 +79,22 @@ cards:
         variables:
           - content: "Stromverbrauch"
           - icon: mdi:solar-power
-      - type: "custom:mini-graph-card"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        color_thresholds:
-          - color: "#039BE5"
-            value: 0
-          - color: "#0da035"
-            value: 0.6
-          - color: "#e0b400"
-            value: 1.2
-          - color: "#e45e65"
-            value: 2.4
-        color_thresholds_transition: hard
-        entities:
-          - sensor.solaredge_power_consumption
-          - entity: binary_sensor.dark_outside
-            color: "rgba(0,0,255,1)"
-            show_line: false
-            show_points: false
-            y_axis: secondary
-        hour24: true
-        line_width: 4
-        points_per_hour: 10
-        show:
-          extrema: true
-          fill: fade
-          name: false
-          icon: false
-          labels: false
-          labels_secondary: false
-          state: true
-          legend: false
-        state_map:
-          - label: Day
-            value: "off"
-          - label: Night
-            value: "on"
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
+          - entity: sensor.solaredge_power_consumption
+            name: Stromverbrauch
           - entity: sensor.solaredge_grid_power
-            name: Netzleistung
+            name: Netz
             type: custom:secondaryinfo-entity-row
-            secondary_info: "Flow: [[ sensor.solaredge_grid_power.attributes.flow ]]"
+            secondary_info: "Richtung: [[ sensor.solaredge_grid_power.attributes.flow ]]"
           - entity: sensor.solaredge_storage_power
-            name: Batterieleistung
+            name: Batterie
             type: custom:secondaryinfo-entity-row
-            secondary_info: "Flow: [[ sensor.solaredge_storage_power.attributes.flow ]]"
+            secondary_info: "Richtung: [[ sensor.solaredge_storage_power.attributes.flow ]]"
           - entity: sensor.solaredge_storage_level
             name: Batterieladung
         show_header_toggle: false
+      - type: energy-usage-graph
 
   - type: vertical-stack
     cards:
@@ -232,4 +111,3 @@ cards:
           - sensor.energy_production_tomorrow
           - sensor.power_production_now
           - sensor.power_highest_peak_time_today
-          - sensor.power_highest_peak_time_tomorrow

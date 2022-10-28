@@ -4,7 +4,7 @@
 system_window_sensors:
   name: Fenster
   entities:
-    - binary_sensor.guests_window
+    - binary_sensor.guest_bathroom_window
     - binary_sensor.kitchen_window
     - binary_sensor.laundryroom_window
     - binary_sensor.livingroom_window_1

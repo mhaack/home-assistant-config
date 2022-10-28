@@ -29,12 +29,6 @@ cards:
           - content: "Müll"
           - icon: mdi:trash-can
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.waste_collection
 
@@ -46,12 +40,6 @@ cards:
           - content: "Waschmaschine"
           - icon: mdi:washing-machine
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.laundryroom_washing_machine_status
             name: Status
@@ -62,12 +50,6 @@ cards:
             state_not: Aus
         card:
           type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
           entities:
             - type: attribute
               entity: sensor.laundryroom_washing_machine_status
@@ -100,12 +82,6 @@ cards:
           - content: "Trockner"
           - icon: mdi:tumble-dryer
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.laundryroom_dryer_status
             name: Status
@@ -116,12 +92,6 @@ cards:
             state_not: Aus
         card:
           type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
           entities:
             - entity: sensor.laundryroom_dryer_program_id
               name: Programm
@@ -153,23 +123,11 @@ cards:
           - content: "Robbie Flur"
           - icon: mdi:robot-vacuum
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - vacuum.hall_robbie_3
           - switch.hall_robbie_3_schedule
           - sensor.hall_robbie_3_battery
       - type: picture-entity
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entity: camera.hall_robbie_3_cleaning_map
 
       - type: custom:decluttering-card
@@ -178,23 +136,11 @@ cards:
           - content: "Robbie Schlafzimmer"
           - icon: mdi:robot-vacuum
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - vacuum.bedroom_robbie_4
           - switch.bedroom_robbie_4_schedule
           - sensor.bedroom_robbie_4_battery
       - type: picture-entity
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entity: camera.bedroom_robbie_4_cleaning_map
 
   - type: vertical-stack
@@ -205,12 +151,6 @@ cards:
           - content: "Katzenklo"
           - icon: mdi:cat
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.hall_all_litterbox_visits
         show_header_toggle: false

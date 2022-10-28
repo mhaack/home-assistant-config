@@ -1,8 +1,0 @@
----
-# Use switch light wrapper for Homematic hall lights which is connected as a switch.
-#
-# https://www.home-assistant.io/integrations/light.switch/
-#
-platform: switch
-name: hall_lights
-entity_id: switch.hall_basement_light_switch

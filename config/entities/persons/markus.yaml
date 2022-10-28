@@ -8,5 +8,5 @@
 name: Markus
 id: !secret id_markus
 device_trackers:
-  - device_tracker.iphonevonmarkus
+  - device_tracker.iphone_von_markus
   - device_tracker.iphone_markus_wifi_private

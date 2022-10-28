@@ -40,7 +40,6 @@ cards:
           - binary_sensor.system_unifi_router
           - binary_sensor.system_unifi_switch
           - binary_sensor.system_unifi_switch_office
-          - binary_sensor.system_unifi_controller
           - binary_sensor.system_unifi_ap_livingroom
           - binary_sensor.system_unifi_ap_office
           - binary_sensor.system_unifi_ap_garden
@@ -68,7 +67,6 @@ cards:
           - binary_sensor.office_system_printer
           - binary_sensor.system_nas
           - binary_sensor.system_fritzbox
-          - binary_sensor.garden_landroid
           - binary_sensor.garden_watertank
           - binary_sensor.garden_hydrawise
           - binary_sensor.equipmentroom_solar_inverter

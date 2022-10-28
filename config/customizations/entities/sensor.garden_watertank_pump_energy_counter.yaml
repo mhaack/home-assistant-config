@@ -5,5 +5,5 @@
 # https://www.home-assistant.io/docs/configuration/customizing-devices/
 #
 sensor.garden_watertank_pump_energy_counter:
-  friendly_name: Stromverbrauch Zisterne Gesamt
+  friendly_name: Stromverbrauch Pumpe
   icon: mdi:flash

@@ -14,45 +14,32 @@ cards:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/markus.jpg'
+          - image: "/local/assets/markus.jpg"
       Jasmina:
         type: custom:decluttering-card
         template: welcome_header
         variables:
-          - image: '/local/assets/jasmina.jpg'
+          - image: "/local/assets/jasmina.jpg"
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Bewegungsmelder'
+          - content: "Bewegungsmelder"
           - icon: mdi:motion
       - type: glance
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - binary_sensor.hall_downstairs_motion
           - binary_sensor.hall_upstairs_motion
           - binary_sensor.livingroom_motion
-        show_header_toggle: false
         show_state: false
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Fenster & Türen'
+          - content: "Fenster & Türen"
           - icon: mdi:window-closed-variant
       - type: glance
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - binary_sensor.hall_frontdoor
           - binary_sensor.garden_carport_door
@@ -61,10 +48,9 @@ cards:
           - binary_sensor.kitchen_window
           - binary_sensor.livingroom_window_1
           - binary_sensor.livingroom_window_2
-          - binary_sensor.guests_window
+          - binary_sensor.guest_bathroom_window
           - binary_sensor.laundryroom_window
           - binary_sensor.office_window
-        show_header_toggle: false
         show_state: false
 
   - type: vertical-stack
@@ -72,108 +58,74 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Kameras'
+          - content: "Kameras"
           - icon: mdi:cctv
       - type: "custom:aarlo-glance"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entity: camera.aarlo_eingang
-        show:
+        image_top:
+          - name
+          - date
+        image_bottom:
           - motion
+          - library
+          - stream
+          - signal
           - sound
           - snapshot
-          - battery_level
-          - signal_strength
-          - captured_today
-        top_title: false
-        top_status: false
+          - battery
       - type: "custom:aarlo-glance"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entity: camera.aarlo_carport
-        show:
+        image_top:
+          - name
+          - date
+        image_bottom:
           - motion
-          - sound
+          - library
+          - stream
           - snapshot
-          - battery_level
-          - signal_strength
-          - captured_today
-        top_title: false
-        top_status: false
+          - battery
       - type: "custom:aarlo-glance"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entity: camera.aarlo_garten
-        show:
+        image_top:
+          - name
+          - date
+        image_bottom:
           - motion
-          - sound
+          - library
+          - stream
           - snapshot
-          - battery_level
-          - signal_strength
-          - captured_today
-        top_title: false
-        top_status: false
+          - battery
       - type: "custom:aarlo-glance"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entity: camera.aarlo_terrasse
-        show:
+        image_top:
+          - name
+          - date
+        image_bottom:
           - motion
-          - sound
+          - library
+          - stream
           - snapshot
-          - battery_level
-          - signal_strength
-          - captured_today
-        top_title: false
-        top_status: false
+          - battery
       - type: "custom:aarlo-glance"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entity: camera.aarlo_pool
-        show:
+        image_top:
+          - name
+          - date
+        image_bottom:
           - motion
-          - sound
+          - library
+          - stream
           - snapshot
-          - battery_level
-          - signal_strength
-          - captured_today
-        top_title: false
-        top_status: false
+          - battery
 
   - type: vertical-stack
     cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Alarm Haus'
+          - content: "Alarm Haus"
           - icon: mdi:alarm-light
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: alarm_control_panel.alarm_haus
           - entity: sensor.hall_siren_armstate
@@ -184,15 +136,9 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: 'Alarm Carport'
+          - content: "Alarm Carport"
           - icon: mdi:alarm-light
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: alarm_control_panel.alarm_carport
           - entity: sensor.garden_carport_siren_armstate

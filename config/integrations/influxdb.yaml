@@ -24,10 +24,6 @@ influxdb:
     entities:
       - binary_sensor.pool_pump_state
       - binary_sensor.pool_valve_state
-      - sensor.garden_luftdaten_air_quality_pm10
-      - sensor.garden_luftdaten_air_quality_pm2_5
-      - sensor.garden_luftdaten_pm_10
-      - sensor.garden_luftdaten_pm_2_5
       - sensor.garden_watertank_liter
       - sensor.garden_watertank_wifi
       - sensor.pool_water_temperature_1
@@ -43,8 +39,6 @@ influxdb:
       - sensor.solaredge_storage_level
 
   component_config_glob:
-    sensor.garden_luftdaten_air_quality*:
-      override_measurement: air_quality
     binary_sensor.pool_*_state:
       override_measurement: pool_operation
 

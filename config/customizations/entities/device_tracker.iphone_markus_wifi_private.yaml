@@ -1,9 +1,0 @@
----
-#
-# Customizes Markus iPhone device trackers
-#
-# https://www.home-assistant.io/docs/configuration/customizing-devices/
-#
-device_tracker.iphone_markus_wifi_private:
-  icon: mdi:cellphone-wireless
-  friendly_name: Markus iPhone (Private)

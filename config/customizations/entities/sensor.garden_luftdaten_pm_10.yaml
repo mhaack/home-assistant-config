@@ -1,7 +1,0 @@
----
-#
-# Customizes luftdaten.info air quality sensors
-#
-sensor.garden_luftdaten_pm_10:
-  friendly_name: PM 10 Konzentration
-  icon: mdi:cloud-outline

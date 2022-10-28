@@ -1,8 +1,0 @@
----
-# Use switch light wrapper for Homematic switches.
-#
-# https://www.home-assistant.io/integrations/light.switch/
-#
-platform: switch
-name: garden_sundeck_spots
-entity_id: switch.garden_sundeck_spots

@@ -47,24 +47,16 @@ cards:
             state_filter:
               - "on"
           - entity: sensor.rasen_watering_time
+            name: Restlaufzeit
           - entity: sensor.beete_watering_time
+            name: Restlaufzeit
           - entity: sensor.vorgarten_watering_time
+            name: Restlaufzeit
           - entity: sensor.hecke_watering_time
+            name: Restlaufzeit
         card:
           type: glance
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.rasen_next_cycle
           - entity: sensor.beete_next_cycle
@@ -77,12 +69,6 @@ cards:
           - content: "Zisterne"
           - icon: mdi:water-pump
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - switch.garden_watertank_pump
           - sensor.garden_watertank_liter
@@ -90,4 +76,7 @@ cards:
           - sensor.garden_watertank_pump_power
           - sensor.garden_watertank_pump_energy_counter
           - switch.garden_watertank_refill
+          - entity: script.run_watertank_refill
+            name: Einmalige Befüllung starten
+            icon: mdi:water-pump
         show_header_toggle: false

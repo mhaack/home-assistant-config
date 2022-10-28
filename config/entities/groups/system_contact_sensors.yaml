@@ -5,7 +5,7 @@ system_contact_sensors:
   name: Kontaktsensoren
   entities:
     - binary_sensor.garden_carport_door
-    - binary_sensor.guests_window
+    - binary_sensor.guest_bathroom_window
     - binary_sensor.hall_frontdoor
     - binary_sensor.kitchen_window
     - binary_sensor.laundryroom_window

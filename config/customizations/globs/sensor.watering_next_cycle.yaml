@@ -1,0 +1,6 @@
+---
+#
+# Customizes Hydrawise next cycle sensors
+#
+sensor.*_next_cycle:
+  icon: mdi:calendar-sync

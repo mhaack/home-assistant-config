@@ -155,23 +155,6 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: "Luftqualität"
-      - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        entities:
-          - sensor.garden_luftdaten_air_quality_pm10
-          - sensor.garden_luftdaten_pm_10
-          - sensor.garden_luftdaten_air_quality_pm2_5
-          - sensor.garden_luftdaten_pm_2_5
-        show_header_toggle: false
-      - type: custom:decluttering-card
-        template: card_header
-        variables:
           - content: "Gartenbank"
       - type: conditional
         conditions:
@@ -210,54 +193,6 @@ cards:
               name: Benachrichtigen
             - witch.garden_carport_siren_3
           show_header_toggle: false
-
-  - type: vertical-stack
-    cards:
-      - type: custom:decluttering-card
-        template: card_header
-        variables:
-          - content: "Rasenmäher Shaun"
-      - type: conditional
-        conditions:
-          - entity: sensor.landroid_shaun_error
-            state: "No error"
-        card:
-          type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
-          show_header_toggle: false
-          entities:
-            - switch.garden_lawnmower
-            - sensor.landroid_shaun_status
-            - entity: sensor.landroid_shaun_battery
-              type: custom:secondaryinfo-entity-row
-              secondary_info: |
-                [[ if(sensor.landroid_shaun_battery.attributes.charging > 0, "Charging", "Not Charging") ]]
-      - type: conditional
-        conditions:
-          - entity: sensor.landroid_shaun_error
-            state_not: "No error"
-        card:
-          type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
-          show_header_toggle: false
-          entities:
-            - entity: switch.garden_lawnmower
-            - entity: sensor.landroid_shaun_error
-            - entity: sensor.landroid_shaun_status
-            - entity: sensor.landroid_shaun_battery
-              type: custom:secondaryinfo-entity-row
-              secondary_info: |
-                [[ if(sensor.landroid_shaun_battery.attributes.charging > 0, "Charging", "Not Charging") ]]
       - type: custom:decluttering-card
         template: card_header
         variables:

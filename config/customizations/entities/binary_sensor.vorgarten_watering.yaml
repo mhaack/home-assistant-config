@@ -1,0 +1,6 @@
+---
+#
+# Customize Hydrawise sensor naming
+#
+binary_sensor.vorgarten_watering:
+  friendly_name: Vorgarten

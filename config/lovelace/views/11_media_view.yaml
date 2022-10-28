@@ -27,26 +27,14 @@ cards:
         variables:
           - content: "Sonos"
       - type: "custom:mini-media-player"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         icon: mdi:speaker
-        entity: media_player.office
+        entity: media_player.roam
         artwork: cover
         hide:
           volume: true
           source: true
           power_state: false
       - type: "custom:mini-media-player"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         icon: mdi:speaker
         entity: media_player.livingroom
         artwork: cover
@@ -55,12 +43,6 @@ cards:
           source: true
           power_state: false
       - type: "custom:mini-media-player"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         icon: mdi:speaker
         entity: media_player.move
         artwork: cover
