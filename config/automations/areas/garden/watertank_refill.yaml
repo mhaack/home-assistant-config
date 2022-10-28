@@ -16,7 +16,7 @@ action:
   - service: notify.mobile_app_iphone_von_markus
     data:
       title: JaMa Villa - 🚰
-      message: 'Wasserstand Zisterne niedrig ({{ states("sensor.garden_watertank_percent") }}%), Befüllung gestartet'
+      message: 'Wasserstand Zisterne niedrig ({{ states("sensor.garden_watertank_percent") }}%), Befüllung gestartet.'
       data:
         group: notification-irrigation
 
@@ -46,6 +46,6 @@ action:
   - service: notify.mobile_app_iphone_von_markus
     data:
       title: JaMa Villa - 🚰
-      message: 'Befüllung Zisterne beended, Wasserstand: {{ states("sensor.garden_watertank_percent") }}%'
+      message: 'Befüllung Zisterne beendet, Wasserstand: {{ states("sensor.garden_watertank_percent") }}%'
       data:
         group: notification-irrigation

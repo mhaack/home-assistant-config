@@ -10,8 +10,8 @@ alias: "[Pool] Daily Solar pool pump schedule - off"
 trigger:
   - platform: time
     at:
-      - "04:59:00"
-      - "18:59:00"
+      - "04:00:00"
+      - "20:00:00"
       - "23:59:00"
 action:
   - service: switch.turn_off

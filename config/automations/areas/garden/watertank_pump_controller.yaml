@@ -24,7 +24,7 @@ action:
           - service: notify.mobile_app_iphone_von_markus
             data:
               title: JaMa Villa - 🚰
-              message: Bewässerung wurde eingeschaltet.
+              message: Bewässerung von {{ trigger.to_state.attributes.friendly_name }} wurde eingeschaltet.
               data:
                 group: notification-irrigation
     default:
@@ -34,6 +34,6 @@ action:
       - service: notify.mobile_app_iphone_von_markus
         data:
           title: JaMa Villa - 🚰
-          message: Bewässerung wurde ausgeschaltet.
+          message: Bewässerung von {{ trigger.to_state.attributes.friendly_name }} wurde ausgeschaltet.
           data:
             group: notification-irrigation

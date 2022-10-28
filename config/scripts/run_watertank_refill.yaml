@@ -1,0 +1,7 @@
+---
+# script manully run the watertank refill automation once
+run_watertank_refill:
+  alias: "Watertank Refill"
+  sequence:
+    - service: automation.trigger
+      entity_id: automation.watertank_automatic_refill
