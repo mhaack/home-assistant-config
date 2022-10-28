@@ -4,6 +4,7 @@ esphome:
   board: d1_mini_lite
 
 wifi:
+  use_address: rfid-reader.lan
   ssid: !secret esphome_wifi_ssid
   password: !secret esphome_wifi_password
 

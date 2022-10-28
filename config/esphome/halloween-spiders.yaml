@@ -1,0 +1,144 @@
+esphome:
+  name: halloween-spiders
+
+esp8266:
+  board: d1_mini_pro
+
+wifi:
+  use_address: halloween-spiders.lan
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+  ap:
+    ssid: esp01
+
+captive_portal:
+
+logger:
+  logs:
+    fan: INFO
+    fan.hbridge: INFO
+
+api:
+  password: !secret esphome_api_password
+
+ota:
+  password: !secret esphome_ota_password
+
+globals:
+   - id: motor_1_duration
+     type: int
+     restore_value: no
+     initial_value: '0'
+   - id: motor_2_duration
+     type: int
+     restore_value: no
+     initial_value: '0'
+
+output:
+  - platform: esp8266_pwm
+    id: motor1_forward_pin
+    pin: D2
+  - platform: esp8266_pwm
+    id: motor1_reverse_pin
+    pin: D1
+  - platform: esp8266_pwm
+    id: motor2_forward_pin
+    pin: D5
+  - platform: esp8266_pwm
+    id: motor2_reverse_pin
+    pin: D6
+
+fan:
+  - platform: hbridge
+    id: motor_1
+    name: "Motor 1"
+    icon: "mdi:spider-thread"
+    pin_a: motor1_forward_pin
+    pin_b: motor1_reverse_pin
+    decay_mode: slow
+    on_turn_on:
+      - logger.log:
+          format: "Motor 1: on - duration = %d ms, direction = %d"
+          args: [ 'id(motor_1_duration)', id(motor_1).direction ]
+    on_turn_off:
+      - logger.log: "Motor 1: off"
+
+  - platform: hbridge
+    id: motor_2
+    name: "Motor 2"
+    icon: "mdi:spider-thread"
+    pin_a: motor2_forward_pin
+    pin_b: motor2_reverse_pin
+    decay_mode: slow
+    on_turn_on:
+      - logger.log:
+          format: "Motor 2: on - duration = %d ms, direction = %d"
+          args: [ 'id(motor_2_duration)', id(motor_2).direction ]
+    on_turn_off:
+      - logger.log: "Motor 2: off"
+
+switch:
+  - platform: template
+    name: "Program 1"
+    id: program_1
+    icon: "mdi:code-json"
+    optimistic: true
+  - platform: template
+    name: "Program 2"
+    id: program_2
+    icon: "mdi:code-json"
+    optimistic: true
+
+interval:
+  - interval: 1min
+    then:
+      - globals.set:
+          id: motor_1_duration
+          value: !lambda "return (rand() % 8) * 1000 + 3000;"
+      - if:
+          condition:
+            switch.is_on: program_1
+          then:
+            # forward
+            - fan.turn_on:
+                id: motor_1
+                direction: forward
+            - delay: !lambda "return id(motor_1_duration);"
+            - fan.turn_off: motor_1
+            # pause
+            - delay: !lambda "return id(motor_1_duration);"
+            # reverse
+            - lambda: |-
+                id(motor_1_duration) += 3000;
+            - fan.turn_on:
+                id: motor_1
+                direction: reverse
+            - delay: !lambda "return (id(motor_1_duration));"
+            - fan.turn_off: motor_1
+
+  - interval: 2min
+    then:
+      - globals.set:
+          id: motor_2_duration
+          value: !lambda "return (rand() % 20) * 1000 + 20000;"
+      - if:
+          condition:
+            switch.is_on: program_2
+          then:
+            # forward
+            - fan.turn_on:
+                id: motor_2
+                direction: forward
+            - delay: !lambda "return id(motor_2_duration);"
+            - fan.turn_off: motor_2
+            # pause
+            - delay: !lambda "return id(motor_2_duration);"
+            # reverse
+            - lambda: |-
+                id(motor_2_duration) += 5000;
+            - fan.turn_on:
+                id: motor_2
+                direction: reverse
+            - delay: !lambda "return id(motor_2_duration);"
+            - fan.turn_off: motor_2

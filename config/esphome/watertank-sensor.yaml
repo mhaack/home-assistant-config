@@ -4,19 +4,17 @@ esphome:
   board: d1_mini_pro
 
 wifi:
+  use_address: watertank.lan
   ssid: !secret esphome_wifi_ssid
   password: !secret esphome_wifi_password
 
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: esp01
 
 captive_portal:
 
-# Enable logging
 logger:
 
-# Enable Home Assistant API
 api:
   password: !secret esphome_api_password
 
@@ -24,7 +22,7 @@ ota:
   password: !secret esphome_ota_password
 
 sensor:
-  # WiFi Signal sensor.
+  # Wifi signal sensor.
   - platform: wifi_signal
     name: garden_watertank_wifi
     update_interval: 600s
@@ -41,6 +39,7 @@ sensor:
             }
           }
 
+  # Templates for calculated liter & percent
   - platform: template
     name: garden_watertank_liter
     id: garden_watertank_liter
@@ -54,11 +53,12 @@ sensor:
     icon: "mdi:water-percent"
     unit_of_measurement: "%"
 
+  # The actual distance sensor
   - platform: ultrasonic
     trigger_pin: D1
     echo_pin: D2
     name: garden_watertank_distance
-    update_interval: 30s
+    update_interval: 300s
     pulse_time: 50us
     filters:
       - filter_out: nan
