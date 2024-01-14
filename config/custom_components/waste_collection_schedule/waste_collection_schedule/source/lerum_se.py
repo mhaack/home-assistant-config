@@ -1,14 +1,11 @@
-# coding: utf-8
 from datetime import datetime
-import json
-from urllib.parse import urlencode
 
 import requests
 from waste_collection_schedule import Collection  # type: ignore[attr-defined]
 
 TITLE = "Lerum Vatten och Avlopp"
 DESCRIPTION = "Source for Lerum Vatten och Avlopp waste collection."
-URL = "https://vatjanst.lerum.se/FutureWeb/SimpleWastePickup/SimpleWastePickup"
+URL = "https://vatjanst.lerum.se"
 TEST_CASES = {
     "PRO": {"street_address": "Floda stationsväg 5, Floda"},
     "Polisen": {"street_address": "Göteborgsvägen 16, Lerum"},
@@ -20,26 +17,29 @@ class Source:
         self._street_address = street_address
 
     def fetch(self):
-        response = requests.post(
+        r = requests.post(
             "https://vatjanst.lerum.se/FutureWeb/SimpleWastePickup/SearchAdress",
             {"searchText": self._street_address}
         )
+        r.raise_for_status()
 
-        address_data = json.loads(response.text)
+        address_data = r.json()
         address = None
-        if address_data["Succeeded"] and address_data["Succeeded"] is True:
-            if address_data["Buildings"] and len(address_data["Buildings"]) > 0:
+        if address_data["Succeeded"] is True:
+            if len(address_data["Buildings"]) > 0:
                 address = address_data["Buildings"][0]
 
-        if not address:
-            return []
+        if address is None:
+            raise Exception("address not found")
 
-        query_params = urlencode({"address": address})
-        response = requests.get(
-            "https://vatjanst.lerum.se/FutureWeb/SimpleWastePickup/GetWastePickupSchedule?{}"
-            .format(query_params)
+        params = {"address": address}
+        r = requests.get(
+            "https://vatjanst.lerum.se/FutureWeb/SimpleWastePickup/GetWastePickupSchedule",
+            params=params
         )
-        data = json.loads(response.text)
+        r.raise_for_status()
+
+        data = r.json()
 
         entries = []
         for item in data["RhServices"]:

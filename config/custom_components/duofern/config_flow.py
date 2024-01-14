@@ -1,8 +1,10 @@
 import os
 import glob
+from typing import Any, Mapping
 
 import voluptuous as vol
 from homeassistant import config_entries
+from homeassistant.data_entry_flow import FlowResult
 
 from .const import DOMAIN
 
@@ -12,7 +14,7 @@ class DomainConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     CONNECTION_CLASS = config_entries.CONN_CLASS_UNKNOWN
 
-    async def async_step_user(self, user_input=None):
+    async def async_step_user(self, user_input: Mapping[str, Any]|None =None) -> FlowResult:
         errors = {}
         if user_input is not None:
             if len(user_input['code']) != 4:
@@ -35,9 +37,10 @@ class DomainConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if os.path.isdir("/dev/"):
             serialdevs.update(set(glob.glob("/dev/ttyU*")))
             serialdevs.update(set(glob.glob("/dev/ttyA*")))
+            serialdevs.update(set(glob.glob("/dev/duofernstick")))
 
         if len(serialdevs) == 0:
-            serialdevs = ["could not find /dev/serial/by-id/ or /dev/tty{U,A}*, did you plug in your duofern stick correctly?"]
+            serialdevs = set(["could not find /dev/serial/by-id/, /dev/tty{U,A}* or /dev/duofernstick. Did you plug in your duofern stick correctly?"])
 
         return self.async_show_form(
             step_id='user',

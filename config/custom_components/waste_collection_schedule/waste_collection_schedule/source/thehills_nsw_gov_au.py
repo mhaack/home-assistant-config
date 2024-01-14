@@ -5,7 +5,7 @@ import logging
 import requests
 from waste_collection_schedule import Collection  # type: ignore[attr-defined]
 
-TITLE = "The Hills Shire Council"
+TITLE = "The Hills Shire Council, Sydney"
 DESCRIPTION = "Source for Hills Shire Council, Sydney, Australia waste collection."
 URL = "https://www.thehills.nsw.gov.au/"
 TEST_CASES = {
@@ -13,6 +13,11 @@ TEST_CASES = {
         "suburb": "ANNANGROVE",
         "street": "Amanda Place",
         "houseNo": 10,
+    },
+    "Annangrove, Amanda Place 10": {
+        "suburb": "ANn ANgROvE",
+        "street": "amanda PlaC e",
+        "houseNo": " 10 ",
     }
 }
 
@@ -33,13 +38,13 @@ class Source:
 
         suburbs = {}
         for entry in data:
-            suburbs[entry["Suburb"].strip()] = entry["SuburbKey"]
+            suburbs[entry["Suburb"].strip().upper().replace(" ", "")] = entry["SuburbKey"]
 
         # check if suburb exists
-        if self._suburb not in suburbs:
-            _LOGGER.error(f"suburb not found: {self._suburb}")
-            return []
-        suburbKey = suburbs[self._suburb]
+        suburb_searh = self._suburb.strip().upper().replace(" ", "")
+        if suburb_searh not in suburbs:
+            raise Exception(f"suburb not found: {self._suburb}")
+        suburbKey = suburbs[suburb_searh]
 
         # get list of streets for selected suburb
         r = requests.get(f"{self._url}/streets/{suburbKey}")
@@ -47,32 +52,33 @@ class Source:
 
         streets = {}
         for entry in data:
-            streets[entry["Street"].strip()] = entry["StreetKey"]
+            streets[entry["Street"].strip().upper().replace(" ", "")] = entry["StreetKey"]
 
         # check if street exists
-        if self._street not in streets:
-            _LOGGER.error(f"street not found: {self._street}")
-            return []
-        streetKey = streets[self._street]
+        street_search = self._street.strip().upper().replace(" ", "")
+        if street_search not in streets:
+            raise Exception(f"street not found: {self._street}")
+        streetKey = streets[street_search]
 
         # get list of house numbers for selected street
         params = {"streetkey": streetKey, "suburbKey": suburbKey}
         r = requests.get(
-            f"{self._url}/properties/GetPropertiesByStreetAndSuburbKey", params=params,
+            f"{self._url}/properties/GetPropertiesByStreetAndSuburbKey",
+            params=params,
         )
         data = json.loads(r.text)
 
         houseNos = {}
         for entry in data:
             houseNos[
-                str(int(entry["HouseNo"])) + entry.get("HouseSuffix", "").strip()
+                (str(int(entry["HouseNo"])) + entry.get("HouseSuffix", "").strip()).strip().upper().replace(" ", "")
             ] = entry["PropertyKey"]
 
         # check if house number exists
-        if self._houseNo not in houseNos:
-            _LOGGER.error(f"house number not found: {self._houseNo}")
-            return []
-        propertyKey = houseNos[self._houseNo]
+        houseNo_search = self._houseNo.strip().upper().replace(" ", "")
+        if houseNo_search not in houseNos:
+            raise Exception(f"house number not found: {self._houseNo}")
+        propertyKey = houseNos[houseNo_search]
 
         # get collection schedule
         r = requests.get(f"{self._url}/services/{propertyKey}")

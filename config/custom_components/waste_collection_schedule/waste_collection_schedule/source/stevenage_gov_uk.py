@@ -1,8 +1,13 @@
 import json
-import requests
 from datetime import datetime
+import requests
+
+# Suppress error messages relating to SSLCertVerificationError
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 from waste_collection_schedule import Collection  # type: ignore[attr-defined]
+
 
 TITLE = "Stevenage Borough Council"
 DESCRIPTION = "Source for stevenage.gov.uk services for Stevenage, UK."
@@ -12,11 +17,12 @@ TEST_CASES = {
     "Wansbeck Close schedule": {"road": "Wansbeck Close", "postcode": "SG1 6AA"},
     "Chepstow Close schedule": {"road": "Chepstow Close", "postcode": "SG1 5TT"},
 }
+
 SEARCH_URLS = {
     "round_search": "https://services.stevenage.gov.uk/~?a=find&v=1&p=P1&c=P1_C33_&act=P1_A43_",
     "collection_search": "https://services.stevenage.gov.uk/~?a=find&v=1&p=P1&c=P1_C37_&act=P1_A64_",
 }
-ICONS = {
+ICON_MAP = {
     "REFUSE": "mdi:trash-can",
     "RECYCLING": "mdi:recycle",
 }
@@ -29,8 +35,8 @@ class Source:
         self._postcode = postcode
 
     def fetch(self):
-        entries = []
-        session = requests.Session()
+
+        s = requests.Session()
 
         # Get Round ID and Round Code
         # Don't fully understand significance of all of the fields, but API borks if they are not present
@@ -43,8 +49,8 @@ class Source:
         }
 
         headers = {"Content-type": "application/json", "Accept": "text/plain"}
-        roundRequest = requests.post(
-            SEARCH_URLS["round_search"], data=json.dumps(roundData), headers=headers
+        roundRequest = s.post(
+            SEARCH_URLS["round_search"], data=json.dumps(roundData), headers=headers, verify=False
         )
         roundJson = json.loads(roundRequest.text)
 
@@ -69,10 +75,10 @@ class Source:
             ],
         }
 
-        collectionRequest = requests.post(
+        collectionRequest = s.post(
             SEARCH_URLS["collection_search"],
             data=json.dumps(collectionData),
-            headers=headers,
+            headers=headers,verify=False
         )
         collectionJson = json.loads(collectionRequest.text)
 
@@ -83,7 +89,7 @@ class Source:
                     Collection(
                         date=datetime.strptime(collection[1], "%d/%m/%Y").date(),
                         t="Recycling",
-                        icon=ICONS["RECYCLING"],
+                        icon=ICON_MAP.get("RECYCLING"),
                     )
                 )
             elif collection[2] == "Refuse collection":
@@ -91,7 +97,7 @@ class Source:
                     Collection(
                         date=datetime.strptime(collection[1], "%d/%m/%Y").date(),
                         t="Refuse",
-                        icon=ICONS["REFUSE"],
+                        icon=ICON_MAP.get("REFUSE"),
                     )
                 )
 

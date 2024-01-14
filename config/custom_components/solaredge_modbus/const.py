@@ -3,6 +3,7 @@ DEFAULT_NAME = "solaredge"
 DEFAULT_SCAN_INTERVAL = 30
 DEFAULT_PORT = 1502
 DEFAULT_MODBUS_ADDRESS = 1
+DEFAULT_POWER_CONTROL = False
 DEFAULT_READ_METER1 = False
 DEFAULT_READ_METER2 = False
 DEFAULT_READ_METER3 = False
@@ -12,11 +13,14 @@ CONF_SOLAREDGE_HUB = "solaredge_hub"
 ATTR_STATUS_DESCRIPTION = "status_description"
 ATTR_MANUFACTURER = "Solaredge"
 CONF_MODBUS_ADDRESS = "modbus_address"
+CONF_POWER_CONTROL = "power_control"
 CONF_READ_METER1 = "read_meter_1"
 CONF_READ_METER2 = "read_meter_2"
 CONF_READ_METER3 = "read_meter_3"
 CONF_READ_BATTERY1 = "read_battery_1"
 CONF_READ_BATTERY2 = "read_battery_2"
+CONF_MAX_EXPORT_CONTROL_SITE_LIMIT = "max_export_control_site_limit"
+DEFAULT_MAX_EXPORT_CONTROL_SITE_LIMIT = 10000
 
 SENSOR_TYPES = {
     "AC_Current": ["AC Current", "accurrent", "A", "mdi:current-ac"],
@@ -244,8 +248,8 @@ BATTERY1_SENSOR_TYPES = {
     "BATTERY1_Power": ["Battery1 Power", "battery1_power", "W", "mdi:battery-charging-100"],
     "BATTERY1_Discharged": ["Battery1 Discharged", "battery1_energy_discharged", "kWh", None],
     "BATTERY1_Charged": ["Battery1 Charged", "battery1_energy_charged", "kWh", None],
-    "BATTERY1_Size_max": ["Battery1 Size Max", "battery1_size_max", "kWh", None],
-    "BATTERY1_Size_available": ["Battery1 Size Available", "battery1_size_available", "kWh", None],
+    "BATTERY1_Size_max": ["Battery1 Size Max", "battery1_size_max", "Wh", None],
+    "BATTERY1_Size_available": ["Battery1 Size Available", "battery1_size_available", "Wh", None],
     "BATTERY1_SOH": ["Battery1 State of Health", "battery1_state_of_health", "%", None],
     "BATTERY1_SOC": ["Battery1 State of Charge", "battery1_state_of_charge", "%", "mdi:battery-high"],
     "BATTERY1_Status": ["Battery1 Status", "battery1_status", None, None],
@@ -259,8 +263,8 @@ BATTERY2_SENSOR_TYPES = {
     "BATTERY2_Power": ["Battery2 Power", "battery2_power", "W", "mdi:battery-charging-100"],
     "BATTERY2_Discharged": ["Battery2 Discharged", "battery2_energy_discharged", "kWh", None],
     "BATTERY2_Charged": ["Battery2 Charged", "battery2_energy_charged", "kWh", None],
-    "BATTERY2_Size_max": ["Battery2 Size Max", "battery2_size_max", "kWh", None],
-    "BATTERY2_Size_available": ["Battery2 Size Available", "battery2_size_available", "kWh", None],
+    "BATTERY2_Size_max": ["Battery2 Size Max", "battery2_size_max", "Wh", None],
+    "BATTERY2_Size_available": ["Battery2 Size Available", "battery2_size_available", "Wh", None],
     "BATTERY2_SOH": ["Battery2 State of Health", "battery2_state_of_health", "%", None],
     "BATTERY2_SOC": ["Battery2 State of Charge", "battery2_state_of_charge", "%", "mdi:battery-high"],
     "BATTERY2_Status": ["Battery2 Status", "battery2_status", None, None],
@@ -328,8 +332,10 @@ EXPORT_CONTROL_SELECT_TYPES = [
 ]
 
 EXPORT_CONTROL_NUMBER_TYPES = [
-    ["Export control site limit", "export_control_site_limit", 0xE002, "f", {"min": 0, "max": 10000, "unit": "W"}],
+    ["Export control site limit", "export_control_site_limit", 0xE002, "f", {"min": 0, "max": DEFAULT_MAX_EXPORT_CONTROL_SITE_LIMIT, "unit": "W"}],
 ]
+
+ACTIVE_POWER_LIMIT_TYPE = ["Active Power Limit", "nominal_active_power_limit", 0xF001, "u16", {"min": 0, "max": 100, "unit": "%"}]
 
 STORAGE_SELECT_TYPES = [
     ["Storage Control Mode", "storage_contol_mode", 0xE004, STOREDGE_CONTROL_MODE],
@@ -342,7 +348,7 @@ STORAGE_SELECT_TYPES = [
 STORAGE_NUMBER_TYPES = [
     ["Storage AC Charge Limit", "storage_ac_charge_limit", 0xE006, "f", {"min": 0, "max": 100000000000}],
     ["Storage Backup reserved", "storage_backup_reserved", 0xE008, "f", {"min": 0, "max": 100, "unit": "%"}],
-    ["Storage Remote Command Timeout", "storage_remote_command_timeout", 0xE00B, "i", {"min": 0, "max": 86400, "unit": "s"}],
+    ["Storage Remote Command Timeout", "storage_remote_command_timeout", 0xE00B, "u32", {"min": 0, "max": 86400, "unit": "s"}],
     ["Storage Remote Charge Limit", "storage_remote_charge_limit", 0xE00E, "f", {"min": 0, "max": 20000, "unit": "W"}],
     ["Storage Remote Discharge Limit", "storage_remote_discharge_limit", 0xE010, "f", {"min": 0, "max": 20000, "unit": "W"}],
 ]

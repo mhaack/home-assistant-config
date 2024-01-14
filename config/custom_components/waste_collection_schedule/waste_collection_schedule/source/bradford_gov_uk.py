@@ -1,37 +1,32 @@
-import json
+import ssl
 from datetime import datetime
 
 import requests
+import urllib3
+from bs4 import BeautifulSoup
 from waste_collection_schedule import Collection  # type: ignore[attr-defined]
 
-from bs4 import BeautifulSoup
-from urllib.parse import urlparse
-import logging
-import http.client as http_client
-import ssl
-import urllib3
-
-TITLE = "Bradford.gov.uk"
+TITLE = "Bradford Metropolitan District Council"
 DESCRIPTION = (
     "Source for Bradford.gov.uk services for Bradford Metropolitan Council, UK."
 )
-URL = "https://onlineforms.bradford.gov.uk/ufs/"
+URL = "https://bradford.gov.uk"
 TEST_CASES = {
     "Ilkley": {"uprn": "100051250665"},
     "Bradford": {"uprn": "100051239296"},
     "Baildon": {"uprn": "10002329242"},
 }
 
-ICONS = {
+API_URL = "https://onlineforms.bradford.gov.uk/ufs/"
+ICON_MAP = {
     "REFUSE": "mdi:trash-can",
     "RECYCLING": "mdi:recycle",
     "GARDEN": "mdi:leaf",
 }
 
-from pprint import pprint
 
-class CustomHttpAdapter (requests.adapters.HTTPAdapter):
-    '''Transport adapter" that allows us to use custom ssl_context.'''
+class CustomHttpAdapter(requests.adapters.HTTPAdapter):
+    """Transport adapter" that allows us to use custom ssl_context."""
 
     def __init__(self, ssl_context=None, **kwargs):
         self.ssl_context = ssl_context
@@ -39,8 +34,12 @@ class CustomHttpAdapter (requests.adapters.HTTPAdapter):
 
     def init_poolmanager(self, connections, maxsize, block=False):
         self.poolmanager = urllib3.poolmanager.PoolManager(
-            num_pools=connections, maxsize=maxsize,
-            block=block, ssl_context=self.ssl_context)
+            num_pools=connections,
+            maxsize=maxsize,
+            block=block,
+            ssl_context=self.ssl_context,
+        )
+
 
 class Source:
     def __init__(self, uprn: str):
@@ -59,7 +58,7 @@ class Source:
         s.cookies.set(
             "COLLECTIONDATES", self._uprn, domain="onlineforms.bradford.gov.uk"
         )
-        r = s.get(f"{URL}/collectiondates.eb")
+        r = s.get(f"{API_URL}/collectiondates.eb")
 
         soup = BeautifulSoup(r.text, features="html.parser")
         div = soup.find_all("table", {"role": "region"})
@@ -87,7 +86,7 @@ class Source:
                                     entry.text.strip(), "%a %b %d %Y"
                                 ).date(),
                                 t=type,
-                                icon=ICONS[type],
+                                icon=ICON_MAP.get(type),
                             )
                         )
                     except ValueError:

@@ -12,16 +12,20 @@ from .const import (
     DEFAULT_PORT,
     DEFAULT_MODBUS_ADDRESS,
     CONF_MODBUS_ADDRESS,
+    CONF_POWER_CONTROL,
     CONF_READ_METER1,
     CONF_READ_METER2,
     CONF_READ_METER3,
     CONF_READ_BATTERY1,
     CONF_READ_BATTERY2,
+    DEFAULT_POWER_CONTROL,
     DEFAULT_READ_METER1,
     DEFAULT_READ_METER2,
     DEFAULT_READ_METER3,
     DEFAULT_READ_BATTERY1,
-    DEFAULT_READ_BATTERY2
+    DEFAULT_READ_BATTERY2,
+    CONF_MAX_EXPORT_CONTROL_SITE_LIMIT,
+    DEFAULT_MAX_EXPORT_CONTROL_SITE_LIMIT
 )
 from homeassistant.core import HomeAssistant, callback
 
@@ -31,12 +35,14 @@ DATA_SCHEMA = vol.Schema(
         vol.Required(CONF_HOST): str,
         vol.Required(CONF_PORT, default=DEFAULT_PORT): int,
         vol.Optional(CONF_MODBUS_ADDRESS, default=DEFAULT_MODBUS_ADDRESS): int,
+        vol.Optional(CONF_POWER_CONTROL, default=DEFAULT_POWER_CONTROL): bool,
         vol.Optional(CONF_READ_METER1, default=DEFAULT_READ_METER1): bool,
         vol.Optional(CONF_READ_METER2, default=DEFAULT_READ_METER2): bool,
         vol.Optional(CONF_READ_METER3, default=DEFAULT_READ_METER3): bool,
         vol.Optional(CONF_READ_BATTERY1, default=DEFAULT_READ_BATTERY1): bool,
         vol.Optional(CONF_READ_BATTERY2, default=DEFAULT_READ_BATTERY2): bool,
         vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): int,
+        vol.Optional(CONF_MAX_EXPORT_CONTROL_SITE_LIMIT, default=DEFAULT_MAX_EXPORT_CONTROL_SITE_LIMIT): int,
     }
 )
 

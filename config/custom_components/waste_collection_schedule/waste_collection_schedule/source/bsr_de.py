@@ -4,7 +4,7 @@ import requests
 from waste_collection_schedule import Collection  # type: ignore[attr-defined]
 from waste_collection_schedule.service.ICS import ICS
 
-TITLE = "BSR"
+TITLE = "Berliner Stadtreinigungsbetriebe"
 DESCRIPTION = "Source for Berliner Stadtreinigungsbetriebe waste collection."
 URL = "https://bsr.de"
 TEST_CASES = {
@@ -28,7 +28,7 @@ class Source:
     def __init__(self, abf_strasse, abf_hausnr):
         self._abf_strasse = abf_strasse
         self._abf_hausnr = abf_hausnr
-        self._ics = ICS()
+        self._ics = ICS(offset=1)
 
     def fetch(self):
         # get cookie

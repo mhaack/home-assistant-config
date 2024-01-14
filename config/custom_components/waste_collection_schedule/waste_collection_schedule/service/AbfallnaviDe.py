@@ -1,30 +1,137 @@
 #!/usr/bin/env python3
 
-import datetime
 import json
+from datetime import datetime
 
 import requests
 
-SERVICE_DOMAINS = {
-    "aachen": "Aachen",
-    "zew2": "AWA Entsorgungs GmbH",
-    "aw-bgl2": "Bergisch Gladbach",
-    "bav": "Bergischer Abfallwirtschaftverbund",
-    "din": "Dinslaken",
-    "dorsten": "Dorsten",
-    "gt2": "Gütersloh",
-    "hlv": "Halver",
-    "coe": "Kreis Coesfeld",
-    "krhs": "Kreis Heinsberg",
-    "pi": "Kreis Pinneberg",
-    "krwaf": "Kreis Warendorf",
-    "lindlar": "Lindlar",
-    "stl": "Lüdenscheid",
-    "nds": "Norderstedt",
-    "nuernberg": "Nürnberg",
-    "roe": "Roetgen",
-    "wml2": "EGW Westmünsterland",
-}
+SERVICE_DOMAINS = [
+    {
+        "title": "Stadt Aachen",
+        "url": "https://www.aachen.de",
+        "service_id": "aachen",
+    },
+    {
+        "title": "Abfallwirtschaft Stadt Nürnberg",
+        "url": "https://www.nuernberg.de/",
+        "service_id": "nuernberg",
+    },
+    {
+        "title": "Abfallwirtschaftsbetrieb Bergisch Gladbach",
+        "url": "https://www.bergischgladbach.de/",
+        "service_id": "aw-bgl2",
+    },
+    {
+        "title": "AWA Entsorgungs GmbH",
+        "url": "https://www.awa-gmbh.de/",
+        "service_id": "zew2",
+    },
+    {
+        "title": "AWG Kreis Warendorf",
+        "url": "https://www.awg-waf.de/",
+        "service_id": "krwaf",
+    },
+    {
+        "title": "Bergischer Abfallwirtschaftverbund",
+        "url": "https://www.bavweb.de/",
+        "service_id": "bav",
+    },
+    {
+        "title": "Kreis Coesfeld",
+        "url": "https://wbc-coesfeld.de/",
+        "service_id": "coe",
+    },
+    {
+        "title": "Stadt Cottbus",
+        "url": "https://www.cottbus.de/",
+        "service_id": "cottbus",
+    },
+    {
+        "title": "Dinslaken",
+        "url": "https://www.dinslaken.de/",
+        "service_id": "din",
+    },
+    {
+        "title": "Stadt Dorsten",
+        "url": "https://www.ebd-dorsten.de/",
+        "service_id": "dorsten",
+    },
+    {
+        "title": "EGW Westmünsterland",
+        "url": "https://www.egw.de/",
+        "service_id": "wml2",
+    },
+    {
+        "title": "Gütersloh",
+        "url": "https://www.guetersloh.de/",
+        "service_id": "gt2",
+    },
+    {
+        "title": "Halver",
+        "url": "https://www.halver.de/",
+        "service_id": "hlv",
+    },
+    {
+        "title": "Kreis Heinsberg",
+        "url": "https://www.kreis-heinsberg.de/",
+        "service_id": "krhs",
+    },
+    {
+        "title": "Kronberg im Taunus",
+        "url": "https://www.kronberg.de/",
+        "service_id": "kronberg",
+    },
+    {
+        "title": "Gemeinde Lindlar",
+        "url": "https://www.lindlar.de/",
+        "service_id": "lindlar",
+    },
+    {
+        "title": "Stadt Norderstedt",
+        "url": "https://www.betriebsamt-norderstedt.de/",
+        "service_id": "nds",
+    },
+    {
+        "title": "Kreis Pinneberg",
+        "url": "https://www.kreis-pinneberg.de/",
+        "service_id": "pi",
+    },
+    {
+        "title": "Gemeinde Roetgen",
+        "url": "https://www.roetgen.de/",
+        "service_id": "roe",
+    },
+    {
+        "title": "Stadt Solingen",
+        "url": "https://www.solingen.de/",
+        "service_id": "solingen",
+    },
+    {
+        "title": "STL Lüdenscheid",
+        "url": "https://www.stl-luedenscheid.de/",
+        "service_id": "stl",
+    },
+    {
+        "title": "Kreis Viersen",
+        "url": "https://www.kreis-viersen.de/",
+        "service_id": "viersen",
+    },
+    {
+        "title": "WBO Wirtschaftsbetriebe Oberhausen",
+        "url": "https://www.wbo-online.de/",
+        "service_id": "oberhausen",
+    },
+    {
+        "title": "ZEW Zweckverband Entsorgungsregion West",
+        "url": "https://zew-entsorgung.de/",
+        "service_id": "zew2",
+    },
+    #    {
+    #        "title": "'Stadt Straelen",
+    #        "url": "https://www.straelen.de/",
+    #        "service_id": "straelen",
+    #    },
+]
 
 
 class AbfallnaviDe:
@@ -61,10 +168,13 @@ class AbfallnaviDe:
             result[street["id"]] = street["name"]
         return result
 
-    def get_street_id(self, city_id, street):
-        """Return id for given street string."""
+    def get_street_ids(self, city_id, street):
+        """Return ids for given street string.
+
+        may return multiple on change of id (may occur on year change)
+        """
         streets = self.get_streets(city_id)
-        return self._find_in_inverted_dict(streets, street)
+        return [id for id, name in streets.items() if name == street]
 
     def get_house_numbers(self, street_id):
         """Return all house numbers of a street."""
@@ -101,7 +211,7 @@ class AbfallnaviDe:
 
         entries = []
         for r in results:
-            date = datetime.datetime.strptime(r["datum"], "%Y-%m-%d").date()
+            date = datetime.strptime(r["datum"], "%Y-%m-%d").date()
             fraktion = waste_types[r["bezirk"]["fraktionId"]]
             entries.append([date, fraktion])
         return entries
@@ -120,19 +230,22 @@ class AbfallnaviDe:
             raise Exception(f"No id found for city: {city}")
 
         # find street_id
-        street_id = self.get_street_id(city_id, street)
-        if street_id is None:
+        street_ids = self.get_street_ids(city_id, street)
+        if street_ids == []:
             raise Exception(f"No id found for street: {street}")
 
-        # find house_number_id (which is optional: not all house number do have an id)
-        house_number_id = self.get_house_number_id(street_id, house_number)
+        dates = []
+        for street_id in street_ids:
+            # find house_number_id (which is optional: not all house number do have an id)
+            house_number_id = self.get_house_number_id(street_id, house_number)
 
-        # return dates for specific house number of street if house number
-        # doesn't have an own id
-        if house_number_id is not None:
-            return self.get_dates_by_house_number_id(house_number_id)
-        else:
-            return self.get_dates_by_street_id(street_id)
+            # return dates for specific house number of street if house number
+            # doesn't have an own id
+            if house_number_id is not None:
+                dates += self.get_dates_by_house_number_id(house_number_id)
+            else:
+                dates += self.get_dates_by_street_id(street_id)
+        return dates
 
     def _find_in_inverted_dict(self, mydict, value):
         inverted_dict = dict(map(reversed, mydict.items()))

@@ -2,9 +2,8 @@ import requests
 from waste_collection_schedule import Collection  # type: ignore[attr-defined]
 from waste_collection_schedule.service.ICS import ICS
 
-TITLE = "rushmoor.gov.uk"
+TITLE = "Rushmoor Borough Council"
 DESCRIPTION = "Source for rushmoor.gov.uk services for Rushmoor, UK."
-# Find the UPRN of your address using https://www.findmyaddress.co.uk/search
 URL = "https://rushmoor.gov.uk"
 TEST_CASES = {
     "GU14": {"uprn": "100060551749"},
@@ -35,13 +34,13 @@ class Source:
         entries = []
         for d in dates:
             for wasteType in d[1].split("&"):
-                wasteType = wasteType.replace('bin', '')
+                wasteType = wasteType.replace("bin", "")
                 wasteType = wasteType.strip()
                 entries.append(
                     Collection(
                         d[0],
                         wasteType,
-                        icon=ICON_MAP[wasteType],
+                        icon=ICON_MAP.get(wasteType),
                     )
                 )
                 # If wasteType is "Refuse" then add a second entry for "Garden"
@@ -50,16 +49,16 @@ class Source:
                         Collection(
                             d[0],
                             "Garden",
-                            icon=ICON_MAP["Garden"],
+                            icon=ICON_MAP.get("Garden"),
                         )
                     )
 
-                    # Always add Food as that is collected weekly
-                    entries.append(
-                        Collection(
-                            d[0],
-                            "Food",
-                            icon=ICON_MAP["Food"],
-                        )
-                    )
+            # Always add Food as that is collected weekly
+            entries.append(
+                Collection(
+                    d[0],
+                    "Food",
+                    icon=ICON_MAP.get("Food"),
+                )
+            )
         return entries

@@ -66,8 +66,9 @@ async def hacs_repositories_list(
                     "topics": repo.data.topics,
                 }
                 for repo in hacs.repositories.list_all
-                if repo.data.category in (msg.get("categories") or hacs.common.categories)
+                if repo.data.category in msg.get("categories", hacs.common.categories)
                 and not repo.ignored_by_country_configuration
+                and (not hacs.configuration.experimental or repo.data.last_fetched)
             ],
         )
     )
@@ -156,14 +157,19 @@ async def hacs_repositories_add(
     if renamed := hacs.common.renamed_repositories.get(repository):
         repository = renamed
 
-    if not hacs.repositories.get_by_full_name(repository):
+    if category not in hacs.common.categories:
+        hacs.log.error("%s is not a valid category for %s", category, repository)
+
+    elif not hacs.repositories.get_by_full_name(repository):
         try:
             await hacs.async_register_repository(
                 repository_full_name=repository,
                 category=category,
             )
 
-        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except (
+            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        ) as exception:
             hacs.async_dispatch(
                 HacsDispatchEvent.ERROR,
                 {
@@ -174,7 +180,6 @@ async def hacs_repositories_add(
             )
 
     else:
-
         hacs.async_dispatch(
             HacsDispatchEvent.ERROR,
             {
@@ -201,8 +206,6 @@ async def hacs_repositories_remove(
 ):
     """Remove custom repositoriy."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    hacs.log.warning(connection.context)
-    hacs.log.warning(msg)
     repository = hacs.repositories.get_by_id(msg["repository"])
 
     repository.remove()

@@ -1,4 +1,5 @@
 import json
+import re
 from datetime import datetime
 
 import requests
@@ -6,10 +7,11 @@ from waste_collection_schedule import Collection  # type: ignore[attr-defined]
 
 TITLE = "Sysav Sophämntning"
 DESCRIPTION = "Source for Sysav waste collection."
-URL = "https://www.sysav.se/Privat/min-sophamtning/"
+URL = "https://www.sysav.se"
 TEST_CASES = {
     "Home": {"street_address": "Sommargatan 1, Svedala"},
     "Polisen": {"street_address": "Stationsplan 1, Svedala"},
+    "Svedala": {"street_address": "Ekhagsvägen 204, Svedala"},
 }
 
 
@@ -47,7 +49,15 @@ class Source:
             if waste_type == "Trädgårdsavfall":
                 icon = "mdi:leaf"
             next_pickup = item["NextPickupDate"]
-            next_pickup_date = datetime.fromisoformat(next_pickup).date()
+
+            res = re.match(r"v(\d*)\s+\w+\s*(\d+)", next_pickup)
+            if res:
+                next_pickup_date = datetime.fromisocalendar(
+                    year=int(res.group(2)), week=int(res.group(1)), day=1
+                ).date()
+            else:
+                next_pickup_date = datetime.fromisoformat(next_pickup).date()
+
             entries.append(Collection(date=next_pickup_date, t=waste_type, icon=icon))
 
         return entries

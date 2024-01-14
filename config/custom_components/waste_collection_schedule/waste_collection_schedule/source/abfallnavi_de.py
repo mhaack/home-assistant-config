@@ -1,11 +1,20 @@
 from waste_collection_schedule import Collection  # type: ignore[attr-defined]
-from waste_collection_schedule.service.AbfallnaviDe import AbfallnaviDe
+from waste_collection_schedule.service.AbfallnaviDe import (
+    SERVICE_DOMAINS,
+    AbfallnaviDe,
+)
 
-TITLE = "AbfallNavi"
+TITLE = "AbfallNavi (RegioIT.de)"
 DESCRIPTION = (
     "Source for AbfallNavi waste collection. AbfallNavi is a brand name of regioit.de."
 )
 URL = "https://www.regioit.de"
+
+
+def EXTRA_INFO():
+    return [{"title": s["title"], "url": s["url"]} for s in SERVICE_DOMAINS]
+
+
 TEST_CASES = {
     "Aachen, Abteiplatz 7": {
         "service": "aachen",
@@ -19,20 +28,29 @@ TEST_CASES = {
         "strasse": "Aggerweg",
     },
     "Roetgen, Am Sportplatz 2": {
-        "service": "roe",
+        "service": "zew2",
         "ort": "Roetgen",
         "strasse": "Am Sportplatz",
         "hausnummer": "2",
+    },
+    "nds Norderstedt Adenauerplatz": {
+        "service": "nds",
+        "ort": "Norderstedt",
+        "strasse": "Distelweg",
     },
 }
 
 
 class Source:
-    def __init__(self, service, ort, strasse, hausnummer=None):
+    def __init__(
+        self, service: str, ort: str, strasse: str, hausnummer: str | int | None = None
+    ):
         self._api = AbfallnaviDe(service)
         self._ort = ort
         self._strasse = strasse
-        self._hausnummer = hausnummer
+        self._hausnummer = (
+            str(hausnummer) if isinstance(hausnummer, int) else hausnummer
+        )
 
     def fetch(self):
         dates = self._api.get_dates(self._ort, self._strasse, self._hausnummer)
@@ -40,4 +58,5 @@ class Source:
         entries = []
         for d in dates:
             entries.append(Collection(d[0], d[1]))
-        return entries
+
+        return sorted(entries, key=lambda e: e.date)

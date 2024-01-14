@@ -5,10 +5,10 @@ from urllib.parse import quote
 import requests
 from waste_collection_schedule import Collection  # type: ignore[attr-defined]
 
-TITLE = "PGH.ST"
+TITLE = "City of Pittsburgh"
 DESCRIPTION = "Source for PGH.ST services for the city of Pittsburgh, PA, USA."
-URL = "http://www.pgh.st"
-TEST_CASES = {}
+URL = "https://www.pgh.st"
+COUNTRY = "us"
 TEST_CASES = {
     "Pittsburgh, Negley": {
         "house_number": 800,
@@ -27,7 +27,7 @@ class Source:
     def fetch(self):
         # get json file
         r = requests.get(
-            f"http://pgh.st/locate/{self._house_number}/{quote(self._street_name)}/{self._zipcode}"
+            f"https://pgh.st/locate/{self._house_number}/{quote(self._street_name)}/{self._zipcode}"
         )
 
         # extract data from json

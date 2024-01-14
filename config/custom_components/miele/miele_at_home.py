@@ -1,3 +1,4 @@
+import asyncio
 import functools
 import json
 import logging
@@ -13,6 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 class MieleClient(object):
     DEVICES_URL = "https://api.mcs3.miele.com/v1/devices"
     ACTION_URL = "https://api.mcs3.miele.com/v1/devices/{0}/actions"
+    PROGRAMS_URL = "https://api.mcs3.miele.com/v1/devices/{0}/programs"
 
     def __init__(self, hass, session):
         self._session = session
@@ -103,6 +105,44 @@ class MieleClient(object):
             _LOGGER.error("Failed to execute device action: {}".format(err))
             return None
 
+    async def start_program(self, device_id, program_id):
+        _LOGGER.debug("Starting program {} for {}".format(program_id, device_id))
+        try:
+            headers = {"Content-Type": "application/json"}
+            func = functools.partial(
+                self._session._session.put,
+                MieleClient.PROGRAMS_URL.format(device_id),
+                data=json.dumps({"programId": program_id}),
+                headers=headers,
+            )
+            result = await self.hass.async_add_executor_job(func)
+            if result.status_code == 401:
+                _LOGGER.info("Request unauthorized - attempting token refresh")
+
+                if await self._session.refresh_token(self.hass):
+                    if self._session.authorized:
+                        return self.start_program(device_id, program_id)
+                    else:
+                        self._session._delete_token()
+                        self._session.new_session()
+                        return self.start_program(device_id, program_id)
+
+            if result.status_code == 200:
+                return result.json()
+            elif result.status_code == 204:
+                return None
+            else:
+                _LOGGER.error(
+                    "Failed to execute start program for {}: {} {}".format(
+                        device_id, result.status_code, result.json()
+                    )
+                )
+                return None
+
+        except ConnectionError as err:
+            _LOGGER.error("Failed to execute start program: {}".format(err))
+            return None
+
 
 class MieleOAuth(object):
     """
@@ -135,7 +175,7 @@ class MieleOAuth(object):
         )
 
         if self.authorized:
-            self.refresh_token(hass)
+            asyncio.create_task(self.refresh_token(hass))
 
     @property
     def authorized(self):
@@ -171,9 +211,12 @@ class MieleOAuth(object):
         self._save_token(self._token)
 
     def sync_refresh_token(self, token_url, body, refresh_token):
-        return self._session.refresh_token(
-            token_url, body=body, refresh_token=refresh_token
-        )
+        try:
+            return self._session.refresh_token(
+                token_url, body=body, refresh_token=refresh_token
+            )
+        except:
+            self._remove_token()
 
     def _get_cached_token(self):
         token = None
@@ -220,9 +263,20 @@ class MieleOAuth(object):
                 f.write(json.dumps(token))
                 f.close()
             except IOError:
-                _LOGGER._warn(
+                _LOGGER.warn(
                     "Couldn't write token cache to {0}".format(self._cache_path)
                 )
                 pass
 
         self._token = token
+
+    def _remove_token(self):
+        _LOGGER.debug("trying to REMOVE token to create it again on next startup so please re-startup and try again!")
+        if self._cache_path:
+            try:
+                os.remove(self._cache_path)
+            except IOError:
+                _LOGGER.warn(
+                    "Couldn't delte token cache to {0}".format(self._cache_path)
+                )
+                pass

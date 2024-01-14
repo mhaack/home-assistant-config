@@ -1,15 +1,19 @@
 import datetime
 from html.parser import HTMLParser
 
-import requests
+# import requests
 from waste_collection_schedule import Collection  # type: ignore[attr-defined]
 
-TITLE = "Auckland council"
+# Include work around for SSL UNSAFE_LEGACY_RENEGOTIATION_DISABLED error
+from waste_collection_schedule.service.SSLError import get_legacy_session
+
+TITLE = "Auckland Council"
 DESCRIPTION = "Source for Auckland council."
 URL = "https://aucklandcouncil.govt.nz"
 TEST_CASES = {
     "429 Sea View Road": {"area_number": "12342453293"},  # Monday
     "8 Dickson Road": {"area_number": "12342306525"},  # Thursday
+    "with Food Scraps": {"area_number": "12341998652"},  
 }
 
 MONTH = {
@@ -79,9 +83,7 @@ class WasteSearchResultsParser(HTMLParser):
                     self._withinWasteDateSpan = True
 
                 if self._workingWasteDate is not None:
-                    if className.startswith("icon-rubbish") or className.startswith(
-                        "icon-recycle"
-                    ):
+                    if className.startswith("icon-"):
                         type = s["class"][5:]  # remove "icon-"
                         self._entries.append(Collection(self._workingWasteDate, type))
 
@@ -108,11 +110,12 @@ class Source:
         # get token
         params = {"an": self._area_number}
 
-        r = requests.get(
-            "https://www.aucklandcouncil.govt.nz/rubbish-recycling/rubbish-recycling-collections/Pages/collection-day-detail.aspx",
+        # Updated request using SSL code snippet
+        r = get_legacy_session().get("https://www.aucklandcouncil.govt.nz/rubbish-recycling/rubbish-recycling-collections/Pages/collection-day-detail.aspx",
             params=params,
-            verify=False,
+            # verify=False,
         )
+
         p = WasteSearchResultsParser()
         p.feed(r.text)
         return p.entries

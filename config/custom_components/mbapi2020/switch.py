@@ -4,20 +4,14 @@ Switch support for Mercedes cars with Mercedes ME.
 For more details about this component, please refer to the documentation at
 https://github.com/ReneNulschDE/mbapi2020/
 """
-import logging
 
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import MercedesMeEntity
+from .const import CONF_FT_DISABLE_CAPABILITY_CHECK, DOMAIN, LOGGER, SWITCHES
+from .helper import LogHelper as loghelper
 
-from .const import (
-    CONF_FT_DISABLE_CAPABILITY_CHECK,
-    DOMAIN,
-    SWITCHES
-)
-
-LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass, entry, async_add_entities):
     """Setup the sensor platform."""
@@ -30,24 +24,24 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     sensor_list = []
     for car in data.client.cars:
-
         for key, value in sorted(SWITCHES.items()):
-            if (value[5] is None or
-                    entry.options.get(CONF_FT_DISABLE_CAPABILITY_CHECK, False) is True or
-                    getattr(car.features, value[5], False) is True):
+            if (
+                value[5] is None
+                or entry.options.get(CONF_FT_DISABLE_CAPABILITY_CHECK, False) is True
+                or getattr(car.features, value[5], False) is True
+            ):
                 device = MercedesMESwitch(
-                    hass=hass,
-                    data=data,
-                    internal_name = key,
-                    sensor_config = value,
-                    vin = car.finorvin
-                    )
-                LOGGER.info("Created Switch for car %s - feature %s check: %s", car.finorvin, value[5] ,getattr(car.features, value[5]))
+                    hass=hass, data=data, internal_name=key, sensor_config=value, vin=car.finorvin
+                )
+                LOGGER.info(
+                    "Created Switch for car %s - feature %s check: %s",
+                    loghelper.Mask_VIN(car.finorvin),
+                    value[5],
+                    getattr(car.features, value[5]),
+                )
                 sensor_list.append(device)
 
     async_add_entities(sensor_list, True)
-
-
 
 
 class MercedesMESwitch(MercedesMeEntity, SwitchEntity, RestoreEntity):

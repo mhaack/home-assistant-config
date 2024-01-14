@@ -4,22 +4,17 @@ Lock Support for Mercedes cars with Mercedes ME.
 For more details about this component, please refer to the documentation at
 https://github.com/ReneNulschDE/mbapi2020/
 """
-import logging
 
+import asyncio
+
+from homeassistant.components.alarm_control_panel import CodeFormat
 from homeassistant.components.lock import LockEntity
-from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.const import ATTR_CODE
+from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import MercedesMeEntity
+from .const import CONF_FT_DISABLE_CAPABILITY_CHECK, CONF_PIN, DOMAIN, LOCKS, LOGGER
 
-from .const import (
-    CONF_FT_DISABLE_CAPABILITY_CHECK,
-    CONF_PIN,
-    DOMAIN,
-    LOCKS
-)
-
-LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass, entry, async_add_entities):
     """Setup the sensor platform."""
@@ -34,21 +29,15 @@ async def async_setup_entry(hass, entry, async_add_entities):
     for car in data.client.cars:
 
         for key, value in sorted(LOCKS.items()):
-            if (value[5] is None or
-                    entry.options.get(CONF_FT_DISABLE_CAPABILITY_CHECK, False) is False or
-                    getattr(car.features, value[5], False) is True):
-                device = MercedesMELock(
-                    hass=hass,
-                    data=data,
-                    internal_name = key,
-                    sensor_config = value,
-                    vin = car.finorvin
-                    )
+            if (
+                value[5] is None
+                or entry.options.get(CONF_FT_DISABLE_CAPABILITY_CHECK, False) is False
+                or getattr(car.features, value[5], False) is True
+            ):
+                device = MercedesMELock(hass=hass, data=data, internal_name=key, sensor_config=value, vin=car.finorvin)
                 sensor_list.append(device)
 
     async_add_entities(sensor_list, True)
-
-
 
 
 class MercedesMELock(MercedesMeEntity, LockEntity, RestoreEntity):
@@ -56,26 +45,57 @@ class MercedesMELock(MercedesMeEntity, LockEntity, RestoreEntity):
 
     async def async_lock(self, **kwargs):
         """Lock the device."""
+        old_state = self.is_locked
+        LOGGER.debug("starting lock")
+        self._attr_is_locking = True
         await self._data.client.doors_lock(self._vin)
+        LOGGER.debug("lock initiated")
+
+        count = 0
+        while count < 30:
+            if old_state == self.is_locked:
+                count += 1
+                LOGGER.debug("lock running %s", count)
+                await asyncio.sleep(1)
+            else:
+                break
+
+        self._attr_is_locking = False
+        LOGGER.debug("unlock finalized %s", count)
 
     async def async_unlock(self, **kwargs):
         """Unlock the device."""
+        old_state = self.is_locked
+        LOGGER.debug("starting unlock")
         code = kwargs.get(ATTR_CODE, None)
         pin = self._data.client.config_entry.options.get(CONF_PIN, None)
+        self._attr_is_unlocking = True
 
         if pin and pin.strip():
             await self._data.client.doors_unlock_with_pin(self._vin, pin)
-
-        if code is None:
-            LOGGER.error("Code required but none provided")
         else:
-            await self._data.client.doors_unlock_with_pin(self._vin, code)
+            if code is None:
+                LOGGER.error("Code required but none provided")
+            else:
+                await self._data.client.doors_unlock_with_pin(self._vin, code)
+
+        LOGGER.debug("unlock initiated")
+        count = 0
+        while count < 30:
+            if old_state == self.is_locked:
+                count += 1
+                LOGGER.debug("unlock running %s", count)
+                await asyncio.sleep(1)
+            else:
+                break
+        self._attr_is_unlocking = False
+        LOGGER.debug("unlock finalized %s", count)
 
     @property
     def is_locked(self):
         """Return true if device is locked."""
 
-        value = self._get_car_value(self._feature_name , self._object_name, self._attrib_name, None)
+        value = self._get_car_value(self._feature_name, self._object_name, self._attrib_name, None)
         if value and int(value) == 0:
             return True
 

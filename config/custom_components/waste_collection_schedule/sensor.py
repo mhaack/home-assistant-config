@@ -11,7 +11,14 @@ from homeassistant.const import CONF_NAME, CONF_VALUE_TEMPLATE
 from homeassistant.core import callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 
+# fmt: off
+from custom_components.waste_collection_schedule.waste_collection_schedule.collection_aggregator import \
+    CollectionAggregator
+
 from .const import DOMAIN, UPDATE_SENSORS_SIGNAL
+
+# fmt: on
+
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -22,6 +29,7 @@ CONF_LEADTIME = "leadtime"
 CONF_DATE_TEMPLATE = "date_template"
 CONF_COLLECTION_TYPES = "types"
 CONF_ADD_DAYS_TO = "add_days_to"
+CONF_EVENT_INDEX = "event_index"
 
 
 class DetailsFormat(Enum):
@@ -35,7 +43,9 @@ class DetailsFormat(Enum):
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_NAME): cv.string,
-        vol.Optional(CONF_SOURCE_INDEX, default=0): cv.positive_int,
+        vol.Optional(CONF_SOURCE_INDEX, default=0): vol.Any(
+            cv.positive_int, vol.All(cv.ensure_list, [cv.positive_int])
+        ),  # can be a scalar or a list
         vol.Optional(CONF_DETAILS_FORMAT, default="upcoming"): cv.enum(DetailsFormat),
         vol.Optional(CONF_COUNT): cv.positive_int,
         vol.Optional(CONF_LEADTIME): cv.positive_int,
@@ -43,6 +53,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_VALUE_TEMPLATE): cv.template,
         vol.Optional(CONF_DATE_TEMPLATE): cv.template,
         vol.Optional(CONF_ADD_DAYS_TO, default=False): cv.boolean,
+        vol.Optional(CONF_EVENT_INDEX, default=0): cv.positive_int,
     }
 )
 
@@ -56,14 +67,22 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     if date_template is not None:
         date_template.hass = hass
 
+    api = hass.data[DOMAIN]
+
+    # create aggregator for all sources
+    source_index = config[CONF_SOURCE_INDEX]
+    if not isinstance(source_index, list):
+        source_index = [source_index]
+    aggregator = CollectionAggregator([api.get_shell(i) for i in source_index])
+
     entities = []
 
     entities.append(
         ScheduleSensor(
             hass=hass,
-            api=hass.data[DOMAIN],
+            api=api,
             name=config[CONF_NAME],
-            source_index=config[CONF_SOURCE_INDEX],
+            aggregator=aggregator,
             details_format=config[CONF_DETAILS_FORMAT],
             count=config.get(CONF_COUNT),
             leadtime=config.get(CONF_LEADTIME),
@@ -71,6 +90,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
             value_template=value_template,
             date_template=date_template,
             add_days_to=config.get(CONF_ADD_DAYS_TO),
+            event_index=config.get(CONF_EVENT_INDEX),
         )
     )
 
@@ -85,7 +105,7 @@ class ScheduleSensor(SensorEntity):
         hass,
         api,
         name,
-        source_index,
+        aggregator,
         details_format,
         count,
         leadtime,
@@ -93,10 +113,11 @@ class ScheduleSensor(SensorEntity):
         value_template,
         date_template,
         add_days_to,
+        event_index,
     ):
         """Initialize the entity."""
         self._api = api
-        self._source_index = source_index
+        self._aggregator = aggregator
         self._details_format = details_format
         self._count = count
         self._leadtime = leadtime
@@ -104,6 +125,7 @@ class ScheduleSensor(SensorEntity):
         self._value_template = value_template
         self._date_template = date_template
         self._add_days_to = add_days_to
+        self._event_index = event_index
 
         self._value = None
 
@@ -124,10 +146,6 @@ class ScheduleSensor(SensorEntity):
         self._update_sensor()
 
     @property
-    def _scraper(self):
-        return self._api.get_scraper(self._source_index)
-
-    @property
     def _separator(self):
         """Return separator string used to join waste types."""
         return self._api.separator
@@ -140,8 +158,8 @@ class ScheduleSensor(SensorEntity):
     def _add_refreshtime(self):
         """Add refresh-time (= last fetch time) to device-state-attributes."""
         refreshtime = ""
-        if self._scraper.refreshtime is not None:
-            refreshtime = self._scraper.refreshtime.strftime("%x %X")
+        if self._aggregator.refreshtime is not None:
+            refreshtime = self._aggregator.refreshtime.strftime("%x %X")
         self._attr_attribution = f"Last update: {refreshtime}"
 
     def _set_state(self, upcoming):
@@ -179,14 +197,16 @@ class ScheduleSensor(SensorEntity):
     def _update_sensor(self):
         """Update the state and the device-state-attributes of the entity.
 
-        Called if a new data has been fetched from the scraper source.
+        Called if a new data has been fetched from the source.
         """
-        if self._scraper is None:
-            _LOGGER.error(f"source_index {self._source_index} out of range")
+        if self._aggregator is None:
             return None
 
-        upcoming1 = self._scraper.get_upcoming_group_by_day(
-            count=1, types=self._collection_types, include_today=self._include_today,
+        upcoming1 = self._aggregator.get_upcoming_group_by_day(
+            count=1,
+            include_types=self._collection_types,
+            include_today=self._include_today,
+            start_index=self._event_index,
         )
 
         self._set_state(upcoming1)
@@ -194,18 +214,19 @@ class ScheduleSensor(SensorEntity):
         attributes = {}
 
         collection_types = (
-            sorted(self._scraper.get_types())
+            sorted(self._aggregator.types)
             if self._collection_types is None
             else self._collection_types
         )
 
         if self._details_format == DetailsFormat.upcoming:
             # show upcoming events list in details
-            upcoming = self._scraper.get_upcoming_group_by_day(
+            upcoming = self._aggregator.get_upcoming_group_by_day(
                 count=self._count,
                 leadtime=self._leadtime,
-                types=self._collection_types,
+                include_types=self._collection_types,
                 include_today=self._include_today,
+                start_index=self._event_index,
             )
             for collection in upcoming:
                 attributes[self._render_date(collection)] = self._separator.join(
@@ -214,8 +235,11 @@ class ScheduleSensor(SensorEntity):
         elif self._details_format == DetailsFormat.appointment_types:
             # show list of collections in details
             for t in collection_types:
-                collections = self._scraper.get_upcoming(
-                    count=1, types=[t], include_today=self._include_today
+                collections = self._aggregator.get_upcoming(
+                    count=1,
+                    include_types=[t],
+                    include_today=self._include_today,
+                    start_index=self._event_index,
                 )
                 date = (
                     "" if len(collections) == 0 else self._render_date(collections[0])
@@ -224,15 +248,15 @@ class ScheduleSensor(SensorEntity):
         elif self._details_format == DetailsFormat.generic:
             # insert generic attributes into details
             attributes["types"] = collection_types
-            attributes["upcoming"] = self._scraper.get_upcoming(
+            attributes["upcoming"] = self._aggregator.get_upcoming(
                 count=self._count,
                 leadtime=self._leadtime,
-                types=self._collection_types,
+                include_types=self._collection_types,
                 include_today=self._include_today,
             )
             refreshtime = ""
-            if self._scraper.refreshtime is not None:
-                refreshtime = self._scraper.refreshtime.isoformat(timespec="seconds")
+            if self._aggregator.refreshtime is not None:
+                refreshtime = self._aggregator.refreshtime.isoformat(timespec="seconds")
             attributes["last_update"] = refreshtime
 
         if len(upcoming1) > 0:

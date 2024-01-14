@@ -1,11 +1,47 @@
 # Describes the format for available Wink services
 
 start_pairing:
-  description: pair duofern devices
+  description: Pair duofern devices. Remember -  There is no pairing UI. To pick up the newly paired devices later, you need to restart HA.
   fields:
     timeout:
       description: timeout in seconds
       example: 60
 
-sync_devices:
-  description: re-sync devices (trigger after pairing)
+clean_config:
+  description: Clean the duofern config. More info in the readme.
+
+dump_device_state:
+  description: Dump state of all known devices as a warning. State reflects state considering all
+    messages received from devices (independent from homeassistant device state).
+    Purpose is to debug whether there's a discrepancy with state reflected in Homeassistant.
+
+ask_for_update:
+  description: Ask the specified device for an update (in case of missed radio transmissions).
+  fields:
+    all:
+      description: Update all devices.
+      required: false
+      selector:
+        boolean:
+
+    device_id:
+      description: Entity to ask for an update. Needs to be a list.
+      required: false
+      selector:
+        entity:
+          multiple: true
+          integration: duofern
+
+set_update_interval:
+  description: Set the automatically broadcasting a "please send an update" interval.
+    Be aware that this is not persisted. Use an automation to trigger this at Homeassistant
+    start if you always want it to be set to your custom value.
+  fields:
+    period_minutes:
+      description: approximate forced refresh interval in minutes - defaults to 5, 0 means never
+      example: 5
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 60

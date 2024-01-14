@@ -6,6 +6,6 @@
   "config_flow": true,
   "issue_tracker": "https://github.com/gluap/pyduofern-hacs/issues" ,
   "codeowners": ["@gluap"],
-  "requirements": ["pyduofern==0.34.1"],
-  "version": "0.2.0"
+  "requirements": ["pyduofern==0.35.2"],
+  "version": "0.5.7"
 }

@@ -1,7 +1,6 @@
 refresh_access_token:
   description: Refresh the API access token
 
-
 auxheat_configure:
   description: "Command for configuring the auxiliary heating. It is possible to define three daytimes and select one active time."
   fields:
@@ -83,7 +82,7 @@ battery_max_soc_configure:
       selector:
         text:
     max_soc:
-      description: "The maximum value for the state of charge of the HV battery (Values need to be between 50 and 100 and divisible by ten)"
+      description: "The maximum value for the state of charge of the HV battery (Value needs to be between 50 and 100 and divisible by ten)"
       example: "100"
       default: 100
       selector:
@@ -103,6 +102,12 @@ doors_unlock:
       description: "vin of the car"
       example: "Wxxxxxxxxxxxxxx"
       required: True
+      selector:
+        text:
+    pin:
+      description: "security pin"
+      example: "1234"
+      required: False
       selector:
         text:
 
@@ -136,7 +141,6 @@ engine_stop:
       selector:
         text:
 
-
 preheat_start:
   description: "Start the pre-heating of a car defined by a vin."
   fields:
@@ -148,8 +152,8 @@ preheat_start:
         text:
     type:
       description: "Method that is used to initiate the start process. 0=Now (Default), 1=Immediate - Use Immediate in case your does not support now."
-      default: 0
-      example: 0
+      default: "0"
+      example: "0"
       selector:
         select:
           options:
@@ -174,10 +178,20 @@ preheat_start_departure_time:
           min: 0
           max: 1439
           step: 1
-          mode: slider      
+          mode: slider
 
 preheat_stop:
   description: "Stop the pre-heating of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+
+preheat_stop_departure_time:
+  description: "Stop the pre-heating (departure mode) of a car defined by a vin."
   fields:
     vin:
       description: "vin of the car"
