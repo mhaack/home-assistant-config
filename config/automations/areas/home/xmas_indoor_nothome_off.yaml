@@ -1,6 +1,7 @@
 ---
 # XMAS lights off if we all out
 #
+id: 2145e4c7-d6b7-4c4f-856a-7e29538ef432
 alias: "[XMAS] Turn off XMAS indoor lights if nobody is home"
 trigger:
   - platform: state

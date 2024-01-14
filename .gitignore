@@ -24,6 +24,10 @@ config/ip_bans.yaml
 config/known_devices.yaml
 config/secrets.yaml
 config/duofern.json
+config/tts
+config/.mercedesme-token-cache
+config/home-assistant.log.*
+
 
 # Ignore add-on files
 config/aircast.xml
@@ -38,4 +42,4 @@ config/notebooks
 # Specific keeps
 !.gitkeep
 *.csv
-config/tts
+

@@ -24,7 +24,8 @@ captive_portal:
 logger:
 
 api:
-  password: !secret esphome_api_password
+  encryption:
+    key: !secret esphome_api_key
 
 ota:
   password: !secret esphome_ota_password
@@ -39,7 +40,7 @@ time:
     timezone: Europe/Berlin
     id: sntp_time
     on_time:
-      # Every 1 minutes
+      # Every minute
       - seconds: 0
         then:
           - display.page.show_next: epaper
@@ -53,80 +54,200 @@ sensor:
   - platform: homeassistant
     entity_id: sensor.garden_temperature
     id: garden_temp
-    internal: true
-
-  - platform: homeassistant
-    entity_id: sensor.garden_humidity
-    id: garden_humidity
-    accuracy_decimals: 0
-    internal: true
 
   - platform: homeassistant
     entity_id: sensor.livingroom_temperature
     id: indoor_temp
-    internal: true
-
-  - platform: homeassistant
-    entity_id: sensor.livingroom_humidity
-    id: indoor_humidity
-    accuracy_decimals: 0
-    internal: true
 
   - platform: homeassistant
     entity_id: sensor.solaredge_imported_energy
     id: imported_energy
-    internal: true
-    filters:
-      - multiply: 0.001
 
   - platform: homeassistant
     entity_id: sensor.solaredge_exported_energy
     id: exported_energy
-    internal: true
-    filters:
-      - multiply: 0.001
 
   - platform: homeassistant
     entity_id: sensor.solaredge_consumption_energy
     id: consumption_energy
-    internal: true
-    filters:
-      - multiply: 0.001
 
   - platform: homeassistant
     entity_id: sensor.solaredge_storage_level
     id: storage_level
     unit_of_measurement: "%"
     accuracy_decimals: 0
-    internal: true
 
   - platform: homeassistant
     entity_id: sensor.solaredge_energy_today
     id: energy_today
-    internal: true
-    filters:
-      - multiply: 0.001
 
   - platform: homeassistant
     entity_id: sensor.pool_solar_temperature
     id: pool_solar_temperature
-    internal: true
 
   - platform: homeassistant
     entity_id: sensor.pool_water_temperature_1
     id: pool_water_temperature
-    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.car_mercedes_l_jm227e_odometer
+    id: car_odometer
+
+  - platform: homeassistant
+    entity_id: sensor.car_mercedes_l_jm227e_fuel_level
+    id: car_fuel_level
+    unit_of_measurement: "%"
+
+  - platform: homeassistant
+    entity_id: sensor.car_mercedes_l_jm227e_range_liquid
+    id: car_range_liquid
+
+  - platform: homeassistant
+    entity_id: sensor.car_mercedes_l_jm227e_state_of_charge
+    id: car_charge_level
+    unit_of_measurement: "%"
+
+  - platform: homeassistant
+    entity_id: sensor.car_mercedes_l_jm227e_range_electric
+    id: car_range_electric
+
+  - platform: homeassistant
+    entity_id: sensor.l_jm227e_charging_power
+    id: car_charging_power
 
 binary_sensor:
   - platform: homeassistant
     entity_id: binary_sensor.pool_pump_state
     id: pool_pump_state
-    internal: true
 
   - platform: homeassistant
     entity_id: binary_sensor.pool_valve_state
     id: pool_valve_state
-    internal: true
+
+  - platform: homeassistant
+    entity_id: sensor.car_mercedes_l_jm227e_range_electric
+    id: car_charging_active
+    attribute: chargingactive
+
+text_sensor:
+  - platform: homeassistant
+    entity_id: sensor.car_mercedes_l_jm227e_range_electric
+    id: car_charging_endtime
+    attribute: endofchargetime
+  - platform: homeassistant
+    entity_id: lock.car_mercedes_l_jm227e_lock
+    id: car_lock
+
+image:
+  - file: mdi:thermometer
+    id: icon_thermometer
+    resize: 30x30
+  - file: mdi:thermometer
+    id: icon_thermometer_small
+    resize: 22x22
+  - file: mdi:car
+    id: car
+    resize: 22x22
+  - file: mdi:flash
+    id: icon_flash
+    resize: 22x22
+  - file: mdi:pool
+    id: icon_pool
+    resize: 22x22
+  - file: mdi:pump
+    id: icon_pump
+    resize: 22x22
+  - file: mdi:transmission-tower-import
+    id: transmission_tower_import
+    resize: 22x22
+  - file: mdi:transmission-tower-export
+    id: transmission_tower_export
+    resize: 22x22
+  - file: mdi:weather-sunny
+    id: icon_sunny
+    resize: 22x22
+  - file: mdi:home-lightning-bolt-outline
+    id: home_lightning_bolt_outline
+    resize: 22x22
+  - file: mdi:battery-low
+    id: battery_low
+    resize: 22x22
+  - file: mdi:battery-charging-low
+    id: battery_low_charging
+    resize: 22x22
+  - file: mdi:battery-medium
+    id: battery_medium
+    resize: 22x22
+  - file: mdi:battery-charging-medium
+    id: battery_medium_charging
+    resize: 22x22
+  - file: mdi:battery-high
+    id: battery_high
+    resize: 22x22
+  - file: mdi:battery-charging-high
+    id: battery_high_charging
+    resize: 22x22
+  - file: mdi:sun-wireless-outline
+    id: icon_sun_wireless_outline
+    resize: 20x20
+  - file: mdi:coolant-temperature
+    id: icon_coolant_temperature
+    resize: 20x20
+  - file: mdi:sun-thermometer-outline
+    id: icon_sun_thermometer_outline
+    resize: 20x20
+  - file: mdi:home-thermometer-outline
+    id: icon_home_thermometer_outline
+    resize: 20x20
+  - file: mdi:battery-charging-medium
+    id: icon_battery_charging
+    resize: 22x22
+  - file: mdi:gas-station
+    id: icon_gas_station
+    resize: 22x22
+  - file: mdi:ev-station
+    id: icon_ev_station
+    resize: 22x22
+  - file: mdi:fuel
+    id: icon_fuel
+    resize: 22x22
+  - file: mdi:gauge
+    id: icon_gauge
+    resize: 22x22
+  - file: mdi:timer-check-outline
+    id: icon_timer
+    resize: 22x22
+  - file: mdi:lock-outline
+    id: icon_lock_closed
+    resize: 22x22
+  - file: mdi:lock-open-variant-outline
+    id: icon_lock_open
+    resize: 22x22    
+    
+
+graph:
+  - id: garden_temp_graph
+    sensor: garden_temp
+    line_thickness: 2
+    duration: 12h
+    x_grid: 10min
+    y_grid: 20.0
+    border: false
+    width: 120
+    height: 45
+    max_value: 35
+    min_value: -10
+  - id: indoor_temp_graph
+    sensor: indoor_temp
+    line_thickness: 2
+    duration: 12h
+    width: 120
+    height: 45
+    x_grid: 10min
+    y_grid: 10.0
+    border: false
+    max_value: 30
+    min_value: 0
 
 display:
   - platform: waveshare_epaper
@@ -143,143 +264,195 @@ display:
       - id: page1
         lambda: |-
           int x, y;
-          ESP_LOGI("display", "Updating Page 1...");
+          ESP_LOGI("display", "Updating Page 1: energy");
 
           // block headline
-          it.print(2, 25, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0241");
-          it.print(22, 25, id(font_regular_20), TextAlign::BASELINE_LEFT, "Energie");
-          it.line(100, 25, 184, 25);
+          it.image(2, 6, id(icon_flash));
+          it.print(24, 20, id(font_regular_20), TextAlign::BASELINE_LEFT, "Energie");
+          it.line(102, 20, 184, 20);
 
           // Time & Temp box
-          it.strftime(242, 36, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
-          it.strftime(242, 65, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+          it.strftime(242, 40, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+          it.strftime(242, 70, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
           if (id(garden_temp).has_state()) {
-            it.print(200, 110, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
-            it.printf(220, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
+            it.image(195, 90, id(icon_thermometer));
+            it.printf(230, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%2.1f°C", id(garden_temp).state);
           }
           it.line(188, 2, 188, 126);
 
           if (id(energy_today).has_state()) {
-            it.print(6, 50, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F1A74");
-            it.printf(29, 49, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1fkWh", id(energy_today).state);
+            it.image(6, 32, id(icon_sunny));
+            it.printf(32, 49, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1fkWh", id(energy_today).state);
           }
           if (id(storage_level).has_state()) {
-            x = 115, y = 50;
+            x = 115, y = 34;
             if (id(storage_level).state <= 33) {
-              it.print(x, y, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F12A1");
+              it.image(x, y, id(battery_low));
             } else if (id(storage_level).state <= 66) {
-              it.print(x, y, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F12A2");
+              it.image(x, y, id(battery_medium));
             } else {
-              it.print(x, y, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F12A3");
+              it.image(x, y, id(battery_high));
             }
-            it.printf(x+23, y-1, id(font_regular_16), TextAlign::BASELINE_LEFT, "%2.0f%%", id(storage_level).state);
+            it.printf(x+20, y+15, id(font_regular_16), TextAlign::BASELINE_LEFT, "%2.0f%%", id(storage_level).state);
           }
           if (id(consumption_energy).has_state()) {
-            it.print(6, 80, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F1904");
-            it.printf(29, 79, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1fkWh", id(consumption_energy).state);
+            it.image(6, 62, id(home_lightning_bolt_outline));
+            it.printf(32, 79, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1fkWh", id(consumption_energy).state);
           }
 
           if (id(exported_energy).has_state()) {
-            it.print(6, 124, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F192C");
-            it.printf(29, 123, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1fkWh", id(exported_energy).state);
+            it.image(6, 106, id(transmission_tower_export));
+            it.printf(32, 123, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1fkWh", id(exported_energy).state);
           }
           if (id(imported_energy).has_state()) {
-            it.print(100, 124, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F192D");
+            it.image(100, 106, id(transmission_tower_import));
             it.printf(123, 123, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1fkWh", id(imported_energy).state);
           }
 
       - id: page2
         lambda: |-
-          ESP_LOGI("display", "Updating Page 2...");
+          ESP_LOGI("display", "Updating Page 2: pool");
 
           // block headline
-          it.print(2, 25, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0606");
-          it.print(22, 25, id(font_regular_20), TextAlign::BASELINE_LEFT, "Pool");
-          it.line(70, 25, 184, 25);
+          it.image(2, 6, id(icon_pool));
+          it.print(24, 25, id(font_regular_20), TextAlign::BASELINE_LEFT, "Pool");
+          it.line(72, 25, 184, 25);
 
           // Time & Temp box
-          it.strftime(242, 36, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
-          it.strftime(242, 65, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+          it.strftime(242, 40, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+          it.strftime(242, 70, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
           if (id(garden_temp).has_state()) {
-            it.print(200, 110, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
-            it.printf(220, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
+            it.image(195, 90, id(icon_thermometer));
+            it.printf(230, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%2.1f°C", id(garden_temp).state);
           }
           it.line(188, 2, 188, 126);
 
           if (id(pool_pump_state).has_state()) {
-            it.print(6, 50, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F1402");
-            it.printf(29, 49, id(font_regular_16), TextAlign::BASELINE_LEFT, "Pumpe: %s", id(pool_pump_state).state ? "An" : "Aus");
+            it.image(6, 32, id(icon_pump));
+            it.printf(32, 49, id(font_regular_16), TextAlign::BASELINE_LEFT, "Pumpe: %s", id(pool_pump_state).state ? "An" : "Aus");
           }
           if (id(pool_valve_state).has_state()) {
-            it.print(6, 75, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F17FF");
-            it.printf(29, 74, id(font_regular_16), TextAlign::BASELINE_LEFT, "Solarheizung: %s", id(pool_valve_state).state ? "An" : "Aus");
+            it.image(6, 57, id(icon_sun_wireless_outline));
+            it.printf(32, 74, id(font_regular_16), TextAlign::BASELINE_LEFT, "Solarheizung: %s", id(pool_valve_state).state ? "An" : "Aus");
           }
           if (id(pool_water_temperature).has_state()) {
-              it.print(6, 100, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F03C8");
-              it.printf(29, 99, id(font_regular_16), TextAlign::BASELINE_LEFT, "Wasser: %.1f°C", id(pool_water_temperature).state);
+            it.image(6, 82, id(icon_coolant_temperature));
+            it.printf(32, 99, id(font_regular_16), TextAlign::BASELINE_LEFT, "Wasser: %.1f°C", id(pool_water_temperature).state);
           }
           if (id(pool_solar_temperature).has_state()) {
-              it.print(9, 124, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0599");
-              it.printf(29, 123, id(font_regular_16), TextAlign::BASELINE_LEFT, "Heizung: %.1f°C", id(pool_solar_temperature).state);
+            it.image(6, 106, id(icon_sunny));
+            it.printf(32, 123, id(font_regular_16), TextAlign::BASELINE_LEFT, "Heizung: %.1f°C", id(pool_solar_temperature).state);
           }
 
       - id: page3
         lambda: |-
-          ESP_LOGI("display", "Updating Page 3...");
+          ESP_LOGI("display", "Updating Page 3: temp");
 
           // block headline
-          it.print(2, 25, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
+          it.image(2, 6, id(icon_thermometer_small));
           it.print(22, 25, id(font_regular_20), TextAlign::BASELINE_LEFT, "Temperatur");
           it.line(138, 25, 185, 25);
 
           // Time & Temp box
-          it.strftime(242, 36, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
-          it.strftime(242, 65, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+          it.strftime(242, 40, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+          it.strftime(242, 70, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
           if (id(garden_temp).has_state()) {
-            it.print(200, 110, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
-            it.printf(220, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
+            it.image(195, 90, id(icon_thermometer));
+            it.printf(230, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%2.1f°C", id(garden_temp).state);
           }
           it.line(188, 2, 188, 126);
 
-          it.print(56, 50, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F18D7");
-          it.print(79, 49, id(font_regular_18), TextAlign::BASELINE_LEFT, "Außen");
-          it.print(56, 97, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F0F55");
-          it.print(79, 96, id(font_regular_18), TextAlign::BASELINE_LEFT, "Innen");
-
           if (id(garden_temp).has_state()) {
-            it.print(25, 73, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
-            it.printf(45, 72, id(font_regular_18), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
-          }
-          if (id(garden_humidity).has_state()) {
-            it.print(108, 73, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F058E");
-            it.printf(130, 72, id(font_regular_18), TextAlign::BASELINE_LEFT, "%.0f%%", id(garden_humidity).state);
-          }
+            it.image(6, 32, id(icon_sun_thermometer_outline));
+            it.printf(6, 69, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
+            it.graph(65, 32, id(garden_temp_graph));
+          }         
           if (id(indoor_temp).has_state()) {
-            it.print(25, 120, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
-            it.printf(45, 119, id(font_regular_18), TextAlign::BASELINE_LEFT, "%.1f°C", id(indoor_temp).state);
-          }
-          if (id(indoor_humidity).has_state()) {
-            it.print(108, 120, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F058E");
-            it.printf(130, 119, id(font_regular_18), TextAlign::BASELINE_LEFT, "%.0f%%", id(indoor_humidity).state);
+            it.image(6, 80, id(icon_home_thermometer_outline));
+            it.printf(6, 116, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.1f°C", id(indoor_temp).state);
+            it.graph(65, 80, id(indoor_temp_graph));
           }
 
-      # - id: page4
-      #   lambda: |-
-      #     ESP_LOGI("display", "Updating Page 4...");
+      - id: page4
+        lambda: |-
+          int x, y;
+          ESP_LOGI("display", "Updating Page 4: car");
 
-      #     // block headline
-      #     it.print(2, 22, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F010B");
-      #     it.print(22, 22, id(font_regular_20), TextAlign::BASELINE_LEFT, "Car");
-      #     it.line(58, 22, 185, 22);
+          // block headline
+          it.image(2, 6, id(car));
+          it.print(24, 25, id(font_regular_20), TextAlign::BASELINE_LEFT, "Car");
+          it.line(60, 25, 185, 25);
 
-      #     // Time & Temp box
-      #     it.strftime(242, 32, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
-      #     it.strftime(242, 60, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
-      #     if (id(garden_temp).has_state()) {
-      #       it.print(200, 110, id(icon_font_20), TextAlign::BASELINE_LEFT, "\U000F050F");
-      #       it.printf(220, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%.1f°C", id(garden_temp).state);
-      #     }
-      #     it.line(188, 2, 188, 126);
+          // Time & Temp box
+          it.strftime(242, 40, id(clock_font), TextAlign::BASELINE_CENTER, "%H:%M", id(sntp_time).now());
+          it.strftime(242, 70, id(font_regular_20), TextAlign::BASELINE_CENTER, "%d.%m.%y", id(sntp_time).now());
+          if (id(garden_temp).has_state()) {
+            it.image(195, 90, id(icon_thermometer));
+            it.printf(230, 110, id(font_regular_20), TextAlign::BASELINE_LEFT, "%2.1f°C", id(garden_temp).state);
+          }
+          it.line(188, 2, 188, 126);
+
+          // status & km
+          if (id(car_lock).has_state()) {
+            if (id(car_lock).state == "locked") {
+              it.image(6, 32, id(icon_lock_closed));
+            } else {
+              it.image(6, 32, id(icon_lock_open));
+            }
+          }
+          if (id(car_odometer).has_state()) {
+            it.image(50, 32, id(icon_gauge));
+            it.printf(75, 49, id(font_regular_16), TextAlign::BASELINE_LEFT, "%.0f% km", id(car_odometer).state);
+          }
+
+          // battery
+          if (id(car_charge_level).has_state()) {
+            x = 6, y = 57;
+            if (id(car_charge_level).state <= 33) {
+              if (id(car_charging_active).state) {
+                it.image(x, y, id(battery_low_charging));
+              } else {
+                it.image(x, y, id(battery_low));
+              }
+            } else if (id(car_charge_level).state <= 66) {
+              if (id(car_charging_active).state) {
+                it.image(x, y, id(battery_medium_charging));
+              } else {
+                it.image(x, y, id(battery_medium));
+              }
+            } else {
+              if (id(car_charging_active).state) {
+                it.image(x, y, id(battery_high_charging));
+              } else {
+                it.image(x, y, id(battery_high));
+              }
+            }
+            it.printf(70, y+15, id(font_regular_16), TextAlign::BASELINE_RIGHT, "%3.0f% %", id(car_charge_level).state);
+          }
+          if (id(car_range_electric).has_state()) {
+            it.image(160, 57, id(icon_ev_station));
+            it.printf(155, 74, id(font_regular_16), TextAlign::BASELINE_RIGHT, "%3.0f% km >", id(car_range_electric).state);
+          }
+
+          // gas
+          if (id(car_fuel_level).has_state()) {
+            it.image(6, 82, id(icon_fuel));
+            it.printf(70, 99, id(font_regular_16), TextAlign::BASELINE_RIGHT, "%3.0f% %", id(car_fuel_level).state);
+          }
+          if (id(car_range_liquid).has_state()) {
+            it.image(160, 82, id(icon_gas_station));
+            it.printf(155, 99, id(font_regular_16), TextAlign::BASELINE_RIGHT, "%3.0f% km >", id(car_range_liquid).state);
+          }
+
+          // charging
+          if (id(car_charging_active).has_state() && id(car_charging_active).state) {
+            it.image(6, 106, id(icon_ev_station));
+            it.printf(32, 123, id(font_regular_16), TextAlign::BASELINE_LEFT, "%1.1f% kw", id(car_charging_power).state);
+            if (id(car_charging_endtime).has_state()) {
+              it.image(100, 106, id(icon_timer));
+              it.printf(125, 123, id(font_regular_16), TextAlign::BASELINE_LEFT, "%s", id(car_charging_endtime).state.c_str());
+            }
+          }
 
 font:
   - file: 'fonts/GoogleSans-Bold.ttf'
@@ -297,16 +470,6 @@ font:
        'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
        'u', 'v', 'w', 'x', 'y', 'z', '/', 'ß', '<', '>']
   - file: 'fonts/GoogleSans-Bold.ttf'
-    id: font_regular_18
-    size: 18
-    glyphs:
-      ['&', '@', '!', ',', '.', '"', '%', '+', '-', '_', ':', '°', '0',
-       '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
-       'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-       'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-       'u', 'v', 'w', 'x', 'y', 'z', '/', 'ß']
-  - file: 'fonts/GoogleSans-Bold.ttf'
     id: font_regular_20
     size: 20
     glyphs:
@@ -316,37 +479,3 @@ font:
        'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
        'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
        'u', 'v', 'w', 'x', 'y', 'z', '/', 'ß']
-  - file: 'fonts/GoogleSans-Medium.ttf'
-    id: font_regular_40
-    size: 40
-    glyphs:
-      ['!', ',', '.', '"', '%', '-', '_', ':', '°', '/',
-       '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ']
-  - file: "fonts/materialdesignicons-webfont.ttf"
-    id: icon_font_18
-    size: 18
-    glyphs:
-      - "󰉁"  # mdi-flash
-      - "󰘆"  # mid-pool
-  - file: "fonts/materialdesignicons-webfont.ttf"
-    id: icon_font_20
-    size: 20
-    glyphs:
-      - "\U000F010B"  # mdi-car
-      - "\U000F0F55"  # mdi-home-thermometer-outline
-      - "\U000F0241"  # mdi-flash
-      - "\U000F0606"  # mdi-pool
-      - "\U000F1402"  # mdi-pump
-      - "\U000F03C8"  # mdi-coolant-temperature
-      - "\U000F18D7"  # mdi-sun-thermometer-outline
-      - "\U000F17FF"  # mdi-sun-wireless-outline
-      - "\U000F0599"  # mdi-weather-sunny
-      - "\U000F058E"  # mdi-water-percent
-      - "\U000F050F"  # mdi-thermometer
-      - "\U000F1A74"  # mdi-solar-power-variant
-      - "\U000F192D"  # mdi-transmission-tower-import
-      - "\U000F192C"  # mdi-transmission-tower-export
-      - "\U000F12A1"  # mdi-battery-low
-      - "\U000F12A2"  # mdi-battery-medium
-      - "\U000F12A3"  # mdi-battery-high
-      - "\U000F1904"  # mdi-home-lightning-bolt-outline

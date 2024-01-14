@@ -13,4 +13,4 @@ trigger:
 action:
   service: light.turn_off
   entity_id:
-    - light.nursery_lights
+    - light.nursery_stars

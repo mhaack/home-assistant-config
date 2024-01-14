@@ -36,13 +36,7 @@ cards:
           - entity: light.hall_lights
             tap_action:
               action: toggle
-          - entity: light.nursery_lights
-            tap_action:
-              action: toggle
           - entity: light.nursery_stars
-            tap_action:
-              action: toggle
-          - entity: light.nursery_bed
             tap_action:
               action: toggle
           - entity: light.kitchen_ledstrip
@@ -52,6 +46,9 @@ cards:
             tap_action:
               action: toggle
           - entity: light.livingroom_lamp
+            tap_action:
+              action: toggle
+          - entity: light.livingroom_sofa
             tap_action:
               action: toggle
         show_state: false
@@ -266,77 +263,91 @@ cards:
         variables:
           - content: "Rollläden Untergeschoss"
           - icon: mdi:window-shutter-open
-      - type: entities
-        entities:
-          - type: custom:fold-entity-row
-            head: cover.livingroom_slidingdoor
-            entities:
-              - entity: cover.livingroom_window_4b
-                icon: "mdi:format-align-justify"
-                name: Schiebetür rechts
-              - entity: cover.livingroom_window_4a
-                icon: "mdi:format-align-justify"
-                name: Schiebetür links
-          - entity: cover.kitchen
-            icon: "mdi:format-align-justify"
-            type: "custom:secondaryinfo-entity-row"
-            secondary_info: "[[ cover.kitchen.state ]]"
-          - entity: cover.livingroom_window_3
-            icon: "mdi:format-align-justify"
-            type: "custom:secondaryinfo-entity-row"
-            secondary_info: "[[ cover.livingroom_window_3.state ]]"
-          - entity: cover.livingroom_window_2
-            icon: "mdi:format-align-justify"
-            type: "custom:secondaryinfo-entity-row"
-            secondary_info: "[[ cover.livingroom_window_2.state ]]"
-          - entity: cover.livingroom_window_1
-            icon: "mdi:format-align-justify"
-            type: "custom:secondaryinfo-entity-row"
-            secondary_info: "[[ cover.livingroom_window_1.state ]]"
-        show_header_toggle: false
+      - type: tile
+        entity: cover.livingroom_slidingdoor
+        features:
+          - type: "cover-open-close"
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: cover.kitchen
+            features:
+              - type: "cover-open-close"
+          - type: tile
+            entity: cover.livingroom_window_3
+            features:
+              - type: "cover-open-close"
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: cover.livingroom_window_2
+            features:
+              - type: "cover-open-close"
+          - type: tile
+            entity: cover.livingroom_window_1
+            features:
+              - type: "cover-open-close"
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Rollläden Obergeschoss"
           - icon: mdi:window-shutter-open
-      - type: entities
-        entities:
-          - entity: cover.bedroom
-            icon: "mdi:format-align-justify"
-            type: "custom:secondaryinfo-entity-row"
-            secondary_info: "[[ cover.bedroom.state ]]"
-          - entity: cover.nursery
-            icon: "mdi:format-align-justify"
-            type: "custom:secondaryinfo-entity-row"
-            secondary_info: "[[ cover.nursery.state ]]"
-          - entity: cover.nursery_bed
-            icon: "mdi:format-align-justify"
-            type: "custom:secondaryinfo-entity-row"
-            secondary_info: "[[ cover.nursery_bed.state ]]"
-        show_header_toggle: false
+      - type: tile
+        entity: cover.bedroom
+        features:
+          - type: "cover-open-close"
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: cover.nursery
+            features:
+              - type: "cover-open-close"
+          - type: tile
+            entity: cover.nursery_bed
+            features:
+              - type: "cover-open-close"
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Kinderzimmer"
           - icon: mdi:bed-outline
-      - type: entities
-        entities:
-          - light.nursery_bed
-          - light.nursery_stars
-          - switch.nursery_dollhouse
-        show_header_toggle: false
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: light.nursery_stars
+          - type: tile
+            entity: switch.nursery_dollhouse
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Arbeitszimmer"
           - icon: mdi:desk
-      - type: entities
-        entities:
-          - entity: switch.office_desk
-            name: Schreibtisch
-          - switch.office_desk_jasmina
-          - switch.office_iron
-        show_header_toggle: false
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.office_desk_markus_1
+          - type: tile
+            entity: switch.office_desk_markus_2
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.office_desk_monitor
+          - type: tile
+            entity: switch.office_desk_phone_charger
+          - type: tile
+            entity: switch.office_desk_usb_power
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.office_desk_jasmina
+          - type: tile
+            entity: switch.office_iron
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.office_mario_clock
+          - type: tile
+            entity: binary_sensor.office_motion_occupancy
 
   - type: vertical-stack
     cards:
@@ -349,7 +360,6 @@ cards:
         entities:
           - entity: sensor.kitchen_oven_status
             name: Status
-        show_header_toggle: false
       - type: conditional
         conditions:
           - entity: sensor.kitchen_oven_status
@@ -387,20 +397,22 @@ cards:
         variables:
           - content: "Geräte"
           - icon: mdi:devices
-      - type: entities
-        entities:
-          - switch.kitchen_dishwasher
-          - switch.laundryroom_freezer
-        show_header_toggle: false
-
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.kitchen_dishwasher
+          - type: tile
+            entity: switch.laundryroom_freezer
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Aquarium"
           - icon: mdi:fishbowl
-      - type: entities
-        entities:
-          - entity: switch.livingroom_aquarium_oberflachenabsauger
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.livingroom_aquarium_oberflachenabsauger
             name: Oberflächenabsauger
-          - entity: switch.livingroom_aquarium_co2_gas
+          - type: tile
+            entity: switch.livingroom_aquarium_co2_gas
             name: CO2 Gas

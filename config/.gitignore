@@ -1,0 +1,26 @@
+# Generic ignores
+*.log
+*.db
+*.db-shm
+*.db-wal
+*.pyc
+._*
+__pycache__
+
+# Directory (contents) ignores
+.cloud
+.storage
+.vscode
+deps
+
+# Specific file ignores
+.homekit.state
+.uuid
+.ios.conf
+
+duofern.json
+secrets.yaml
+known_devices.yaml
+
+# Specific keeps
+!.gitkeep

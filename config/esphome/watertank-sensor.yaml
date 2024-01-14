@@ -4,7 +4,8 @@ esphome:
   board: d1_mini_pro
 
 wifi:
-  use_address: watertank.lan
+  # use_address: watertank.lan
+  use_address: 192.168.30.72
   ssid: !secret esphome_wifi_ssid
   password: !secret esphome_wifi_password
 
@@ -16,7 +17,8 @@ captive_portal:
 logger:
 
 api:
-  password: !secret esphome_api_password
+  encryption:
+    key: !secret esphome_api_key
 
 ota:
   password: !secret esphome_ota_password
@@ -24,20 +26,10 @@ ota:
 sensor:
   # Wifi signal sensor.
   - platform: wifi_signal
-    name: garden_watertank_wifi
-    update_interval: 600s
-    unit_of_measurement: "%"
-    filters:
-      - lambda: |-
-          if (x <= -100) {
-            return 0;
-          } else {
-            if (x >= -50) {
-              return 100;
-            } else {
-              return 2 * (x + 100);
-            }
-          }
+    name: "Watertank WiFi (dB)"
+    id: garden_watertank_wifi
+    update_interval: 60s
+    entity_category: "diagnostic"
 
   # Templates for calculated liter & percent
   - platform: template

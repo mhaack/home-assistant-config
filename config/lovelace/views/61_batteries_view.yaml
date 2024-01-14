@@ -44,18 +44,6 @@ cards:
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: "Kameras"
-          - icon: mdi:battery-medium
-      - type: custom:battery-state-card
-        tap_action: more-info
-        filter:
-          include:
-            - name: entity_id
-              value: "sensor.aarlo_battery_level_*"
-
-      - type: custom:decluttering-card
-        template: card_header
-        variables:
           - content: "ZigBee Sensors"
           - icon: mdi:battery-medium
       - type: custom:battery-state-card

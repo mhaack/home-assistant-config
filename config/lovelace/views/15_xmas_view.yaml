@@ -28,13 +28,13 @@ cards:
           - icon: mdi:star-outline
       - type: horizontal-stack
         cards:
-          - type: custom:button-card
+          - type: tile
             entity: light.xmas_lights
             name: Alle
-          - type: custom:button-card
+          - type: tile
             entity: light.xmas_indoor_lights
             name: Innen
-          - type: custom:button-card
+          - type: tile
             entity: light.xmas_outdoor_lights
             name: Außen
       - type: custom:decluttering-card
@@ -44,29 +44,32 @@ cards:
           - icon: mdi:star-outline
       - type: horizontal-stack
         cards:
-          - type: custom:button-card
+          - type: tile
             entity: light.xmas_christmastree
             name: Weihnachtsbaum
             icon: mdi:pine-tree
-          - type: custom:button-card
-            entity: light.xmas_livingroom
+          - type: tile
+            entity: light.xmas_livingroom_sofa_star
             name: Stern Sofa
-          - type: custom:button-card
-            entity: light.xmas_livingroom_star
-            name: Hernhuter Stern
       - type: horizontal-stack
         cards:
-          - type: custom:button-card
+          - type: tile
+            entity: light.xmas_livingroom_star
+            name: Herrnhuter Stern
+          - type: tile
             entity: light.xmas_eatingroom
             name: Sterne Stehlampe
-          - type: custom:button-card
+      - type: horizontal-stack
+        cards:
+          - type: tile
             entity: light.xmas_hall
             name: Sterne Flur
-            icon: mdi:star
-          - type: custom:button-card
-            entity: light.xmas_office
+          - type: tile
+            entity: light.office_desk_xmas
             name: Arbeitszimmer
-            icon: mdi:star
+          - type: tile
+            entity: light.xmas_childrenroom
+            name: Kinderzimmer
       - type: custom:decluttering-card
         template: card_header
         variables:
@@ -74,37 +77,29 @@ cards:
           - icon: mdi:star-outline
       - type: horizontal-stack
         cards:
-          - type: custom:button-card
+          - type: tile
             entity: light.xmas_garden_frontdoor
-            name: Vordach Haustür
-          - type: custom:button-card
+          - type: tile
             entity: light.garden_frontyard_tree
             icon: mdi:pine-tree
-          - type: custom:button-card
+          - type: tile
             entity: light.xmas_garden_fence
-            name: Zaun
       - type: horizontal-stack
         cards:
-          - type: custom:button-card
+          - type: tile
             entity: light.garden_backyard_tree
             icon: mdi:pine-tree
-          - type: custom:button-card
+          - type: tile
             entity: light.garden_carport_wled
             name: LED Kette Carport
-          - type: custom:button-card
+          - type: tile
             entity: light.xmas_carport_stars
-            name: Carport Sterne
       - type: horizontal-stack
         cards:
-          - type: custom:button-card
+          - type: tile
             entity: light.xmas_garden_star
-            name: Hernhuter Stern
-          - type: custom:button-card
+          - type: tile
             entity: light.garden_terrace_lounge
             icon: mdi:pine-tree
-          - type: custom:button-card
-            entity: light.xmas_garden_candles
-            icon: mdi:candle
-            name: Kerzen
-          - type: custom:button-card
+          - type: tile
             entity: light.garden_rockpear

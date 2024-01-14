@@ -18,7 +18,7 @@ condition:
   entity_id: input_boolean.system_notification
   state: "on"
 action:
-  service: notify.system_pushover_markus
+  service: notify.mobile_app_iphone_von_markus
   data_template:
     title: "JaMa Villa"
     message: >

@@ -1,0 +1,43 @@
+---
+# The camera dashboard
+#
+title: Kameras
+icon: mdi:cctv
+path: camera
+
+badges: []
+cards:
+  - type: custom:state-switch
+    entity: user
+    states:
+      Markus:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: "/local/assets/markus.jpg"
+      Jasmina:
+        type: custom:decluttering-card
+        template: welcome_header
+        variables:
+          - image: "/local/assets/jasmina.jpg"
+  - type: custom:decluttering-card
+    template: card_header
+    variables:
+      - content: "Kameras"
+      - icon: mdi:cctv
+
+  - type: picture-entity
+    entity: camera.frontdoor_camera
+    show_state: false
+  - type: picture-entity
+    entity: camera.entrance_camera
+    show_state: false
+  - type: picture-entity
+    entity: camera.carport_camera
+    show_state: false
+  - type: picture-entity
+    entity: camera.garden_camera
+    show_state: false
+  - type: picture-entity
+    entity: camera.terrace_camera
+    show_state: false

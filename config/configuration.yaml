@@ -10,6 +10,7 @@ homeassistant:
   latitude: !secret lat_coord
   longitude: !secret long_coord
   elevation: !secret home_elevation
+  country: DE
   time_zone: Europe/Berlin
   unit_system: metric
   allowlist_external_dirs:

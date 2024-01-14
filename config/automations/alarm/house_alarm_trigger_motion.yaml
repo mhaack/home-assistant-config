@@ -5,7 +5,7 @@ alias: "[Security] Trigger house alarm if motion was detected"
 id: e22a7af0-1cca-4e32-9b27-da4c2bd4d17f
 trigger:
   - platform: state
-    entity_id: group.system_motion_sensors
+    entity_id: binary_sensor.system_motion_sensors
     to: "on"
 condition:
   - condition: state

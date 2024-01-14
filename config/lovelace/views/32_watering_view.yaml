@@ -28,34 +28,36 @@ cards:
         variables:
           - content: "Bewässerung"
           - icon: mdi:water-pump
-      - type: entity-filter
-        show_empty: false
-        state_filter:
-          - operator: "!="
-            value: "0"
+      - type: entities
         entities:
           - entity: binary_sensor.rasen_watering
-            state_filter:
-              - "on"
+            type: custom:timer-bar-card
+            remain_time:
+              entity: sensor.rasen_watering_time
+              units: minutes
+            icon: mdi:water-pump-off
+            active_icon: mdi:water-pump
           - entity: binary_sensor.beete_watering
-            state_filter:
-              - "on"
-          - entity: binary_sensor.vorgarten_watering
-            state_filter:
-              - "on"
+            type: custom:timer-bar-card
+            remain_time:
+              entity: sensor.beete_watering_time
+              units: minutes
+            icon: mdi:water-pump-off
+            active_icon: mdi:water-pump
           - entity: binary_sensor.hecke_watering
-            state_filter:
-              - "on"
-          - entity: sensor.rasen_watering_time
-            name: Restlaufzeit
-          - entity: sensor.beete_watering_time
-            name: Restlaufzeit
-          - entity: sensor.vorgarten_watering_time
-            name: Restlaufzeit
-          - entity: sensor.hecke_watering_time
-            name: Restlaufzeit
-        card:
-          type: glance
+            type: custom:timer-bar-card
+            remain_time:
+              entity: sensor.hecke_watering_time
+              units: minutes
+            icon: mdi:water-pump-off
+            active_icon: mdi:water-pump
+          - entity: binary_sensor.vorgarten_watering
+            type: custom:timer-bar-card
+            remain_time:
+              entity: sensor.vorgarten_watering_time
+              units: minutes
+            icon: mdi:water-pump-off
+            active_icon: mdi:water-pump
       - type: entities
         entities:
           - entity: sensor.rasen_next_cycle
@@ -68,14 +70,18 @@ cards:
         variables:
           - content: "Zisterne"
           - icon: mdi:water-pump
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.garden_watertank_pump
+          - type: tile
+            entity: switch.garden_watertank_refill
       - type: entities
         entities:
-          - switch.garden_watertank_pump
           - sensor.garden_watertank_liter
           - sensor.garden_watertank_percent
           - sensor.garden_watertank_pump_power
           - sensor.garden_watertank_pump_energy_counter
-          - switch.garden_watertank_refill
           - entity: script.run_watertank_refill
             name: Einmalige Befüllung starten
             icon: mdi:water-pump

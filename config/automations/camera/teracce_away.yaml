@@ -1,0 +1,21 @@
+id: df677c60-14fd-4996-b9d7-946da3508104
+alias: "[Camera] Notifcation Terrace - away"
+use_blueprint:
+  path: SgtBatten/Stable.yaml
+  input:
+    camera: camera.terrace_camera
+    state_filter: true
+    state_entity: input_boolean.system_notification_camera
+    state_filter_states:
+      - "on"
+    notify_group: notify.system_group_jama
+    notify_device: dceb08936c6d40d49ec3962eb2510112
+    presence_filter: group.jama
+    update_thumbnail: true
+    title: >-
+      {{ camera_name }} Kamera
+    message: >-
+      {{ label }} wurde auf {{ camera_name }} Kamera erkannt.
+    button_1: Aufzeichnung ansehen
+    button_2: Foto ansehen
+    button_3: Benachrichtigung pausieren

@@ -28,17 +28,10 @@ cards:
         variables:
           - content: "Modi"
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: input_boolean.xmas_mode
             name: Weihnachtsmodus
           - entity: input_boolean.cleaning_mode
-        show_header_toggle: false
         state_color: true
 
   - type: vertical-stack
@@ -49,12 +42,6 @@ cards:
           - content: "Benachrichtigungen"
           - icon: mdi:bell
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - input_boolean.system_notification
           - input_boolean.office_desk_notification
@@ -62,7 +49,6 @@ cards:
           - input_boolean.pool_notification
           - input_boolean.garden_bench_notification
           - input_boolean.hall_litterbox_notification
-        show_header_toggle: false
         state_color: true
 
   - type: vertical-stack
@@ -72,17 +58,10 @@ cards:
         variables:
           - content: "Sensor Error"
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - binary_sensor.system_device_error
           - automation.system_sensor_error_detection
           - automation.system_sensor_error_clear
-        show_header_toggle: false
 
   - type: vertical-stack
     cards:
@@ -91,16 +70,10 @@ cards:
         variables:
           - content: "Sun"
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - sun.sun
           - sensor.season
-        show_header_toggle: false
+        state_color: true
 
   - type: vertical-stack
     cards:
@@ -109,12 +82,6 @@ cards:
         variables:
           - content: "Anwesenheit"
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - group.family
           - type: custom:fold-entity-row
@@ -141,7 +108,6 @@ cards:
               - device_tracker.iphone_mia_wifi
             group_config:
               secondary_info: last-changed
-        show_header_toggle: false
 
   - type: vertical-stack
     cards:
@@ -151,12 +117,6 @@ cards:
           - content: "Briefkasten"
           - icon: "mdi:mailbox-open"
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: sensor.garden_mailbox_mail
           - entity: binary_sensor.garden_mailbox_door
@@ -172,13 +132,6 @@ cards:
           - content: "Katzenklo"
           - icon: mdi:cat
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        show_header_toggle: false
         entities:
           - binary_sensor.hall_litterbox_motion
           - binary_sensor.hall_litterbox_1
@@ -196,12 +149,6 @@ cards:
           - content: "AdGuard"
           - icon: mdi:home-assistant
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - label: Control
             type: section
@@ -225,5 +172,4 @@ cards:
           - sensor.adguard_searches_safe_search_enforced
           - sensor.adguard_average_processing_speed
           - sensor.adguard_rules_count
-        show_header_toggle: false
         state_color: true

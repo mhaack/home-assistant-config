@@ -1,12 +1,17 @@
 ---
 # XMAS lights automatic - off
 #
+id: 99ee1606-7a00-40ba-a315-f3e1593b88f3
 alias: "[XMAS] Turn off XMAS indoor lights daily routine"
 trigger:
   - platform: sun
     event: sunrise
-  - platform: time
-    at: "22:30:00"
+  - platform: state
+    entity_id:
+      - schedule.xmas_indoor_morning
+      - schedule.xmas_indoor_evening
+    from: "on"
+    to: "off"
 condition:
   - condition: state
     entity_id: input_boolean.xmas_mode

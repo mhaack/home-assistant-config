@@ -1,0 +1,21 @@
+id: dcfcbf3b-2476-4cc3-a936-0be6c6c3a267
+alias: "[Camera] Notifcation Frontdoor - away"
+use_blueprint:
+  path: SgtBatten/Stable.yaml
+  input:
+    camera: camera.frontdoor_camera
+    state_filter: true
+    state_entity: input_boolean.system_notification_camera
+    state_filter_states:
+      - "on"
+    notify_group: notify.system_group_jama
+    notify_device: dceb08936c6d40d49ec3962eb2510112
+    update_thumbnail: true
+    title: >-
+      {{ camera_name }} Kamera
+    message: >-
+      {{ label }} wurde auf {{ camera_name }} Kamera erkannt.
+    button_1: Aufzeichnung ansehen
+    button_2: Foto ansehen
+    button_3: Benachrichtigung pausieren
+    debug: true

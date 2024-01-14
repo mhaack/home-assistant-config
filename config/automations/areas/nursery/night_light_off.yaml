@@ -9,7 +9,7 @@ trigger:
 action:
   - service: light.turn_off
     data:
-      entity_id: light.nursery_lights
+      entity_id: light.nursery_stars
   - service: switch.turn_off
     data:
       entity_id: switch.nursery_dollhouse

@@ -8,7 +8,7 @@ trigger:
     zone: zone.dnb
     event: enter
 action:
-  - service: notify.system_pushover_markus
+  - service: notify.mobile_app_iphone_von_markus
     data:
       title: "JaMa Villa"
       message: "Jasmina ist auf Arbeit angekommen."

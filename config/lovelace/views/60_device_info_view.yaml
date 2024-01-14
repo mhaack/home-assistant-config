@@ -29,12 +29,6 @@ cards:
           - content: "Dachboden"
           - icon: mdi:home-thermometer
       - type: "custom:mini-graph-card"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         decimals: 1
         hour24: true
         hours_to_show: 168
@@ -55,12 +49,6 @@ cards:
           - content: "Technikraum"
           - icon: mdi:home-thermometer
       - type: "custom:mini-graph-card"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         decimals: 1
         hour24: true
         hours_to_show: 168
@@ -84,35 +72,31 @@ cards:
           - content: "Garten"
           - icon: mdi:flower
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
-          - sensor.garden_sundeck_sockets_power
-          - sensor.garden_sundeck_sockets_energy_counter
-        show_header_toggle: false
-
+          - entity: sensor.garden_sundeck_sockets_power
+            name: Power
+          - entity: sensor.garden_sundeck_sockets_energy_counter
+            name: Energy Total
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Büro"
           - icon: mdi:office-building
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
-          - switch.office_desk
+          - switch.office_desk_markus_1
           - binary_sensor.office_desk
-          - sensor.office_desk_power
-          - sensor.office_desk_energy_counter
-        show_header_toggle: false
+          - entity: sensor.office_desk_markus_1_power
+            name: Power
+          - entity: sensor.office_desk_markus_1_energy_total
+            name: Energy Total
+      - type: entities
+        entities:
+          - switch.office_desk_markus_2
+          - entity: sensor.office_desk_markus_2_power
+            name: Power
+          - entity: sensor.office_desk_markus_2_energy_total
+            name: Energy Total
 
   - type: vertical-stack
     cards:
@@ -122,48 +106,29 @@ cards:
           - content: "Spülmaschine"
           - icon: mdi:dishwasher
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - switch.kitchen_dishwasher
           - sensor.kitchen_dishwasher_state
           - sensor.kitchen_dishwasher_power
           - sensor.kitchen_dishwasher_energy_counter
-        show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Gefrierschrank"
           - icon: mdi:snowflake
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - switch.laundryroom_freezer
           - sensor.laundryroom_freezer_power
           - sensor.laundryroom_freezer_energy_counter
-        show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Kühlschrank"
           - icon: mdi:thermometer
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
-          - sensor.kitchen_fridge_temperature
-          - sensor.kitchen_fridge_humidity
-        show_header_toggle: false
+          - entity: sensor.kitchen_fridge_temperature
+            name: Temperatur
+          - entity: sensor.kitchen_fridge_humidity
+            name: Luftfeuchtigkeit

@@ -101,17 +101,25 @@ cards:
         variables:
           - content: "Keba Wallbox"
           - icon: mdi:ev-station
-      - type: entities
-        entities:
-          - entity: lock.keba_p30_authentication
-          - entity: binary_sensor.keba_p30_plug
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: lock.keba_p30_authentication
+          - type: tile
+            entity: binary_sensor.keba_p30_plug
             name: Stecker
-          - entity: binary_sensor.keba_p30_charging_state
-          - entity: sensor.keba_p30_charging_power
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: binary_sensor.keba_p30_charging_state
+          - type: tile
+            entity: sensor.keba_p30_charging_power
             name: Ladeleistung
-          - entity: sensor.keba_p30_session_energy
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: sensor.keba_p30_session_energy
             name: Energie (aktuelle Ladung)
-          - entity: sensor.keba_p30_total_energy
+          - type: tile
+            entity: sensor.keba_p30_total_energy
             name: Engergie (gesamt)
-          - entity: binary_sensor.keba_p30_status
-        show_header_toggle: false

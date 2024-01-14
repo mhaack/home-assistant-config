@@ -71,10 +71,6 @@ cards:
               name: Restlaufzeit
             - entity: sensor.laundryroom_washing_machine_elapsed_time
               name: Laufzeit
-            - entity: sensor.laundryroom_washing_machine_energy
-              name: Stromverbrauch
-            - entity: sensor.laundryroom_washing_machine_water_consumption
-              name: Wasserverbrauch
 
       - type: custom:decluttering-card
         template: card_header
@@ -110,10 +106,6 @@ cards:
               name: Restlaufzeit
             - entity: sensor.laundryroom_dryer_elapsed_time
               name: Laufzeit
-            - entity: sensor.laundryroom_dryer_energy
-              name: Stromverbrauch
-            - entity: sensor.laundryroom_dryer_water_consumption
-              name: Wasserverbrauch
 
   - type: vertical-stack
     cards:

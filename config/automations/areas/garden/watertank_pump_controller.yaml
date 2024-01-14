@@ -11,6 +11,8 @@ trigger:
       - binary_sensor.vorgarten_watering
       - binary_sensor.beete_watering
       - binary_sensor.hecke_watering
+    not_from:
+      - unavailable
 mode: parallel
 action:
   - choose:

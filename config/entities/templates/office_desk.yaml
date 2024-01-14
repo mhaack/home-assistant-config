@@ -4,6 +4,6 @@
 binary_sensor:
   - name: office_desk
     unique_id: 1fcc1206-40f7-4793-8b79-95cfe87a71c5
-    state: "{{ states.sensor.office_desk_power.state | int > 0 }}"
+    state: "{{ states.sensor.office_desk_markus_1_power.state | int > 0 }}"
     device_class: connectivity
     icon: mdi:chair-rolling

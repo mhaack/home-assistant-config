@@ -1,0 +1,12 @@
+zha:
+  device_config: # Reclassify desk multi plug as switch instead of light
+    a4:c1:38:84:fd:24:1f:d0-1:
+      type: "switch"
+    a4:c1:38:84:fd:24:1f:d0-2:
+      type: "switch"
+    a4:c1:38:84:fd:24:1f:d0-3:
+      type: "switch"
+    a4:c1:38:84:fd:24:1f:d0-4:
+      type: "switch"
+    a4:c1:38:84:fd:24:1f:d0-5:
+      type: "switch"

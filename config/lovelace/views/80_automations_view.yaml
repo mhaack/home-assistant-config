@@ -4,6 +4,7 @@
 title: Automations
 icon: mdi:arrow-decision-auto
 path: automations
+type: custom:grid-layout
 
 badges: []
 cards:
@@ -24,24 +25,15 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
-      title: Security
+      title: Security & Cameras
     filter:
       include:
         - entity_id: "automation.security*"
+        - entity_id: "automation.camera*"
 
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: Light Automations
     filter:
       include:
@@ -50,11 +42,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: House Automations
     filter:
       include:
@@ -68,11 +55,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: Garden Automations
     filter:
       include:
@@ -83,11 +65,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: Pool Automations
     filter:
       include:
@@ -96,11 +73,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: Appliances Automations
     filter:
       include:
@@ -109,11 +81,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: System Automations
     filter:
       include:
@@ -122,11 +89,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: Zone Based Automations
     filter:
       include:
@@ -135,11 +97,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: Notifications
     filter:
       include:
@@ -148,11 +105,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: Cats
     filter:
       include:
@@ -161,11 +113,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: XMAS
     filter:
       include:
@@ -174,11 +121,6 @@ cards:
   - type: custom:auto-entities
     card:
       type: entities
-      style: |
-        ha-card {
-          box-shadow: var(--card-box-shadow);
-          margin: 0px 14px 15px 14px;
-        }
       title: Other Automations
     filter:
       include:
@@ -202,3 +144,4 @@ cards:
         - entity_id: "automation.watertank*"
         - entity_id: "automation.xmas*"
         - entity_id: "automation.zone*"
+        - entity_id: "automation.camera*"

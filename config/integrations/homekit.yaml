@@ -42,9 +42,8 @@ homekit:
       - light.hall_lights
       - light.kitchen_ledstrip
       - light.livingroom_lamp
+      - light.livingroom_sofa
       - light.livingroom_tv
-      - light.nursery_bed
-      - light.nursery_lights
       - light.nursery_stars
       - light.pool_light
       - light.schlafzimmer
@@ -71,5 +70,6 @@ homekit:
       - switch.garden_pond_waterfall
       - switch.garden_sundeck_sockets
       - switch.garden_watertank_pump
+      - switch.office_mario_clock
       - switch.nursery_dollhouse
       - switch.pool_pump

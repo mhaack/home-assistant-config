@@ -29,12 +29,6 @@ cards:
           - content: "Außenbeleuchtung"
           - icon: mdi:lightbulb
       - type: glance
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - entity: light.garden_lights
             tap_action:
@@ -83,12 +77,6 @@ cards:
           - content: "Garten (24h)"
           - icon: mdi:thermometer
       - type: "custom:mini-graph-card"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         decimals: 1
         hour24: true
         points_per_hour: 1
@@ -108,12 +96,6 @@ cards:
           - content: "Garten (7d)"
           - icon: mdi:thermometer
       - type: "custom:mini-graph-card"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         decimals: 1
         hour24: true
         hours_to_show: 168
@@ -136,21 +118,18 @@ cards:
         variables:
           - content: "Sonnendeck"
           - icon: mdi:white-balance-sunny
-      - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        entities:
-          - entity: light.garden_sundeck_spots
+
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: light.garden_sundeck_spots
             name: LED
-          - entity: light.garden_sundeck_positionlight
+          - type: tile
+            entity: light.garden_sundeck_positionlight
             name: Schiffslicht
-          - entity: switch.garden_sundeck_sockets
+          - type: tile
+            entity: switch.garden_sundeck_sockets
             name: Steckdosen
-        show_header_toggle: false
 
       - type: custom:decluttering-card
         template: card_header
@@ -162,51 +141,43 @@ cards:
             state_not: "on"
         card:
           type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
           entities:
             - entity: binary_sensor.garden_bench
               name: Bewegungserkennung
             - entity: input_boolean.garden_bench_notification
               name: Benachrichtigen
-          show_header_toggle: false
       - type: conditional
         conditions:
           - entity: switch.garden_carport_siren_3
             state: "on"
         card:
           type: entities
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
           entities:
             - entity: binary_sensor.garden_bench
               name: Bewegungserkennung
             - entity: input_boolean.garden_bench_notification
               name: Benachrichtigen
             - witch.garden_carport_siren_3
-          show_header_toggle: false
       - type: custom:decluttering-card
         template: card_header
         variables:
           - content: "Teich"
           - icon: mdi:waves
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.garden_pond_blubber
+          - type: tile
+            entity: switch.garden_pond_waterfall
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
-          - switch.garden_pond_blubber
-          - switch.garden_pond_waterfall
           - input_select.garden_pond_mode
-        show_header_toggle: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Shaun"
+          - icon: mdi:robot-mower
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.garden_shaun

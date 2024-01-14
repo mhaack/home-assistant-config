@@ -26,11 +26,6 @@ action:
   - alias: "Activate carpot siren"
     service: switch.turn_on
     entity_id: switch.garden_carport_siren_1
-  - alias: "Activate camera"
-    service: aarlo.camera_start_recording
-    data:
-      entity_id: camera.aarlo_garten
-      duration: 30
   - alias: "Update hall display"
     service: python_script.jamavilla_display
   - alias: "Repeat until alarm off"

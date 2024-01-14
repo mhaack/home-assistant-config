@@ -7,7 +7,6 @@ platform: template
 covers:
   livingroom_slidingdoor:
     friendly_name: "Schiebetür"
-    icon_template: "mdi:format-align-justify"
     open_cover:
       service: script.cover_group
       data:
@@ -24,5 +23,11 @@ covers:
       service: script.cover_group_position
       data_template:
         position: "{{position}}"
-    position_template: >-
-      {{ [states.cover.livingroom_window_4b.attributes['current_position'], states.cover.livingroom_window_4a.attributes['current_position']] | max }}
+    value_template: "{{is_state('sensor.livingroom_slidingdoor', 'open')}}"
+    icon_template: >-
+      {% if is_state('sensor.livingroom_slidingdoor', 'open') %}
+        mdi:window-shutter-open
+      {% else %}
+        mdi:window-shutter
+      {% endif %}
+    position_template: "{{states('sensor.livingroom_slidingdoor_position') | float(100)}}"

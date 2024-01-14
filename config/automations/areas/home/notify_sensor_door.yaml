@@ -11,9 +11,9 @@ condition:
     state: "on"
   - condition: template
     value_template: >
-      {{ trigger.event.data.entity_id in state_attr('group.system_door_sensors','entity_id') }}
+      {{ trigger.event.data.entity_id in state_attr('binary_sensor.system_door_sensors','entity_id') }}
 action:
-  service: notify.system_pushover_markus
+  service: notify.mobile_app_iphone_von_markus
   data_template:
     title: "JaMa Villa"
     message: >

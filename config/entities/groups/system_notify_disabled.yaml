@@ -9,7 +9,7 @@ system_notify_disabled:
     - light.garden_lights
     - light.garden_lights_daily_routine
     - light.indoor_lights
-    - light.nursery_lights
+    - light.nursery_stars
     - switch.garden_multi_3
     - switch.garden_sundeck_spots
     - switch.hall_basement_light_switch

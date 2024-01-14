@@ -50,26 +50,9 @@ cards:
           {% elif now().month in (12,) %}
           ## Dezember {{ now().day }}
           {% endif %}
-        style: |
-          ha-card {
-            margin: 12px 14px -5px 14px;
-            box-shadow: none;
-            background: none;
-          }
-          h2 {
-            font-size: 18px;
-            font-weight: 400;
-            padding-left: 10px;
-            border-left: 3px solid rgba(68, 153, 0);
-          }
 
       - type: custom:simple-weather-card
-        style: |
-          ha-card {
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 15px 14px;
-          }
-        entity: weather.dark_sky
+        entity: weather.jama_villa
         name: "zu Hause"
         secondary_info: precipitation
         tap_action:
@@ -85,17 +68,18 @@ cards:
             template: card_header
             variables:
               - content: "Die Drei"
-          - type: glance
-            style: |
-              ha-card {
-                --paper-card-background-color: var(--sidebar-background-color);
-                box-shadow: var(--card-box-shadow);
-                margin: 0px 14px 5px 14px;
-              }
-            entities:
-              - person.jasmina
-              - person.markus
-              - person.mia
+
+          - type: horizontal-stack
+            cards:
+              - type: tile
+                entity: person.jasmina
+                show_entity_picture: true
+              - type: tile
+                entity: person.markus
+                show_entity_picture: true
+              - type: tile
+                entity: person.mia
+                show_entity_picture: true
 
           - type: entity-filter
             show_empty: false
@@ -149,12 +133,6 @@ cards:
               - "on"
             card:
               type: glance
-              style: |
-                ha-card {
-                  --paper-card-background-color: var(--sidebar-background-color);
-                  box-shadow: var(--card-box-shadow);
-                  margin: 0px 14px 5px 14px;
-                }
               show_state: false
 
   - type: vertical-stack
@@ -174,29 +152,17 @@ cards:
           - "on"
         card:
           type: glance
-          style: |
-            ha-card {
-              --paper-card-background-color: var(--sidebar-background-color);
-              box-shadow: var(--card-box-shadow);
-              margin: 0px 14px 5px 14px;
-            }
           show_state: false
       - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         entities:
           - type: custom:fold-entity-row
-            head: group.system_motion_sensors
+            head: binary_sensor.system_motion_sensors
             group_config:
               secondary_info: last-changed
           - entity: binary_sensor.hall_frontdoor
           - entity: binary_sensor.garden_carport_door
           - type: custom:fold-entity-row
-            head: group.system_window_sensors
+            head: binary_sensor.system_window_sensors
             group_config:
               secondary_info: last-changed
           - alarm_control_panel.alarm_haus
@@ -208,29 +174,21 @@ cards:
         variables:
           - content: "Alarm"
           - icon: "mdi:alarm-light"
-      - type: alarm-panel
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
+      - type: tile
         entity: alarm_control_panel.alarm_haus
-        name: Alarm Haus
-        states:
-          - arm_home
-          - arm_away
-      - type: alarm-panel
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
+        features:
+          - type: "alarm-modes"
+            modes:
+              - armed_home
+              - armed_away
+              - disarmed
+      - type: tile
         entity: alarm_control_panel.alarm_carport
-        name: Alarm Carport
-        states:
-          - arm_home
+        features:
+          - type: "alarm-modes"
+            modes:
+              - armed_home
+              - disarmed
 
   - type: vertical-stack
     cards:
@@ -239,17 +197,8 @@ cards:
         variables:
           - content: "Briefkasten"
           - icon: "mdi:mailbox-open"
-      - type: entities
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
-        entities:
-          - entity: sensor.garden_mailbox_mail
-        show_header_toggle: false
-        show_state: false
+      - type: tile
+        entity: sensor.garden_mailbox_mail
 
       - type: custom:decluttering-card
         template: card_header
@@ -257,12 +206,6 @@ cards:
           - content: "Garten"
           - icon: mdi:flower
       - type: "custom:mini-graph-card"
-        style: |
-          ha-card {
-            --paper-card-background-color: var(--sidebar-background-color);
-            box-shadow: var(--card-box-shadow);
-            margin: 0px 14px 5px 14px;
-          }
         align_header: left
         align_icon: left
         decimals: 1
@@ -289,12 +232,6 @@ cards:
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 2px 5px 14px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1
@@ -319,12 +256,6 @@ cards:
                   - icon: mdi:home-thermometer
               - type: "custom:mini-graph-card"
                 icon: mdi:television-clean
-                style: |
-                  ha-card {
-                    --paper-card-background-color: var(--sidebar-background-color);
-                    box-shadow: var(--card-box-shadow);
-                    margin: 0px 14px 5px 2px;
-                  }
                 align_header: left
                 align_icon: left
                 decimals: 1

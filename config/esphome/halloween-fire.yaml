@@ -15,7 +15,8 @@ captive_portal:
 logger:
 
 api:
-  password: !secret esphome_api_password
+  encryption:
+    key: !secret esphome_api_key
 
 ota:
   password: !secret esphome_ota_password
@@ -36,36 +37,10 @@ switch:
     on_turn_on:
       - delay: 1s
       - switch.turn_off: fire_relay
-      - delay: 15s
+      - light.turn_off: motion_state_led
 
-binary_sensor:
-  - platform: gpio
-    pin: D2
-    name: "PIR Sensor 1"
-    id: pir_sensor_1
-    device_class: motion
-    filters:
-      - delayed_off: 10s
-    on_press:
-      then:
-        - light.turn_on: motion_state_led
-        - switch.turn_on: fire_relay
-    on_release:
-      then:
-        - light.turn_off: motion_state_led
-        - switch.turn_off: fire_relay
-  - platform: gpio
-    pin: D5
-    name: "PIR Sensor 2"
-    id: pir_sensor_2
-    device_class: motion
-    filters:
-      - delayed_off: 10s
-    on_press:
-      then:
-        - light.turn_on: motion_state_led
-        - switch.turn_on: fire_relay
-    on_release:
-      then:
-        - light.turn_off: motion_state_led
-        - switch.turn_off: fire_relay
+interval:
+  - interval: 1min
+    then:
+      - light.turn_on: motion_state_led
+      - switch.turn_on: fire_relay

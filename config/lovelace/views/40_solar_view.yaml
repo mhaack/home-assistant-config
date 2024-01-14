@@ -31,18 +31,18 @@ cards:
       - type: horizontal-stack
         cards:
           - type: entity
-            entity: sensor.solaredge_energy_today_kwh
+            entity: sensor.solaredge_energy_today
             name: Energie heute
           - type: entity
-            entity: sensor.solaredge_energy_this_month_kwh
+            entity: sensor.solaredge_energy_this_month
             name: Energie Monat
       - type: horizontal-stack
         cards:
           - type: entity
-            entity: sensor.solaredge_energy_this_year_kwh
+            entity: sensor.solaredge_energy_this_year
             name: Energie Jahr
           - type: entity
-            entity: sensor.solaredge_lifetime_energy_kwh
+            entity: sensor.solaredge_lifetime_energy
             name: Gesamtenergie
       - type: custom:decluttering-card
         template: card_header
@@ -52,18 +52,18 @@ cards:
       - type: horizontal-stack
         cards:
           - type: entity
-            entity: sensor.solaredge_consumption_energy_kwh
+            entity: sensor.solaredge_consumption_energy
             name: Gesamtverbrauch
           - type: entity
-            entity: sensor.solaredge_selfconsumption_energy_kwh
+            entity: sensor.solaredge_selfconsumption_energy
             name: Eigenverbrauch
       - type: horizontal-stack
         cards:
           - type: entity
-            entity: sensor.solaredge_imported_energy_kwh
+            entity: sensor.solaredge_imported_energy
             name: Import
           - type: entity
-            entity: sensor.solaredge_exported_energy_kwh
+            entity: sensor.solaredge_exported_energy
             name: Export
       - type: custom:decluttering-card
         template: card_header

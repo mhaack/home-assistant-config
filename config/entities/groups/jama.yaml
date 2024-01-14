@@ -1,0 +1,8 @@
+---
+# Group containting all family person sensors for away management
+#
+jama:
+  name: JaMa Presence
+  entities:
+    - person.jasmina
+    - person.markus

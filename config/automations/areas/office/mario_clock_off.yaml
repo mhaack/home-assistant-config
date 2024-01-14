@@ -1,0 +1,15 @@
+---
+# Switch off Mario clock
+#
+id: 7ddb6710-01a6-47b8-9828-39dbfd0e9bba
+alias: "[Office] Switch off Mario clock on room occupy"
+mode: single
+trigger:
+  - type: not_occupied
+    platform: device
+    device_id: 3ab097e1b2be093eadd69d19a034e2ae
+    entity_id: binary_sensor.office_motion_occupancy
+    domain: binary_sensor
+action:
+  - service: switch.turn_off
+    entity_id: switch.office_mario_clock

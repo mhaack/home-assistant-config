@@ -1,0 +1,12 @@
+sensor:
+  - name: livingroom_slidingdoor
+    unique_id: 153f044e-9bd4-47a3-80ab-9f9b379bc950
+    state: >-
+      {% if is_state('cover.livingroom_window_4a', 'open') %}
+        open
+      {% elif is_state('cover.livingroom_window_4b', 'open') %}
+        open
+      {% else %}
+        closed
+      {% endif %}
+    icon: mdi:window-shutter

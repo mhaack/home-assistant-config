@@ -9,7 +9,7 @@ DISPLAY_LED = 'green'
 led = data.get('led', DISPLAY_LED)
 beep = data.get('beep', 'short_short')
 
-if hass.states.is_state('group.system_contact_sensors', 'on'):
+if hass.states.is_state('binary_sensor.system_contact_sensors', 'on'):
     icon1 = 'open'
 else:
     icon1 = 'closed'

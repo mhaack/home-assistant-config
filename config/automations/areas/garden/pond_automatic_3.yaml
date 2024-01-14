@@ -15,7 +15,7 @@ action:
     data:
       entity_id: switch.garden_pond_waterfall
   - delay:
-      minutes: 1
+      minutes: 2
   - service: switch.turn_on
     data:
       entity_id: switch.garden_pond_blubber

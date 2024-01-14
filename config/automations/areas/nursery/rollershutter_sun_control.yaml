@@ -6,7 +6,7 @@ alias: "[Childsroom] Turn down the roller shutter on hot days"
 initial_state: true
 trigger:
   - platform: state
-    entity_id: sensor.garden_temperature, weather.dark_sky
+    entity_id: sensor.garden_temperature, weather.jama_villa
 condition:
   condition: and
   conditions:
@@ -26,7 +26,7 @@ condition:
           entity_id: sensor.garden_temperature
           above: 23
         - condition: numeric_state
-          entity_id: weather.dark_sky
+          entity_id: weather.jama_villa
           value_template: "{{ state.attributes.temperature }}"
           above: 25
 action:
@@ -34,6 +34,7 @@ action:
     data:
       entity_id: cover.nursery
       position: 35
+  - delay: 1
   - service: cover.set_cover_position
     data:
       entity_id: cover.nursery_bed

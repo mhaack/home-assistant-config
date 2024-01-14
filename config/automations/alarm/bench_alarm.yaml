@@ -26,9 +26,9 @@ action:
     data:
       entity_id: switch.garden_carport_siren_3
   - alias: "Activate camera"
-    service: aarlo.camera_start_recording
+    service: camera.record
     data:
-      entity_id: camera.aarlo_carport
+      entity_id: camera.entrance
       duration: 30
   - alias: "Repeat until alarm off"
     repeat:

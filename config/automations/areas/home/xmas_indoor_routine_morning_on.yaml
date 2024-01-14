@@ -1,10 +1,14 @@
 ---
 # XMAS lights automatic - on
 #
+id: 5bd5379c-8909-4e6b-900c-4ef4f759c6e7
 alias: "[XMAS] Turn on XMAS indoor lights daily morning routine"
 trigger:
-  - platform: time
-    at: "06:45:00"
+  - platform: state
+    entity_id:
+      - schedule.xmas_indoor_morning
+    from: "off"
+    to: "on"
 condition:
   - condition: state
     entity_id: input_boolean.xmas_mode
@@ -12,4 +16,4 @@ condition:
 action:
   - service: light.turn_on
     data:
-      entity_id: light.xmas_indoor_lights
+      entity_id: light.xmas_indoor_lights_morning

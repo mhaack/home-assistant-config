@@ -1,0 +1,10 @@
+sensor:
+  - name: livingroom_slidingdoor_position
+    unique_id: 6ee9c1dd-16f0-4c30-951b-db9e92a0a621
+    state: >-
+      {% if (state_attr('cover.livingroom_window_4a', 'current_position') != None) and (state_attr('cover.livingroom_window_4b', 'current_position') != None) -%}
+      {{ [state_attr('cover.livingroom_window_4a', 'current_position'), state_attr('cover.livingroom_window_4b', 'current_position')] | max }}
+      {%- else -%}
+      0
+      {%- endif %}
+    icon: mdi:window-shutter

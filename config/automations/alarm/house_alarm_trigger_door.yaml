@@ -5,7 +5,7 @@ alias: "[Security] Trigger house alarm if door or window was opened"
 id: 7bb26b9f-7a33-4fab-a9e8-9d2873b9e27a
 trigger:
   - platform: state
-    entity_id: group.system_contact_sensors
+    entity_id: binary_sensor.system_contact_sensors
     to: "on"
 condition:
   condition: or

@@ -47,7 +47,6 @@ cards:
           - content: "Poolheizung"
           - icon: mdi:coolant-temperature
       - type: entities
-        style: |
         show_header_toggle: false
         entities:
           - sensor.pool_solar_temperature_diff

@@ -5,7 +5,6 @@ binary_sensor:
   - name: system_homematic_up
     unique_id: b32de5f2-f138-4ac4-99e1-8d40e6159eef
     state: >-
-      {{as_timestamp(now()) - as_timestamp(states.sensor.office_desk_voltage.last_changed) < 600 or
-        as_timestamp(now()) - as_timestamp(states.sensor.kitchen_dishwasher_frequency.last_changed) < 600 or
+      {{as_timestamp(now()) - as_timestamp(states.sensor.kitchen_dishwasher_current.last_changed) < 600 or
         as_timestamp(now()) - as_timestamp(states.sensor.pool_pump_voltage.last_changed) < 600}}
     icon: mdi:connection

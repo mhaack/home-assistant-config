@@ -1,0 +1,102 @@
+---
+# The main JaMa Villa system info view for all the device info's
+#
+title: System Info
+icon: mdi:nas
+path: system-nas
+
+badges: []
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Synology Resources"
+          - icon: mdi:home-assistant
+      - type: entities
+        entities:
+          - binary_sensor.datentopf_security_status
+      - type: custom:mini-graph-card
+        entities:
+          - sensor.datentopf_cpu_utilization_total
+        name: CPU
+        align_header: left
+        align_icon: left
+        line_color: "#2980b9"
+        line_width: 2
+        hours_to_show: 24
+        decimals: 1
+        hour24: true
+        show:
+          fill: fade
+          extrema: true
+        color: "#00ba6a"
+      - type: custom:bar-card
+        entities:
+          - entity: sensor.datentopf_volume_1_volume_used
+            color: "#00ba6a"
+            name: Volume 1
+          - entity: sensor.datentopf_memory_usage_real
+            name: Memory
+        positions:
+          indicator: inside
+          icon: inside
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Memory available"
+          - icon: mdi:memory
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: sensor.datentopf_memory_available_real
+            name: RAM
+          - type: tile
+            entity: sensor.datentopf_memory_available_swap
+            name: Swap
+
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Temperatur"
+          - icon: mdi:thermometer
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: sensor.datentopf_temperature
+            name: System
+          - type: tile
+            entity: sensor.datentopf_drive_1_temperature
+            name: Disk 1
+          - type: tile
+            entity: sensor.datentopf_drive_2_temperature
+            name: Disk 2
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Disk"
+          - icon: mdi:harddisk
+      - type: entities
+        entities:
+          - sensor.datentopf_drive_1_status
+          - sensor.datentopf_drive_2_status
+          - sensor.datentopf_volume_1_status
+          - sensor.datentopf_volume_1_used_space
+        show_header_toggle: false
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Network"
+          - icon: mdi:router-network
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: sensor.datentopf_download_throughput
+            name: Download Throughput
+          - type: tile
+            entity: sensor.datentopf_upload_throughput
+            name: Upload Throughput

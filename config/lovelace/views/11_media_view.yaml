@@ -9,44 +9,31 @@ badges: []
 cards:
   - type: vertical-stack
     cards:
-      - type: custom:state-switch
-        entity: user
-        states:
-          Markus:
-            type: custom:decluttering-card
-            template: welcome_header
-            variables:
-              - image: "/local/assets/markus.jpg"
-          Jasmina:
-            type: custom:decluttering-card
-            template: welcome_header
-            variables:
-              - image: "/local/assets/jasmina.jpg"
       - type: custom:decluttering-card
         template: card_header
         variables:
-          - content: "Sonos"
-      - type: "custom:mini-media-player"
-        icon: mdi:speaker
-        entity: media_player.roam
-        artwork: cover
-        hide:
-          volume: true
-          source: true
-          power_state: false
-      - type: "custom:mini-media-player"
-        icon: mdi:speaker
-        entity: media_player.livingroom
-        artwork: cover
-        hide:
-          volume: true
-          source: true
-          power_state: false
+          - content: "Sonos Unten"
+          - icon: mdi:speaker-wireless
       - type: "custom:mini-media-player"
         icon: mdi:speaker
         entity: media_player.move
         artwork: cover
-        hide:
-          volume: true
-          source: true
-          power_state: false
+      - type: "custom:mini-media-player"
+        icon: mdi:speaker
+        entity: media_player.livingroom
+        artwork: cover
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Sonos Oben"
+          - icon: mdi:speaker-wireless
+      - type: "custom:mini-media-player"
+        icon: mdi:speaker
+        entity: media_player.nursery_playone
+        artwork: cover
+      - type: "custom:mini-media-player"
+        icon: mdi:speaker
+        entity: media_player.office_roam
+        artwork: cover

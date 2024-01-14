@@ -16,6 +16,7 @@ views:
   - !include lovelace/views/10_house_view.yaml
   - !include lovelace/views/30_garden_view.yaml
   - !include lovelace/views/31_pool_view.yaml
+  - !include lovelace/views/13_camera_view.yaml
   - !include lovelace/views/12_security_view.yaml
   - !include lovelace/views/11_media_view.yaml
   - !include lovelace/views/32_watering_view.yaml

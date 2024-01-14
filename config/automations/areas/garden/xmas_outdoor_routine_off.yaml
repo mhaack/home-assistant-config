@@ -7,8 +7,11 @@ trigger:
   - platform: sun
     event: sunrise
     offset: "00:30:00"
-  - platform: time
-    at: "23:00:00"
+  - platform: state
+    entity_id:
+      - schedule.xmas_outdoor
+    from: "on"
+    to: "off"
 condition:
   - condition: state
     entity_id: input_boolean.xmas_mode

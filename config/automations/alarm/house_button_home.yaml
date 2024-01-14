@@ -20,7 +20,7 @@ action:
   - service: script.turn_on
     data_template:
       entity_id: >-
-        {% if states('group.system_window_sensors') | lower == "on" or states('binary_sensor.hall_frontdoor') | lower == "on" %}
+        {% if states('binary_sensor.system_window_sensors') | lower == "on" or states('binary_sensor.hall_frontdoor') | lower == "on" %}
           script.notify_alarm_not_possible
         {% else %}
           script.turn_on_house_alarm_home
