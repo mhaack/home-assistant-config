@@ -1,6 +1,10 @@
 """Define the objects to store care data."""
+from __future__ import annotations
+
 import collections
+from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 ODOMETER_OPTIONS = [
     "odo",
@@ -91,6 +95,7 @@ DOOR_OPTIONS = [
     "rooftopstatus",
     "sunroofstatus",
     "engineHoodStatus",
+    "chargeFlapDCStatus",
 ]
 
 ELECTRIC_OPTIONS = [
@@ -103,6 +108,8 @@ ELECTRIC_OPTIONS = [
     "ecoElectricBatteryTemperature",
     "electricconsumptionstart",
     "electricconsumptionreset",
+    "electricRatioStart",
+    "electricRatioOverall",
     "endofchargetime",
     "endofChargeTimeWeekday",
     "precondActive",
@@ -154,31 +161,40 @@ PRE_COND_OPTIONS = ["preconditionState", "precondimmediate"]
 RemoteStart_OPTIONS = ["remoteEngine", "remoteStartEndtime", "remoteStartTemperature"]
 
 CarAlarm_OPTIONS = [
-    "lastTheftWarning",
-    "towSensor",
-    "theftSystemArmed",
     "carAlarm",
-    "parkEventType",
-    "parkEventLevel",
     "carAlarmLastTime",
-    "towProtectionSensorStatus",
-    "theftAlarmActive",
-    "lastTheftWarningReason",
-    "lastParkEvent",
+    "carAlarmReason",
     "collisionAlarmTimestamp",
     "interiorSensor",
-    "carAlarmReason",
+    "lastParkEvent",
+    "lastTheftWarning",
+    "lastTheftWarningReason",
+    "parkEventLevel",
+    "parkEventType",
+    "theftAlarmActive",
+    "theftSystemArmed",
+    "towProtectionSensorStatus",
+    "towSensor",
+    "interiorProtectionSensorStatus",
+    "exteriorProtectionSensorStatus",
 ]
 
 GeofenceEvents_OPTIONS = ["last_event_zone", "last_event_timestamp", "last_event_type"]
 
 
-class Car(object):
-    """Car class, stores the car values at runtime"""
+class Car:
+    """Car class, stores the car values at runtime."""
 
-    def __init__(self):
-        self.licenseplate = None
-        self.finorvin = None
+    features: dict[str, bool]
+    geofence_events: GeofenceEvents
+    baumuster_description: str = ""
+    has_geofencing: bool = True
+
+    def __init__(self, vin: str):
+        """Initialize the Car instance."""
+        self.finorvin = vin
+
+        self.licenseplate = ""
         self._is_owner = False
         self.messages_received = collections.Counter(f=0, p=0)
         self._last_message_received = 0
@@ -187,6 +203,7 @@ class Car(object):
         self._last_command_error_code = ""
         self._last_command_error_message = ""
         self._last_command_time_stamp = 0
+        self._last_full_message = None
 
         self.binarysensors = None
         self.tires = None
@@ -194,13 +211,15 @@ class Car(object):
         self.doors = None
         self.location = None
         self.windows = None
-        self.features = None
         self.rcp_options = None
         self.auxheat = None
         self.precond = None
         self.electric = None
         self.caralarm = None
-        self.geofence_events = None
+        self.last_full_message = None
+        self.geofence_events = GeofenceEvents()
+        self.features = {}
+        self.masterdata: dict[str, Any] = {}
         self.entry_setup_complete = False
         self._update_listeners = set()
 
@@ -253,121 +272,109 @@ class Car(object):
             callback()
 
 
+@dataclass(init=False)
 class Tires:
-    """Stores the Tires values at runtime"""
+    """Stores the Tires values at runtime."""
 
-    def __init__(self):
-        self.name = "Tires"
+    name: str = "Tires"
 
 
+@dataclass(init=False)
 class Odometer:
-    """Stores the Odometer values at runtime"""
+    """Stores the Odometer values at runtime."""
 
-    def __init__(self):
-        self.name = "Odometer"
-
-
-class Features:
-    """Stores the Features values at runtime"""
-
-    def __init__(self):
-        self.name = "Features"
+    name: str = "Odometer"
 
 
+@dataclass(init=False)
 class RcpOptions:
-    """Stores the RcpOptions values at runtime"""
+    """Stores the RcpOptions values at runtime."""
 
-    def __init__(self):
-        self.name = "RCP_Options"
+    name: str = "RCP_Options"
 
 
+@dataclass(init=False)
 class Windows:
-    """Stores the Windows values at runtime"""
+    """Stores the Windows values at runtime."""
 
-    def __init__(self):
-        self.name = "Windows"
+    name: str = "Windows"
 
 
+@dataclass(init=False)
 class Doors:
-    """Stores the Doors values at runtime"""
+    """Stores the Doors values at runtime."""
 
-    def __init__(self):
-        self.name = "Doors"
+    name: str = "Doors"
 
 
+@dataclass(init=False)
 class Electric:
-    """Stores the Electric values at runtime"""
+    """Stores the Electric values at runtime."""
 
-    def __init__(self):
-        self.name = "Electric"
+    name: str = "Electric"
 
 
+@dataclass(init=False)
 class Auxheat:
-    """Stores the Auxheat values at runtime"""
+    """Stores the Auxheat values at runtime."""
 
-    def __init__(self):
-        self.name = "Auxheat"
+    name: str = "Auxheat"
 
 
+@dataclass(init=False)
 class Precond:
-    """Stores the Precond values at runtime"""
+    """Stores the Precond values at runtime."""
 
-    def __init__(self):
-        self.name = "Precond"
+    name = "Precond"
 
 
+@dataclass(init=False)
 class BinarySensors:
-    """Stores the BinarySensors values at runtime"""
+    """Stores the BinarySensors values at runtime."""
 
-    def __init__(self):
-        self.name = "BinarySensors"
+    name: str = "BinarySensors"
 
 
+@dataclass(init=False)
 class RemoteStart:
-    """Stores the RemoteStart values at runtime"""
+    """Stores the RemoteStart values at runtime."""
 
-    def __init__(self):
-        self.name = "RemoteStart"
+    name: str = "RemoteStart"
 
 
+@dataclass(init=False)
 class CarAlarm:
-    """Stores the Odometer values at runtime"""
+    """Stores the CarAlarm values at runtime."""
 
-    def __init__(self):
-        self.name = "CarAlarm"
+    name: str = "CarAlarm"
 
 
+@dataclass(init=False)
 class Location:
-    """Stores the Location values at runtime"""
+    """Stores the Location values at runtime."""
 
-    def __init__(self, latitude=None, longitude=None, heading=None):
-        self.name = "Location"
-        self.latitude = None
-        self.longitude = None
-        self.heading = None
-        if latitude is not None:
-            self.latitude = latitude
-        if longitude is not None:
-            self.longitude = longitude
-        if heading is not None:
-            self.heading = heading
+    name: str = "Location"
 
 
+@dataclass(init=False)
 class GeofenceEvents:
-    """Stores the geofence violation values at runtime"""
+    """Stores the geofence violation values at runtime."""
 
-    def __init__(self):
-        self.name = "GeofenceEvents"
-        self.events = []
+    last_event_type: CarAttribute | None = None
+    last_event_timestamp: CarAttribute | None = None
+    last_event_zone: CarAttribute | None = None
+    name: str = "GeofenceEvents"
+    events = []
 
 
+@dataclass(init=False)
 class CarAttribute:
-    """Stores the CarAttribute values at runtime"""
+    """Stores the CarAttribute values at runtime."""
 
-    def __init__(self, value, retrievalstatus, timestamp, distance_unit=None, display_value=None, unit=None):
+    def __init__(self, value, retrievalstatus, timestamp, display_value=None, unit=None):
+        """Initialize the instance."""
         self.value = value
         self.retrievalstatus = retrievalstatus
         self.timestamp = timestamp
-        self.distance_unit = distance_unit
         self.display_value = display_value
         self.unit = unit

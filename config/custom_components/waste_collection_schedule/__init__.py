@@ -8,6 +8,7 @@ import homeassistant.helpers.config_validation as cv
 import homeassistant.util.dt as dt_util
 import voluptuous as vol
 from homeassistant.core import HomeAssistant, ServiceCall, callback
+from homeassistant.helpers.discovery import async_load_platform
 from homeassistant.helpers.dispatcher import dispatcher_send
 
 from .const import DOMAIN, UPDATE_SENSORS_SIGNAL
@@ -117,9 +118,7 @@ async def async_setup(hass: HomeAssistant, config: dict):
     hass.data.setdefault(DOMAIN, api)
 
     # load calendar platform
-    await hass.helpers.discovery.async_load_platform(
-        "calendar", DOMAIN, {"api": api}, config
-    )
+    await async_load_platform(hass, "calendar", DOMAIN, {"api": api}, config)
 
     # initial fetch of all data
     hass.add_job(api._fetch)
@@ -198,14 +197,15 @@ class WasteCollectionApi:
         source_args,
         calendar_title,
     ):
-        self._source_shells.append(
-            SourceShell.create(
-                source_name=source_name,
-                customize=customize,
-                source_args=source_args,
-                calendar_title=calendar_title,
-            )
+        new_shell = SourceShell.create(
+            source_name=source_name,
+            customize=customize,
+            source_args=source_args,
+            calendar_title=calendar_title,
         )
+
+        if new_shell:
+            self._source_shells.append(new_shell)
 
     def _fetch(self, *_):
         for shell in self._source_shells:

@@ -7,7 +7,7 @@
     "error": {
       "cannot_connect": "cannot_connect",
       "invalid_auth": "invalid_auth",
-      "unknown": "unknown"
+      "unknown": "Unknown error. Please check the Home Assistant log for more information."
     },
     "step": {
       "pin": {
@@ -22,7 +22,7 @@
           "region": "Region",
           "username": "MB username - email address (or mobile phone including country code ex. +44)"
         },
-        "description": "Enter your Mercedes ME login account (email adress)",
+        "description": "Enter your Mercedes ME login account (email address)",
         "title": "Set up the Mercedes ME 2020 connection"
       }
     }
@@ -64,8 +64,10 @@
   },
   "system_health": {
     "info": {
-      "api_endpoint_reachable": "MB API endpoint reachable",
-      "websocket_connection_state": "MB Websocket connection state"
+      "api_endpoint_reachable": "MB API reachable",
+      "websocket_connection_state": "MB WS state",
+      "cars_connected": "Connected cars",
+      "version": "Version"
     }
   },
   "services": {
@@ -130,6 +132,20 @@
         "max_soc": {
           "name": "Max Soc",
           "description": "The maximum value for the state of charge of the HV battery (Value needs to be between 50 and 100 and divisible by ten)"
+        }
+      }
+    },
+    "charge_program_configure": {
+      "name": "Charge program configure",
+      "description": "Command to select the charge program.",
+      "fields": {
+        "vin": {
+          "name": "Vin",
+          "description": "Vin/Fin of the car"
+        },
+        "charge_program": {
+          "name": "Charge program",
+          "description": "The activated charging program (0=Default, 2=Home, 3=Work)"
         }
       }
     },
@@ -272,6 +288,32 @@
         "vin": {
           "name": "Vin",
           "description": "Vin/Fin of the car"
+        }
+      }
+    },
+    "windows_move": {
+      "name": "Windows move",
+      "description": "Move the windows of a car defined by a vin to a new position. PIN setup required. See options dialog of the integration.",
+      "fields": {
+        "vin": {
+          "name": "Vin",
+          "description": "Vin/Fin of the car"
+        },
+        "front_left": {
+          "name": "Front left",
+          "description": "The new position of the front left window (0=closed, 10=ventilating, 100=open)"
+        },
+        "front_right": {
+          "name": "Front right",
+          "description": "The new position of the front left window (0=closed, 10=ventilating, 100=open)"
+        },
+        "rear_left": {
+          "name": "Rear left",
+          "description": "The new position of the front left window (0=closed, 10=ventilating, 100=open)"
+        },
+        "rear_right": {
+          "name": "Rear right",
+          "description": "The new position of the front left window (0=closed, 10=ventilating, 100=open)"
         }
       }
     },
@@ -426,6 +468,32 @@
             }
           }
         }
+      },
+      "interiorprotectionsensorstatus": {
+        "state": {
+          "0": "Not active",
+          "1": "Not active",
+          "2": "Active"
+        },
+        "state_attributes": {}
+      },
+      "sunroofstatus": {
+        "state": {
+          "0": "Closed",
+          "1": "Opened",
+          "2": "Open lifting",
+          "3": "Running",
+          "4": "Anti booming",
+          "5": "Intermediate sliding",
+          "6": "Intermediate lifting",
+          "7": "Opening",
+          "8": "Closing",
+          "9": "Anti booming lifting",
+          "10": "Intermediate position",
+          "11": "Opening lifting",
+          "12": "Closing lifting"
+        },
+        "state_attributes": {}
       }
     }
   }

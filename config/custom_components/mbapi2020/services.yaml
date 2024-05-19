@@ -1,6 +1,3 @@
-refresh_access_token:
-  description: Refresh the API access token
-
 auxheat_configure:
   description: "Command for configuring the auxiliary heating. It is possible to define three daytimes and select one active time."
   fields:
@@ -94,6 +91,25 @@ battery_max_soc_configure:
             - "80"
             - "90"
             - "100"
+charge_program_configure:
+  description: "Command to select the charge program."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+    charge_program:
+      description: "The activated charge program (0=Default, 2=Home, 3=Work)"
+      example: "0"
+      default: 0
+      selector:
+        select:
+          options:
+            - "0"
+            - "2"
+            - "3"
 
 doors_unlock:
   description: "Unlock a car defined by a vin. PIN setup required. See options dialog of the integration."
@@ -249,6 +265,89 @@ windows_close:
       required: True
       selector:
         text:
+
+windows_move:
+  description: "Move the windows to the defined positions of a car defined by a vin. PIN setup required. See options dialog of the integration."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:
+    front_left:
+      description: "The new position of the front left window (Value needs to be between 0 and 100 and divisible by ten)."
+      example: "80"
+      required: False
+      selector:
+        select:
+          options:
+            - "0"
+            - "10"
+            - "20"
+            - "30"
+            - "40"
+            - "50"
+            - "60"
+            - "70"
+            - "80"
+            - "90"
+            - "100"
+    front_right:
+      description: "The new position of the front right window (Value needs to be between 0 and 100 and divisible by ten)."
+      example: "80"
+      required: False
+      selector:
+        select:
+          options:
+            - "0"
+            - "10"
+            - "20"
+            - "30"
+            - "40"
+            - "50"
+            - "60"
+            - "70"
+            - "80"
+            - "90"
+            - "100"
+    rear_left:
+      description: "The new position of the rear left window (Value needs to be between 0 and 100 and divisible by ten)."
+      example: "80"
+      required: False
+      selector:
+        select:
+          options:
+            - "0"
+            - "10"
+            - "20"
+            - "30"
+            - "40"
+            - "50"
+            - "60"
+            - "70"
+            - "80"
+            - "90"
+            - "100"
+    rear_right:
+      description: "The new position of the front left window (Value needs to be between 0 and 100 and divisible by ten)."
+      example: "80"
+      required: False
+      selector:
+        select:
+          options:
+            - "0"
+            - "10"
+            - "20"
+            - "30"
+            - "40"
+            - "50"
+            - "60"
+            - "70"
+            - "80"
+            - "90"
+            - "100"
+
 
 send_route:
   description: "Sends a route to the car. (Single location only)"
