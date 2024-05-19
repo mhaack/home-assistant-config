@@ -90,7 +90,6 @@ cards:
             items:
               - device_tracker.iphone_von_markus
               - device_tracker.iphone_markus_wifi_private
-              - device_tracker.iphone_markus_wifi_work
             group_config:
               secondary_info: last-changed
           - type: custom:fold-entity-row
@@ -137,8 +136,6 @@ cards:
           - binary_sensor.hall_litterbox_1
           - binary_sensor.hall_litterbox_2
           - sensor.hall_all_litterbox_visits
-          - binary_sensor.hall_litterbox_1_lid
-          - binary_sensor.hall_litterbox_2_lid
           - input_boolean.hall_litterbox_notification
 
   - type: vertical-stack

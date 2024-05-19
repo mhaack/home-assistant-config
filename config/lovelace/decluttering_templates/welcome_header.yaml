@@ -5,16 +5,17 @@ card:
   type: horizontal-stack
   cards:
     - type: markdown
-      style: |
-        ha-card {
-          margin: 5px 14px -5px 10px;
-          box-shadow: none;
-          background: none;
-        }
-        h2 {
-          font-size: 20px;
-          font-weight: 500;
-        }
+      card_mod:
+        style: |
+          ha-card {
+            margin: 5px 14px -5px 10px;
+            box-shadow: none;
+            background: none;
+          }
+          h2 {
+            font-size: 20px;
+            font-weight: 500;
+          }
       content: |
         {% if now().hour < 5 %}
           ## Gute Nacht
@@ -26,13 +27,14 @@ card:
           ## Guten Abend
           {% endif %}
     - type: picture
-      style: |
-        ha-card {
-          max-width: 48px;
-          max-height: 48px;
-          margin-left: auto;
-          margin-right: 20px;
-          margin-top: 14px;
-          box-shadow: none;
-        }
+      card_mod:
+        style: |
+          ha-card {
+            max-width: 48px;
+            max-height: 48px;
+            margin-left: auto;
+            margin-right: 20px;
+            margin-top: 14px;
+            box-shadow: none;
+          }
       image: "[[image]]"

@@ -5,14 +5,8 @@
 # and contains some minimal, but vital, settings.
 #
 homeassistant:
-  name: JaMa Villa
-
-  latitude: !secret lat_coord
-  longitude: !secret long_coord
-  elevation: !secret home_elevation
-  country: DE
-  time_zone: Europe/Berlin
-  unit_system: metric
   allowlist_external_dirs:
     - "/tmp"
   packages: !include_dir_named integrations
+
+automation: !include automations.yaml

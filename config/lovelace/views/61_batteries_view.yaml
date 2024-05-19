@@ -31,7 +31,7 @@ cards:
       - type: custom:battery-state-card
         tap_action: more-info
         entities:
-          - entity: sensor.iphone_von_markus_battery_level
+          - entity: sensor.iphone_von_markus_battery_level_2
             charging_state:
               entity_id: sensor.iphone_von_markus_battery_state
               state: "Charging"

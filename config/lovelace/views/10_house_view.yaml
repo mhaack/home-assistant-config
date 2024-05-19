@@ -348,6 +348,15 @@ cards:
             entity: switch.office_mario_clock
           - type: tile
             entity: binary_sensor.office_motion_occupancy
+      - type: custom:decluttering-card
+        template: card_header
+        variables:
+          - content: "Bad"
+          - icon: mdi:shower
+      - type: horizontal-stack
+        cards:
+          - type: tile
+            entity: switch.bathroom_towel_heating
 
   - type: vertical-stack
     cards:

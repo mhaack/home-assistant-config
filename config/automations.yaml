@@ -1,0 +1,2459 @@
+- id: 9680f6fc-cc0c-45ea-99e2-30fecf27db47
+  alias: '[Pool] Switch off pool cleaner if still on'
+  trigger:
+    platform: time
+    at: '22:00:00'
+  condition:
+  - condition: state
+    entity_id: switch.garden_sundeck_sockets
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: 'off'
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.garden_sundeck_sockets
+  - condition: state
+    entity_id: input_boolean.pool_notification
+    state: 'on'
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa
+      message: Achtung! Schlürfi war noch an, nicht vergessen ihn rein zu räumen.
+      data:
+        group: notification-pool
+        tag: pool-cleaner
+- id: 7ba02808-de25-4faf-a423-7769ba05e92d
+  alias: '[Pool] Switch off pool light if still on'
+  trigger:
+    platform: time
+    at: '22:00:00'
+  condition:
+  - condition: state
+    entity_id: light.pool_light
+    state: 'on'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: light.pool_light
+  - condition: state
+    entity_id: input_boolean.pool_notification
+    state: 'on'
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa - Pool
+      message: Achtung! Poollicht war noch an.
+      data:
+        group: notification-pool
+        tag: pool-light
+- id: 243b726a-60f4-4162-ab80-fa879858c7d3
+  alias: '[Pool] Pump state change notifications'
+  trigger:
+  - platform: state
+    entity_id: switch.pool_pump
+  condition:
+  - condition: state
+    entity_id: input_boolean.pool_notification
+    state: 'on'
+  - condition: template
+    value_template: '{{ trigger.from_state.state != trigger.to_state.state }}
+
+      '
+  action:
+  - delay:
+      seconds: 15
+  - service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: JaMa Villa - Pool
+      message: "\U0001F4A7 Temp: {{states.sensor.pool_water_temperature_1.state}}°C
+        / ☀️ Temp: {{states.sensor.pool_solar_temperature.state}}°C / ⚙️ Pumpe: {{states.switch.pool_pump.state}}\n"
+      data:
+        group: notification-pool
+        tag: pool-operation
+- id: b5e829ae-9d0f-40b4-ad05-c383bbd05662
+  alias: '[Pool] Valve state change notifications'
+  trigger:
+  - platform: state
+    entity_id:
+    - script.switch_off_pool_valve
+    - script.switch_on_pool_valve
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.pool_notification
+    state: 'on'
+  action:
+  - delay:
+      seconds: 15
+  - service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: JaMa Villa - Pool
+      message: "\U0001F4A7 Temp: {{states.sensor.pool_water_temperature_1.state}}°C
+        / ☀️ Temp: {{states.sensor.pool_solar_temperature.state}}°C / Ventil: {{ states('binary_sensor.pool_valve_state')}}\n"
+      data:
+        group: notification-pool
+        tag: pool-operation
+- id: 53dd9245-b376-4e1d-9167-e15838900d58
+  alias: '[Pool] Pump mode selection'
+  trigger:
+  - platform: state
+    entity_id: input_select.pool_pump_mode
+  action:
+  - alias: Set variables
+    variables:
+      pool_mode_intense:
+      - automation.pool_daily_intense_pool_pump_schedule_on
+      - automation.pool_daily_intense_pool_pump_schedule_off
+      pool_mode_normal:
+      - automation.pool_daily_normal_pool_pump_schedule_off
+      - automation.pool_daily_normal_pool_pump_schedule_on
+      pool_mode_solar:
+      - automation.pool_daily_solar_pool_pump_schedule_on
+      - automation.pool_daily_solar_pool_pump_schedule_off
+      pool_mode_all:
+      - automation.pool_daily_intense_pool_pump_schedule_on
+      - automation.pool_daily_intense_pool_pump_schedule_off
+      - automation.pool_daily_normal_pool_pump_schedule_off
+      - automation.pool_daily_normal_pool_pump_schedule_on
+      - automation.pool_daily_solar_pool_pump_schedule_on
+      - automation.pool_daily_solar_pool_pump_schedule_off
+  - alias: Pool Mode Selection
+    choose:
+    - alias: Mode = Auto - Intensiv
+      conditions: '{{ trigger.to_state.state == ''Auto - Intensiv'' }}
+
+        '
+      sequence:
+      - service: switch.turn_on
+        entity_id: switch.pool_pump
+      - service: automation.turn_on
+        target:
+          entity_id: '{{ pool_mode_intense }}'
+      - service: automation.turn_off
+        target:
+          entity_id: '{{ pool_mode_normal }}'
+      - service: automation.turn_off
+        target:
+          entity_id: '{{ pool_mode_solar }}'
+    - alias: Mode = Auto - Normal
+      conditions: '{{ trigger.to_state.state == ''Auto - Normal'' }}
+
+        '
+      sequence:
+      - service: switch.turn_on
+        entity_id: switch.pool_pump
+      - service: automation.turn_on
+        target:
+          entity_id: '{{ pool_mode_normal }}'
+      - service: automation.turn_off
+        target:
+          entity_id: '{{ pool_mode_intense }}'
+      - service: automation.turn_off
+        target:
+          entity_id: '{{ pool_mode_solar }}'
+    - alias: Mode = Auto - Solar
+      conditions: '{{ trigger.to_state.state == ''Auto - Solar'' }}
+
+        '
+      sequence:
+      - service: switch.turn_on
+        entity_id: switch.pool_pump
+      - service: automation.turn_on
+        target:
+          entity_id: '{{ pool_mode_solar }}'
+      - service: automation.turn_off
+        target:
+          entity_id: '{{ pool_mode_intense }}'
+      - service: automation.turn_off
+        target:
+          entity_id: '{{ pool_mode_normal }}'
+    - alias: Mode = On
+      conditions: '{{ trigger.to_state.state == ''Dauerbetrieb'' }}
+
+        '
+      sequence:
+      - service: switch.turn_on
+        entity_id: switch.pool_pump
+      - service: automation.turn_off
+        target:
+          entity_id: '{{ pool_mode_all }}'
+    - alias: Mode = Off
+      conditions: '{{ trigger.to_state.state == ''Aus'' }}
+
+        '
+      sequence:
+      - service: switch.turn_off
+        entity_id: switch.pool_pump
+      - service: automation.turn_off
+        target:
+          entity_id: '{{ pool_mode_all }}'
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa - Pool
+      message: 'Pool Modus geändert in: {{states.input_select.pool_pump_mode.state}}
+
+        '
+      data:
+        group: notification-pool
+        tag: pool-mode
+- id: 58498c94-3c62-4368-9aa0-1ca75ba5c796
+  alias: '[Pool] Daily intense pool pump schedule - off'
+  trigger:
+  - platform: time
+    at:
+    - 00:00:00
+    - 06:00:00
+    - '12:00:00'
+    - '18:00:00'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.pool_pump
+- id: 292db941-2482-4d69-beaa-bd3d6eb321c7
+  alias: '[Pool] Daily intense pool pump schedule - on'
+  trigger:
+  - platform: time
+    at:
+    - 02:00:00
+    - 08:00:00
+    - '14:00:00'
+    - '20:00:00'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.pool_pump
+- id: 81593ef6-84dd-4844-8f5a-e8e7a6387923
+  alias: '[Pool] Daily normal pool pump schedule - off'
+  trigger:
+  - platform: time
+    at:
+    - '11:00:00'
+    - '16:00:00'
+    - '21:00:00'
+    - 04:00:00
+  action:
+  - service: switch.turn_off
+    entity_id: switch.pool_pump
+- id: 392ed7a3-ea1e-46b7-b5a3-9b61f6c4f7c7
+  alias: '[Pool] Daily normal pool pump schedule - on'
+  trigger:
+  - platform: time
+    at:
+    - 01:00:00
+    - 08:00:00
+    - '13:00:00'
+    - '18:00:00'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.pool_pump
+- id: 3a494554-8445-4498-a1ca-88d6bb8cf14b
+  alias: '[Pool] Daily Solar pool pump schedule - off'
+  trigger:
+  - platform: time
+    at:
+    - 02:00:00
+    - 08:00:00
+    - '20:00:00'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.pool_pump
+- id: af0f6dd6-232e-48b0-88a3-558876fb98f0
+  alias: '[Pool] Daily Solar pool pump schedule - on'
+  trigger:
+  - platform: time
+    at:
+    - 00:01:00
+    - 06:01:00
+    - '10:01:00'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.pool_pump
+- id: 4d7a851f-23ec-4647-9d22-791552f29b8c
+  alias: '[Pool] Report Pump Operation'
+  trigger:
+    platform: time
+    at: '23:59:00'
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa - Pool
+      message: "Poolfilterpumpe \U0001F4A7 {{states.sensor.pool_daily_pump_hours.state}}h\nSolaranlage
+        ☀️ {{states.sensor.pool_daily_valve_hours.state}}h\n"
+      data:
+        group: notification-pool
+        tag: pool-status
+- id: 2576ae90-9a99-4cdc-8059-a39780ca7ed9
+  alias: '[Pool] Solar heating - off'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.pool_solar_temperature_diff
+    below: 7
+  condition:
+  - condition: state
+    entity_id: switch.pool_valve
+    state: 'on'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.pool_pump_mode
+      state: Aus
+  action:
+  - service: switch.turn_off
+    entity_id: switch.pool_valve
+- id: 64173caf-f9c0-4672-a8b4-e6108fd658c2
+  alias: '[Pool] Solar heating - on'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.pool_solar_temperature_diff
+    above: 15
+    for:
+      minutes: 1
+  condition:
+  - condition: state
+    entity_id: switch.pool_valve
+    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.pool_pump_mode
+      state: Aus
+  action:
+  - service: switch.turn_on
+    entity_id: switch.pool_valve
+  - service: switch.turn_on
+    entity_id: switch.pool_pump
+- id: d6b3a99b-4ddf-43f2-90fc-2f8453077d2b
+  alias: '[Childsroom] Turn down the roller shutter on hot days'
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.garden_temperature, weather.jama_villa
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.cleaning_mode
+      state: 'off'
+    - condition: time
+      after: '10:00:00'
+      before: '16:00:00'
+    - condition: numeric_state
+      entity_id: cover.nursery
+      value_template: '{{ state.attributes.current_position }}'
+      above: 40
+    - condition: or
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.garden_temperature
+        above: 23
+      - condition: numeric_state
+        entity_id: weather.jama_villa
+        value_template: '{{ state.attributes.temperature }}'
+        above: 25
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.nursery
+      position: 35
+  - delay: 1
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.nursery_bed
+      position: 55
+- id: 5631a29f-0585-4396-b6c5-65fea10001fe
+  alias: '[Livingroom] Open the roller shutter after 18:00'
+  initial_state: true
+  trigger:
+  - platform: time
+    at: '18:00:00'
+  action:
+  - service: cover.open_cover
+    data:
+      entity_id: cover.livingroom_window_3
+- id: 9814d223-a4af-4719-8469-fe8a916764bc
+  alias: '[Livingroom] Turn down the roller shutter on hot days'
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.garden_temperature, weather.jama_villa
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.cleaning_mode
+      state: 'off'
+    - condition: time
+      after: '10:00:00'
+      before: '16:00:00'
+    - condition: numeric_state
+      entity_id: cover.livingroom_window_2
+      value_template: '{{ state.attributes.current_position }}'
+      above: 40
+    - condition: or
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.garden_temperature
+        above: 23
+      - condition: numeric_state
+        entity_id: weather.jama_villa
+        value_template: '{{ state.attributes.temperature }}'
+        above: 25
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.livingroom_window_1
+      position: 70
+  - delay: 1
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.livingroom_window_2
+      position: 35
+  - delay: 1
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.livingroom_window_3
+      position: 35
+- id: 7ddb6710-01a6-47b8-9828-39dbfd0e9bba
+  alias: '[Office] Switch off Mario clock on room occupy'
+  mode: single
+  trigger:
+  - type: not_occupied
+    platform: device
+    device_id: 3ab097e1b2be093eadd69d19a034e2ae
+    entity_id: binary_sensor.office_motion_occupancy
+    domain: binary_sensor
+  action:
+  - service: switch.turn_off
+    entity_id: switch.office_mario_clock
+- id: 7a5b5246-ba63-4cc0-be6f-1fc6dee97b35
+  alias: '[Office] Switch on Mario clock on room occupy'
+  mode: single
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 3ab097e1b2be093eadd69d19a034e2ae
+    entity_id: binary_sensor.office_motion_occupancy
+    domain: binary_sensor
+  action:
+  - service: switch.turn_on
+    entity_id: switch.office_mario_clock
+- id: 17317b83-26e2-4fb1-bdd4-804415873d65
+  alias: '[Office] Play Windows XP sound if office window was closed'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.office_window
+    from: 'on'
+    to: 'off'
+  action:
+  - service: script.sonos_play
+    data:
+      sonos_entity: media_player.roam
+      volume: 0.5
+      delay: 00:00:05
+      media_url: http://192.168.1.3:8123/local/assets/winxpshutdown.mp3
+- id: 0b8f7d94-96e1-49bf-9134-bcd6caf2595a
+  alias: '[Office] Play Windows XP sound if office window was opened'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.office_window
+    from: 'off'
+    to: 'on'
+  action:
+  - service: script.sonos_play
+    data:
+      sonos_entity: media_player.roam
+      volume: 0.5
+      delay: 00:00:05
+      media_url: http://192.168.1.3:8123/local/assets/winxp.mp3
+- id: 788a0d80-feb3-4139-b569-f7e9692a1595
+  alias: '[Waste] Notification Reminder'
+  mode: restart
+  trigger:
+  - platform: time
+    at: '18:00:00'
+  condition:
+  - '{{0 < ((as_timestamp(state_attr(''sensor.waste_collection_next'', ''upcoming'')[0].date)
+    - as_timestamp(now())) / 86400) < 1}}'
+  action:
+  - alias: Set up variables for the actions
+    variables:
+      action_done: '{{ ''DONE_'' ~ context.id }}'
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.waste_collection
+  - alias: Repeat until done or after
+    repeat:
+      sequence:
+      - alias: Send the notification
+        service: notify.mobile_app_iphone_von_markus
+        data:
+          title: JaMa Villa - ♻️
+          message: Es ist Zeit die {{ state_attr('sensor.waste_collection_next', 'upcoming')[0].type
+            }} vor zu stellen.
+          data:
+            subtitle: '{{ repeat.index }}. Mülltonnenerinnerung'
+            actions:
+            - action: '{{ action_done }}'
+              title: Erledigt!
+            group: notification-waste
+            tag: waste-reminder
+      - alias: Wait for a response
+        wait_for_trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_done }}'
+        timeout:
+          hours: 1
+      - alias: Perform the action
+        choose:
+        - conditions:
+          - '{{ wait.trigger == none }}'
+          sequence:
+          - choose:
+            - conditions:
+              - '{{ repeat.index == 3 }}'
+              sequence:
+              - alias: Send the notification
+                service: notify.mobile_app_iphone_von_markus
+                data:
+                  title: JaMa Villa - ♻️
+                  message: Tonne bereits vor gestellt? Für heute gibt es keine Erinnerungen
+                    mehr.
+                  data:
+                    subtitle: Mülltonnenerinnerung
+                    group: notification-waste
+                    tag: waste-reminder
+              - service: input_boolean.turn_off
+                target:
+                  entity_id: input_boolean.waste_collection
+        - conditions:
+          - '{{ wait.trigger.event.data.action == action_done }}'
+          sequence:
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.waste_collection
+      until:
+      - condition: state
+        entity_id: input_boolean.waste_collection
+        state: 'off'
+- id: 7fa8bee8-af19-4160-914e-9a7caee7aa14
+  alias: '[Laundry] Dryer alert'
+  trigger:
+  - platform: state
+    entity_id: sensor.laundryroom_dryer_status
+    from: In Betrieb
+    to: Ende
+  action:
+  - service: script.sonos_say
+    data:
+      sonos_entity: media_player.move
+      volume: 0.4
+      message: Hallo hier spricht das trockene Handtuch, ich möchte endlich aus dem
+        Trockner befreit werden.
+      delay: 00:00:10
+- id: 6a87b346-487c-4dcf-86ec-fb2c2d2e00c1
+  alias: '[Appliances] Freezer has no electricity'
+  trigger:
+  - platform: state
+    entity_id: switch.laundryroom_freezer
+    to: 'off'
+  - platform: numeric_state
+    entity_id: sensor.laundryroom_freezer_power
+    below: 0.1
+  action:
+  - alias: Send the notification
+    service: notify.system_group_jama
+    data:
+      title: JaMa Villa - Alarm
+      message: '⚡️ Stromanschluß vom Gefrierschrank sofort überprüfen. Trigger: {{
+        trigger.entity_id }}
+
+        '
+      data:
+        group: alarm-system
+- id: f1976531-4503-436e-834f-95058be33fbe
+  alias: '[Laundry] Washing machine alert'
+  trigger:
+  - platform: state
+    entity_id: sensor.laundryroom_washing_machine_status
+    from: In Betrieb
+    to: Ende
+  action:
+  - service: script.sonos_play
+    data:
+      sonos_entity: media_player.move
+      volume: 0.3
+      delay: 00:00:50
+      media_url: http://192.168.1.3:8123/local/assets/washing_machine.mp3
+- id: de9776c2-9437-48c3-928a-4543d59a33d5
+  alias: '[Bedroom] Turn down the roller shutter on hot days'
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.garden_temperature, weather.jama_villa
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.cleaning_mode
+      state: 'off'
+    - condition: time
+      after: '10:00:00'
+      before: '16:00:00'
+    - condition: numeric_state
+      entity_id: cover.bedroom
+      value_template: '{{ state.attributes.current_position }}'
+      above: 40
+    - condition: or
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.garden_temperature
+        above: 23
+      - condition: numeric_state
+        entity_id: weather.jama_villa
+        value_template: '{{ state.attributes.temperature }}'
+        above: 25
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.bedroom
+      position: 35
+- id: 7133023a-6e85-405d-b339-7ce28435fe3d
+  alias: '[Bedroom] Open the roller shutter after 17:00'
+  initial_state: true
+  trigger:
+  - platform: time
+    at: '17:00:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.cleaning_mode
+      state: 'off'
+    - condition: numeric_state
+      entity_id: cover.bedroom
+      value_template: '{{ state.attributes.current_position }}'
+      below: 75
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.bedroom
+      position: 75
+- id: 20ee787c-79b6-49f2-ac5a-b2b61a91b1c5
+  alias: '[Light] Turn off hallway lights 5 minutes after trigger'
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.hall_lights
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.hall_basement_light_switch
+- id: cf516bec-00f9-4ca2-9be7-83b16dc5fc96
+  alias: '[Light] Turn on hallway light when there is movement or front door open'
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.hall_frontdoor
+    - binary_sensor.hall_downstairs_motion
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: timer.cancel
+    data:
+      entity_id: timer.hall_lights
+  - service: timer.start
+    data:
+      entity_id: timer.hall_lights
+  - service: switch.turn_on
+    data:
+      entity_id: switch.hall_basement_light_switch
+- id: 49e94577-84bc-4eae-989d-57a3189b0ba6
+  alias: '[Light] Turn off timer if hallway lights are off'
+  trigger:
+  - platform: state
+    entity_id: switch.hall_basement_light_switch
+    to: 'off'
+  condition:
+  - condition: template
+    value_template: '{{ not is_state(''timer.hall_lights'', ''idle'') }}'
+  action:
+  - service: timer.cancel
+    data:
+      entity_id: timer.hall_lights
+- id: 6a04ccdf-19e8-40a7-a862-988376820693
+  alias: '[Light] Turn on timer if hallway lights are on'
+  trigger:
+  - platform: state
+    entity_id: switch.hall_basement_light_switch
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.hall_lights
+    state: idle
+  action:
+  - service: timer.start
+    data:
+      entity_id: timer.hall_lights
+- id: 3f725332-d586-4641-9099-f5ee4423ebd2
+  alias: '[Light] Remote toggle hallway light'
+  trigger:
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: NEQ0391437
+      channel: 3
+      param: PRESS_SHORT
+  action:
+  - service: switch.toggle
+    data:
+      entity_id: switch.hall_basement_light_switch
+- id: 742b00bc-392f-4679-b166-3e112efd0e8f
+  alias: '[Litterbox] count visits'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.hall_litterbox_motion
+    to: 'on'
+    for:
+      seconds: 20
+  action:
+  - service: counter.increment
+    data:
+      entity_id: counter.hall_litterbox_visits
+  - condition: state
+    entity_id: input_boolean.hall_litterbox_notification
+    state: 'on'
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \U0001F408 & \U0001F408‍⬛"
+      message: "Miau Miau, eine Katze hat \U0001F4A9 gemacht. {{ states.sensor.hall_all_litterbox_visits.state_with_unit
+        }} seit der letzen Leerung."
+      data:
+        group: notification-litterbox
+        tag: litterbox
+- id: 8f739819-b576-4db2-959c-8cac49f35b76
+  alias: '[Appliances] Send alert when dishwasher machine is finished'
+  trigger:
+  - platform: state
+    entity_id: sensor.kitchen_dishwasher_state
+    to: Clean
+    for:
+      minutes: 1
+  - platform: state
+    entity_id: group.family
+    to: home
+    for:
+      minutes: 2
+  - platform: time
+    at: '20:45:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      before: '21:00:00'
+      after: 08:30:00
+    - condition: state
+      entity_id: group.family
+      state: home
+    - condition: state
+      entity_id: input_select.kitchen_dishwasher_state
+      state: Clean
+    - condition: state
+      entity_id: input_boolean.kitchen_dishwasher_notification
+      state: 'on'
+    - condition: template
+      value_template: "{% if states.automation.appliances_send_alert_when_dishwasher_machine_is_finished.last_triggered
+        is not none %}\n  {% if as_timestamp(now()) | int -  as_timestamp(states.automation.appliances_send_alert_when_dishwasher_machine_is_finished.attributes.last_triggered)
+        | int > 1800 %}\n  true\n  {% else %}\n  false\n  {% endif %}\n{% else %}
+        false {% endif %}\n"
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa
+      message: Der Geschirrspüler ist fertig und kann jetzt ausgeräumt werden.
+      data:
+        group: notification-dishwasher
+- id: 54b825cd-4116-4812-a1e1-9441e0f1c997
+  alias: '[Appliances] Set dishwasher machine active when power detected'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.kitchen_dishwasher_power
+    above: 5
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.kitchen_dishwasher_state
+      state: Idle
+    - condition: state
+      entity_id: sensor.kitchen_dishwasher_state
+      state: Clean
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.kitchen_dishwasher_state
+      option: Running
+- id: d48c475f-8933-4679-ade0-4e6d222a0c1c
+  alias: '[Appliances] Set dishwasher machine Clean when power drops for 2 minutes'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.kitchen_dishwasher_power
+    below: 0.2
+    for:
+      minutes: 2
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sensor.kitchen_dishwasher_state
+      state: Running
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.kitchen_dishwasher_state
+      option: Clean
+- id: 763a5807-7642-466c-9b7c-10edd12f91a9
+  alias: '[Appliances] Set dishwasher machine to Off after timeout'
+  trigger:
+  - platform: state
+    entity_id: input_select.kitchen_dishwasher_state
+    to: Clean
+    for:
+      minutes: 10
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_select.kitchen_dishwasher_state
+      state: Clean
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.kitchen_dishwasher_state
+      option: Idle
+- id: 9d295b3b-6271-462f-8838-36f3f97d0f68
+  alias: '[Light] Turn off Volvo light when carport door closed'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_carport_door
+    from: 'on'
+    to: 'off'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: light.garden_carport_volvo
+  - service: timer.cancel
+    data:
+      entity_id: timer.garden_carport_volvo_light
+- id: 62e7dd3f-6168-4bcf-a1eb-396ae2e3c928
+  alias: '[Light] Turn off Volvo light 2 minutes after trigger'
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.garden_carport_volvo_light
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: light.garden_carport_volvo
+- id: faff859c-5f23-4011-8248-115c83d04cc7
+  alias: '[Light] Turn on Volvo light when carport door open'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_carport_door
+    from: 'off'
+    to: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: light.garden_carport_volvo
+- id: 4584a1da-cfc5-4d29-9deb-d78c4fe7f465
+  alias: '[Light] Turn on timer if Volvo light are on'
+  trigger:
+  - platform: state
+    entity_id: light.garden_carport_volvo
+    from: 'off'
+    to: 'on'
+  action:
+  - service: timer.start
+    data:
+      entity_id: timer.garden_carport_volvo_light
+- id: c033423d-4c53-4866-92bc-228c0b2b8188
+  alias: '[Notify] Send light & switch notifications'
+  trigger:
+  - platform: event
+    event_type: state_changed
+  condition:
+  - condition: state
+    entity_id: input_boolean.system_notification
+    state: 'on'
+  - condition: template
+    value_template: '{{ trigger.event.data.old_state is not none }}'
+  - condition: template
+    value_template: '{{ trigger.event.data.new_state is not none }}'
+  - condition: template
+    value_template: '{% set data = trigger.event.data %} {{ data.entity_id.startswith(''switch'')
+      or data.entity_id.startswith(''light'') }}
+
+      '
+  - condition: template
+    value_template: '{{ trigger.event.data.entity_id not in state_attr(''group.system_notify_disabled'',''entity_id'')
+      }}
+
+      '
+  - condition: template
+    value_template: '{{ trigger.event.data.new_state.state != trigger.event.data.old_state.state
+      }}
+
+      '
+  action:
+    service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: JaMa Villa
+      message: "{% if trigger.event.data.new_state.state | lower == \"on\" %}\n  {{
+        trigger.event.data.new_state.attributes.friendly_name }} ist an!\n{% elif
+        trigger.event.data.new_state.state | lower == \"off\" %}\n  {{ trigger.event.data.new_state.attributes.friendly_name
+        }} ist aus.\n{% endif %}\n"
+- id: 9b18aabb-1c69-43ba-adb3-cd507e2116ee
+  alias: '[Notify] Send roller shutter notifications'
+  trigger:
+    platform: state
+    entity_id:
+    - cover.livingroom_window_3
+    - cover.nursery
+    - cover.nursery_bed
+    - cover.kitchen
+    - cover.bedroom
+    - cover.livingroom_schiebetur
+    - cover.livingroom_window_1
+    - cover.livingroom_window_2
+  condition:
+    condition: state
+    entity_id: input_boolean.system_notification
+    state: 'on'
+  action:
+    service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: JaMa Villa
+      message: "{% if trigger.to_state.state | lower == \"open\" %}\n  Rollo {{ trigger.to_state.attributes.friendly_name
+        }} ist offen.\n{% elif trigger.to_state.state | lower == \"closed\" %}\n  Rollo
+        {{ trigger.to_state.attributes.friendly_name }} ist geschlossen.\n{% endif
+        %}\n"
+- id: 3f37ad40-b5e1-4c39-99b4-2f86729bed09
+  alias: '[Notify] Send door sensor notifications'
+  trigger:
+  - platform: event
+    event_type: state_changed
+  condition:
+  - condition: state
+    entity_id: input_boolean.system_notification
+    state: 'on'
+  - condition: template
+    value_template: '{{ trigger.event.data.entity_id in state_attr(''binary_sensor.system_door_sensors'',''entity_id'')
+      }}
+
+      '
+  action:
+    service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: JaMa Villa
+      message: "{% if trigger.event.data.new_state.state | lower == \"on\" %}\n  {{
+        trigger.event.data.new_state.attributes.friendly_name }} ist offen!\n{% elif
+        trigger.event.data.new_state.state | lower == \"off\" %}\n  {{ trigger.event.data.new_state.attributes.friendly_name
+        }} ist geschlossen.\n{% endif %}\n"
+- id: 66d4c722-ffa0-436a-a2ae-e1da50a8c926
+  alias: '[Notify] Send motion sensor notifications'
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.hall_downstairs_motion
+    - binary_sensor.hall_upstairs_motion
+    - binary_sensor.livingroom_motion
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.system_notification
+    state: 'on'
+  action:
+    service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: JaMa Villa
+      message: 'Bewegung bei {{ trigger.to_state.attributes.friendly_name }} erkannt!
+
+        '
+- id: 91a4a8c5-9c54-46cd-9af6-d39c84fde113
+  alias: '[Notify] Send window sensor notifications'
+  trigger:
+  - platform: event
+    event_type: state_changed
+  condition:
+  - condition: state
+    entity_id: input_boolean.system_notification
+    state: 'on'
+  - condition: template
+    value_template: '{{ trigger.event.data.entity_id in state_attr(''binary_sensor.system_window_sensors'',''entity_id'')
+      }}
+
+      '
+  action:
+    service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: JaMa Villa
+      message: "{% if trigger.event.data.new_state.state | lower == \"on\" %}\n  Fenster
+        {{ trigger.event.data.new_state.attributes.friendly_name }} ist offen!\n{%
+        elif trigger.event.data.new_state.state | lower == \"off\" %}\n  Fenster {{
+        trigger.event.data.new_state.attributes.friendly_name }} ist geschlossen.\n{%
+        endif %}\n"
+- id: 2145e4c7-d6b7-4c4f-856a-7e29538ef432
+  alias: '[XMAS] Turn off XMAS indoor lights if nobody is home'
+  trigger:
+  - platform: state
+    entity_id: group.family
+    from: home
+    to: not_home
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: 'on'
+  - condition: state
+    entity_id: light.xmas_indoor_lights
+    state: 'on'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: light.xmas_indoor_lights
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa
+      message: Alle haben das Haus verlassen, Weihnachtsbeleuchtung wurde ausgeschaltet.
+- id: 9f91bc3e-0619-4524-8d08-35ffb193e27d
+  alias: '[XMAS] Turn on XMAS indoor lights daily evening routine'
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:30:00
+  - platform: state
+    entity_id:
+    - schedule.xmas_indoor_evening
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: 'on'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.xmas_indoor_lights_morning
+      - light.xmas_indoor_lights_evening
+- id: 5bd5379c-8909-4e6b-900c-4ef4f759c6e7
+  alias: '[XMAS] Turn on XMAS indoor lights daily morning routine'
+  trigger:
+  - platform: state
+    entity_id:
+    - schedule.xmas_indoor_morning
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: light.xmas_indoor_lights_morning
+- id: 99ee1606-7a00-40ba-a315-f3e1593b88f3
+  alias: '[XMAS] Turn off XMAS indoor lights daily routine'
+  trigger:
+  - platform: sun
+    event: sunrise
+  - platform: state
+    entity_id:
+    - schedule.xmas_indoor_morning
+    - schedule.xmas_indoor_evening
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: 'on'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: light.xmas_indoor_lights
+- id: '1715371195017'
+  alias: '[Zone] Jasmina leaving work'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.iphone_von_jasmina
+    zone: zone.dnb
+    event: leave
+  condition: []
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa
+      message: Jasmina hat die DNB verlassen.
+  mode: single
+- id: '1715371206833'
+  alias: '[Zone] Jasmina entering work'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.iphone_von_jasmina
+    zone: zone.dnb
+    event: enter
+  condition: []
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa
+      message: Jasmina ist auf Arbeit angekommen.
+  mode: single
+- id: 5a7aa7cc-afba-45bb-b67f-eb377e69a671
+  alias: '[System] HA Backup'
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - sat
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      message: "Creating weekly backup \U0001F4BE snapshot!"
+      title: JaMa Villa - Backup
+      data:
+        group: notification-system
+  - service: hassio.backup_full
+    data_template:
+      name: 'Backup_{{ now().strftime(''%d-%m-%Y'') }}
+
+        '
+- id: '1715371298398'
+  alias: '[System] HA Started'
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa
+      message: 'HA Status: Online'
+      data:
+        group: notification-system
+  mode: single
+- id: '1715371308162'
+  alias: '[System] HA Stopped'
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: shutdown
+  condition: []
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: JaMa Villa
+      message: 'HA Status: Offline'
+      data:
+        group: notification-system
+  mode: single
+- id: 890e2f49-9fce-4845-9945-b7acd85db469
+  alias: '[System] Homematic Reconnect'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.system_homematic_up
+    to: 'off'
+  action:
+  - service: homematic.reconnect
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \U0001F6A8"
+      message: Homematic CCU disconnect, try reconnect
+      data:
+        group: alarm-system
+- id: '1715371412215'
+  alias: '[System] HA Upgrade Alert'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.home_assistant_versions
+  condition:
+  - condition: template
+    value_template: "{{\n  states('sensor.home_assistant_versions')\n  !=\n  states('sensor.home_assistant_current_version')\n}}"
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: Upgrade time!
+      message: There is a Home Assistant upgrade pending! Version {{ states('sensor.home_assistant_versions')
+        }} just got released!
+      data:
+        group: notification-system
+        tag: hassio_upgrade
+  - service: persistent_notification.create
+    data_template:
+      title: Upgrade time!
+      message: There is a Home Assistant upgrade pending! Version {{ states('sensor.home_assistant_versions')
+        }} just got released!
+      notification_id: hassio_upgrade
+  mode: single
+- id: '1715371423321'
+  alias: '[System] Init Sonoff power state on start-up'
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - delay: 00:01
+  - service: mqtt.publish
+    data:
+      topic: cmnd/sonoffs/power
+  - service: mqtt.publish
+    data:
+      topic: cmnd/sonoffs/power1
+  - service: mqtt.publish
+    data:
+      topic: cmnd/sonoffs/power2
+  - service: mqtt.publish
+    data:
+      topic: cmnd/sonoffs/power3
+  mode: single
+- id: 9794fbc2-d309-4686-a463-497960410060
+  alias: '[System] Sensor Error Detection'
+  trigger:
+  - platform: time
+    at:
+    - '10:05:00'
+    - '18:05:00'
+  - platform: state
+    entity_id: binary_sensor.system_device_error
+    to: 'on'
+  condition:
+  - condition: template
+    value_template: "{% macro sensor_error() %} {%- set domains = ['sensor', 'binary_sensor']
+      -%} {%- for domain in domains -%}\n  {%- for item in states[domain] if ((item.attributes.error
+      is defined and item.attributes['error'] | lower != \"no\") or (item.attributes.sabotage
+      is defined and item.attributes['sabotage'] | lower != \"no\")) -%}\n    {{ item.attributes.friendly_name
+      }}\n  {%- endfor -%}\n{%- endfor -%} {% endmacro %} {{ sensor_error() | trim
+      != \"\"}}\n"
+  action:
+  - service: persistent_notification.create
+    data_template:
+      title: Sensor Fehler
+      notification_id: sensor-error-alert
+      message: "{% macro sensor_error() %} {%- set domains = ['sensor', 'binary_sensor']
+        -%} {%- for domain in domains -%}\n  {%- for item in states[domain] if ((item.attributes.error
+        is defined and item.attributes['error'] | lower != \"no\") or (item.attributes.sabotage
+        is defined and item.attributes['sabotage'] | lower != \"no\")) -%}\n    {{
+        item.attributes.friendly_name }}\n    {%- if not loop.last -%}\n      {{',
+        '}}\n    {%- endif -%}\n  {%- endfor -%}\n{%- endfor -%} {% endmacro %} Achtung!
+        Fehler wurde bei {{ sensor_error() }} ausgelöst.\n"
+  - service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: "JaMa Villa - \U0001F6A8"
+      message: "{% macro sensor_error() %} {%- set domains = ['sensor', 'binary_sensor']
+        -%} {%- for domain in domains -%}\n  {%- for item in states[domain] if ((item.attributes.error
+        is defined and item.attributes['error'] | lower != \"no\") or (item.attributes.sabotage
+        is defined and item.attributes['sabotage'] | lower != \"no\")) -%}\n    {{
+        item.attributes.friendly_name }}\n    {%- if not loop.last -%}\n      {{',
+        '}}\n    {%- endif -%}\n  {%- endfor -%}\n{%- endfor -%} {% endmacro %} Achtung!
+        Fehler wurde bei {{ sensor_error() }} ausgelöst.\n"
+      data:
+        group: alarm-system
+- id: d76be217-d014-4661-9788-4df735ba5dad
+  alias: '[System] Sensor Error Clear'
+  trigger:
+  - platform: time_pattern
+    minutes: /30
+    seconds: 0
+  condition:
+  - condition: template
+    value_template: "{% macro sensor_error() %} {%- set domains = ['sensor', 'binary_sensor']
+      -%} {%- for domain in domains -%}\n  {%- for item in states[domain] if ((item.attributes.error
+      is defined and item.attributes['error'] | lower != \"no\") or (item.attributes.sabotage
+      is defined and item.attributes['sabotage'] | lower != \"no\")) -%}\n    {{ item.attributes.friendly_name
+      }}\n  {%- endfor -%}\n{%- endfor -%} {% endmacro %} {{ sensor_error() | trim
+      == \"\"}}\n"
+  action:
+  - service: persistent_notification.dismiss
+    data:
+      notification_id: sensor-error-alert
+- id: '1715371569679'
+  alias: '[System] CPU Use Alarm'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.processor_use
+    above: 85
+  condition: []
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \U0001F6A8"
+      message: Warning - HA Server Processor {{states.sensor.processor_use.state}}%
+      data:
+        group: notification-system
+        tag: ha-status-cpu
+  mode: single
+- id: '1715371592019'
+  alias: '[System] Disk Use Alarm'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.disk_use_percent
+    above: 85
+  condition: []
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \U0001F6A8"
+      message: Warning - HA Server Disk Use is over {{states.sensor.disk_use_percent.state}}%
+      data:
+        group: notification-system
+        tag: ha-status-disk
+  mode: single
+- id: '1715371615164'
+  alias: '[System] Display update window/door change'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.system_contact_sensors
+  condition: []
+  action:
+  - service: python_script.jamavilla_display
+    data:
+      beep: 'off'
+  mode: single
+- id: '1715371644215'
+  alias: '[Appliances] Low battery alert'
+  description: ''
+  trigger:
+  - platform: time
+    at:
+    - '10:00:00'
+    - '18:00:00'
+  condition:
+  - condition: template
+    value_template: "{% macro battery_level() %} {%- set threshold = 15 -%} {%- for
+      state in states -%}\n  {%- if is_state_attr(state.entity_id, 'device_class',
+      'battery') and 'sensor.iphone' not in state.entity_id -%}\n    {%- if is_state_attr(state.entity_id,
+      'device_class', 'battery') and state.state not in ['unkown', 'unavailable']
+      and 'sensor.iphone' not in state.entity_id -%}\n    {{ state.entity_id }}\n
+      \   {%- endif -%}\n  {%- endif -%}\n{%- endfor %} {% endmacro %} {{ battery_level()
+      | trim != \"\" }}\n"
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data_template:
+      title: "JaMa Villa - \U0001F6A8"
+      message: "{% macro battery_level() %} {%- set threshold = 15 -%} {%- for state
+        in states -%}\n  {%- if is_state_attr(state.entity_id, 'device_class', 'battery')
+        and state.state not in ['unkown', 'unavailable'] and 'sensor.iphone' not in
+        state.entity_id -%}\n    {%- if (state.domain == 'binary_sensor' and state.state
+        == 'on') or (state.domain == 'sensor' and state.state | int < threshold) %}\n
+        \   {{ state.name }}\n    {%- endif -%}\n  {%- endif -%}\n{%- endfor %} {%
+        endmacro %} Gerät(e) mit schwacher Batterie: {{ battery_level() }}\n"
+      data:
+        group: alarm-system
+  mode: single
+- id: e6d07a0b-11e7-40c0-8267-59105adbbbb4
+  alias: '[XMAS] Turn on XMAS outdoor lights daily routine'
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:30:30
+  - platform: state
+    entity_id:
+    - schedule.xmas_outdoor
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: light.xmas_outdoor_lights
+- id: 463327a7-405f-4b4e-b5ff-06a1e000e822
+  alias: '[XMAS] Turn off XMAS oudoor lights daily routine'
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 00:30:00
+  - platform: state
+    entity_id:
+    - schedule.xmas_outdoor
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: 'on'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: light.xmas_outdoor_lights
+- id: 86e7306b-00ae-4773-9af8-595a1a748858
+  alias: '[Watertank] Automatic Refill'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.garden_watertank_liter
+    below: 2500
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \U0001F6B0"
+      message: Wasserstand Zisterne niedrig ({{ states("sensor.garden_watertank_percent")
+        }}%), Befüllung gestartet.
+      data:
+        group: notification-irrigation
+  - service: switch.turn_on
+    entity_id: switch.garden_watertank_refill
+  - delay: 1200
+  - service: switch.turn_off
+    entity_id: switch.garden_watertank_refill
+  - delay: 60
+  - service: switch.turn_on
+    entity_id: switch.garden_watertank_refill
+  - delay: 1200
+  - service: switch.turn_off
+    entity_id: switch.garden_watertank_refill
+  - delay: 60
+  - service: switch.turn_on
+    entity_id: switch.garden_watertank_refill
+  - delay: 1200
+  - service: switch.turn_off
+    entity_id: switch.garden_watertank_refill
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \U0001F6B0"
+      message: 'Befüllung Zisterne beendet, Wasserstand: {{ states("sensor.garden_watertank_percent")
+        }}%'
+      data:
+        group: notification-irrigation
+- id: 493a7766-2d4f-4f11-a80d-413d02f2498e
+  alias: '[Watertank] Pump operation controller'
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.rasen_watering
+    - binary_sensor.vorgarten_watering
+    - binary_sensor.beete_watering
+    - binary_sensor.hecke_watering
+  action:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.to_state.state == ''on'' }}'
+      sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.garden_watertank_pump
+      - service: notify.mobile_app_iphone_von_markus
+        data:
+          title: "JaMa Villa - \U0001F6B0"
+          message: Bewässerung von {{ trigger.to_state.attributes.friendly_name }}
+            wurde eingeschaltet.
+          data:
+            group: notification-irrigation
+    default:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.garden_watertank_pump
+    - service: notify.mobile_app_iphone_von_markus
+      data:
+        title: "JaMa Villa - \U0001F6B0"
+        message: Bewässerung von {{ trigger.to_state.attributes.friendly_name }} wurde
+          ausgeschaltet.
+        data:
+          group: notification-irrigation
+  mode: parallel
+- id: 103c1305-c013-49cf-8a2b-a2b4dbec218b
+  alias: '[Watertank] Pump off after 1 hour'
+  trigger:
+  - platform: state
+    entity_id: switch.garden_watertank_pump
+    to: 'on'
+    for:
+      hours: 1
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.garden_watertank_pump
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \U0001F6B0"
+      message: Wasser sparen - die Zisternenpumpe war über 1 Stunde an und wurde jetzt
+        ausgeschaltet!
+      data:
+        group: notification-irrigation
+- id: ab358f58-9c30-4f35-8fb6-959bbc8fad27
+  alias: '[Pond] Set Pond Mode to Waterfall'
+  trigger:
+  - platform: state
+    entity_id: input_select.garden_pond_mode
+    to: Nur Wasserfall
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.garden_pond_blubber
+  - service: switch.turn_on
+    data:
+      entity_id: switch.garden_pond_waterfall
+- id: 8b0c77ed-1afa-4269-8d13-8f6392ae3746
+  alias: '[Pond] Set Pond Mode To Blubber'
+  trigger:
+  - platform: state
+    entity_id: input_select.garden_pond_mode
+    to: Nur Blubber
+  - platform: state
+    entity_id: input_select.garden_pond_mode
+    to: Automatik
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.garden_pond_waterfall
+  - service: switch.turn_on
+    data:
+      entity_id: switch.garden_pond_blubber
+- id: b5945ac0-6624-48b7-b9a1-1b10d4a466db
+  alias: '[Pond] Pond automatic mode 1'
+  trigger:
+  - platform: time
+    at: 04:00:00
+  condition:
+  - condition: state
+    entity_id: input_select.garden_pond_mode
+    state: Automatik
+  action:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.garden_pond_blubber
+- id: ff3d3e6b-9ebc-4fbe-826b-c07280baadbd
+  alias: '[Pond] Pond automatic mode 2'
+  trigger:
+  - platform: time
+    at: '10:00:00'
+  condition:
+  - condition: state
+    entity_id: input_select.garden_pond_mode
+    state: Automatik
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.garden_pond_blubber
+  - delay:
+      minutes: 2
+  - service: switch.turn_on
+    data:
+      entity_id: switch.garden_pond_waterfall
+- id: 28092921-625e-4f7a-a65e-99ca0a0926e5
+  alias: '[Pond] Pond automatic mode 3'
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: state
+    entity_id: input_select.garden_pond_mode
+    state: Automatik
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.garden_pond_waterfall
+  - delay:
+      minutes: 2
+  - service: switch.turn_on
+    data:
+      entity_id: switch.garden_pond_blubber
+- id: c402c4be-a9a0-4d2b-9892-1eb46d81a8cf
+  alias: '[Pond] Pond automatic mode 4'
+  trigger:
+  - platform: time
+    at: '23:30:00'
+  condition:
+  - condition: state
+    entity_id: input_select.garden_pond_mode
+    state: Automatik
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.garden_pond_blubber
+- id: 69b4e7d6-8e7c-4164-ada1-321e78a87a4b
+  alias: '[Light] Turn on outdoor lights daily routine'
+  trigger:
+  - platform: sun
+    event: sunset
+  condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: light.garden_lights_daily_routine
+- id: fd013269-583b-4104-8e5d-8f79ff1ea769
+  alias: '[Light] Turn off outdoor lights daily routine'
+  trigger:
+  - platform: sun
+    event: sunrise
+  - platform: time
+    at: '23:00:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.xmas_mode
+    state: 'off'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: light.garden_lights_daily_routine
+- id: 996da590-9358-4383-b8bc-f6b064232a30
+  alias: '[Mailbox] Reset'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_mailbox_door
+    from: 'off'
+    to: 'on'
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.garden_mailbox
+- id: 49713e37-f761-4049-a4d9-76bf5c704c53
+  alias: '[Mailbox] Reminder'
+  trigger:
+  - platform: time
+    at:
+    - '18:00:00'
+    - '20:00:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.garden_mailbox_notification
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.garden_mailbox
+    state: 'on'
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \U0001F4EC"
+      message: Der Briefkasten wurde noch nicht geleert, da ist noch ✉️ drin.
+      data:
+        group: notification-mailbox
+        tag: mailbox-reminder
+- id: 52e45c0e-ca72-4fa4-85de-1f72ff1f76dc
+  alias: '[Mailbox] Mail detection'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_mailbox_flap
+    from: 'off'
+    to: 'on'
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.garden_mailbox
+  - condition: state
+    entity_id: input_boolean.garden_mailbox_notification
+    state: 'on'
+  - service: notify.system_group_jama
+    data:
+      title: "JaMa Villa - \U0001F4EC"
+      message: Trari, trara, die Post ✉️ ist da!
+      data:
+        group: notification-mailbox
+        tag: mailbox-mail
+- id: 50a5f59d-25c8-4cfb-88eb-b9ebdd33a52b
+  alias: '[Garden] Bench alarm and notification on at 22:00'
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.garden_bench_notification
+- id: c72ae259-914d-43ff-9dcb-6911e112895d
+  alias: '[Garden] Bench alarm and notification off'
+  trigger:
+  - platform: time
+    at:
+    - 09:00:00
+    - '14:00:00'
+  condition:
+  - condition: state
+    entity_id: group.family
+    state: home
+  - condition: or
+    conditions:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'off'
+      - condition: time
+        after: 09:00:00
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      - condition: time
+        after: '14:00:00'
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.garden_bench_notification
+- id: 7d61c8a2-c685-488a-9559-85f0748041fe
+  alias: '[Security] Bench movement alarm'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_bench
+    to: 'on'
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.system_notification
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.garden_bench_notification
+      state: 'on'
+  action:
+  - alias: Set up variables for the actions
+    variables:
+      action_deactivate: '{{ ''DEACTIVATE_'' ~ context.id }}'
+  - alias: Turn on siren
+    service: switch.turn_on
+    data:
+      entity_id: switch.garden_carport_siren_3
+  - alias: Activate camera
+    service: camera.record
+    data:
+      entity_id: camera.entrance
+      duration: 30
+  - alias: Repeat until alarm off
+    repeat:
+      while:
+      - condition: state
+        entity_id: switch.garden_carport_siren_3
+        state: 'on'
+      sequence:
+      - alias: Send the notification
+        service: notify.system_group_jama
+        data:
+          title: "JaMa Villa - \U0001F6A8"
+          message: Bank hat sich bewegt - was ist hier los?
+          data:
+            actions:
+            - action: '{{ action_deactivate }}'
+              title: Alarm deaktivieren!
+            group: alarm-bench
+            push:
+              sound:
+                name: default
+                critical: 1
+                volume: 1.0
+      - alias: Wait for a response
+        wait_for_trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_deactivate }}'
+        timeout:
+          minutes: 3
+      - service: switch.turn_off
+        data:
+          entity_id: switch.garden_carport_siren_3
+- id: 8864dfb7-c9e9-430e-a3d5-6621ab327c95
+  alias: '[Security] House alarm away reminder'
+  mode: restart
+  trigger:
+  - platform: state
+    entity_id: group.family
+    from: home
+    to: not_home
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_haus
+    state: disarmed
+  action:
+  - alias: Set up variables for the actions
+    variables:
+      action_activate: '{{ ''DONE_'' ~ context.id }}'
+      action_later: '{{ ''LATER_'' ~ context.id }}'
+  - alias: Repeat while carport alarm is deactivated
+    repeat:
+      while:
+      - condition: state
+        entity_id: alarm_control_panel.alarm_haus
+        state: disarmed
+      sequence:
+      - alias: Send the notification
+        service: notify.system_group_jama
+        data:
+          title: "JaMa Villa - \U0001F6A8 Haus"
+          message: "Alle haben das \U0001F3E0 Haus verlassen, aber der Alarm ist noch
+            nicht aktiviert?"
+          data:
+            actions:
+            - action: '{{ action_activate }}'
+              title: Alarm aktivieren
+              activationMode: background
+              authenticationRequired: true
+              destructive: true
+            - action: '{{ action_later }}'
+              title: Erinnere mich später.
+              activationMode: background
+              authenticationRequired: true
+              destructive: false
+            group: notification-alarm-house
+            tag: alarm-house-reminder
+      - alias: Wait for a response
+        wait_for_trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_activate }}'
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_later }}'
+        timeout:
+          hours: 1
+      - alias: Perform the action
+        choose:
+        - conditions:
+          - '{{ wait.trigger == none }}'
+          - condition: state
+            entity_id: alarm_control_panel.alarm_haus
+            state: disarmed
+          sequence:
+          - service: alarm_control_panel.alarm_arm_home
+            entity_id: alarm_control_panel.alarm_haus
+        - conditions:
+          - '{{ wait.trigger.event.data.action == action_activate }}'
+          sequence:
+          - service: alarm_control_panel.alarm_arm_home
+            entity_id: alarm_control_panel.alarm_haus
+        - conditions:
+          - '{{ wait.trigger.event.data.action == action_later }}'
+          sequence:
+          - alias: Send the notification
+            service: notify.system_group_jama
+            data:
+              title: "JaMa Villa - \U0001F6A8 Haus"
+              message: Ok, nächste Erinnerung in 30 Minuten.
+              data:
+                group: notification-alarm-house
+                tag: alarm-house-reminder
+          - delay:
+              minutes: 30
+- alias: '[Security] Trigger carport alarm if door was opened'
+  id: d1e478f5-18ed-446e-8850-a13d315f4e13
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.garden_carport_door
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.alarm_carport
+      state: armed_away
+    - condition: state
+      entity_id: alarm_control_panel.alarm_carport
+      state: armed_home
+  action:
+  - alias: Set up variables for the actions
+    variables:
+      action_deactivate: '{{ ''DEACTIVATE_'' ~ context.id }}'
+  - alias: Trigger carport alarm
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm_carport
+  - alias: Activate carpot siren
+    service: switch.turn_on
+    entity_id: switch.garden_carport_siren_1
+  - alias: Update hall display
+    service: python_script.jamavilla_display
+  - alias: Repeat until alarm off
+    repeat:
+      while:
+      - condition: state
+        entity_id: alarm_control_panel.alarm_carport
+        state: triggered
+      sequence:
+      - alias: Send the notification
+        service: notify.system_group_jama
+        data:
+          title: "JaMa Villa - \U0001F6A8 Carport"
+          message: 'Alarm ausgelöst: Jemand ist im Carport, Tür wurde geöffnet - Sirene
+            aktiviert!'
+          data:
+            actions:
+            - action: '{{ action_deactivate }}'
+              title: Alarm deaktivieren!
+            group: alarm-carport
+            push:
+              sound:
+                name: default
+                critical: 1
+                volume: 1.0
+      - alias: Wait for a response
+        wait_for_trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_deactivate }}'
+        timeout:
+          minutes: 3
+      - alias: Decativate alarm
+        service: alarm_control_panel.alarm_disarm
+        entity_id: alarm_control_panel.alarm_carport
+- alias: '[Security] Turn on carport alarm - armed_away'
+  id: 29966652-ae5f-4cdf-8881-a8bd56697859
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_carport
+    to: armed_away
+  action:
+  - service: homematic.set_device_value
+    data:
+      address: NEQ0510985
+      channel: 4
+      param: ARMSTATE
+      value: 2
+  - delay: 00:00:01
+  - service: python_script.jamavilla_display
+- alias: '[Security] Turn on carport alarm - armed_home'
+  id: 50ec8179-ac8a-4239-b591-b50f83df4aa8
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_carport
+    to: armed_home
+  action:
+  - service: homematic.set_device_value
+    data:
+      address: NEQ0510985
+      channel: 4
+      param: ARMSTATE
+      value: 1
+  - delay: 00:00:01
+  - service: python_script.jamavilla_display
+- alias: '[Security] Button to turn off carport alarm'
+  id: 23f7d74b-ad77-476f-ae8b-fba4be8fc5bf
+  trigger:
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: NEQ0711284
+      channel: 1
+      param: PRESS_LONG
+  action:
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm_carport
+- alias: '[Security] Button to turn on carport alarm'
+  id: b029cb80-a2ef-400a-9236-b920f7977457
+  trigger:
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: NEQ0711284
+      channel: 1
+      param: PRESS_SHORT
+  action:
+  - service: alarm_control_panel.alarm_arm_home
+    entity_id: alarm_control_panel.alarm_carport
+- alias: '[Notify] Send carport siren status notifications'
+  id: 12c8aef2-a3ca-4936-bb94-f52b343ab372
+  trigger:
+  - platform: state
+    entity_id: sensor.garden_carport_siren_armstate
+  action:
+  - service: notify.mobile_app_iphone_von_markus
+    data:
+      title: "JaMa Villa - \U0001F6A8 Carport"
+      message: '{{ trigger.to_state.attributes.friendly_name }} geändert auf {{ trigger.to_state.state
+        | replace("disarmed", "''deaktiviert''") | replace("extsens_armed", "''aktiviert
+        anwesend''") | replace("allsens_armed", "''aktiviert abwesend''")}} ({{ now().timestamp()
+        | timestamp_custom (''%H:%M %d.%m.%Y'') }})
+
+        '
+      data:
+        group: notification-alarm-carport
+        tag: alarm-carport-notification
+- alias: '[Security] Turn off carport alarm - disarmed'
+  id: 715a5340-9a71-471c-947e-df0ed104530a
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_carport
+    to: disarmed
+  action:
+  - service: homematic.set_device_value
+    data:
+      address: NEQ0510985
+      channel: 4
+      param: ARMSTATE
+      value: 0
+  - service: switch.turn_off
+    entity_id:
+    - switch.garden_carport_siren_1
+    - switch.garden_carport_siren_2
+    - switch.garden_carport_siren_3
+  - delay: 00:00:01
+  - service: python_script.jamavilla_display
+- alias: '[Security] Carport alarm away reminder'
+  id: ea096bfc-e212-455b-9704-17502891e7be
+  mode: restart
+  trigger:
+  - platform: state
+    entity_id: group.family
+    from: home
+    to: not_home
+    for:
+      minutes: 1
+      seconds: 15
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_carport
+    state: disarmed
+  action:
+  - alias: Set up variables for the actions
+    variables:
+      action_activate: '{{ ''DONE_'' ~ context.id }}'
+      action_later: '{{ ''LATER_'' ~ context.id }}'
+  - alias: Repeat while carport alarm is deactivated
+    repeat:
+      while:
+      - condition: state
+        entity_id: alarm_control_panel.alarm_carport
+        state: disarmed
+      sequence:
+      - alias: Send the notification
+        service: notify.system_group_jama
+        data:
+          title: "JaMa Villa - \U0001F6A8 Carport"
+          message: Alle haben das Haus verlassen, aber der Carport Alarm ist noch
+            nicht aktiviert?
+          data:
+            actions:
+            - action: '{{ action_activate }}'
+              title: Alarm aktivieren
+              activationMode: background
+              authenticationRequired: true
+              destructive: true
+            - action: '{{ action_later }}'
+              title: Erinnere mich später.
+              activationMode: background
+              authenticationRequired: true
+              destructive: false
+            group: notification-alarm-carport
+            tag: alarm-carport-reminder
+      - alias: Wait for a response
+        wait_for_trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_activate }}'
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_later }}'
+        timeout:
+          hours: 1
+      - alias: Perform the action
+        choose:
+        - conditions:
+          - '{{ wait.trigger == none }}'
+          - condition: state
+            entity_id: alarm_control_panel.alarm_carport
+            state: disarmed
+          sequence:
+          - service: alarm_control_panel.alarm_arm_home
+            entity_id: alarm_control_panel.alarm_carport
+        - conditions:
+          - '{{ wait.trigger.event.data.action == action_activate }}'
+          sequence:
+          - service: alarm_control_panel.alarm_arm_home
+            entity_id: alarm_control_panel.alarm_carport
+        - conditions:
+          - '{{ wait.trigger.event.data.action == action_later }}'
+          sequence:
+          - alias: Send the notification
+            service: notify.system_group_jama
+            data:
+              title: "JaMa Villa - \U0001F6A8 Carport"
+              message: Ok, nächste Erinnerung in 30 Minuten.
+              data:
+                group: notification-alarm-carport
+                tag: alarm-carport-reminder
+          - delay:
+              minutes: 30
+- alias: '[Security] Carport alarm evening reminder'
+  id: d4894d0a-2b86-4c9e-b6a5-ed1fafd6f387
+  mode: restart
+  trigger:
+    platform: time
+    at: '22:00:00'
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_carport
+    state: disarmed
+  action:
+  - alias: Set up variables for the actions
+    variables:
+      action_activate: '{{ ''DONE_'' ~ context.id }}'
+      action_later: '{{ ''LATER_'' ~ context.id }}'
+  - alias: Repeat while carport alarm is deactivated
+    repeat:
+      while:
+      - condition: state
+        entity_id: alarm_control_panel.alarm_carport
+        state: disarmed
+      sequence:
+      - alias: Send the notification
+        service: notify.system_group_jama
+        data:
+          title: "JaMa Villa - \U0001F6A8 Carport"
+          message: Es ist 22 Uhr und der Carport Alarm ist noch nicht aktiviert?
+          data:
+            actions:
+            - action: '{{ action_activate }}'
+              title: Alarm aktivieren
+              activationMode: background
+              authenticationRequired: true
+              destructive: true
+            - action: '{{ action_later }}'
+              title: Erinnere mich später.
+              activationMode: background
+              authenticationRequired: true
+              destructive: false
+            group: notification-alarm-carport
+            tag: alarm-carport-reminder
+      - alias: Wait for a response
+        wait_for_trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_activate }}'
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_later }}'
+        timeout:
+          hours: 2
+      - alias: Perform the action
+        choose:
+        - conditions:
+          - '{{ wait.trigger == none }}'
+          - condition: state
+            entity_id: alarm_control_panel.alarm_carport
+            state: disarmed
+          sequence:
+          - alias: Send the notification
+            service: notify.mobile_app_iphone_von_markus
+            data:
+              title: "JaMa Villa - \U0001F6A8 Carport"
+              message: Es ist {{ now().timestamp() | timestamp_custom ('%H:%M %d.%m.%Y')
+                }}, Carport Alarm wird jetzt automatisch aktiviert.
+              data:
+                group: notification-alarm-carport
+                tag: alarm-carport-reminder
+          - service: alarm_control_panel.alarm_arm_home
+            entity_id: alarm_control_panel.alarm_carport
+        - conditions:
+          - '{{ wait.trigger.event.data.action == action_activate }}'
+          sequence:
+          - service: alarm_control_panel.alarm_arm_home
+            entity_id: alarm_control_panel.alarm_carport
+        - conditions:
+          - '{{ wait.trigger.event.data.action == action_later }}'
+          sequence:
+          - alias: Send the notification
+            service: notify.system_group_jama
+            data:
+              title: "JaMa Villa - \U0001F6A8 Carport"
+              message: Ok, nächste Erinnerung in 30 Minuten.
+              data:
+                group: notification-alarm-carport
+                tag: alarm-carport-reminder
+          - delay:
+              minutes: 30
+- alias: '[Security] Trigger house alarm if door or window was opened'
+  id: 7bb26b9f-7a33-4fab-a9e8-9d2873b9e27a
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.system_contact_sensors
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.alarm_haus
+      state: armed_away
+    - condition: state
+      entity_id: alarm_control_panel.alarm_haus
+      state: armed_home
+  action:
+  - alias: Activate house alarm
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm_haus
+  - alias: Send the notification
+    service: notify.system_group_jama
+    data:
+      title: "JaMa Villa - \U0001F6A8 Haus"
+      message: 'Alarm ausgelöst: Jemand ist im Haus - Fenster und Türen wurden geöffnet,
+        Sirene aktiv in 30s'
+      data:
+        actions:
+        - action: DECTIVATE-HOUSE-ALARM
+          title: Alarm deaktivieren!
+        group: alarm-house
+        tag: alarm-house
+        push:
+          sound:
+            name: default
+            critical: 1
+            volume: 1.0
+- alias: '[Security] Trigger house alarm if motion was detected'
+  id: e22a7af0-1cca-4e32-9b27-da4c2bd4d17f
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.system_motion_sensors
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_haus
+    state: armed_away
+  action:
+  - alias: Activate house alarm
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm_haus
+  - alias: Send the notification
+    service: notify.system_group_jama
+    data:
+      title: "JaMa Villa - \U0001F6A8 Haus"
+      message: 'Alarm ausgelöst: Jemand ist im Haus - Bewegung erkannt, Sirene aktiv
+        in 30s'
+      data:
+        actions:
+        - action: DECTIVATE-HOUSE-ALARM
+          title: Alarm deaktivieren!
+        group: alarm-house
+        tag: alarm-house
+        push:
+          sound:
+            name: default
+            critical: 1
+            volume: 1.0
+- alias: '[Security] Trigger house siren if house alarm was triggered'
+  id: 14fec854-1bf6-4f17-8768-af0200eb6726
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_haus
+    to: triggered
+  action:
+  - alias: Activate house siren
+    service: switch.turn_on
+    entity_id: switch.hall_siren_1
+  - alias: Send the notification
+    service: notify.system_group_jama
+    data:
+      title: "JaMa Villa - \U0001F6A8 Haus"
+      message: 'Alarm ausgelöst: Jemand ist im Haus - Sirene aktiviert!'
+      data:
+        actions:
+        - action: DECTIVATE-HOUSE-ALARM
+          title: Alarm deaktivieren!
+        group: alarm-house
+        push:
+          sound:
+            name: default
+            critical: 1
+            volume: 1.0
+  - service: python_script.jamavilla_display
+- alias: '[Security] Turn on house alarm - armed_away'
+  id: 340cf640-d953-4930-bf89-b42d841a3a76
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_haus
+    to: armed_away
+  action:
+  - service: homematic.set_device_value
+    data:
+      address: NEQ0510355
+      channel: 4
+      param: ARMSTATE
+      value: 2
+  - delay: 00:00:01
+  - service: python_script.jamavilla_display
+- alias: '[Security] Turn on house alarm - armed_home'
+  id: ebaef6bd-605a-479a-921e-844a0cb10c2b
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_haus
+    to: armed_home
+  action:
+  - service: homematic.set_device_value
+    data:
+      address: NEQ0510355
+      channel: 4
+      param: ARMSTATE
+      value: 1
+  - delay: 00:00:01
+  - service: python_script.jamavilla_display
+- alias: '[Security] We arrived home - to turn off house alarm'
+  id: 1feb9c91-58d1-457f-b11f-008d236c1d1a
+  trigger:
+  - platform: state
+    entity_id: group.family
+    from: not_home
+    to: home
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.alarm_haus
+      state: armed_away
+    - condition: state
+      entity_id: alarm_control_panel.alarm_haus
+      state: armed_home
+  action:
+  - alias: Disable house alarm
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm_haus
+  - alias: Send the notification
+    service: notify.system_group_jama
+    data:
+      title: "JaMa Villa - \U0001F6A8 Haus"
+      message: "Jemand ist nach \U0001F3E0 Hause gekommen, der Alarm wurde deaktiviert."
+      data:
+        group: alarm-house
+- alias: '[Security] Turn on house alarm by mobile trigger'
+  id: 52639512-5408-422e-b288-452615fd3fce
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: DECTIVATE-HOUSE-ALARM
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm_haus
+    state: triggered
+  action:
+  - alias: Disable house alarm
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm_haus
+- alias: '[Security] Turn off house alarm - disarmed'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm_haus
+    to: disarmed
+  action:
+  - service: homematic.set_device_value
+    data:
+      address: NEQ0510355
+      channel: 4
+      param: ARMSTATE
+      value: 0
+  - service: switch.turn_off
+    entity_id:
+    - switch.hall_siren_1
+    - switch.hall_siren_2
+    - switch.hall_siren_3
+  - delay: 00:00:01
+  - service: python_script.jamavilla_display
+  id: 3d59cda2e29f427b966cb52f0e124f5b
+- alias: '[Security] Send notification panic mode triggerd'
+  id: d9afaa4c-5af5-4d69-936d-5b8ab45a4fd3
+  trigger:
+  - platform: state
+    entity_id: switch.hall_siren_3
+    to: 'on'
+  action:
+  - alias: Send the notification
+    service: notify.system_group_jama
+    data:
+      title: "JaMa Villa - \U0001F6A8 Haus"
+      message: 'Alarm ausgelöst: Panikmodus wurde aktiviert!'
+      data:
+        actions:
+        - action: DECTIVATE-HOUSE-ALARM
+          title: Alarm deaktivieren!
+        group: alarm-house
+        tag: alarm-house-panic
+        push:
+          sound:
+            name: default
+            critical: 1
+            volume: 1.0
+- alias: '[Security] Button to turn on house alarm - away'
+  id: 4de9e222-7e97-40de-90cb-1c8f23a04634
+  trigger:
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: NEQ0391437
+      channel: 2
+      param: PRESS_SHORT
+  action:
+  - service: script.turn_on
+    data_template:
+      entity_id: "{% if states('binary_sensor.system_window_sensors') | lower == \"on\"
+        or states('binary_sensor.hall_frontdoor') | lower == \"on\" %}\n  script.notify_alarm_not_possible\n{%
+        else %}\n  script.turn_on_house_alarm_away\n{% endif %}"
+- alias: '[Security] Button to turn on house alarm - home'
+  id: e1f2e155-9d02-41de-a119-2546f286b4ff
+  trigger:
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: NEQ0391437
+      channel: 1
+      param: PRESS_SHORT
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: NEQ0711284
+      channel: 2
+      param: PRESS_SHORT
+  action:
+  - service: script.turn_on
+    data_template:
+      entity_id: "{% if states('binary_sensor.system_window_sensors') | lower == \"on\"
+        or states('binary_sensor.hall_frontdoor') | lower == \"on\" %}\n  script.notify_alarm_not_possible\n{%
+        else %}\n  script.turn_on_house_alarm_home\n{% endif %}"
+- alias: '[Security] Button to turn off house alarm'
+  id: 8471db70-a6e2-4a45-a170-a2afe01925d4
+  trigger:
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: NEQ0391437
+      channel: 4
+      param: PRESS_SHORT
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      name: NEQ0711284
+      channel: 2
+      param: PRESS_LONG
+  action:
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm_haus

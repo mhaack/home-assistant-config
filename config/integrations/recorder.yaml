@@ -34,14 +34,12 @@ recorder:
       - sensor.iphone_*
     entities:
       - binary_sensor.workday_sensor
-      - sensor.date_time
       - sensor.disk_free
       - sensor.disk_use_percent
       - sensor.kitchen_dishwasher_state
       - sensor.last_boot
       - sensor.memory_free
       - sensor.memory_use_percent
-      - sensor.system_window_door_state
       - sensor.version_available
       - sensor.version_current
       - sun.sun

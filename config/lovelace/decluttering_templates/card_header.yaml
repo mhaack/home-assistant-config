@@ -13,21 +13,22 @@ card:
         {% else %}
           ## [[content]]
         {% endif %}
-      style: |
-        ha-markdown {
-          padding: 16px 0px !important;
-        }
-        ha-card {
-          margin: 0px 14px -5px 14px;
-          box-shadow: none;
-          background: none;
-        }
-        ha-icon {
-          float: right;
-        }
-        h2 {
-          font-size: 18px;
-          font-weight: 400;
-          padding-left: 10px;
-          border-left: 3px solid rgba(68, 153, 0);
-        }
+      card_mod:
+        style: |
+          ha-markdown {
+            padding: 16px 0px !important;
+          }
+          ha-card {
+            margin: 0px 14px -5px 14px;
+            box-shadow: none;
+            background: none;
+          }
+          ha-icon {
+            float: right;
+          }
+          h2 {
+            font-size: 18px;
+            font-weight: 400;
+            padding-left: 10px;
+            border-left: 3px solid rgba(68, 153, 0);
+          }

@@ -25,6 +25,7 @@ config/known_devices.yaml
 config/secrets.yaml
 config/duofern.json
 config/tts
+config/image
 config/.mercedesme-token-cache
 config/home-assistant.log.*
 
@@ -42,4 +43,5 @@ config/notebooks
 # Specific keeps
 !.gitkeep
 *.csv
+
 

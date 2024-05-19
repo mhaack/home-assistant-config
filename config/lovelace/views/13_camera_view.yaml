@@ -27,17 +27,14 @@ cards:
       - icon: mdi:cctv
 
   - type: picture-entity
-    entity: camera.frontdoor_camera
+    entity: camera.eingang
     show_state: false
   - type: picture-entity
-    entity: camera.entrance_camera
+    entity: camera.carport
     show_state: false
   - type: picture-entity
-    entity: camera.carport_camera
+    entity: camera.garden
     show_state: false
   - type: picture-entity
-    entity: camera.garden_camera
-    show_state: false
-  - type: picture-entity
-    entity: camera.terrace_camera
+    entity: camera.terrace
     show_state: false

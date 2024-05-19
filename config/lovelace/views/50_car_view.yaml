@@ -84,14 +84,10 @@ cards:
             name: Reifendruck
           - entity: binary_sensor.car_mercedes_l_jm227e_low_wash_water_warning
             name: Wischwasser
-          - entity: sensor.car_mercedes_l_jm227e_oil_level
-            name: Ölstand
           - entity: binary_sensor.car_mercedes_l_jm227e_low_coolant_level_warning
             name: Kühlmittel
           - entity: binary_sensor.car_mercedes_l_jm227e_low_brake_fluid_warning
             name: Bremsflüssigkeit
-          - entity: sensor.car_mercedes_l_jm227e_starter_battery_state
-            name: Starterbatterie
         show_header_toggle: false
 
   - type: vertical-stack
